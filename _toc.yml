@@ -1,0 +1,43 @@
+format: jb-book
+root: intro
+options:
+    numbered: 2
+chapters:
+  - file: representation/overview
+    sections:
+    - file: representation/data-types
+    - file: representation/pandas
+    - file: representation/grouping
+    - file: representation/seaborn
+  # - file: statistics/overview
+  #   sections:
+  #   - file: statistics/distributions
+  #   - file: statistics/outliers
+  #   - file: statistics/mean-variance
+  #   - file: statistics/covariance
+  # - file: supervised/overview
+  #   sections:
+  #   - file: supervised/learning
+  #   - file: supervised/train-test
+  #   - file: supervised/nearest-neighbors
+  #   - file: supervised/decision-trees
+  #   - file: supervised/svm
+  # - file: regression/overview
+  #   sections:
+  #   - file: regression/intro
+  #   - file: regression/linear
+  #   - file: regression/regularization
+  #   - file: regression/features
+  #   - file: regression/logistic
+  # - file: unsupervised/overview
+  #   sections:
+  #   - file: unsupervised/intro
+  #   - file: unsupervised/similarity
+  #   - file: unsupervised/k-means
+  #   - file: unsupervised/linkage
+  # - file: network/overview
+  #   sections:
+  #   - file: network/graphs
+  #   - file: network/visualization
+  #   - file: network/degree
+  #   - file: network/centrality
