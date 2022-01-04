@@ -8,9 +8,9 @@ A much more exhaustive glossary can be found [here](https://www.analyticsvidhya.
 
 ### Git
 
-* **git** Protocol for maintaining the entire file history of a project, including all versions and author attributions.
+* **Git** Protocol for maintaining the entire file history of a project, including all versions and author attributions.
 * **repository** Collection of files needed to record the history of a git project.
-* **Github** Website that hosts git repositories created by private users, along with tools to help inspect and manage them.
+* **GitHub** Website that hosts git repositories created by private users, along with tools to help inspect and manage them.
 * **commit** Collection of particular changes to the repository made by an individual and given a message.
 * **stage** Temporary designation of locally modified files to be added to the next commit.
 * **merge** Automatic union of non-conflicting commits from different sources.
@@ -23,7 +23,7 @@ A much more exhaustive glossary can be found [here](https://www.analyticsvidhya.
 * **notebook** Self-contained collection of text, math, code, output, and graphics.
 * **kernel** Back-end that executes code from and returns output to the notebook.
 * **cell** Atomic unit of a notebook that contains one or more lines of text or code.
-* **markdown** Simplified syntax to put boldface, italics, and other formatting within text.
+* **Markdown** Simplified syntax to put boldface, italics, and other formatting within text.
 * **TeX/LaTeX** Language used to express mathematical notation within a notebook.
 * **Jupyter** Popular format and system for interactive editing, execution, and export of notebooks.
 * **Jupyter Lab** Layer over Jupyter notebook functionality to help manage notebooks and extensions.

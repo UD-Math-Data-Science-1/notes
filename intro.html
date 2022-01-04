@@ -45,11 +45,12 @@
     <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
     <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
     <script >
-        const thebe_selector = ".thebe"
-        const thebe_selector_input = "pre"
-        const thebe_selector_output = ".output"
+        const thebe_selector = ".thebe,.cell"
+        const thebe_selector_input = "pre,.cell_input div.highlight"
+        const thebe_selector_output = ".output,.cell_output"
     </script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="1. Representation of data" href="representation/overview.html" />
@@ -70,6 +71,8 @@
     
         <div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="index.html">
+      
+      <img src="_static/logo.png" class="logo" alt="logo">
       
       
       <h1 class="site-logo" id="site-title">Data Science 1</h1>
@@ -238,9 +241,9 @@
 <div class="section" id="git">
 <h3>Git<a class="headerlink" href="#git" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li><p><strong>git</strong> Protocol for maintaining the entire file history of a project, including all versions and author attributions.</p></li>
+<li><p><strong>Git</strong> Protocol for maintaining the entire file history of a project, including all versions and author attributions.</p></li>
 <li><p><strong>repository</strong> Collection of files needed to record the history of a git project.</p></li>
-<li><p><strong>Github</strong> Website that hosts git repositories created by private users, along with tools to help inspect and manage them.</p></li>
+<li><p><strong>GitHub</strong> Website that hosts git repositories created by private users, along with tools to help inspect and manage them.</p></li>
 <li><p><strong>commit</strong> Collection of particular changes to the repository made by an individual and given a message.</p></li>
 <li><p><strong>stage</strong> Temporary designation of locally modified files to be added to the next commit.</p></li>
 <li><p><strong>merge</strong> Automatic union of non-conflicting commits from different sources.</p></li>
@@ -255,7 +258,7 @@
 <li><p><strong>notebook</strong> Self-contained collection of text, math, code, output, and graphics.</p></li>
 <li><p><strong>kernel</strong> Back-end that executes code from and returns output to the notebook.</p></li>
 <li><p><strong>cell</strong> Atomic unit of a notebook that contains one or more lines of text or code.</p></li>
-<li><p><strong>markdown</strong> Simplified syntax to put boldface, italics, and other formatting within text.</p></li>
+<li><p><strong>Markdown</strong> Simplified syntax to put boldface, italics, and other formatting within text.</p></li>
 <li><p><strong>TeX/LaTeX</strong> Language used to express mathematical notation within a notebook.</p></li>
 <li><p><strong>Jupyter</strong> Popular format and system for interactive editing, execution, and export of notebooks.</p></li>
 <li><p><strong>Jupyter Lab</strong> Layer over Jupyter notebook functionality to help manage notebooks and extensions.</p></li>
@@ -296,8 +299,8 @@
     {
         requestKernel: true,
         binderOptions: {
-            repo: "binder-examples/jupyter-stacks-datascience",
-            ref: "master",
+            repo: "UD-Math-Data-Science-1/notes",
+            ref: "main",
         },
         codeMirrorConfig: {
             theme: "abcdef",
