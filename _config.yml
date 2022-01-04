@@ -1,7 +1,7 @@
 # Book settings
 title: Data Science 1
 author: Tobin A. Driscoll
-# logo: logo.svg
+logo: logo.png
 
 exclude_patterns: 
   - tmp/*
@@ -15,11 +15,6 @@ parse:
   - html_image
   - linkify
 #  - replacements
-
-# latex:
-#   latex_documents:
-#     targetname: fnc-julia.tex
-#   latex_engine: xelatex
 
 kernelspec:
   name: python3
@@ -68,55 +63,18 @@ sphinx:
         webFont: Gyre-Hermes
         #webFont: Asana-Math
         webfont: Latin-Modern
-    # proof_theorem_types:
-    #   "algorithm": "Algorithm"
-    #   "conjecture": "Conjecture"
-    #   "corollary": "Corollary"
-    #   "definition": "Definition"
-    #   "example": "Example"
-    #   "formula": "Formula"
-    #   "function": "Function"
-    #   "lemma": "Lemma"
-    #   "observation": "Observation"
-    #   "proof": "Proof"
-    #   "property": "Property"
-    #   "theorem": "Theorem"
-    # proof_html_nonumbers:
-    # - "proof"
-    # proof_html_title_template_visit: >
-    #   <div class="proof-title">
-    #   <span class="proof-type">{{ thmtype }} {% if number %}{{number}}{% endif %}</span>
-    #   {% if title %}
-    #   <span class="proof-title-name">: &nbsp;
-    #   {%- endif -%}
-    # proof_html_title_template_depart: >
-    #   {%- if title -%}
-    #   </span>
-    #   {% endif %}
-    #   </div>
- 
-    # latex_additional_files: tex/preamble.tex
-    # latex_elements:
-    #   preamble: >
-    #     \include{preamble}
-    #     \usepackage{marvosym}
-    #   passoptionstopackages: \PassOptionsToPackage{svgnames}{xcolor}
-    #   sphinxsetup: verbatimwithframe=false,VerbatimColor={RGB}{255,252,245}
 
   extra_extensions:
   - sphinx_proof
   # - sphinx_jupyterbook_latex
 
-# bibtex_bibfiles:
-  #  - FNC.bib
-
 # Information about where the book exists on the web
 repository:
-  url                       : https://github.com/tobydriscoll/tobydriscoll.github.io/  # Online location of your book
-  book_path                 : unlinked/fnc  # Optional path to your book, relative to the repository root
-  branch                    : master  # Which branch of the repository should be used when creating links (optional)
+  url                       : https://github.com/UD-Math-Data-Science-1/notes # Online location of your book
+  # book_path                 : notes  # Optional path to your book, relative to the repository root
+  branch                    : main  # Which branch of the repository should be used when creating links (optional)
 
-# launch_buttons:
-  # notebook-interface: "classic"
-#   binderhub_url: "https://mybinder.org"  # The URL for your BinderHub (e.g., https://mybinder.org)
-#   thebelab: true
+launch_buttons:
+  notebook-interface: "classic"
+  binderhub_url: "https://mybinder.org"  # The URL for your BinderHub (e.g., https://mybinder.org)
+  thebe: true
