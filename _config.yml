@@ -32,8 +32,8 @@ execute:
   allow_errors: true
   run_in_temp: false
 
-# html:
-  # favicon: etc/favicon.png
+html:
+  favicon: favicon.ico
   # google_analytics_id: UA-172898555-1
 
 sphinx:
