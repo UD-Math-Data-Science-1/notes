@@ -35,34 +35,31 @@ sphinx:
   config:
     numfig_secnum_depth: 2
     # pygments_style: fnc
-    mathjax_config:
-      TeX:
-        Macros:
+    mathjax3_config:
+      tex:
+        macros:
           "float": ["\\mathbb{F}"]
           "real": ["\\mathbb{R}"]
           "complex": ["\\mathbb{C}"]
           "nat": ["\\mathbb{N}"]
           "integer": ["\\mathbb{Z}"]
-          "rmn{([^}]*)}{([^}]*)}" : ["\\mathbb{R}^{#1 \\times #2}",2]
-          "dd{([^}]*)}{([^}]*)}" : ["\\frac{d #1}{d #2}",2]
-          "pp{([^}]*)}{([^}]*)}" : ["\\frac{\\partial #1}{\\partial #2}",2]
-          "norm{([^}]*)}" : ["\\| #1 \\|",1]
-          "twonorm{([^}]*)}" : ["\\| #1 \\|_2",1]
-          "onenorm{([^}]*)}" : ["\\| #1 \\|_1",1]
-          "infnorm{([^}]*)}" : ["\\| #1 \\|_\\infty",1]
-          "innerprod{([^}]*)}{([^}]*)}" : ["\\langle #1,#2 \\rangle",2]
-          "pr{([^}]*)}" : ["^{(#1)}",1]
+          "bfx" : "\\mathbf{x}"
+          "bfy" : "\\mathbf{y}"
+          "bfz" : "\\mathbf{z}"
+          "rmn" : ["\\mathbb{R}^{#1 \\times #2}",2]
+          "dd" : ["\\frac{d #1}{d #2}",2]
+          "pp" : ["\\frac{\\partial #1}{\\partial #2}",2]
+          "norm" : ["\\| #1 \\|",1]
+          "twonorm" : ["\\| #1 \\|_2",1]
+          "onenorm" : ["\\| #1 \\|_1",1]
+          "infnorm" : ["\\| #1 \\|_\\infty",1]
+          "innerprod" : ["\\langle #1,#2 \\rangle",2]
+          "pr" : ["^{(#1)}",1]
           "diag": ["\\operatorname{diag}"]
           "sign": ["\\operatorname{sign}"]
           "ee": ["\\times 10^"]
           "floor": ["\\lfloor#1\\rfloor",1]
           "argmin": ["\\operatorname{argmin}"]
-      HTML-CSS:
-        availableFonts: []
-        preferredFont: null
-        webFont: Gyre-Hermes
-        #webFont: Asana-Math
-        webfont: Latin-Modern
 
   extra_extensions:
   - sphinx_proof
