@@ -7,7 +7,7 @@ chapters:
     sections:
     - file: representation/data-types
     - file: representation/pandas
-    - file: representation/grouping
+    - file: representation/split-apply-combine
     - file: representation/seaborn
   # - file: statistics/overview
   #   sections:
