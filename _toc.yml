@@ -9,13 +9,13 @@ chapters:
     - file: representation/pandas
     - file: representation/split-apply-combine
     - file: representation/seaborn
-  # - file: statistics/overview
-  #   sections:
-  #   - file: statistics/distributions
-  #   - file: statistics/outliers
-  #   - file: statistics/mean-variance
-  #   - file: statistics/covariance
-  # - file: supervised/overview
+  - file: statistics/overview
+    sections:
+    - file: statistics/exploratory
+    # - file: statistics/outliers
+    # - file: statistics/mean-variance
+    # - file: statistics/covariance
+  - file: supervised/overview
   #   sections:
   #   - file: supervised/learning
   #   - file: supervised/train-test
