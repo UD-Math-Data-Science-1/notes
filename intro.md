@@ -10,7 +10,7 @@ A much more exhaustive glossary can be found [here](https://www.analyticsvidhya.
 
 * **Git** Protocol for maintaining the entire file history of a project, including all versions and author attributions.
 * **repository** Collection of files needed to record the history of a git project.
-* **GitHub** Website that hosts git repositories created by private users, along with tools to help inspect and manage them.
+* [**GitHub**](https://github.com) Website that hosts git repositories created by private users, along with tools to help inspect and manage them.
 * **commit** Collection of particular changes to the repository made by an individual and given a message.
 * **stage** Temporary designation of locally modified files to be added to the next commit.
 * **merge** Automatic union of non-conflicting commits from different sources.
@@ -35,9 +35,9 @@ A much more exhaustive glossary can be found [here](https://www.analyticsvidhya.
 * **scipy** Package of tools useful in scientific and engineering computation.
 * **database** Structured collection of data, usually with a formal interface for interaction with the data.
 * **data frame** Tabular representation of a data set analogous to a spreadsheet, in which columns are observable quantities and rows are different observations of the quantities.
-* **pandas** Package for working with data frames.
+* [**pandas**](https://pandas.pydata.org/docs/user_guide/index.html) Package for working with data frames.
 * **matplotlib** Package providing plot capabilities, modeled on MATLAB.
-* **seaborn** Package built on matplotlib and providing commands to simplify creating plots from data frames.
+* [**seaborn**](https://seaborn.pydata.org/tutorial.html) Package built on matplotlib and providing commands to simplify creating plots from data frames.
 * **scikit-learn** Package that provides capabilities for machine learning using a variety of methods.
 * **tensorflow**, **keras**, **pytorch** Best-known packages for machine learning using neural networks.
 * **Anaconda** Bundle of Python, most of the popular Python packages, Jupyter, and other useful tools, all within an optional point-and-click interface.
