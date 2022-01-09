@@ -1,0 +1,2639 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>1.3. Split–apply–combine &#8212; Data Science 1</title>
+    
+  <link href="../_static/css/theme.css" rel="stylesheet">
+  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>window.MathJax = {"tex": {"macros": {"float": ["\\mathbb{F}"], "real": ["\\mathbb{R}"], "complex": ["\\mathbb{C}"], "nat": ["\\mathbb{N}"], "integer": ["\\mathbb{Z}"], "bfx": "\\mathbf{x}", "bfX": "\\mathbf{X}", "bfy": "\\mathbf{y}", "bfz": "\\mathbf{z}", "rmn": ["\\mathbb{R}^{#1 \\times #2}", 2], "dd": ["\\frac{d #1}{d #2}", 2], "pp": ["\\frac{\\partial #1}{\\partial #2}", 2], "norm": ["\\| #1 \\|", 1], "twonorm": ["\\| #1 \\|_2", 1], "onenorm": ["\\| #1 \\|_1", 1], "infnorm": ["\\| #1 \\|_\\infty", 1], "innerprod": ["\\langle #1,#2 \\rangle", 2], "pr": ["^{(#1)}", 1], "diag": ["\\operatorname{diag}"], "sign": ["\\operatorname{sign}"], "ee": ["\\times 10^"], "floor": ["\\lfloor#1\\rfloor", 1], "argmin": ["\\operatorname{argmin}"], "Cov": ["\\operatorname{Cov}"]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script>
+        const thebe_selector = ".thebe,.cell"
+        const thebe_selector_input = "pre,.cell_input div.highlight"
+        const thebe_selector_output = ".output,.cell_output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="1.4. Introduction to seaborn" href="seaborn.html" />
+    <link rel="prev" title="1.2. Introduction to pandas" href="pandas.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Data Science 1</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   Data Science 1 @ UD Math
+  </a>
+ </li>
+</ul>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="overview.html">
+   1. Representation of data
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="data-types.html">
+     1.1. Types of data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="pandas.html">
+     1.2. Introduction to pandas
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     1.3. Split–apply–combine
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="seaborn.html">
+     1.4. Introduction to seaborn
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../statistics/overview.html">
+   2. Descriptive statistics
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../statistics/exploratory.html">
+     2.1. Exploratory analysis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../statistics/distributions.html">
+     2.2. Continuous distributions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../statistics/correlation.html">
+     2.3. Correlation
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../supervised/overview.html">
+   3. Supervised learning
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../supervised/scikit.html">
+     3.1. Using scikit-learn
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/representation/split-apply-combine.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/UD-Math-Data-Science-1/notes/main?urlpath=tree/representation/split-apply-combine.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <button type="button" class="btn btn-secondary topbarbtn"
+            onclick="initThebeSBT()" title="Launch Thebe" data-toggle="tooltip" data-placement="left"><i
+                class="fas fa-play"></i><span style="margin-left: .4em;">Live Code</span></button>
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#split">
+   Split
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#apply">
+   Apply
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#aggregation">
+     Aggregation
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#transformation">
+     Transformation
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#filtering">
+   Filtering
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <!-- Table of contents that is only displayed when printing the page -->
+    <div id="jb-print-docs-body" class="onlyprint">
+        <h1>Split–apply–combine</h1>
+        <!-- Table of contents -->
+        <div id="print-main-content" class="row">
+            <div class="col-12 col-md-12 pl-md-5 pr-md-5">
+            <div id="jb-print-toc">
+                
+                <div>
+                    <h2> Contents </h2>
+                </div>
+                <nav aria-label="Page">
+                    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#split">
+   Split
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#apply">
+   Apply
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#aggregation">
+     Aggregation
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#transformation">
+     Transformation
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#filtering">
+   Filtering
+  </a>
+ </li>
+</ul>
+
+                </nav>
+            </div>
+            
+              <div>
+                
+  <div class="tex2jax_ignore mathjax_ignore section" id="splitapplycombine">
+<h1><span class="section-number">1.3. </span>Split–apply–combine<a class="headerlink" href="#splitapplycombine" title="Permalink to this headline">¶</a></h1>
+<p>One of the most important workflows in data analysis is called <strong>split–apply–combine</strong>:</p>
+<ol class="simple">
+<li><p>Split the data into groups based on a criterion (e.g., species, marital status).</p></li>
+<li><p>Apply operations to the data within each group.</p></li>
+<li><p>Combine the results from the groups.</p></li>
+</ol>
+<p>Of these, the <em>apply</em> step is usually the most complex. In pandas, the <em>combine</em> step is always implicitly done for you by the methods we will apply.</p>
+<div class="section" id="split">
+<h2>Split<a class="headerlink" href="#split" title="Permalink to this headline">¶</a></h2>
+<p>Splitting a data frame into groups is best accomplished using the <code class="docutils literal notranslate"><span class="pre">groupby</span></code> method on it.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="n">countries</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="p">[</span> 
+        <span class="p">(</span><span class="s2">&quot;Europe&quot;</span><span class="p">,</span><span class="s2">&quot;Paris&quot;</span><span class="p">,</span><span class="mf">640.7</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;Europe&quot;</span><span class="p">,</span><span class="s2">&quot;Amsterdam&quot;</span><span class="p">,</span><span class="mf">41.9</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;Africa&quot;</span><span class="p">,</span><span class="s2">&quot;Nairobi&quot;</span><span class="p">,</span><span class="mf">580.4</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;Africa&quot;</span><span class="p">,</span><span class="s2">&quot;Accra&quot;</span><span class="p">,</span><span class="mf">239.6</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;Asia&quot;</span><span class="p">,</span><span class="s2">&quot;Hanoi&quot;</span><span class="p">,</span><span class="mf">331.7</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;Asia&quot;</span><span class="p">,</span><span class="s2">&quot;Indonesia&quot;</span><span class="p">,</span><span class="mf">1904.6</span><span class="p">),</span>
+    <span class="p">],</span>
+    <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;France&quot;</span><span class="p">,</span><span class="s2">&quot;Netherlands&quot;</span><span class="p">,</span><span class="s2">&quot;Kenya&quot;</span><span class="p">,</span><span class="s2">&quot;Ghana&quot;</span><span class="p">,</span><span class="s2">&quot;Vietnam&quot;</span><span class="p">,</span><span class="s2">&quot;Indonesia&quot;</span><span class="p">],</span> 
+    <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;continent&quot;</span><span class="p">,</span><span class="s2">&quot;captial&quot;</span><span class="p">,</span><span class="s2">&quot;area&quot;</span><span class="p">]</span>
+<span class="p">)</span>
+<span class="n">countries</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>continent</th>
+      <th>captial</th>
+      <th>area</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>France</th>
+      <td>Europe</td>
+      <td>Paris</td>
+      <td>640.7</td>
+    </tr>
+    <tr>
+      <th>Netherlands</th>
+      <td>Europe</td>
+      <td>Amsterdam</td>
+      <td>41.9</td>
+    </tr>
+    <tr>
+      <th>Kenya</th>
+      <td>Africa</td>
+      <td>Nairobi</td>
+      <td>580.4</td>
+    </tr>
+    <tr>
+      <th>Ghana</th>
+      <td>Africa</td>
+      <td>Accra</td>
+      <td>239.6</td>
+    </tr>
+    <tr>
+      <th>Vietnam</th>
+      <td>Asia</td>
+      <td>Hanoi</td>
+      <td>331.7</td>
+    </tr>
+    <tr>
+      <th>Indonesia</th>
+      <td>Asia</td>
+      <td>Indonesia</td>
+      <td>1904.6</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bycont</span> <span class="o">=</span> <span class="n">countries</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;continent&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Nothing is actually done yet to the data frame. It’s just set up for applying operations to each group.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">name</span><span class="p">,</span><span class="n">group</span> <span class="ow">in</span> <span class="n">bycont</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">group</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Africa
+      continent  captial   area
+Kenya    Africa  Nairobi  580.4
+Ghana    Africa    Accra  239.6
+
+Asia
+          continent    captial    area
+Vietnam        Asia      Hanoi   331.7
+Indonesia      Asia  Indonesia  1904.6
+
+Europe
+            continent    captial   area
+France         Europe      Paris  640.7
+Netherlands    Europe  Amsterdam   41.9
+</pre></div>
+</div>
+</div>
+</div>
+<p>You can group by ranges of a quantitative value using <code class="docutils literal notranslate"><span class="pre">cut</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cuts</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">cut</span><span class="p">(</span><span class="n">countries</span><span class="p">[</span><span class="s2">&quot;area&quot;</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">300</span><span class="p">,</span><span class="mi">600</span><span class="p">,</span><span class="mi">900</span><span class="p">,</span><span class="mi">2000</span><span class="p">])</span>
+<span class="n">bysize</span> <span class="o">=</span> <span class="n">countries</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">cuts</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">name</span><span class="p">,</span><span class="n">group</span> <span class="ow">in</span> <span class="n">bysize</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">group</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(0, 300]
+            continent    captial   area
+Netherlands    Europe  Amsterdam   41.9
+Ghana          Africa      Accra  239.6
+
+(300, 600]
+        continent  captial   area
+Kenya      Africa  Nairobi  580.4
+Vietnam      Asia    Hanoi  331.7
+
+(600, 900]
+       continent captial   area
+France    Europe   Paris  640.7
+
+(900, 2000]
+          continent    captial    area
+Indonesia      Asia  Indonesia  1904.6
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="apply">
+<h2>Apply<a class="headerlink" href="#apply" title="Permalink to this headline">¶</a></h2>
+<p>The most complex step is applying operations to each group of data. There are three types of operations:</p>
+<ul class="simple">
+<li><p><strong>Aggregation</strong> refers to summarizing data by a single value, such as a sum or mean, or by a few values, such as value counts or quintiles.</p></li>
+<li><p><strong>Transformation</strong> refers to application of a mathematical operation to every data value, resulting in data indexed the same way as the original. For example, quantitative data might be transformed to lie in the interval <span class="math notranslate nohighlight">\([0,1]\)</span>.</p></li>
+<li><p><strong>Filtration</strong> refers to inclusion/removal of a group based on a criterion, such as rejection of a group with too few members.</p></li>
+</ul>
+<div class="section" id="aggregation">
+<h3>Aggregation<a class="headerlink" href="#aggregation" title="Permalink to this headline">¶</a></h3>
+<p>Many common operations are defined for aggregation.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bysize</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>area</th>
+    </tr>
+    <tr>
+      <th>area</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>(0, 300]</th>
+      <td>281.5</td>
+    </tr>
+    <tr>
+      <th>(300, 600]</th>
+      <td>912.1</td>
+    </tr>
+    <tr>
+      <th>(600, 900]</th>
+      <td>640.7</td>
+    </tr>
+    <tr>
+      <th>(900, 2000]</th>
+      <td>1904.6</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bysize</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>continent</th>
+      <th>captial</th>
+      <th>area</th>
+    </tr>
+    <tr>
+      <th>area</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>(0, 300]</th>
+      <td>2</td>
+      <td>2</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>(300, 600]</th>
+      <td>2</td>
+      <td>2</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>(600, 900]</th>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>(900, 2000]</th>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bysize</span><span class="p">[</span><span class="s2">&quot;continent&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>area         continent
+(0, 300]     Africa       1
+             Europe       1
+(300, 600]   Africa       1
+             Asia         1
+(600, 900]   Europe       1
+(900, 2000]  Asia         1
+Name: continent, dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<p>A list of the most common predefined aggregation functions is given in <a class="reference internal" href="#table-aggregators"><span class="std std-numref">Table 1.3.1</span></a>. These functions ignore <code class="docutils literal notranslate"><span class="pre">NaN</span></code> (missing) values.</p>
+<table class="table" id="table-aggregators">
+<caption><span class="caption-number">Table 1.3.1 </span><span class="caption-text">Aggregation functions</span><a class="headerlink" href="#table-aggregators" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">mean</span></code></p></td>
+<td><p>Mean of group values</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">sum</span></code></p></td>
+<td><p>Sum of group values</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">count</span></code></p></td>
+<td><p>Count of group values</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">std</span></code>, <code class="docutils literal notranslate"><span class="pre">var</span></code></p></td>
+<td><p>Standard deviation or variance within groups</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">describe</span></code></p></td>
+<td><p>Descriptive statistics</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">first</span></code>, <code class="docutils literal notranslate"><span class="pre">last</span></code></p></td>
+<td><p>First or last of group values</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">min</span></code>, <code class="docutils literal notranslate"><span class="pre">max</span></code></p></td>
+<td><p>Min or max within groups</p></td>
+</tr>
+</tbody>
+</table>
+<p>If you want a more exotic operation, you can call <code class="docutils literal notranslate"><span class="pre">agg</span></code> with your own function.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">weirdo</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nb">sum</span><span class="p">((</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">xi</span> <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">xi</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+<span class="n">bycont</span><span class="p">[</span><span class="s2">&quot;area&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">weirdo</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>continent
+Africa    1059.6
+Asia      4140.9
+Europe     724.5
+Name: area, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<p>You may want to import the <code class="docutils literal notranslate"><span class="pre">numpy</span></code> package for common mathematical functions.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="k">def</span> <span class="nf">rms</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">xi</span><span class="o">**</span><span class="mi">2</span> <span class="k">for</span> <span class="n">xi</span> <span class="ow">in</span> <span class="n">x</span><span class="p">))</span>
+<span class="n">bycont</span><span class="p">[</span><span class="s2">&quot;area&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">rms</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>continent
+Africa     627.911077
+Asia      1933.268230
+Europe     642.068610
+Name: area, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="transformation">
+<h3>Transformation<a class="headerlink" href="#transformation" title="Permalink to this headline">¶</a></h3>
+<p>In the simplest case, a transformation applies a function to each element of a column, producing a result of the same length that can be indexed the same way.</p>
+<p>Here is some data where the columns have different scales.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">rand</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;small&quot;</span><span class="p">:</span> <span class="n">rand</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mf">0.004</span><span class="p">,</span><span class="mi">8</span><span class="p">),</span> <span class="s2">&quot;big&quot;</span><span class="p">:</span> <span class="n">rand</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span><span class="mi">200</span><span class="p">,</span><span class="mi">8</span><span class="p">)})</span>
+<span class="n">df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>small</th>
+      <th>big</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.001086</td>
+      <td>178.489344</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.002047</td>
+      <td>158.932356</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.003348</td>
+      <td>143.361471</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.002559</td>
+      <td>143.359850</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.003009</td>
+      <td>169.483483</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>0.002789</td>
+      <td>119.041585</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>0.002931</td>
+      <td>112.969663</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>0.003412</td>
+      <td>102.367977</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Suppose that we want to standardize each column to the interval <span class="math notranslate nohighlight">\([0,1]\)</span>. If <span class="math notranslate nohighlight">\(m\)</span> and <span class="math notranslate nohighlight">\(M\)</span> are the minimum and maximum values in a column, then we can apply the function</p>
+<div class="math notranslate nohighlight">
+\[f(x) = \frac{x-m}{M-m}\]</div>
+<p>within that column.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">scale</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+    <span class="n">M</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="n">m</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">M</span><span class="o">-</span><span class="n">m</span><span class="p">)</span>
+
+<span class="n">df</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">scale</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>small</th>
+      <th>big</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.000000</td>
+      <td>1.000000</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.413175</td>
+      <td>0.743081</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.972480</td>
+      <td>0.538528</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.633574</td>
+      <td>0.538507</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.827112</td>
+      <td>0.881691</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>0.732287</td>
+      <td>0.219040</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>0.793174</td>
+      <td>0.139273</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>1.000000</td>
+      <td>0.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Notice how each column of the result has entries equal to 0 and 1, with all the other values in-between.</p>
+<p>Transformations are one mechanism for replacing missing values. Let’s modify the original data frame to get some <code class="docutils literal notranslate"><span class="pre">NaN</span></code> entries (provided by <code class="docutils literal notranslate"><span class="pre">np.nan</span></code>).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="s2">&quot;small&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+<span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">6</span><span class="p">,</span><span class="s2">&quot;small&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+<span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="s2">&quot;big&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+<span class="n">df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>small</th>
+      <th>big</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.001086</td>
+      <td>178.489344</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.002047</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.003348</td>
+      <td>143.361471</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>NaN</td>
+      <td>143.359850</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.003009</td>
+      <td>169.483483</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>0.002789</td>
+      <td>119.041585</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>NaN</td>
+      <td>112.969663</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>0.003412</td>
+      <td>102.367977</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Now we want to replace each missing value with the average for its column. We use <code class="docutils literal notranslate"><span class="pre">fillna</span></code> to do the replacements and an aggregator to compute the mean.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">replace</span><span class="p">(</span><span class="n">col</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">col</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">col</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+
+<span class="n">df</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">replace</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>small</th>
+      <th>big</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.001086</td>
+      <td>178.489344</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.002047</td>
+      <td>138.439053</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.003348</td>
+      <td>143.361471</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.002615</td>
+      <td>143.359850</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.003009</td>
+      <td>169.483483</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>0.002789</td>
+      <td>119.041585</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>0.002615</td>
+      <td>112.969663</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>0.003412</td>
+      <td>102.367977</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>When a transformation is applied to a grouped data frame, then the transformation is applied to each group. For example, let’s consider our rescaling example above, but for values that are indexed by time.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">rand</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span>
+
+<span class="n">idx</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="s2">&quot;1/1/2021&quot;</span><span class="p">,</span><span class="s2">&quot;12/31/2021&quot;</span><span class="p">,</span><span class="n">freq</span><span class="o">=</span><span class="s2">&quot;D&quot;</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;small&quot;</span><span class="p">:</span> <span class="n">rand</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mf">0.004</span><span class="p">,</span><span class="mi">365</span><span class="p">),</span> <span class="s2">&quot;big&quot;</span><span class="p">:</span> <span class="n">rand</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span><span class="mi">200</span><span class="p">,</span><span class="mi">365</span><span class="p">)},</span><span class="n">index</span><span class="o">=</span><span class="n">idx</span><span class="p">)</span>
+<span class="n">df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>small</th>
+      <th>big</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2021-01-01</th>
+      <td>0.001878</td>
+      <td>116.693387</td>
+    </tr>
+    <tr>
+      <th>2021-01-02</th>
+      <td>0.003007</td>
+      <td>140.032539</td>
+    </tr>
+    <tr>
+      <th>2021-01-03</th>
+      <td>0.000874</td>
+      <td>175.995935</td>
+    </tr>
+    <tr>
+      <th>2021-01-04</th>
+      <td>0.001588</td>
+      <td>190.483572</td>
+    </tr>
+    <tr>
+      <th>2021-01-05</th>
+      <td>0.002917</td>
+      <td>166.286787</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>2021-12-27</th>
+      <td>0.002115</td>
+      <td>104.466790</td>
+    </tr>
+    <tr>
+      <th>2021-12-28</th>
+      <td>0.001596</td>
+      <td>138.889945</td>
+    </tr>
+    <tr>
+      <th>2021-12-29</th>
+      <td>0.001645</td>
+      <td>195.598132</td>
+    </tr>
+    <tr>
+      <th>2021-12-30</th>
+      <td>0.000590</td>
+      <td>105.513724</td>
+    </tr>
+    <tr>
+      <th>2021-12-31</th>
+      <td>0.000429</td>
+      <td>193.822703</td>
+    </tr>
+  </tbody>
+</table>
+<p>365 rows × 2 columns</p>
+</div></div></div>
+</div>
+<p>Here is how the data can be grouped by month. (Any timestamp value has properties such as <code class="docutils literal notranslate"><span class="pre">day</span></code> and <code class="docutils literal notranslate"><span class="pre">month</span></code> that return the appropriate value.)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bymonth</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">((</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">month</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">bymonth</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>12
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now, when we transform using our <code class="docutils literal notranslate"><span class="pre">scale</span></code> function from above, each column is rescaled independently within each month.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfs</span> <span class="o">=</span> <span class="n">bymonth</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">scale</span><span class="p">)</span>
+<span class="n">dfs</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>small</th>
+      <th>big</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2021-01-01</th>
+      <td>0.507919</td>
+      <td>0.167777</td>
+    </tr>
+    <tr>
+      <th>2021-01-02</th>
+      <td>0.831407</td>
+      <td>0.418190</td>
+    </tr>
+    <tr>
+      <th>2021-01-03</th>
+      <td>0.220205</td>
+      <td>0.804051</td>
+    </tr>
+    <tr>
+      <th>2021-01-04</th>
+      <td>0.424934</td>
+      <td>0.959493</td>
+    </tr>
+    <tr>
+      <th>2021-01-05</th>
+      <td>0.805605</td>
+      <td>0.699879</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>2021-12-27</th>
+      <td>0.527586</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>2021-12-28</th>
+      <td>0.396766</td>
+      <td>0.361398</td>
+    </tr>
+    <tr>
+      <th>2021-12-29</th>
+      <td>0.409184</td>
+      <td>0.956760</td>
+    </tr>
+    <tr>
+      <th>2021-12-30</th>
+      <td>0.143201</td>
+      <td>0.010991</td>
+    </tr>
+    <tr>
+      <th>2021-12-31</th>
+      <td>0.102564</td>
+      <td>0.938121</td>
+    </tr>
+  </tbody>
+</table>
+<p>365 rows × 2 columns</p>
+</div></div></div>
+</div>
+<p>For instance, each month has a 0 and a 1 in each column.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfs</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">dfs</span><span class="p">[</span><span class="s2">&quot;small&quot;</span><span class="p">]</span><span class="o">==</span><span class="mf">1.0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>small</th>
+      <th>big</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2021-01-31</th>
+      <td>1.0</td>
+      <td>0.022340</td>
+    </tr>
+    <tr>
+      <th>2021-02-03</th>
+      <td>1.0</td>
+      <td>0.689787</td>
+    </tr>
+    <tr>
+      <th>2021-03-30</th>
+      <td>1.0</td>
+      <td>1.000000</td>
+    </tr>
+    <tr>
+      <th>2021-04-05</th>
+      <td>1.0</td>
+      <td>0.606033</td>
+    </tr>
+    <tr>
+      <th>2021-05-02</th>
+      <td>1.0</td>
+      <td>0.918562</td>
+    </tr>
+    <tr>
+      <th>2021-06-17</th>
+      <td>1.0</td>
+      <td>0.728110</td>
+    </tr>
+    <tr>
+      <th>2021-07-03</th>
+      <td>1.0</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>2021-08-20</th>
+      <td>1.0</td>
+      <td>0.761452</td>
+    </tr>
+    <tr>
+      <th>2021-09-05</th>
+      <td>1.0</td>
+      <td>0.459932</td>
+    </tr>
+    <tr>
+      <th>2021-10-30</th>
+      <td>1.0</td>
+      <td>0.384330</td>
+    </tr>
+    <tr>
+      <th>2021-11-10</th>
+      <td>1.0</td>
+      <td>0.895302</td>
+    </tr>
+    <tr>
+      <th>2021-12-10</th>
+      <td>1.0</td>
+      <td>0.635768</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</div>
+</div>
+<div class="section" id="filtering">
+<h2>Filtering<a class="headerlink" href="#filtering" title="Permalink to this headline">¶</a></h2>
+<p>To apply a filter, provide a function that operates on a column and returns either <code class="docutils literal notranslate"><span class="pre">True</span></code>, meaning to keep the column, or <code class="docutils literal notranslate"><span class="pre">False</span></code>, meaning to reject it. For example, with our time series data above, suppose we want to keep the data only in those groups (months) for which the average value in the <code class="docutils literal notranslate"><span class="pre">big</span></code> column is at least 150.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">isbig150</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;big&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">150</span>
+
+<span class="n">selected</span> <span class="o">=</span> <span class="n">bymonth</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">isbig150</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">selected</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>215
+</pre></div>
+</div>
+</div>
+</div>
+<p>The result of the <code class="docutils literal notranslate"><span class="pre">filter</span></code> operation is a new data frame. If we again group by month and aggregate the mean value in each month, we can verify that the filtering property was satisfied.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">selected</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">month</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>small</th>
+      <th>big</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>0.002086</td>
+      <td>154.931236</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>0.002139</td>
+      <td>156.953238</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>0.001910</td>
+      <td>157.050593</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>0.001635</td>
+      <td>152.993549</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>0.001834</td>
+      <td>151.155999</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>0.001810</td>
+      <td>153.817019</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>0.001884</td>
+      <td>150.181524</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "UD-Math-Data-Science-1/notes",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./representation"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </div>
+        </div>
+    </div>
+    <div id="main-content" class="row noprint">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="tex2jax_ignore mathjax_ignore section" id="splitapplycombine">
+<h1><span class="section-number">1.3. </span>Split–apply–combine<a class="headerlink" href="#splitapplycombine" title="Permalink to this headline">¶</a></h1>
+<p>One of the most important workflows in data analysis is called <strong>split–apply–combine</strong>:</p>
+<ol class="simple">
+<li><p>Split the data into groups based on a criterion (e.g., species, marital status).</p></li>
+<li><p>Apply operations to the data within each group.</p></li>
+<li><p>Combine the results from the groups.</p></li>
+</ol>
+<p>Of these, the <em>apply</em> step is usually the most complex. In pandas, the <em>combine</em> step is always implicitly done for you by the methods we will apply.</p>
+<div class="section" id="split">
+<h2>Split<a class="headerlink" href="#split" title="Permalink to this headline">¶</a></h2>
+<p>Splitting a data frame into groups is best accomplished using the <code class="docutils literal notranslate"><span class="pre">groupby</span></code> method on it.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="n">countries</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="p">[</span> 
+        <span class="p">(</span><span class="s2">&quot;Europe&quot;</span><span class="p">,</span><span class="s2">&quot;Paris&quot;</span><span class="p">,</span><span class="mf">640.7</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;Europe&quot;</span><span class="p">,</span><span class="s2">&quot;Amsterdam&quot;</span><span class="p">,</span><span class="mf">41.9</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;Africa&quot;</span><span class="p">,</span><span class="s2">&quot;Nairobi&quot;</span><span class="p">,</span><span class="mf">580.4</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;Africa&quot;</span><span class="p">,</span><span class="s2">&quot;Accra&quot;</span><span class="p">,</span><span class="mf">239.6</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;Asia&quot;</span><span class="p">,</span><span class="s2">&quot;Hanoi&quot;</span><span class="p">,</span><span class="mf">331.7</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;Asia&quot;</span><span class="p">,</span><span class="s2">&quot;Indonesia&quot;</span><span class="p">,</span><span class="mf">1904.6</span><span class="p">),</span>
+    <span class="p">],</span>
+    <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;France&quot;</span><span class="p">,</span><span class="s2">&quot;Netherlands&quot;</span><span class="p">,</span><span class="s2">&quot;Kenya&quot;</span><span class="p">,</span><span class="s2">&quot;Ghana&quot;</span><span class="p">,</span><span class="s2">&quot;Vietnam&quot;</span><span class="p">,</span><span class="s2">&quot;Indonesia&quot;</span><span class="p">],</span> 
+    <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;continent&quot;</span><span class="p">,</span><span class="s2">&quot;captial&quot;</span><span class="p">,</span><span class="s2">&quot;area&quot;</span><span class="p">]</span>
+<span class="p">)</span>
+<span class="n">countries</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>continent</th>
+      <th>captial</th>
+      <th>area</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>France</th>
+      <td>Europe</td>
+      <td>Paris</td>
+      <td>640.7</td>
+    </tr>
+    <tr>
+      <th>Netherlands</th>
+      <td>Europe</td>
+      <td>Amsterdam</td>
+      <td>41.9</td>
+    </tr>
+    <tr>
+      <th>Kenya</th>
+      <td>Africa</td>
+      <td>Nairobi</td>
+      <td>580.4</td>
+    </tr>
+    <tr>
+      <th>Ghana</th>
+      <td>Africa</td>
+      <td>Accra</td>
+      <td>239.6</td>
+    </tr>
+    <tr>
+      <th>Vietnam</th>
+      <td>Asia</td>
+      <td>Hanoi</td>
+      <td>331.7</td>
+    </tr>
+    <tr>
+      <th>Indonesia</th>
+      <td>Asia</td>
+      <td>Indonesia</td>
+      <td>1904.6</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bycont</span> <span class="o">=</span> <span class="n">countries</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;continent&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Nothing is actually done yet to the data frame. It’s just set up for applying operations to each group.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">name</span><span class="p">,</span><span class="n">group</span> <span class="ow">in</span> <span class="n">bycont</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">group</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Africa
+      continent  captial   area
+Kenya    Africa  Nairobi  580.4
+Ghana    Africa    Accra  239.6
+
+Asia
+          continent    captial    area
+Vietnam        Asia      Hanoi   331.7
+Indonesia      Asia  Indonesia  1904.6
+
+Europe
+            continent    captial   area
+France         Europe      Paris  640.7
+Netherlands    Europe  Amsterdam   41.9
+</pre></div>
+</div>
+</div>
+</div>
+<p>You can group by ranges of a quantitative value using <code class="docutils literal notranslate"><span class="pre">cut</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cuts</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">cut</span><span class="p">(</span><span class="n">countries</span><span class="p">[</span><span class="s2">&quot;area&quot;</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">300</span><span class="p">,</span><span class="mi">600</span><span class="p">,</span><span class="mi">900</span><span class="p">,</span><span class="mi">2000</span><span class="p">])</span>
+<span class="n">bysize</span> <span class="o">=</span> <span class="n">countries</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">cuts</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">name</span><span class="p">,</span><span class="n">group</span> <span class="ow">in</span> <span class="n">bysize</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">group</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(0, 300]
+            continent    captial   area
+Netherlands    Europe  Amsterdam   41.9
+Ghana          Africa      Accra  239.6
+
+(300, 600]
+        continent  captial   area
+Kenya      Africa  Nairobi  580.4
+Vietnam      Asia    Hanoi  331.7
+
+(600, 900]
+       continent captial   area
+France    Europe   Paris  640.7
+
+(900, 2000]
+          continent    captial    area
+Indonesia      Asia  Indonesia  1904.6
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="apply">
+<h2>Apply<a class="headerlink" href="#apply" title="Permalink to this headline">¶</a></h2>
+<p>The most complex step is applying operations to each group of data. There are three types of operations:</p>
+<ul class="simple">
+<li><p><strong>Aggregation</strong> refers to summarizing data by a single value, such as a sum or mean, or by a few values, such as value counts or quintiles.</p></li>
+<li><p><strong>Transformation</strong> refers to application of a mathematical operation to every data value, resulting in data indexed the same way as the original. For example, quantitative data might be transformed to lie in the interval <span class="math notranslate nohighlight">\([0,1]\)</span>.</p></li>
+<li><p><strong>Filtration</strong> refers to inclusion/removal of a group based on a criterion, such as rejection of a group with too few members.</p></li>
+</ul>
+<div class="section" id="aggregation">
+<h3>Aggregation<a class="headerlink" href="#aggregation" title="Permalink to this headline">¶</a></h3>
+<p>Many common operations are defined for aggregation.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bysize</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>area</th>
+    </tr>
+    <tr>
+      <th>area</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>(0, 300]</th>
+      <td>281.5</td>
+    </tr>
+    <tr>
+      <th>(300, 600]</th>
+      <td>912.1</td>
+    </tr>
+    <tr>
+      <th>(600, 900]</th>
+      <td>640.7</td>
+    </tr>
+    <tr>
+      <th>(900, 2000]</th>
+      <td>1904.6</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bysize</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>continent</th>
+      <th>captial</th>
+      <th>area</th>
+    </tr>
+    <tr>
+      <th>area</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>(0, 300]</th>
+      <td>2</td>
+      <td>2</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>(300, 600]</th>
+      <td>2</td>
+      <td>2</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>(600, 900]</th>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>(900, 2000]</th>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bysize</span><span class="p">[</span><span class="s2">&quot;continent&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>area         continent
+(0, 300]     Africa       1
+             Europe       1
+(300, 600]   Africa       1
+             Asia         1
+(600, 900]   Europe       1
+(900, 2000]  Asia         1
+Name: continent, dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<p>A list of the most common predefined aggregation functions is given in <a class="reference internal" href="#table-aggregators"><span class="std std-numref">Table 1.3.1</span></a>. These functions ignore <code class="docutils literal notranslate"><span class="pre">NaN</span></code> (missing) values.</p>
+<table class="table" id="table-aggregators">
+<caption><span class="caption-number">Table 1.3.1 </span><span class="caption-text">Aggregation functions</span><a class="headerlink" href="#table-aggregators" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">mean</span></code></p></td>
+<td><p>Mean of group values</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">sum</span></code></p></td>
+<td><p>Sum of group values</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">count</span></code></p></td>
+<td><p>Count of group values</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">std</span></code>, <code class="docutils literal notranslate"><span class="pre">var</span></code></p></td>
+<td><p>Standard deviation or variance within groups</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">describe</span></code></p></td>
+<td><p>Descriptive statistics</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">first</span></code>, <code class="docutils literal notranslate"><span class="pre">last</span></code></p></td>
+<td><p>First or last of group values</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">min</span></code>, <code class="docutils literal notranslate"><span class="pre">max</span></code></p></td>
+<td><p>Min or max within groups</p></td>
+</tr>
+</tbody>
+</table>
+<p>If you want a more exotic operation, you can call <code class="docutils literal notranslate"><span class="pre">agg</span></code> with your own function.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">weirdo</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nb">sum</span><span class="p">((</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">xi</span> <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">xi</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+<span class="n">bycont</span><span class="p">[</span><span class="s2">&quot;area&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">weirdo</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>continent
+Africa    1059.6
+Asia      4140.9
+Europe     724.5
+Name: area, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<p>You may want to import the <code class="docutils literal notranslate"><span class="pre">numpy</span></code> package for common mathematical functions.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="k">def</span> <span class="nf">rms</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">xi</span><span class="o">**</span><span class="mi">2</span> <span class="k">for</span> <span class="n">xi</span> <span class="ow">in</span> <span class="n">x</span><span class="p">))</span>
+<span class="n">bycont</span><span class="p">[</span><span class="s2">&quot;area&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">rms</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>continent
+Africa     627.911077
+Asia      1933.268230
+Europe     642.068610
+Name: area, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="transformation">
+<h3>Transformation<a class="headerlink" href="#transformation" title="Permalink to this headline">¶</a></h3>
+<p>In the simplest case, a transformation applies a function to each element of a column, producing a result of the same length that can be indexed the same way.</p>
+<p>Here is some data where the columns have different scales.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">rand</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;small&quot;</span><span class="p">:</span> <span class="n">rand</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mf">0.004</span><span class="p">,</span><span class="mi">8</span><span class="p">),</span> <span class="s2">&quot;big&quot;</span><span class="p">:</span> <span class="n">rand</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span><span class="mi">200</span><span class="p">,</span><span class="mi">8</span><span class="p">)})</span>
+<span class="n">df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>small</th>
+      <th>big</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.001086</td>
+      <td>178.489344</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.002047</td>
+      <td>158.932356</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.003348</td>
+      <td>143.361471</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.002559</td>
+      <td>143.359850</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.003009</td>
+      <td>169.483483</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>0.002789</td>
+      <td>119.041585</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>0.002931</td>
+      <td>112.969663</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>0.003412</td>
+      <td>102.367977</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Suppose that we want to standardize each column to the interval <span class="math notranslate nohighlight">\([0,1]\)</span>. If <span class="math notranslate nohighlight">\(m\)</span> and <span class="math notranslate nohighlight">\(M\)</span> are the minimum and maximum values in a column, then we can apply the function</p>
+<div class="math notranslate nohighlight">
+\[f(x) = \frac{x-m}{M-m}\]</div>
+<p>within that column.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">scale</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+    <span class="n">M</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="n">m</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">M</span><span class="o">-</span><span class="n">m</span><span class="p">)</span>
+
+<span class="n">df</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">scale</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>small</th>
+      <th>big</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.000000</td>
+      <td>1.000000</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.413175</td>
+      <td>0.743081</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.972480</td>
+      <td>0.538528</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.633574</td>
+      <td>0.538507</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.827112</td>
+      <td>0.881691</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>0.732287</td>
+      <td>0.219040</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>0.793174</td>
+      <td>0.139273</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>1.000000</td>
+      <td>0.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Notice how each column of the result has entries equal to 0 and 1, with all the other values in-between.</p>
+<p>Transformations are one mechanism for replacing missing values. Let’s modify the original data frame to get some <code class="docutils literal notranslate"><span class="pre">NaN</span></code> entries (provided by <code class="docutils literal notranslate"><span class="pre">np.nan</span></code>).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="s2">&quot;small&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+<span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">6</span><span class="p">,</span><span class="s2">&quot;small&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+<span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="s2">&quot;big&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+<span class="n">df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>small</th>
+      <th>big</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.001086</td>
+      <td>178.489344</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.002047</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.003348</td>
+      <td>143.361471</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>NaN</td>
+      <td>143.359850</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.003009</td>
+      <td>169.483483</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>0.002789</td>
+      <td>119.041585</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>NaN</td>
+      <td>112.969663</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>0.003412</td>
+      <td>102.367977</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Now we want to replace each missing value with the average for its column. We use <code class="docutils literal notranslate"><span class="pre">fillna</span></code> to do the replacements and an aggregator to compute the mean.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">replace</span><span class="p">(</span><span class="n">col</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">col</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">col</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+
+<span class="n">df</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">replace</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>small</th>
+      <th>big</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.001086</td>
+      <td>178.489344</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.002047</td>
+      <td>138.439053</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.003348</td>
+      <td>143.361471</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.002615</td>
+      <td>143.359850</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.003009</td>
+      <td>169.483483</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>0.002789</td>
+      <td>119.041585</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>0.002615</td>
+      <td>112.969663</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>0.003412</td>
+      <td>102.367977</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>When a transformation is applied to a grouped data frame, then the transformation is applied to each group. For example, let’s consider our rescaling example above, but for values that are indexed by time.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">rand</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span>
+
+<span class="n">idx</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="s2">&quot;1/1/2021&quot;</span><span class="p">,</span><span class="s2">&quot;12/31/2021&quot;</span><span class="p">,</span><span class="n">freq</span><span class="o">=</span><span class="s2">&quot;D&quot;</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;small&quot;</span><span class="p">:</span> <span class="n">rand</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mf">0.004</span><span class="p">,</span><span class="mi">365</span><span class="p">),</span> <span class="s2">&quot;big&quot;</span><span class="p">:</span> <span class="n">rand</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span><span class="mi">200</span><span class="p">,</span><span class="mi">365</span><span class="p">)},</span><span class="n">index</span><span class="o">=</span><span class="n">idx</span><span class="p">)</span>
+<span class="n">df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>small</th>
+      <th>big</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2021-01-01</th>
+      <td>0.001878</td>
+      <td>116.693387</td>
+    </tr>
+    <tr>
+      <th>2021-01-02</th>
+      <td>0.003007</td>
+      <td>140.032539</td>
+    </tr>
+    <tr>
+      <th>2021-01-03</th>
+      <td>0.000874</td>
+      <td>175.995935</td>
+    </tr>
+    <tr>
+      <th>2021-01-04</th>
+      <td>0.001588</td>
+      <td>190.483572</td>
+    </tr>
+    <tr>
+      <th>2021-01-05</th>
+      <td>0.002917</td>
+      <td>166.286787</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>2021-12-27</th>
+      <td>0.002115</td>
+      <td>104.466790</td>
+    </tr>
+    <tr>
+      <th>2021-12-28</th>
+      <td>0.001596</td>
+      <td>138.889945</td>
+    </tr>
+    <tr>
+      <th>2021-12-29</th>
+      <td>0.001645</td>
+      <td>195.598132</td>
+    </tr>
+    <tr>
+      <th>2021-12-30</th>
+      <td>0.000590</td>
+      <td>105.513724</td>
+    </tr>
+    <tr>
+      <th>2021-12-31</th>
+      <td>0.000429</td>
+      <td>193.822703</td>
+    </tr>
+  </tbody>
+</table>
+<p>365 rows × 2 columns</p>
+</div></div></div>
+</div>
+<p>Here is how the data can be grouped by month. (Any timestamp value has properties such as <code class="docutils literal notranslate"><span class="pre">day</span></code> and <code class="docutils literal notranslate"><span class="pre">month</span></code> that return the appropriate value.)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bymonth</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">((</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">month</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">bymonth</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>12
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now, when we transform using our <code class="docutils literal notranslate"><span class="pre">scale</span></code> function from above, each column is rescaled independently within each month.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfs</span> <span class="o">=</span> <span class="n">bymonth</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">scale</span><span class="p">)</span>
+<span class="n">dfs</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>small</th>
+      <th>big</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2021-01-01</th>
+      <td>0.507919</td>
+      <td>0.167777</td>
+    </tr>
+    <tr>
+      <th>2021-01-02</th>
+      <td>0.831407</td>
+      <td>0.418190</td>
+    </tr>
+    <tr>
+      <th>2021-01-03</th>
+      <td>0.220205</td>
+      <td>0.804051</td>
+    </tr>
+    <tr>
+      <th>2021-01-04</th>
+      <td>0.424934</td>
+      <td>0.959493</td>
+    </tr>
+    <tr>
+      <th>2021-01-05</th>
+      <td>0.805605</td>
+      <td>0.699879</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>2021-12-27</th>
+      <td>0.527586</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>2021-12-28</th>
+      <td>0.396766</td>
+      <td>0.361398</td>
+    </tr>
+    <tr>
+      <th>2021-12-29</th>
+      <td>0.409184</td>
+      <td>0.956760</td>
+    </tr>
+    <tr>
+      <th>2021-12-30</th>
+      <td>0.143201</td>
+      <td>0.010991</td>
+    </tr>
+    <tr>
+      <th>2021-12-31</th>
+      <td>0.102564</td>
+      <td>0.938121</td>
+    </tr>
+  </tbody>
+</table>
+<p>365 rows × 2 columns</p>
+</div></div></div>
+</div>
+<p>For instance, each month has a 0 and a 1 in each column.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfs</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">dfs</span><span class="p">[</span><span class="s2">&quot;small&quot;</span><span class="p">]</span><span class="o">==</span><span class="mf">1.0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>small</th>
+      <th>big</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2021-01-31</th>
+      <td>1.0</td>
+      <td>0.022340</td>
+    </tr>
+    <tr>
+      <th>2021-02-03</th>
+      <td>1.0</td>
+      <td>0.689787</td>
+    </tr>
+    <tr>
+      <th>2021-03-30</th>
+      <td>1.0</td>
+      <td>1.000000</td>
+    </tr>
+    <tr>
+      <th>2021-04-05</th>
+      <td>1.0</td>
+      <td>0.606033</td>
+    </tr>
+    <tr>
+      <th>2021-05-02</th>
+      <td>1.0</td>
+      <td>0.918562</td>
+    </tr>
+    <tr>
+      <th>2021-06-17</th>
+      <td>1.0</td>
+      <td>0.728110</td>
+    </tr>
+    <tr>
+      <th>2021-07-03</th>
+      <td>1.0</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>2021-08-20</th>
+      <td>1.0</td>
+      <td>0.761452</td>
+    </tr>
+    <tr>
+      <th>2021-09-05</th>
+      <td>1.0</td>
+      <td>0.459932</td>
+    </tr>
+    <tr>
+      <th>2021-10-30</th>
+      <td>1.0</td>
+      <td>0.384330</td>
+    </tr>
+    <tr>
+      <th>2021-11-10</th>
+      <td>1.0</td>
+      <td>0.895302</td>
+    </tr>
+    <tr>
+      <th>2021-12-10</th>
+      <td>1.0</td>
+      <td>0.635768</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</div>
+</div>
+<div class="section" id="filtering">
+<h2>Filtering<a class="headerlink" href="#filtering" title="Permalink to this headline">¶</a></h2>
+<p>To apply a filter, provide a function that operates on a column and returns either <code class="docutils literal notranslate"><span class="pre">True</span></code>, meaning to keep the column, or <code class="docutils literal notranslate"><span class="pre">False</span></code>, meaning to reject it. For example, with our time series data above, suppose we want to keep the data only in those groups (months) for which the average value in the <code class="docutils literal notranslate"><span class="pre">big</span></code> column is at least 150.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">isbig150</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;big&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">150</span>
+
+<span class="n">selected</span> <span class="o">=</span> <span class="n">bymonth</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">isbig150</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">selected</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>215
+</pre></div>
+</div>
+</div>
+</div>
+<p>The result of the <code class="docutils literal notranslate"><span class="pre">filter</span></code> operation is a new data frame. If we again group by month and aggregate the mean value in each month, we can verify that the filtering property was satisfied.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">selected</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">month</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>small</th>
+      <th>big</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>0.002086</td>
+      <td>154.931236</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>0.002139</td>
+      <td>156.953238</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>0.001910</td>
+      <td>157.050593</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>0.001635</td>
+      <td>152.993549</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>0.001834</td>
+      <td>151.155999</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>0.001810</td>
+      <td>153.817019</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>0.001884</td>
+      <td>150.181524</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "UD-Math-Data-Science-1/notes",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./representation"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+            <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="pandas.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title"><span class="section-number">1.2. </span>Introduction to pandas</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="seaborn.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">1.4. </span>Introduction to seaborn</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+        
+        </div>
+    </div>
+    <footer class="footer">
+  <p>
+    
+      By Tobin A. Driscoll<br/>
+    
+        &copy; Copyright 2021.<br/>
+  </p>
+</footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+
+  </body>
+</html>
