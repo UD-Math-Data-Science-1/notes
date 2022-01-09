@@ -16,7 +16,7 @@ kernelspec:
 We will explore a well-known data set known as "Census Income", or "Adult". It's stored as a text file with 15 fields per line.
 
 ```{code-cell} ipython3
-import pandas as pd
+import pandas as pd\
 
 names = [ 
     "age","workclass","fnlwgt","education","education_num",
@@ -131,6 +131,16 @@ It can be proved that {eq}`eq-statistics-mean` is an accurate way to estimate th
 
 As you can see from the formulas, the difference between variance and sample variance is small when the sample size $n$ is large. The `std` and `var` methods in pandas all calculate sample standard deviations and variances.
 
+### z-scores
+
+Given data values $x_1,\ldots,x_n$, we can define related values known as **standardized scores** or **z-scores**:
+
+$$
+z_i = \frac{x-\mu}{\sigma}, \ldots i=1,\ldots,n.
+$$
+
+The z-scores have mean zero and standard deviation equal to 1; in physical terms, they are dimensionless. This makes them attractive to work with and to compare across data sets. In practice, of course, we usually have to settle for sample estimates of $\mu$ and $\sigma$ to compute the z-scores.
+
 ## Quantiles and percentiles
 
 Mean, variance, and standard deviation are not necessarily relevant statistics for every data set. There are many alternatives.
@@ -185,35 +195,23 @@ It is well known that the mean is more strongly influenced by outliers than the 
 The values $1,2,3,4,5$ have a mean and median both equal to 3. If we change the largest value to be a lot larger, say $1,2,3,4,1000$, then the mean changes to 202. But the median is still 3!
 ```
 
-Let's make a new column in our data set where we replace the outlier ages by `NaN`. 
+Let's create a series indicating which rows of the table represent outliers within their gender group. 
 
 ```{code-cell} ipython3
-import numpy as np  # for NaN value
-
-def remove_outliers(x):
-    y = x.copy()
+def isoutlier(x):
     I = x.quantile(.75) - x.quantile(.25)   # quantile is defined by pandas
-    y[abs(x-x.median()) > 1.5*I] = np.nan
-    return y
+    return abs(x-x.median()) > 1.5*I
 
-adult["ageNA"] = bysex["age"].transform(remove_outliers)
+outs = bysex["age"].transform(isoutlier)
+
+adult[outs]["age"].describe()
 ```
 
-<!-- 
-
-A common choice is to any value $x$ with $|x -\bar{x}| > 3 \hat{\sigma}$ as an outlier. Another is shown in the box plot above: 
--->
+To negate the outlier indicator series, we can use `~outs`.
 
 ```{code-cell} ipython3
-bysex = adult.groupby("sex")
-bysex["ageNA"].describe()
+bysex = adult[~outs].groupby("sex")
+bysex["age"].describe()
 ```
 
 Compare these to the previous summary. For both groups, the mean values shifted downward by about 1.1 years, while the median decreased by 1 year. 
-
-<!-- 
-# sns.xdisplot(adult,x="age",col="sex",kind="ecdf")
-```{code-cell} ipython3
-sns.displot(data=df,x="age",hue="income_level",kind="kde")
-``` 
- -->

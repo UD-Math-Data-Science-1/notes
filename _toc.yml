@@ -12,9 +12,9 @@ chapters:
   - file: statistics/overview
     sections:
     - file: statistics/exploratory
-    # - file: statistics/outliers
+    - file: statistics/distributions
+    - file: statistics/correlation
     # - file: statistics/mean-variance
-    # - file: statistics/covariance
   - file: supervised/overview
   #   sections:
   #   - file: supervised/learning

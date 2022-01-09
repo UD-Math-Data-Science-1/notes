@@ -4,7 +4,7 @@ author: Tobin A. Driscoll
 logo: logo.png
 
 exclude_patterns: 
-  - tmp/*
+  - temp.ipynb
 
 parse:
   myst_enable_extensions:
@@ -44,6 +44,7 @@ sphinx:
           "nat": ["\\mathbb{N}"]
           "integer": ["\\mathbb{Z}"]
           "bfx" : "\\mathbf{x}"
+          "bfX" : "\\mathbf{X}"
           "bfy" : "\\mathbf{y}"
           "bfz" : "\\mathbf{z}"
           "rmn" : ["\\mathbb{R}^{#1 \\times #2}",2]
@@ -60,6 +61,7 @@ sphinx:
           "ee": ["\\times 10^"]
           "floor": ["\\lfloor#1\\rfloor",1]
           "argmin": ["\\operatorname{argmin}"]
+          "Cov": ["\\operatorname{Cov}"]
 
   extra_extensions:
   - sphinx_proof
