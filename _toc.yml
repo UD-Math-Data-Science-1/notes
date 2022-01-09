@@ -16,9 +16,9 @@ chapters:
     - file: statistics/correlation
     # - file: statistics/mean-variance
   - file: supervised/overview
-  #   sections:
-  #   - file: supervised/learning
-  #   - file: supervised/train-test
+    sections:
+    - file: supervised/scikit
+    - file: supervised/train-test
   #   - file: supervised/nearest-neighbors
   #   - file: supervised/decision-trees
   #   - file: supervised/svm
