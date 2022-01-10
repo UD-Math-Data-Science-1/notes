@@ -8,13 +8,12 @@ chapters:
     - file: representation/data-types
     - file: representation/pandas
     - file: representation/split-apply-combine
-    - file: representation/seaborn
   - file: statistics/overview
     sections:
-    - file: statistics/exploratory
     - file: statistics/distributions
+    - file: statistics/summary
+    - file: statistics/outliers
     - file: statistics/correlation
-    # - file: statistics/mean-variance
   - file: supervised/overview
     sections:
     - file: supervised/scikit
