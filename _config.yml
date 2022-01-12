@@ -4,7 +4,8 @@ author: Tobin A. Driscoll
 logo: logo.png
 
 exclude_patterns: 
-  - temp.ipynb
+  - supervised/temp.ipynb
+  - statistics/temp.ipynb
 
 parse:
   myst_enable_extensions:
@@ -47,6 +48,7 @@ sphinx:
           "bfX" : "\\mathbf{X}"
           "bfy" : "\\mathbf{y}"
           "bfz" : "\\mathbf{z}"
+          "bfzero" : "\\boldsymbol{0}"
           "rmn" : ["\\mathbb{R}^{#1 \\times #2}",2]
           "dd" : ["\\frac{d #1}{d #2}",2]
           "pp" : ["\\frac{\\partial #1}{\\partial #2}",2]

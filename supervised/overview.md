@@ -1,8 +1,8 @@
-# Supervised learning
+# Classification
 
 Machine learning is the use of data to tune algorithms for making decisions or predictions. Unlike deduction based on reasoning from principles governing the application, machine learning is a "black box" that just adapts via training.
 
-We divide machine learning into two major forms: supervised and unsupervised. In supervised learning, the training data includes only examples that include the answer (or **label**) we expect to get. The training for unsupervised learning does not include "correct answers" as part of the data. In general, supervised learning is much easier to accomplish, and that is where we start.
+We divide machine learning into two major forms: supervised and unsupervised. In supervised learning, the training data includes only examples that include the answer (or **label**) we expect to get. The training for unsupervised learning does not include "correct answers" as part of the data. 
 
 Supervised learning in turn can be divided into two major areas:
 

@@ -17,9 +17,9 @@ chapters:
   - file: supervised/overview
     sections:
     - file: supervised/scikit
-    - file: supervised/train-test
-  #   - file: supervised/nearest-neighbors
-  #   - file: supervised/decision-trees
+    - file: supervised/performance
+    - file: supervised/nearest-neighbors
+    - file: supervised/decision-trees
   #   - file: supervised/svm
   # - file: regression/overview
   #   sections:
