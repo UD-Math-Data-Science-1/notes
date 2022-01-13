@@ -15,6 +15,7 @@ kernelspec:
 
 Good performance of a classifier on the training set is one thing, but how will it perform on new data? This is the question of *generalization*. In order to gauge this property, we will hold back some of the labeled data from training and use it solely to test the performance.
 
+
 We will continue demonstrating with the loan funding classification data set.
 
 ```{code-cell}
@@ -23,7 +24,7 @@ X = np.loadtxt("data.csv",delimiter=",")
 y = np.loadtxt("labels.csv",delimiter=",")
 ```
 
-We use a `sckikit` helper function to help us split off a randomized 20% of the data to use for testing.
+We use a `sklearn` helper function to help us split off a randomized 20% of the data to use for testing.
 
 ```{code-cell}
 from sklearn.model_selection import train_test_split
@@ -38,8 +39,9 @@ from sklearn import neighbors as nbr
 knn = nbr.KNeighborsClassifier(n_neighbors=1)
 knn.fit(X_tr,y_tr)
 ```
+## Overfitting
 
-If we evaluate the performance on the training data, the classifier looks perfect.
+If we evaluate the classifier's performance on the training data, the classifier looks perfect by any metric:
 
 ```{code-cell}
 from sklearn import metrics
@@ -48,7 +50,7 @@ C = metrics.confusion_matrix(y_tr,yhat,labels=[-1,1])
 print(C)
 ```
 
-But the picture is much different when we measure using the test set.
+But the picture is much different when we measure on the test set.
 
 ```{code-cell}
 yhat = knn.predict(X_te)
@@ -56,18 +58,65 @@ C = metrics.confusion_matrix(y_te,yhat,labels=[-1,1])
 print(C)
 ```
 
-We now see high false positive and false negative rates. This observation illustrates **overfitting**, which is the tendency of a model that learns too many idiosyncratic details about a training set to generalize well to new data.
+We now see high false positive and false negative rates. This observation illustrates **overfitting**, which is the poor generalization of a model that learns too many idiosyncratic details about a training set.
 
 ## Bias–variance tradeoff
 
-Suppose that $f(x)$ is a perfect labeling function over the entire population. Let $\hat{f}(x)$ denote a particular labeling algorithm after training. Conceptually, $\hat{f}$ is just one realization of all possible labelers that we might get from different training sets. Let $\hat{y}$ denote the result of averaging all the labelers at $x$. Thus, there are two components to the performance of our labeler:
+Suppose that $f(x)$ is a function giving the ground truth over the entire population. Let $\hat{f}(x)$ denote a learning algorithm obtained after training. Conceptually, $\hat{f}$ is just one realization that we get from one particular training set. We use $E[\cdot]$ to denote the process of averaging over all possible training sets. Note that the average of a sum of quantities is the sum of the averages.
 
-* How well does $\hat{y}$ approximate $f(x)$? This is the **bias** of the learner.
-* How close to $\hat{y}$ is our $\hat{f}(x)$ likely to be? This is the **variance** of the learner.
+Hence, the mean error is
 
-There is a crude analogy with hitting the bullseye on a dartboard. A low-variance, high-bias learner will throw a tight cluster of darts far from the bullseye. A low-bias, high-variance learner will scatter the darts evenly all over the board.
+$$
+E\bigl[ f(x) - \hat{f}(x) \bigr] = f(x) - E\bigl[ \hat{f}(x) \bigr] = y - \hat{y},
+$$
 
-Most learning algorithms have one or more **hyperparameters** that are selected in advance by the designer rather than adjusted to fit the training data. Often, a hyperparameter can give the learner increased power in the form of additional degrees of freedom to use in fitting. Giving the learner more power might lead to decreased bias, because there is a larger universe of potential labelers to choose from. But it tends to increase variance, because the higher fidelity is actually used to fit more closely to the particular training set that is chosen. This dilemma is generally known as the **bias–variance tradeoff**.
+where $y=f(x)$ and $\hat{y}$ is the average prediction. This quantity is called the **bias**. 
+
+Now we look at mean squared error:
+
+$$
+E\bigl[ (f(x) - \hat{f}(x))^2 \bigr] &= E\bigl[ (f(x) - \hat{y} + \hat{y} - \hat{f}(x))^2 \bigr] \\ 
+&= E\bigl[ (f(x) - \hat{y})^2 \bigr] + E\bigl[ (\hat{y} - \hat{f}(x))^2 \bigr] - 2E\bigl[ (f(x) - \hat{y})(\hat{y} - \hat{f}(x)) \bigr] \\ 
+&= (f(x) - \hat{y})^2 + E\bigl[ (\hat{y} - \hat{f}(x))^2 \bigr] - 2(f(x) - \hat{y}) E\bigl[ \hat{y} - \hat{f}(x) \bigr] \\
+&= (f(x) - \hat{y})^2 + E\bigl[ (\hat{y} - \hat{f}(x))^2 \bigr].
+$$
+
+The first term is the squared bias. The second is the **variance** of the learning method. In words,
+
+* Bias: How close is $\hat{y}$ to $f(x)$? 
+* Variance: How close to $\hat{y}$ is our $\hat{f}(x)$ likely to be?
+
+There is a crude analogy with hitting the bullseye on a dartboard. A low-variance, high-bias learner will throw a tight cluster of darts far from the bullseye. A low-bias, high-variance learner will scatter the darts evenly all over the board. When learners are overfitted, their output on a test set depends sensitively on the choice of training set, which creates a large variance.
+
+Continuing with the loan data, we can train on multiple subsets of the full data set in order to simulate the effect of the training set.
+
+```{code-cell}
+from sklearn.model_selection import train_test_split
+from sklearn.utils import shuffle
+import seaborn as sns
+import pandas as pd
+
+X_tr, X_te, y_tr, y_te = train_test_split(X,y,test_size=0.2)
+n = 1000             # size of the training subset
+err,kind = [],[]    # track information for the result
+knn = nbr.KNeighborsClassifier(n_neighbors=2)
+for i in range(200):
+    X_tr,y_tr = shuffle(X_tr,y_tr,random_state=1)
+    knn.fit(X_tr[:n,:],y_tr[:n])   # training
+    err.append(1-knn.score(X_tr[:n,:],y_tr[:n]))
+    err.append(1-knn.score(X_te,y_te))
+    kind.extend(["train","test"])
+
+result = pd.DataFrame({"error":err,"kind":kind})
+sns.displot(data=result,x="error",hue="kind",bins=24);
+```
+
+The histograms above show that the error measurements based on the training set are usually substantially less than on the test set. This likely indicates overfitting. We also see a lot of variance in the test set measurements. 
+
+Most learning algorithms have one or more **hyperparameters** that are selected in advance by the designer rather than adjusted to fit the training data. Often, a hyperparameter adjusts the number of degrees of freedom available to use for fitting. Giving the learner more power might lead to decreased bias, because there is a larger universe of potential classifiers to choose from. But it tends to increase variance, because the higher fidelity is actually used to fit more closely to the particular training set that is chosen. This dilemma is generally known as the **bias–variance tradeoff**.
+
+
+
 
 ## Learning curves
 

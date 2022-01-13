@@ -44,14 +44,21 @@ The 2-norm is also called the *Euclidean norm*. It generalizes ordinary geometri
 
 As data, we are given labeled examples $\bfx_1,\ldots,\bfx_n$ in $\real^d$. Given a new query vector $\bfx$, find the $k$ labeled vectors closest to $\bfx$ and choose the most frequently occurring label among them. Ties can be broken randomly.
 
-KNN divides up the feature space into domains that are dominated by nearby instances. The boundaries between those domains (called **decision boundaries**) can be fairly complicated, though, as shown in {numref}`fig-nn-example`.
+KNN divides up the feature space into domains that are dominated by nearby instances. The boundaries between those domains (called **decision boundaries**) can be fairly complicated, though, as shown in the animation below. 
 
+```{raw} html
+<video width=640 controls src="../_static/knn_demo.mp4"></video>
+```
+
+<!--
 ```{figure} knn_example.png
 :name: fig-nn-example
 Data vectors (dots) divide feature space into classes (colors). The decision boundaries between classes are not necessarily simple. (Figure from scikit-learn.org.) 
 ```
+ -->
 
-Implementation of KNN is straightforward for small data sets, but requires care to get reasonable execution efficiency for large sets.  
+Implementation of KNN is straightforward for small data sets, but requires care to get reasonable execution efficiency for large sets.
+
 
 ## KNN in sklearn
 
