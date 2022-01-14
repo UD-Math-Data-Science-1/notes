@@ -139,32 +139,9 @@ sns.relplot(data=result,x="training set size",y="error",kind="line",ci="sd",hue=
 
 The plot above shows **learning curves**. The dark line is the mean result over all trials, and the ribbon has a width of one standard deviation. For a small training set, the tree has more than enough resolving power, and we see a great deal of variance in the test error as well as a wide gap between those and the training errors. As the size of the training set grows, the two measurements come together as the variance decreases. The curves start to approach a horizontal asymptote that indicates the bias for this learner on this data set. 
 
-A complementary experiment is to hold the training set size constant while we vary the depth of the tree. 
-
-```{code-cell}
-X_tr, X_te, y_tr, y_te = train_test_split(X,y,test_size=0.08,shuffle=True,random_state=0)
-
-n = 5000             # size of the training subset
-err,kind,depth = [],[],[]
-for d in range(2,13,1):
-    for i in range(50):
-        X_tr,y_tr = shuffle(X_tr,y_tr,random_state=0)
-        XX,yy = X_tr[:n,:],y_tr[:n]
-        dt = tree.DecisionTreeClassifier(max_depth=d) 
-        dt.fit(XX,yy)
-        err.append(1-dt.score(XX,yy))
-        err.append(1-dt.score(X_te,y_te))
-        kind.extend(["train","test"])
-        depth.extend([d,d])
-
-result = pd.DataFrame({"error":err,"kind":kind,"depth":depth})
-sns.relplot(data=result,x="depth",y="error",kind="line",ci="sd",hue="kind");
-```
-A decision tree gets more resolving power as its depth increases, so it is no surprise that the training error decreases monotonically. However, while the test error initially decreases too, eventually it hits a minimum and starts to increase. Past this point, the additional power being given to the trees is used only for overfitting; it's like shifting us back to the left end of the learning curve. 
-
 ## Cross-validation
 
-Learning curves offer a way to pick optimal hyperparameter values, or to compare different learners. However, if we base the hyperparameter optimization on a fixed test set, then we are effectively learning from that set! That is, the hyperparameters might become too tuned to our particular choice of the test set, creating overfitting and variance. 
+Varying the training set offers a way to pick optimal hyperparameter values, or to compare different learners. However, if we base hyperparameter optimization on a fixed test set, then we are effectively learning from that set! That is, the hyperparameters might become too tuned to our particular choice of the test set, creating overfitting and variance. 
 
 To avoid this situation, we can use **cross-validation**, in which each learner is trained multiple times, using both different training sets and different measurement sets. One popular version is **$k$-fold cross-validation**:
 
@@ -174,36 +151,43 @@ To avoid this situation, we can use **cross-validation**, in which each learner 
 4. Select the optimum hyperparameters and retrain on the entire training set.
 5. Assess performance using the test set.  
 
-For example, using a small subset of the forest data, a round of 6-fold cross-validation on a standardized 5NN classifier would look like the following.
+For example, a round of 6-fold cross-validation on a standardized 5NN classifier looks like the following.
 
 ```{code-cell}
-X = forest["data"][:20000,:10]
-y = forest["target"][:20000]
-X_tr, X_te, y_tr, y_te = train_test_split(X,y,test_size=0.2)
+from sklearn.pipeline import make_pipeline
+from sklearn.preprocessing import StandardScaler
+from sklearn.model_selection import cross_validate,KFold
+
+X_tr, X_te, y_tr, y_te = train_test_split(X,y,test_size=0.05)
 
 kf = KFold(n_splits=6,shuffle=True,random_state=0)
 knn = neighbors.KNeighborsClassifier(n_neighbors=5)
 pipe = make_pipeline(StandardScaler(),knn)
-scores = cross_val_score(pipe,X_tr,y_tr,cv=kf,scoring="balanced_accuracy")
+scores = cross_validate(pipe,X_tr,y_tr,cv=kf,scoring="balanced_accuracy")
 
-print(scores)
+print(scores["test_score"])
 ```
 
-Typically one would use the mean of these individual fold scores as the final metric. If we apply the process as we vary the number of neighbors, 
+The low variance across the folds is reassurance that they are representative subsets. Typically one would use the mean of these individual fold scores as the final metric. 
+
+To wrap up, we will use cross-validation to perform an experiment complementary to the learning curve, where we hold the training set size constant while varying the depth of the tree. 
 
 ```{code-cell}
-K = range(2,10)
-acc = []
+n = 20000             # size of the training subset
+X_tr,y_tr = X_tr[:n,:],y_tr[:n]
+depth = range(2,21,1)
+kind = ["train"]*6
+kind.extend(["test"]*6)
+result = pd.DataFrame()
 kf = KFold(n_splits=6,shuffle=True,random_state=0)
-for k in K:
-    knn = neighbors.KNeighborsClassifier(n_neighbors=k)
-    pipe = make_pipeline(StandardScaler(),knn)
-    scores = cross_val_score(pipe,X_tr,y_tr,cv=kf,scoring="balanced_accuracy")
-    acc.append(scores.mean())
+for d in depth:
+    dt = tree.DecisionTreeClassifier(max_depth=d)
+    cv = cross_validate(dt,X_tr,y_tr,cv=kf,return_train_score=True)
+    err = np.hstack((1-cv["train_score"],1-cv["test_score"]))
+    keep = {"depth":d, "error":err, "kind":kind} 
+    result = pd.concat((result,pd.DataFrame(keep)),ignore_index=True)
 
-for (k,a) in zip(K,acc):
-    print("k =",k,":",f"{a:.2%}")
+sns.relplot(data=result,x="depth",y="error",kind="line",ci="sd",hue="kind");
 ```
 
-These results would argue for using $k=3$ in the final classifier. (Or for looking for a better type of classifier for this data, lol.)
-
+A decision tree gets more resolving power as its depth increases, so it is no surprise that the training error decreases monotonically. However, while the test error initially decreases too, eventually it hits a minimum and starts to increase. Past this point, the additional power being given to the trees is used only for overfitting; it's like shifting us back to the left end of the learning curve, where there is insufficient data to fully satisfy the model. 
