@@ -169,4 +169,20 @@ for k in K:
 pd.DataFrame({"k":K,"accuracy mean":score_mean,"accuracy std":score_std})
 ```
 
-It turns out that this is a pretty easy classification problem.
+## Pipelines
+
+One inconvenience of the standardization step above is that it must be performed for any new data vector that comes along. Moreover, that standardization has to use the mean and std from our original creation of `Z`, so those values need to be tracked. 
+
+The scikit answer to this need is to create a **pipeline** that includes the transformation. Pipelines make it fairly easy to chain together data transformations, followed by a learner. The composite object acts like the original learner.
+
+As you might guess, standardization of data is so common that it is predefined.
+
+```{code-cell}
+from sklearn.pipeline import make_pipeline
+from sklearn.preprocessing import StandardScaler   # converts to z-scores
+
+pipe = make_pipeline(StandardScaler(), neighbors.KNeighborsClassifier(n_neighbors=5))
+
+pipe.fit(X,y)
+pipe.score(X,y)
+```

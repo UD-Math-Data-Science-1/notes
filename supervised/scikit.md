@@ -23,6 +23,8 @@ X = np.loadtxt("data.csv",delimiter=",")
 print("feature matrix has shape",X.shape)
 y = np.loadtxt("labels.csv",delimiter=",")
 print("label vector has shape",y.shape)
+n,d = X.shape
+print("there are $d features and $n samples")
 ```
 
 Let's look at the first 5 features of the first instance.
@@ -45,187 +47,126 @@ We will use the scikit-learn (`sklearn`) package to get familiar with classifier
 * **predict**, to apply the classifier
 * **transform**, to modify the data
 
-Let's try a classifier whose characteristics we will explain in a future section.
+We'll explore fitting and prediction for now. Let's try a classifier whose characteristics we will explain in a future section.
 
 ```{code-cell}
-from sklearn import neighbors as nbr 
-knn = nbr.KNeighborsClassifier(n_neighbors=11)   # specification
-knn.fit(X,y)   # training
-yhat = knn.predict(X)   # prediction
+from sklearn import neighbors 
+knn = neighbors.KNeighborsClassifier(n_neighbors=11)   # specification
+knn.fit(X,y)            # training
+```
 
+At this point, the classifier object `knn` has figured out what it needs to do with the training data, and we can ask it to make predictions. Each application we want a prediction for is a vector with 15 components (features). The prediction query has to be a 2D array, with each row being a query vector. The result is a vector of predictions.
+
+```{code-cell}
+Xq = 100*np.ones((1,d))
+knn.predict(Xq)
+```
+
+We don't have any realistic application data at hand, other than the training data. By comparing the predictions made for that data to the true labels we supplied, we can try to get an idea of how accurate the predictor is.
+
+```{code-cell}
+yhat = knn.predict(X)   # prediction
 yhat[-6:]
 ```
 
-Compared to the original labels above, so far, so good. How often is the classifier correct? We simply count up the number of correctly predicted labels and then divide by the total number of labels, $n$. 
+Compared to the true labels we printed out above, so far, so good. Now simply count up the number of correctly predicted labels and then divide by the total number of labels, $n$. 
 
 ```{code-cell}
-n = len(y)
-acc = sum(yhat==y)/n   # or, acc = knn.score(X,y)
+acc = sum(yhat==y)/n 
 print(f"accuracy is {acc:.1%}")
 ```
 
-Is that good? That turns out to be a complicated question. The vast majority of loans were funded:
+Of course, scikit has functions for doing all this in fewer steps.
 
 ```{code-cell}
-funded = sum(y==-1)
-print(f"{funded/n:.1%} were funded")
-```
-
-Therefore, an algorithm that simply "predicted" funding every loan would do nearly as well as ours!
-
-## Measuring binary classifier performance
-
-To fully understand the performance of a classifier, we have to account for four cases:
-
-* True positives (TP): Predicts "yes", actually is "yes"
-* False positives (FP): Predicts "yes", actually is "no"
-* True negatives (TN): Predicts "no", actually is "no"
-* False negatives (FN): Predicts "no", actually is "yes"
-
-The four cases correspond to a 2×2 table according to the states of the prediction and *ground truth*, which is the accepted correct value. The table can be filled with counts or percentages of tested instances, to create a **confusion matrix**, as illustrated in {numref}`fig-supervised-confusion`. 
-
-```{figure} confusion.svg
----
-name: fig-supervised-confusion
----
-Confusion matrix
-```
-
-```{code-cell} ipython3
 from sklearn import metrics
-C = metrics.confusion_matrix(y,yhat,labels=[-1,1])
-lbl = ["fund","reject"]
-metrics.ConfusionMatrixDisplay(C,display_labels=lbl).plot();
+
+acc = metrics.accuracy_score(y,yhat)
+print(f"accuracy is {acc:.1%}")
+
+acc = knn.score(X,y)
+print(f"accuracy is {acc:.1%}")
 ```
 
-Hence there are 3370 true positives (funded) and 73 true negatives (rejected). Therefore, the **accuracy** is 
+## Train–test paradigm
 
-$$
-\newcommand{TP}{\text{TP}}
-\newcommand{FP}{\text{FP}}
-\newcommand{TN}{\text{TN}}
-\newcommand{FN}{\text{FN}}
-\text{accuracy} = \frac{\TP + \TN}{n} = \frac{3443}{4140} = 0.83164\ldots,
-$$
+Good performance of a classifier on the samples used to train seems to be necessary, but is it sufficient? We are more interested on how the classifier performs on new data. This is the question of *generalization*. In order to gauge generalization, we hold back some of the labeled data from training and use it only to test the performance.
 
-i.e., 83.2%. However, there are four other quantities defined by putting a "number correct" value in the numerator and a sum of a row or column in the denominator:
 
-$$
-\text{recall (aka sensitvity)} &= \frac{\TP}{\TP + \FN} \\[2mm]
-\text{specificity} &= \frac{\TN}{\TN + \FP} \\[2mm] 
-\text{precision} &= \frac{\TP}{\TP + \FP} \\[2mm] 
-\text{negative predictive value (NPV)} &= \frac{\TN}{\TN + \FN} \\ 
-$$
+<!-- 
+```{code-cell}
+import numpy as np
+X = np.loadtxt("data.csv",delimiter=",")
+y = np.loadtxt("labels.csv",delimiter=",")
+``` 
+-->
 
-In words, these metrics answer the following questions:
-
-* **recall** How often are actual "yes" cases predicted correctly?
-* **specificity** How often are actual "no" cases predicted correctly?
-* **precision** How often are the "yes" predictions correct?
-* **NPV** How often are the "no" predictions correct?
-
-For our loan classifier, here are the scores:
-
-```{code-cell} ipython3
-TP,FN,FP,TN = C.ravel()
-print(f"recall = {TP/(TP+FN):.1%}")
-print(f"specificity = {TN/(TN+FP):.1%}")
-print(f"precision = {TP/(TP+FP):.1%}")
-print(f"NPV = {TN/(TN+FN):.1%}")
-```
-
-The recall is almost perfect: virtually nobody who should get a loan will go away disappointed. However, the low specificity would be concerning to those doing the funding, because nine in ten applicants who should be denied will be funded as well.
-
-There are numerous ways to combine these measures into a single number other than standard accuracy. None is universally best, because different applications emphasize different aspects of performance.
-
-### Balanced accuracy
-
-For a binary classifier, **balanced accuracy** is the mean of recall and specificity,
-
-$$
-\frac{1}{2} \left(\frac{\TP}{\TP + \FN} + \frac{\TN}{\TN + \FP} \right).
-$$
-
-Its value is between 1/2 and 1, with larger values indicating better performance. 
-
-```{prf:example}
-Inspired by the loan example, suppose we try to sneak through a "classifier" that funds every loan. If the sample set has $k$ funded and $n-k$ declined examples, then 
-
-$$
-\TP = k,\, \TN = 0,\, \FP = n-k,\, \FN = 0.
-$$
-
-Hence the balanced accuracy is
-
-$$
-\frac{1}{2} \left(\frac{\TP}{\TP + \FN} + \frac{\TN}{\TN + \FP} \right) = \frac{1}{2}.
-$$
-```
-
-For the loan example, the balanced accuracy is $0.547$, which is considerably less rosy than the accuracy measurement. Balanced accuracy counts both classes equally, no matter how frequently their samples occur. Depending on your point of view, this might be *too* harsh a judgment. After all, the always-fund classifier would get a score of 1/2 even if the data set contained just one declined loan!  
-
-### $F_1$ score
-
-The **$F_1$ score** of a binary classifier is the harmonic mean of the precision and the recall:
-
-$$
-\left[ \frac{1}{2} \left(\frac{\TP + \FN}{\TP} + \frac{\TP+\FP}{\TP} \right)  \right]^{-1} = \frac{2\TP}{2\TP+\FN+\FP}.
-$$
-
-This score varies between zero (poor) and one (ideal). 
-
-The harmonic mean is the operation for combining resistors in parallel. If one of the quantities is much smaller than the other, the harmonic mean will end up close to it. Thus, $F_1$ score punishes a classifier if either recall or precision is small.
-
-```{prf:example}
-Again consider the classifier that funds every loan. Its $F_1$ score is 
-
-$$
-\TP = k,\, \TN = 0,\, \FP = n-k,\, \FN = 0.
-$$
-
-Hence the balanced accuracy is
-
-$$
-\frac{2\TP}{2\TP+\FN+\FP} = \frac{2k}{2k+n-k} = \frac{2k}{k+n}.
-$$
-
-If the fraction of funded samples is $k/n=a$, then the $F_1$ score is $a/(1+a)$, which increases smoothly from zero to one as $a$ does.
-```
-
-The loan classifier trained above has excellent recall and respectable precision, resulting in a $F_1$ score of $0.906$.
-
-## Performance measures for multiclass classifiers
-
-In the previous section we saw a few ways to measure the performance of a binary classifier. When there are more than two unique labels, those measures can be extended using the **one-vs-rest** paradigm. For $K$ unique labels, this paradigm poses $K$ binary questions: "Is it in class 1, or not?", "Is it in class 2, or not?", etc. This produces $K$ versions of metrics such as accuracy, recall, $F_1$-score, and so on, which can be averaged to give a single score. There are various ways to perform the averaging, depending on whether poorly represented classes are to be weighted more weakly than others. We won't give the details.
-
-The confusion matrix also generalizes to $K$ classes. It's easiest to see how by an example. We will use a well-known data set derived from automatic recognition of handwritten digits from 0 to 9.
+A `sklearn` helper function allows us to split off a randomized 20% of the data to use for testing:
 
 ```{code-cell}
-from sklearn import neighbors
 from sklearn.model_selection import train_test_split
-from sklearn import metrics
+X_tr, X_te, y_tr, y_te = train_test_split(X,y,test_size=0.2)
+print(len(y_tr),"training cases and",len(y_te),"test cases")
+```
 
-X_tr,X_te,y_tr,y_te = train_test_split(X,y,test_size=0.25,random_state=7)
+Now we train on the training data...
 
-knn = neighbors.KNeighborsClassifier(n_neighbors=16)
+```{code-cell}
+from sklearn import neighbors as nbr
+knn = nbr.KNeighborsClassifier(n_neighbors=1)
 knn.fit(X_tr,y_tr)
-yhat = knn.predict(X_te)
-
-C = metrics.confusion_matrix(y_te,yhat)
-metrics.ConfusionMatrixDisplay(C).plot();
 ```
 
-From the confusion matrix, we can see that, for example, the detection of "1" has 48 true positives and a total of 5 false positives. Therefore, that precision is $48/53=90.6%$. We can get all of the individual precision scores automatically.
+...and test on the rest.
 
 ```{code-cell}
-prec = metrics.precision_score(y_te,yhat,average=None)
-print([f"{p:.1%}" for p in prec])
+acc = knn.score(X_te,y_te)
+print(f"accuracy is {acc:.1%}")
 ```
 
-To get a composite precision score, we have to specify an averaging method. The `"macro"` option simply takes the mean of the vector above.
+This is a less flattering result than when we computed accuracy on the full set.
+
+## sklearn and pandas
+
+Scikit-learn plays very nicely with pandas. You can use data frames for the sample values and labels. Let's look at a data set that comes from seaborn.
 
 ```{code-cell}
-mac = metrics.precision_score(y_te,yhat,average="macro")
-print([mac,prec.mean()])
+import seaborn as sns
+penguins = sns.load_dataset("penguins")
+penguins = penguins.dropna()
+penguins
 ```
+
+The `dropna` call above removes rows that have a `NaN` value in any column, as sklearn doesn't handle those well all the time. This data frame has four quantitative columns that we will use as features. We will use the species column for the labels. 
+
+```{code-cell}
+X = penguins[["bill_length_mm","bill_depth_mm","flipper_length_mm","body_mass_g"]]
+y = penguins["species"]
+```
+
+Now `X` is a data frame and `y` is a series. They can be input directly into a learning method call.
+
+```{code-cell}
+knn = neighbors.KNeighborsClassifier(n_neighbors=5)
+knn.fit(X,y);
+```
+
+To make predictions, we need to pass in another data frame that has the same columns as `X`. Here is a simple way to turn a numerical vector or list into such a frame.
+
+```{code-cell}
+import pandas as pd
+x_new = [39,19,180,3750]
+xdf = pd.DataFrame([x_new],columns=X.columns)
+xdf
+```
+
+(The `[x_new]` part does need to have the brackets, so that pandas sees a list of row values there. We could put multiple rows in that list.) Now we can use the classifier to make a prediction.
+
+```{code-cell}
+knn.predict(xdf)
+```
+
+The result comes back as a series of the same dtype as `y`.
+
+This may seem like hassle and extra work for mere window dressing. Why not just work with arrays? When we are focusing on the math, that's fine. But in an application, it's easy to lose track of what the integer indexes of an array are supposed to mean. By using their names, you keep things clearer in your own mind, and scikit will give you warnings and errors if you aren't using them consistently. In other words, it's *productive* hassle.
 
