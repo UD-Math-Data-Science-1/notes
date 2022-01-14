@@ -11,29 +11,71 @@ kernelspec:
   name: python3
 ---
 
-# Learning performance
+# Model selection
 
+We have barely scratched the surface of the big blob of available classification algorithms. There are many variations on kNN and decision trees, as well as algorithms we have not reached. And most learning algorithms have **hyperparameters** that control the complexity and theoretical resolving power of the algorithm. 
+
+:::{note}
+In ML, a *parameter* is a value that is adjusted during training; i.e., it is learned from the training data. A *hyperparameter* is one that is selected and remains fixed throughout the training. In most of mathematics, we would refer to these as *variables* and *parameters*, and sources aren't always fastidious about the latter term.
+:::
+
+With so many potential solutions available, we need to have a process for evaluating them.
 
 ## Overfitting
 
-If we evaluate the classifier's performance on the training data, the classifier looks perfect by any metric:
+An obvious question about hyperparameters is: Why not just use maximum algorithm power all the time? It's not simply a matter of computing resource limitations, although that can be significant. 
+
+Consider a kNN classifier with $k=1$. Each training sample's nearest neighbor is itself! So the classifier will perfectly fit the training data. Let's apply this to the loan application data, but using many different subsets of the training data in order to simulate what happens in parallel universes. We will use 1 minus accuracy as a measurement of error.
 
 ```{code-cell}
-from sklearn import metrics
-yhat = knn.predict(X_tr)
-C = metrics.confusion_matrix(y_tr,yhat,labels=[-1,1])
-print(C)
-```
+from sklearn import neighbors,metrics
+from sklearn.model_selection import train_test_split
+from sklearn.utils import shuffle
+import numpy as np
 
-But the picture is much different when we measure on the test set.
+X = np.loadtxt("data.csv",delimiter=",")
+n,d = X.shape
+y = np.loadtxt("labels.csv",delimiter=",")
+X_tr, X_te, y_tr, y_te = train_test_split(X,y,test_size=0.2)
+
+n = 1000             # size of the training subset
+err,kind = [],[]     # track information for the results
+knn = neighbors.KNeighborsClassifier(n_neighbors=1)
+for i in range(200):
+    X_tr,y_tr = shuffle(X_tr,y_tr,random_state=1)
+    XX,yy = X_tr[:n,:],y_tr[:n]
+    knn.fit(XX,yy) 
+    err.append(1-knn.score(XX,yy))       # training error
+    err.append(1-knn.score(X_te,y_te))   # test error
+    kind.extend(["train","test"])
+
+import seaborn as sns
+import pandas as pd
+result = pd.DataFrame({"error":err,"kind":kind})
+sns.displot(data=result,x="error",hue="kind",bins=24);
+```
+As promised, the training error (blue histogram) is always zero. But the training error (orange histogram) tells a very different story. 
+
+This is an illustration of **overfitting**. The classifier has perfectly replicated the training data, but it's unable to generalize to new data, which is what causes the wide gap between training and test. There is another effect, too: because the fit is highly tailored to the training set, the results depend strongly on the contents of that set, and there is a large amount of variance in the testing error. 
+
+If we increase $k$ in the kNN classifier, then each prediction will look at more than one value in the training set, reducing the tendency to overfit to any local idiosyncrasies. 
 
 ```{code-cell}
-yhat = knn.predict(X_te)
-C = metrics.confusion_matrix(y_te,yhat,labels=[-1,1])
-print(C)
+err,kind = [],[]     # track information for the results
+knn = neighbors.KNeighborsClassifier(n_neighbors=6)
+for i in range(200):
+    X_tr,y_tr = shuffle(X_tr,y_tr,random_state=1)
+    XX,yy = X_tr[:n,:],y_tr[:n]
+    knn.fit(XX,yy) 
+    err.append(1-knn.score(XX,yy))       # training error
+    err.append(1-knn.score(X_te,y_te))   # test error
+    kind.extend(["train","test"])
+
+result = pd.DataFrame({"error":err,"kind":kind})
+sns.displot(data=result,x="error",hue="kind",bins=24);
 ```
 
-We now see high false positive and false negative rates. This observation illustrates **overfitting**, which is the poor generalization of a model that learns too many idiosyncratic details about a training set.
+Now the training error is generally on par with the testing error, and the variance in the testing error is much smaller than before. 
 
 ## Bias–variance tradeoff
 
@@ -58,147 +100,110 @@ $$
 
 The first term is the squared bias. The second is the **variance** of the learning method. In words,
 
-* Bias: How close is $\hat{y}$ to $f(x)$? 
-* Variance: How close to $\hat{y}$ is our $\hat{f}(x)$ likely to be?
+* Bias: How close is the average prediction to the ground truth? 
+* Variance: How close to the average prediction is any one prediction likely to be?
 
 There is a crude analogy with hitting the bullseye on a dartboard. A low-variance, high-bias learner will throw a tight cluster of darts far from the bullseye. A low-bias, high-variance learner will scatter the darts evenly all over the board. When learners are overfitted, their output on a test set depends sensitively on the choice of training set, which creates a large variance.
 
-Continuing with the loan data, we can train on multiple subsets of the full data set in order to simulate the effect of the training set.
-
-```{code-cell}
-from sklearn.model_selection import train_test_split
-from sklearn.utils import shuffle
-import seaborn as sns
-import pandas as pd
-
-X_tr, X_te, y_tr, y_te = train_test_split(X,y,test_size=0.2)
-n = 1000             # size of the training subset
-err,kind = [],[]    # track information for the result
-knn = nbr.KNeighborsClassifier(n_neighbors=2)
-for i in range(200):
-    X_tr,y_tr = shuffle(X_tr,y_tr,random_state=1)
-    knn.fit(X_tr[:n,:],y_tr[:n])   # training
-    err.append(1-knn.score(X_tr[:n,:],y_tr[:n]))
-    err.append(1-knn.score(X_te,y_te))
-    kind.extend(["train","test"])
-
-result = pd.DataFrame({"error":err,"kind":kind})
-sns.displot(data=result,x="error",hue="kind",bins=24);
-```
-
-The histograms above show that the error measurements based on the training set are usually substantially less than on the test set. This likely indicates overfitting. We also see a lot of variance in the test set measurements. 
-
-Most learning algorithms have one or more **hyperparameters** that are selected in advance by the designer rather than adjusted to fit the training data. Often, a hyperparameter adjusts the number of degrees of freedom available to use for fitting. Giving the learner more power might lead to decreased bias, because there is a larger universe of potential classifiers to choose from. But it tends to increase variance, because the higher fidelity is actually used to fit more closely to the particular training set that is chosen. This dilemma is generally known as the **bias–variance tradeoff**.
-
-
-
+When a hyperparameter adjusts the number of degrees of freedom available to use for fitting, there might be decreased bias, simply because there is a larger universe of potential classifiers to choose from. But if taken too far, this approach tends to increase variance, because the higher fidelity is actually used to fit more closely to the particular training set that is chosen. This dilemma is generally known as the **bias–variance tradeoff**. This observation leads to an application of **Occam's Razor**: given methods with equal empirical error, choose the least complex one.
 
 ## Learning curves
 
-Let's illustrate overfitting with *decision trees*, a different type of classifier to be studied later. A decision tree has a controllable maximum depth which, when increased, allows it more freedom to fit training data.
-
-For this experiment, we vary $n$, the number of instances used to train the classifier. We first split off part of the data to serve as a test set. For each $n$, the rest of the data is randomly reordered before training, and we measure performance on the training set as well as the test set. As performance metric we use the `score` method of the classifier to get its accuracy, then subtract it from 1 to get an error measurement.
+We can illustrate the presence of bias and variance by repeated the parallel-universe experiment with different sizes for the training data sets. In order to have more data to pull from, we will use a subset of a realistic data set used to predict the dominant type of tree in patches of forest. We use a decision tree with fixed depth throughout.
 
 ```{code-cell}
 from sklearn import tree
-from sklearn.utils import shuffle
-import seaborn as sns
-import pandas as pd
+from sklearn import datasets
 
-X_tr, X_te, y_tr, y_te = train_test_split(X,y,test_size=0.2)
-N = range(50,3201,20)
-train_err = []
-test_err = []
+forest = datasets.fetch_covtype()
+X = forest["data"][:250000,:8]
+y = forest["target"][:250000]
+X_tr, X_te, y_tr, y_te = train_test_split(X,y,test_size=0.05,shuffle=True,random_state=0)
+
+N = range(200,4001,200)             # size of the training subset
+err,kind,length = [],[],[]
+dt = tree.DecisionTreeClassifier(max_depth=4) 
 for n in N:
-  X_tr,y_tr = shuffle(X_tr,y_tr,random_state=1)
-  knn = tree.DecisionTreeClassifier(max_depth=5)   # specification
-  knn.fit(X_tr[:n,:],y_tr[:n])   # training
-  train_err.append(1-knn.score(X_tr[:n,:],y_tr[:n]))
-  test_err.append(1-knn.score(X_te,y_te))
+    for i in range(50):
+        X_tr,y_tr = shuffle(X_tr,y_tr,random_state=1)
+        XX,yy = X_tr[:n,:],y_tr[:n]
+        dt.fit(XX,yy)
+        err.append(1-dt.score(XX,yy))
+        err.append(1-dt.score(X_te,y_te))
+        kind.extend(["train","test"])
+        length.extend([n,n])
 
-result = pd.DataFrame(
-    {"train error":train_err,"test error":test_err},
-    index=pd.Series(N,name="size of training set")
-)
-sns.lineplot(data=result)
+result = pd.DataFrame({"error":err,"kind":kind,"training set size":length})
+sns.relplot(data=result,x="training set size",y="error",kind="line",ci="sd",hue="kind");
 ```
 
-The plot above shows **learning curves**. Both curves converge to a horizontal asymptote. The gap between the curves is due to variance, which decreases as the training set grows. This is to be expected; generalizing from a few examples is probably harder than when many are available. The height of the curves is due to bias, which appears to be somewhere around a 16% error rate. This is a lower bound on the actual error, regardless of the training set; you can't knock out an elephant with a feather, no matter how many times you whack her with it.
+The plot above shows **learning curves**. The dark line is the mean result over all trials, and the ribbon has a width of one standard deviation. For a small training set, the tree has more than enough resolving power, and we see a great deal of variance in the test error as well as a wide gap between those and the training errors. As the size of the training set grows, the two measurements come together as the variance decreases. The curves start to approach a horizontal asymptote that indicates the bias for this learner on this data set. 
 
-The curves above were for a tree depth of 5. The next plot shows it for a depth of 10, which increases the approximation power.
+A complementary experiment is to hold the training set size constant while we vary the depth of the tree. 
 
 ```{code-cell}
----
-tags: [hide-input]
----
-X_tr, X_te, y_tr, y_te = train_test_split(X,y,test_size=0.2)
-N = range(50,3201,20)
-train_err = []
-test_err = []
-for n in N:
-  X_tr,y_tr = shuffle(X_tr,y_tr,random_state=1)
-  knn = tree.DecisionTreeClassifier(max_depth=10)   # specification
-  knn.fit(X_tr[:n,:],y_tr[:n])   # training
-  train_err.append(1-knn.score(X_tr[:n,:],y_tr[:n]))
-  test_err.append(1-knn.score(X_te,y_te))
+X_tr, X_te, y_tr, y_te = train_test_split(X,y,test_size=0.08,shuffle=True,random_state=0)
 
-result = pd.DataFrame(
-    {"train error":train_err,"test error":test_err},
-    index=pd.Series(N,name="size of training set")
-)
-sns.lineplot(data=result)
+n = 5000             # size of the training subset
+err,kind,depth = [],[],[]
+for d in range(2,13,1):
+    for i in range(50):
+        X_tr,y_tr = shuffle(X_tr,y_tr,random_state=0)
+        XX,yy = X_tr[:n,:],y_tr[:n]
+        dt = tree.DecisionTreeClassifier(max_depth=d) 
+        dt.fit(XX,yy)
+        err.append(1-dt.score(XX,yy))
+        err.append(1-dt.score(X_te,y_te))
+        kind.extend(["train","test"])
+        depth.extend([d,d])
+
+result = pd.DataFrame({"error":err,"kind":kind,"depth":depth})
+sns.relplot(data=result,x="depth",y="error",kind="line",ci="sd",hue="kind");
 ```
-
-This time, the curves do not come together before we run out of data. The nonzero variance suggests that the learner is in some sense overqualified to fit the available data. The bias did not get below 17% and appears to be levelling off, so that increased approximation power isn't even useful.
-
-Finally, we see what happens with a smaller depth of just 2.
-
-```{code-cell}
----
-tags: [hide-input]
----
-X_tr, X_te, y_tr, y_te = train_test_split(X,y,test_size=0.2)
-N = range(50,3201,20)
-train_err = []
-test_err = []
-for n in N:
-  X_tr,y_tr = shuffle(X_tr,y_tr,random_state=1)
-  knn = tree.DecisionTreeClassifier(max_depth=10)   # specification
-  knn.fit(X_tr[:n,:],y_tr[:n])   # training
-  train_err.append(1-knn.score(X_tr[:n,:],y_tr[:n]))
-  test_err.append(1-knn.score(X_te,y_te))
-
-result = pd.DataFrame(
-    {"train error":train_err,"test error":test_err},
-    index=pd.Series(N,name="size of training set")
-)
-sns.lineplot(data=result)
-```
-
-Now the variance is zero almost from the start. The bias is around 17%, so we have paid a small price for the lost power. The ideal bias–variance tradeoff in this case is probably a depth of 4 or 5. 
+A decision tree gets more resolving power as its depth increases, so it is no surprise that the training error decreases monotonically. However, while the test error initially decreases too, eventually it hits a minimum and starts to increase. Past this point, the additional power being given to the trees is used only for overfitting; it's like shifting us back to the left end of the learning curve. 
 
 ## Cross-validation
 
-We would like to use a performance metric over a test set to choose hyperparameters optimally. However, if we base the hyperparameter optimization on a fixed test set, then we are effectively learning from that set! That is, the hyperparameters might become too tuned to our particular choice of the test set, creating variance. To avoid this situation, we will use **cross-validation**, in which each learner is trained multiple times, each time using a different train–test split of the data. 
+Learning curves offer a way to pick optimal hyperparameter values, or to compare different learners. However, if we base the hyperparameter optimization on a fixed test set, then we are effectively learning from that set! That is, the hyperparameters might become too tuned to our particular choice of the test set, creating overfitting and variance. 
 
-In **$k$-fold cross-validation**, the full data set is divided into $k$ roughly equal parts called *folds*. First, the learner is trained using folds $2,3,\ldots,k$ and tested against the cases in fold 1. Then the learner is retrained using folds $1,3,\ldots,k$ and tested against the cases in fold 2. This continues until each fold has served once as the test set.
+To avoid this situation, we can use **cross-validation**, in which each learner is trained multiple times, using both different training sets and different measurement sets. One popular version is **$k$-fold cross-validation**:
 
-Here we use 10-fold cross-validation for KNN learners with varying $k$. By default, the performance metric will be the `knn.score` method, which is defined to compute accuracy.
+1. Divide the data into training and testing sets. 
+2. Further divide the training data set into $k$ roughly equal parts called *folds*. 
+3. Train the learner using folds $2,3,\ldots,k$ and validate (measure) on the cases in fold 1. Then retrain using folds $1,3,\ldots,k$ and validate against the cases in fold 2. Continue until each fold has served once for validation. 
+4. Select the optimum hyperparameters and retrain on the entire training set.
+5. Assess performance using the test set.  
+
+For example, using a small subset of the forest data, a round of 6-fold cross-validation on a standardized 5NN classifier would look like the following.
 
 ```{code-cell}
-from sklearn.model_selection import cross_val_score,KFold
+X = forest["data"][:20000,:10]
+y = forest["target"][:20000]
+X_tr, X_te, y_tr, y_te = train_test_split(X,y,test_size=0.2)
 
-K = range(1,9)
+kf = KFold(n_splits=6,shuffle=True,random_state=0)
+knn = neighbors.KNeighborsClassifier(n_neighbors=5)
+pipe = make_pipeline(StandardScaler(),knn)
+scores = cross_val_score(pipe,X_tr,y_tr,cv=kf,scoring="balanced_accuracy")
+
+print(scores)
+```
+
+Typically one would use the mean of these individual fold scores as the final metric. If we apply the process as we vary the number of neighbors, 
+
+```{code-cell}
+K = range(2,10)
 acc = []
-kf = KFold(n_splits=5,shuffle=True,random_state=1)
+kf = KFold(n_splits=6,shuffle=True,random_state=0)
 for k in K:
-    knn = nbr.KNeighborsClassifier(n_neighbors=k) 
-    scores = cross_val_score(knn,X,y,cv=kf)
+    knn = neighbors.KNeighborsClassifier(n_neighbors=k)
+    pipe = make_pipeline(StandardScaler(),knn)
+    scores = cross_val_score(pipe,X_tr,y_tr,cv=kf,scoring="balanced_accuracy")
     acc.append(scores.mean())
 
 for (k,a) in zip(K,acc):
     print("k =",k,":",f"{a:.2%}")
 ```
 
-There is little in the results to support going beyond $k=2$ for this classifier type.
+These results would argue for using $k=3$ in the final classifier. (Or for looking for a better type of classifier for this data, lol.)
 

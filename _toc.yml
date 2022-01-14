@@ -20,6 +20,7 @@ chapters:
     - file: supervised/performance
     - file: supervised/nearest-neighbors
     - file: supervised/decision-trees
+    - file: supervised/model-selection
   #   - file: supervised/svm
   # - file: regression/overview
   #   sections:

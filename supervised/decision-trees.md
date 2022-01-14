@@ -16,6 +16,8 @@ A decision tree is much like playing "Twenty Questions." A question is asked, an
 
 Given samples $\bfx_1,\ldots,\bfx_n$ and labels $y_1,\ldots,y_n$, the immediate goal is to partition the samples into subsets whose labels are as uniform as possible. The process is then repeated recursively on the subsets. Defining a measurement of label uniformity is a key step. 
 
+## Gini impurity
+
 Let $S$ be a subset of the samples, given as a list of indices into the original set. Suppose there are $K$ unique labels, which we denote $1,2,\ldots,K$. Define
 
 $$
@@ -37,7 +39,30 @@ $$
 H(S) = \sum_{k=1}^K p_k(1-p_k).
 $$
 
-If one of the $p_k$ is 1, then the others are all zero and $H(S)=0$. This is considered optimal. At the other extreme, if $p_k=1/K$ for all $k$, then $H(S)=(K-1)/K$, which is the maximum value.
+If one of the $p_k$ is 1, then the others are all zero and $H(S)=0$. This is considered optimal. At the other extreme, if $p_k=1/K$ for all $k$, then 
+
+$$
+H(S) = \sum_{k=1}^K \frac{1}{K} \left(1 - \frac{1}{K} \right) = K\cdot \frac{1}{K}\cdot\frac{K-1}{K} = \frac{K-1}{K} < 1.
+$$
+
+::::{prf:example}
+:label: example-decision-trees-gini
+Suppose a set $S$ has $n$ members with label 1, 1 member with label 2, and 1 member with label 3. What is the Gini impurity of $S$?
+
+:::{dropdown} Solution
+We have $p_1=n/(n+2)$, $p_2=p_3=1/(n+2)$. Hence
+
+$$
+H(S) &= \frac{n}{n+2}\left( 1 - \frac{n}{n+2} \right) + 2 \frac{1}{n+2}\left( 1 - \frac{1}{n+2} \right) \\ 
+&= \frac{n}{n+2}\frac{2}{n+2} + \frac{2}{n+2}\frac{n+1}{n+2} \\ 
+&= \frac{4n+2}{(n+2)^2}.
+$$
+
+This value is 1/2 for $n=0$ and approaches zero as $n\to\infty$.
+:::
+::::
+
+## Partitioning
 
 Now we can describe the partition process. If $j$ is a dimension (feature) number and $\theta$ is a numerical threshold, then the sample set can be partitioned into complementary sets $S_L$, in which $x_j \le \theta$, and $S_R$, in which $x_j > \theta$. Define the quality measure
 
@@ -47,9 +72,25 @@ $$
 
 Choose the $(j,\theta)$ that minimize $Q$, and then recursively partition $S$ and $T$.
 
+::::{prf:example}
+:label: example-decision-trees-partition
+
+Suppose the 1D real samples $0,1,2,3$ have labels A,B,A,B. What is the optimal partition?
+
+:::{dropdown} Solution
+There are three ways to partition them.
+
+* $S=\{0\}$, $T=\{1,2,3\}$. We have $H(S)=0$ and $H(T)=(2/3)(1/3)+(1/3)(2/3)=4/9$. Hence the score for this partition is $(1)(0) + (3)(4/9) = 4/3$.
+* $S=\{0,1\}$, $T=\{2,3\}$. Then $H(S)=H(T)=2(1/2)(1/2)=1/2$, and the composite score is $(2)(1/2)+(2)(1/2)=2$. 
+* $S=\{0,1,2\}$, $T=\{3\}$. This arrangement is the same as the first case with $A↔B$.
+
+The best partition threshold is $x\le 0$ (or $x\le 2$, which is equivalent).
+:::
+::::
+
 ## Toy example
 
-We create a toy dataset with 20 random points, with two subsets of 10 that are shifted left/right a bit.
+We first create a toy dataset with 20 random points, with two subsets of 10 that are shifted left/right a bit.
 
 ```{code-cell}
 ---
@@ -103,29 +144,27 @@ y = pen["species"]
 We again get some interesting information from a tree with limited depth.
 
 ```{code-cell}
-t = tree.DecisionTreeClassifier(max_depth=2)
-t.fit(X,y)
+dt = tree.DecisionTreeClassifier(max_depth=2)
+dt.fit(X,y)
 
-tree.plot_tree(t);
+tree.plot_tree(dt);
 ```
 
 The most determinative feature for identifying the species is the flipper length. If it exceeds 206.5 mm, then the penguin is rather likely to be a Gentoo, and a further measurement of the bill depth settles that matter. Etc. Even for this shallow tree, two of the nodes at the bottom have small Gini impurity.
 
-Here is a more systematic study of the accuracy performance.
+Next, we increase the depth and measure the performance. The resulting tree will be identical to the tree above for the first two levels, since the optimal decisions remain the same.
 
 ```{code-cell}
-from sklearn.model_selection import cross_val_score,KFold
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import confusion_matrix,classification_report
 
-D = range(1,8)
-score_mean,score_std = [],[]
-kf = KFold(n_splits=10,shuffle=True,random_state=1)
-for d in D:
-    t = tree.DecisionTreeClassifier(max_depth=d)
-    scores = cross_val_score(t,X,y,cv=kf)
-    score_mean.append(scores.mean())
-    score_std.append(scores.std())
+X_tr, X_te, y_tr, y_te = train_test_split(X,y,test_size=0.2)
+dt = tree.DecisionTreeClassifier(max_depth=4)
+dt.fit(X,y)
 
-pd.DataFrame({"depth":D,"accuracy mean":score_mean,"accuracy std":score_std})
+yhat = dt.predict(X_te)
+print(confusion_matrix(y_te,yhat))
+print(classification_report(y_te,yhat))
 ```
 
 ## Limitations

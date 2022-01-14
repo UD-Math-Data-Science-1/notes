@@ -12,7 +12,7 @@ kernelspec:
 ---
 # Nearest neighbors
 
-Our first learning algorithm is conceptually very simple: Given a new point to classify, survey the nearest examples and choose the most frequent class. This is called the **$k$ nearest neighbors** (KNN) algorithm, where $k$ is the number of neighboring examples to survey.
+Our first learning algorithm is conceptually simple: Given a new point to classify, survey the nearest examples and choose the most frequent class. This is called the **$k$ nearest neighbors** (KNN) algorithm, where $k$ is the number of neighboring examples to survey.
 
 ## Norms
 
@@ -50,32 +50,25 @@ KNN divides up the feature space into domains that are dominated by nearby insta
 <video width=640 controls src="../_static/knn_demo.mp4"></video>
 ```
 
-<!--
-```{figure} knn_example.png
-:name: fig-nn-example
-Data vectors (dots) divide feature space into classes (colors). The decision boundaries between classes are not necessarily simple. (Figure from scikit-learn.org.) 
-```
- -->
-
 Implementation of KNN is straightforward for small data sets, but requires care to get reasonable execution efficiency for large sets.
-
 
 ## KNN in sklearn
 
-Let's demonstrate cross-validation using a seaborn data set. We use `dropna` to drop any rows with missing values.
+Let's revisit the penguins. We use `dropna` to drop any rows with missing values.
 ```{code-cell}
 import seaborn as sns
 import pandas as pd
-pen = sns.load_dataset("penguins")
-pen = pen.dropna()
-pen
+penguins = sns.load_dataset("penguins")
+penguins = penguins.dropna()
+penguins
 ```
 
 The data set has four quantitative columns that we use as features, and the species name is the label. 
 
 ```{code-cell}
-X = pen[["bill_length_mm","bill_depth_mm","flipper_length_mm","body_mass_g"]]
-y = pen["species"]
+col = ["bill_length_mm","bill_depth_mm","flipper_length_mm","body_mass_g"]
+X = penguins[col]
+y = penguins["species"]
 ```
 
 Scikit-learn plays nicely with pandas, so we don't have to translate the data into new structures. 
@@ -100,23 +93,38 @@ As you see above, the first point (index 0) was the closest, followed by four ot
 y[idx[0]]
 ```
 
-By a vote of 4–1, the classifier should choose Adelie as the result at this point.
+By a vote of 4–1, the classifier should choose Adelie as the result at this location.
 
 ```{code-cell}
 knn.predict(query)
 ```
 
-A quirk of the process is that some data points can be outvoted by their neighbors.
+Note that some data points can be outvoted by their neighbors.
 
 ```{code-cell}
 print("Predicted:")
 print(knn.predict(X.loc[:5,:]))
 
 print("\nData:")
-print(y[:5])
+print(y[:5].values)
 ```
 
-To assess performance, let's apply 10-fold cross-validation to KNN learners with varying $k$.
+Here we split into training and test sets to gauge the performance of the classifier The `classification_report` function creates a summary of some of the important metrics.
+
+```{code-cell}
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import classification_report,confusion_matrix
+
+X_tr, X_te, y_tr, y_te = train_test_split(X,y,test_size=0.2)
+knn.fit(X_tr,y_tr)
+
+yhat = knn.predict(X_te)
+print(confusion_matrix(y_te,yhat))
+print(classification_report(y_te,yhat))
+```
+
+
+<!-- To assess performance, let's apply 10-fold cross-validation to KNN learners with varying $k$.
 ```{code-cell}
 from sklearn.model_selection import cross_val_score,KFold
 
@@ -132,19 +140,17 @@ for k in K:
 pd.DataFrame({"k":K,"accuracy mean":score_mean,"accuracy std":score_std})
 ```
 
-There is no improvement here over $k=1$, in which each query just adopts the species of the nearest data vector.
+There is no improvement here over $k=1$, in which each query just adopts the species of the nearest data vector. -->
 
-The default norm in the KNN learner is the 2-norm. To use the 1-norm instead, add `metric="manhattan"` to the classifier setup call.
+The default norm in the KNN learner is the 2-norm. To use the 1-norm instead, add `metric="manhattan"` to the classifier construction call.
 
 ## Standardization
 
-Notice that the values in the data columns of the penguin frame are scaled quite differently. In particular, the values in the body mass column are more than 20x larger than the other columns on average.
+The values in the columns of the penguin frame are scaled quite differently. In particular, the values in the body mass column are more than 20x larger than the other columns on average. Consequently, the mass feature will dominate the distance calculations.
 
 ```{code-cell}
 X.mean()
 ```
-
-Consequently, the mass feature will dominate the distance calculations. 
 
 To remedy this issue, we should transform the data into z-scores:
 
@@ -155,25 +161,19 @@ Z = X.transform( lambda x: (x-x.mean())/x.std() )
 In this application, standardization makes performance dramatically better.
 
 ```{code-cell}
-from sklearn.model_selection import cross_val_score,KFold
+Z_tr, Z_te, y_tr, y_te = train_test_split(Z,y,test_size=0.2)
+knn.fit(Z_tr,y_tr)
 
-K = range(1,10)
-score_mean,score_std = [],[]
-kf = KFold(n_splits=10,shuffle=True,random_state=1)
-for k in K:
-    knn = neighbors.KNeighborsClassifier(n_neighbors=k)
-    scores = cross_val_score(knn,Z,y,cv=kf)
-    score_mean.append(scores.mean())
-    score_std.append(scores.std())
-
-pd.DataFrame({"k":K,"accuracy mean":score_mean,"accuracy std":score_std})
+yhat = knn.predict(Z_te)
+print(confusion_matrix(y_te,yhat))
+print(classification_report(y_te,yhat))
 ```
 
 ## Pipelines
 
 One inconvenience of the standardization step above is that it must be performed for any new data vector that comes along. Moreover, that standardization has to use the mean and std from our original creation of `Z`, so those values need to be tracked. 
 
-The scikit answer to this need is to create a **pipeline** that includes the transformation. Pipelines make it fairly easy to chain together data transformations, followed by a learner. The composite object acts like the original learner.
+The sklearn answer to this need is to create a **pipeline** that includes the transformation. Pipelines make it fairly easy to chain together data transformations, followed by a learner. The composite object acts like the original learner.
 
 As you might guess, standardization of data is so common that it is predefined.
 
@@ -181,8 +181,19 @@ As you might guess, standardization of data is so common that it is predefined.
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler   # converts to z-scores
 
-pipe = make_pipeline(StandardScaler(), neighbors.KNeighborsClassifier(n_neighbors=5))
+X_tr, X_te, y_tr, y_te = train_test_split(X,y,test_size=0.2)
 
-pipe.fit(X,y)
-pipe.score(X,y)
+knn = neighbors.KNeighborsClassifier(n_neighbors=5)
+pipe = make_pipeline(StandardScaler(),knn)
+
+pipe.fit(X_tr,y_tr)
+pipe.score(X_te,y_te)
 ```
+
+We can look under the hood a bit. The mean and variance of each of the original data columns is stored in the first part of the pipeline.
+
+```{code-cell}
+print(pipe[0].mean_)
+print(pipe[0].var_)
+```
+
