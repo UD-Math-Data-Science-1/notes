@@ -6,6 +6,7 @@ chapters:
   - file: representation/overview
     sections:
     - file: representation/data-types
+    - file: representation/numpy
     - file: representation/pandas
     - file: representation/split-apply-combine
   - file: statistics/overview
