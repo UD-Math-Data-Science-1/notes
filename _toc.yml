@@ -19,10 +19,10 @@ chapters:
     sections:
     - file: supervised/scikit
     - file: supervised/performance
-    - file: supervised/nearest-neighbors
     - file: supervised/decision-trees
+    - file: supervised/nearest-neighbors
+    - file: supervised/svm
     - file: supervised/model-selection
-  #   - file: supervised/svm
   # - file: regression/overview
   #   sections:
   #   - file: regression/intro

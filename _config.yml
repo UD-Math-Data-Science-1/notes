@@ -46,6 +46,7 @@ sphinx:
           "integer": ["\\mathbb{Z}"]
           "bfx" : "\\mathbf{x}"
           "bfX" : "\\mathbf{X}"
+          "bfw" : "\\mathbf{w}"
           "bfy" : "\\mathbf{y}"
           "bfz" : "\\mathbf{z}"
           "bfzero" : "\\boldsymbol{0}"
