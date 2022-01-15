@@ -169,6 +169,31 @@ print(classification_report(y_te,yhat))
 
 ## Limitations
 
-Decision trees depend sensitively on the sample locations. A small change can completely rewrite large parts of the tree, which gives a caveat about interpretation. They are also biased classifiers if the labels within the data set are not well-balanced between the classes Perhaps the greatest limitation to CART is that the partition algorithm, which is *greedy* by doing the best thing at the moment, does not necessarily find a globally optimal tree, or even a nearby one. 
+Decision trees depend sensitively on the sample locations. A tree trained on one data subset may not do well on a new set. A small change can completely rewrite large parts of the tree, which gives a caveat about interpretation. Also, the partition algorithm, which is *greedy* by doing the best thing at the moment, does not necessarily find a globally optimal tree, or even a nearby one. 
 
-To deal with these issues, one can use a **random forest**, which consists of many trees trained on subsets of the original features and datasets.   
+Here we see mediocre performance on the loan application data.
+
+```{code-cell}
+import numpy as np
+X = np.loadtxt("data.csv",delimiter=",")
+y = np.loadtxt("labels.csv",delimiter=",")
+X_tr, X_te, y_tr, y_te = train_test_split(X,y,test_size=0.2)
+
+dt = tree.DecisionTreeClassifier(max_depth=5)
+dt.fit(X_tr,y_tr)
+yhat = dt.predict(X_te)
+print(confusion_matrix(y_te,yhat))
+print(classification_report(y_te,yhat))
+```
+
+To deal with these issues and more, you can try a **random forest**, which consists of many trees trained on subsets of the original features and datasets.   
+
+```{code-cell}
+from sklearn.ensemble import RandomForestClassifier
+rf = RandomForestClassifier(n_estimators=500,max_features=6)
+rf.fit(X_tr,y_tr)
+
+yhat = rf.predict(X_te)
+print(confusion_matrix(y_te,yhat))
+```
+
