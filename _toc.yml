@@ -23,13 +23,12 @@ chapters:
     - file: supervised/nearest-neighbors
     - file: supervised/svm
     - file: supervised/model-selection
-  # - file: regression/overview
-  #   sections:
-  #   - file: regression/intro
-  #   - file: regression/linear
-  #   - file: regression/regularization
-  #   - file: regression/features
-  #   - file: regression/logistic
+  - file: regression/overview
+    sections:
+    - file: regression/linear
+    - file: regression/multilinear
+    - file: regression/regularization
+    - file: regression/logistic
   # - file: unsupervised/overview
   #   sections:
   #   - file: unsupervised/intro

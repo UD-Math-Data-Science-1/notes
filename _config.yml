@@ -44,6 +44,8 @@ sphinx:
           "complex": ["\\mathbb{C}"]
           "nat": ["\\mathbb{N}"]
           "integer": ["\\mathbb{Z}"]
+          "bfa" : "\\mathbf{a}"
+          "bfe" : "\\mathbf{e}"
           "bfx" : "\\mathbf{x}"
           "bfX" : "\\mathbf{X}"
           "bfw" : "\\mathbf{w}"

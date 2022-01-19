@@ -2,12 +2,18 @@
 
 Machine learning is the use of data to tune algorithms for making decisions or predictions. Unlike deduction based on reasoning from principles governing the application, machine learning is a "black box" that just adapts via training.
 
-We divide machine learning into two major forms: supervised and unsupervised. In supervised learning, the training data includes only examples that include the answer (or **label**) we expect to get. The training for unsupervised learning does not include "correct answers" as part of the data. 
+We divide machine learning into three major forms: 
 
-Supervised learning in turn can be divided into two major areas:
+* **Supervised learning** The training data only examples that include the answer (or **label**) we expect to get. The goals are to find important effects and/or to predict labels for previously unseen examples.
+* **Unsupervised learning** The data is unlabeled, and the goal is to discover structure and relationships inherent to the data set.
+* **Reinforcement learning** The data is unlabeled, but there are known rules and goals that can be encouraged through penalties and rewards.
+
+We start with supervised learning, which can be subdivided into two major areas:
 
 * **Classification**, in which the algorithm is expected to choose from among a finite set of options.
 * **Regression**, in which the algorithm should predict the value of a quantitative variable.
+
+Most algorithms for one of these problems have counterparts in the other. 
 
 <!-- Regression methods can typically be used as classifiers, by thresholding or binning the result. For example, in a yes/no situation, a predictor of probability can be used to decide "yes" if its probability exceeds 50%. -->
 
@@ -24,7 +30,9 @@ X_{n1} & X_{n2} & \cdots & X_{nd}
 \end{bmatrix}.
 $$
 
-Note that *the first index refers to the row number, and the second to the column number*. We can also collect the associated training labels as the **label vector**
+Note that *the first index refers to the row number, and the second to the column number*. The rows may be referred to as instances, examples, samples, etc.
+
+We can also collect the associated training labels as the **label vector**
 
 $$
 \bfy = \begin{bmatrix} 
@@ -33,7 +41,7 @@ y_1 \\ y_2 \\ \vdots \\ y_n
 $$
 
 ```{note}
-In linear algebra, the default shape for a vector is as a single column. In Python, a vector doesn't exactly have a row or column orientation, though when it matters, a row shape is assumed.
+In linear algebra, the default shape for a vector is as a single column. In Python, a vector doesn't exactly have a row or column orientation, though when it matters, a row shape is usually preferred.
 ```
 
 ```{prf:example}
