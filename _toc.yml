@@ -29,11 +29,10 @@ chapters:
     - file: regression/multilinear
     - file: regression/regularization
     - file: regression/logistic
-  # - file: unsupervised/overview
-  #   sections:
-  #   - file: unsupervised/intro
-  #   - file: unsupervised/similarity
-  #   - file: unsupervised/k-means
+  - file: unsupervised/overview
+    sections:
+    - file: unsupervised/preliminaries
+    - file: unsupervised/k-means
   #   - file: unsupervised/linkage
   # - file: network/overview
   #   sections:
