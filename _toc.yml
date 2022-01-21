@@ -33,7 +33,7 @@ chapters:
     sections:
     - file: unsupervised/preliminaries
     - file: unsupervised/k-means
-  #   - file: unsupervised/linkage
+    - file: unsupervised/hierarchical
   # - file: network/overview
   #   sections:
   #   - file: network/graphs

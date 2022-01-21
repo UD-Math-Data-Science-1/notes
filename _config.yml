@@ -4,8 +4,7 @@ author: Tobin A. Driscoll
 logo: logo.png
 
 exclude_patterns: 
-  - supervised/temp.ipynb
-  - statistics/temp.ipynb
+  - etc/*
 
 parse:
   myst_enable_extensions:
