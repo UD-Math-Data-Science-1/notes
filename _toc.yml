@@ -8,10 +8,10 @@ chapters:
     - file: representation/data-types
     - file: representation/numpy
     - file: representation/pandas
-    - file: representation/split-apply-combine
+    - file: representation/seaborn
   - file: statistics/overview
     sections:
-    - file: statistics/distributions
+    - file: statistics/split-apply-combine
     - file: statistics/summary
     - file: statistics/outliers
     - file: statistics/correlation

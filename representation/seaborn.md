@@ -10,9 +10,15 @@ kernelspec:
   language: python
   name: python3
 ---
-# Distributions
+# Introduction to seaborn
 
-We will illustrate some concepts using a data set that is provided by seaborn, a useful data visualization package.
+Seaborn is a high-level data visualization package. It provides commands that let you state *what* you want to see, rather than having to specify exactly *how* it should look.
+
+```{note}
+Python has many graphics packages with different niches. The most widespread is Matplotlib, which is what seaborn is built on top of. If you want to deeply customize a seaborn plot, it is possible, but we won't get into the details.
+```
+
+We will illustrate some concepts using a data set that is provided within seaborn.
 
 ```{code-cell} ipython3
 import pandas as pd
@@ -38,21 +44,21 @@ You can specify the number of bins used (or their edges).
 sns.displot(data=cars,x="mpg",bins=20);
 ```
 
-Much as we use grouping in pandas, we can use categories in a series to split the data in seaborn. In this case, we use three different colors (hues) for three different regions of origin.
+We can use categorical variables to define groups within the data set. In this case, we use different colors (hues) for the three unique values of `origin`.
 
 ```{code-cell}
 sns.displot(data=cars,x="mpg",hue="origin");
 ```
 
-That graph is a little messy because of the overlaps. We can instead split the data and plot as columns of subplots.
+That graph might be hard to read because of the overlaps. We can instead plot the groups in separate columns.
 
 ```{code-cell}
 sns.displot(data=cars,x="mpg",col="origin");
 ```
 
-In either case, it's easy to see that the U.S. cars are more clustered on the left (smaller MPG) than the Japanese and European cars.
+It's now clear that the U.S. cars are more clustered on the left (smaller MPG) than are the Japanese and European cars.
 
-You can even combine grouping by plot column with grouping by color.
+You can combine using columns for one category with colors for another. Note that here we also direct seaborn to stack different colored bars rather than overlapping them.
 
 ```{code-cell}
 sns.displot(data=cars,x="mpg",col="origin",hue="cylinders",multiple="stack");
@@ -69,7 +75,7 @@ When a sample is used to estimate a continuous CDF, the resulting is a stair-ste
 sns.displot(data=cars,x="mpg",col="origin",kind="ecdf");
 ```
 
-If we could account for infinitely many observations, we would expect (in most cases) the CDF to be continuous and differentiable. The derivative of the CDF, $f(x)=F'(x)$, is called the **probability distribution function** (PDF). The PDF is the continuous analog of a histogram divided into infinitesimally small bins. Note that because the probability of observing *some* real value is 100%, we have the constraint
+If we could account for infinitely many observations, we would expect (in typical cases) the CDF to be continuous and differentiable. The derivative of the CDF, $f(x)=F'(x)$, is called the **probability distribution function** (PDF). The PDF is the continuous analog of a histogram divided into infinitesimally small bins. Note that because the probability of observing *some* real value is 100%, we have the normalization constraint
 
 $$
 \int_{-\infty}^\infty f(x)\, dx = 1.
@@ -124,4 +130,4 @@ For example, using the MPG data:
 sns.displot(data=cars,x="mpg",hue="origin",kind="kde");
 ```
 
-Based on these curves, it would be plausible to approximate the distribution of cars from Europe as a normal distribution, but the asymmetry in the other two cases would make that approximation less satisfying.
+Based on these curves, it would be plausible to approximate the distribution of cars from Europe as a normal distribution, but the asymmetry in the other two cases would make that approximation less satisfactory.
