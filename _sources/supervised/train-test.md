@@ -76,15 +76,15 @@ for k in range(1,13):
 print(acc)
 ```
 
-The experiment above suggests that we will not see much benefit from increasing the $k$ parameter past 6. 
+The experiment above suggests that we will not see much benefit from increasing the $k$ parameter past 6. This is known as **hyperparameter tuning**, because we are looking at the effect of varying a parameter that is not under the control of the learner algorithm.
 
-But we have created a new problem. Suppose, as with $k$ in the example above, we have parameters we can adjust before training a classifier. (These are called *hyperparameters* in ML, because they are not parameters meant to be adjusted by the training algorithm.) If we optimize the hyperparameters based on a performance metric over the fixed test set, then we have reintroduced the possibility of overfitting; i.e., the hyperparameters can be learned from the test set, and there is nothing to check their generalization.
+But we have created a new problem. If we optimize hyperparameters based on a performance metric over a fixed test set, then we have reintroduced the possibility of overfitting; i.e., the hyperparameters can be learned from the test set.
 
-There are two approaches to this dilemma. One is to split the data into *three* sets for training, testing, and *validation*. The validation set is used to evaluate the winning algorithm. However, this further reduces the amount of data available for training, which is likely to hurt performance.
+There are two approaches to this dilemma. One is to split the data into *three* sets for training, testing, and an additional level of validation. However, this approach further reduces the amount of data available for training, which is likely to hurt performance.
 
-The other approach, called *cross-validation*, is to train the learner multiple times, each with a different split of the data into training and testing. In **$k$-fold cross-validation**, the full data set is divided into $k$ roughly equal parts called *folds*. First, the learner is trained using folds $2,3,\ldots,k$ and tested with the cases in fold 1. Then the learners are retrained using folds $1,3,\ldots,k$ and tested with the cases in fold 2. This continues until each fold has served once as the test set.
+The other approach, called *cross-validation*, is to train the learner multiple times, each time using a different split of the data into training and testing. In **$k$-fold cross-validation**, the full data set is divided into $k$ roughly equal parts called *folds*. First, the learner is trained using folds $2,3,\ldots,k$ and tested with the cases in fold 1. Then the learners are retrained using folds $1,3,\ldots,k$ and tested with the cases in fold 2. This continues until each fold has served once as the test set.
 
-We demonstrate $k$=fold cross-validation for a particular KNN learner for $k=5$. By default, the performance metric will be the `knn.score` method, which is defined to compute accuracy.
+We demonstrate $k$-fold cross-validation for a particular KNN learner for $k=5$. By default, the performance metric will be the `knn.score` method, which is defined to compute accuracy.
 
 ```{code-cell}
 from sklearn.model_selection import cross_val_score

@@ -44,7 +44,7 @@
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>window.MathJax = {"tex": {"macros": {"float": ["\\mathbb{F}"], "real": ["\\mathbb{R}"], "complex": ["\\mathbb{C}"], "nat": ["\\mathbb{N}"], "integer": ["\\mathbb{Z}"], "bfx": "\\mathbf{x}", "bfX": "\\mathbf{X}", "bfy": "\\mathbf{y}", "bfz": "\\mathbf{z}", "rmn": ["\\mathbb{R}^{#1 \\times #2}", 2], "dd": ["\\frac{d #1}{d #2}", 2], "pp": ["\\frac{\\partial #1}{\\partial #2}", 2], "norm": ["\\| #1 \\|", 1], "twonorm": ["\\| #1 \\|_2", 1], "onenorm": ["\\| #1 \\|_1", 1], "infnorm": ["\\| #1 \\|_\\infty", 1], "innerprod": ["\\langle #1,#2 \\rangle", 2], "pr": ["^{(#1)}", 1], "diag": ["\\operatorname{diag}"], "sign": ["\\operatorname{sign}"], "ee": ["\\times 10^"], "floor": ["\\lfloor#1\\rfloor", 1], "argmin": ["\\operatorname{argmin}"], "Cov": ["\\operatorname{Cov}"]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script>window.MathJax = {"tex": {"macros": {"float": ["\\mathbb{F}"], "real": ["\\mathbb{R}"], "complex": ["\\mathbb{C}"], "nat": ["\\mathbb{N}"], "integer": ["\\mathbb{Z}"], "bfa": "\\mathbf{a}", "bfe": "\\mathbf{e}", "bfx": "\\mathbf{x}", "bfX": "\\mathbf{X}", "bfw": "\\mathbf{w}", "bfy": "\\mathbf{y}", "bfz": "\\mathbf{z}", "bfzero": "\\boldsymbol{0}", "rmn": ["\\mathbb{R}^{#1 \\times #2}", 2], "dd": ["\\frac{d #1}{d #2}", 2], "pp": ["\\frac{\\partial #1}{\\partial #2}", 2], "norm": ["\\| #1 \\|", 1], "twonorm": ["\\| #1 \\|_2", 1], "onenorm": ["\\| #1 \\|_1", 1], "infnorm": ["\\| #1 \\|_\\infty", 1], "innerprod": ["\\langle #1,#2 \\rangle", 2], "pr": ["^{(#1)}", 1], "diag": ["\\operatorname{diag}"], "sign": ["\\operatorname{sign}"], "ee": ["\\times 10^"], "floor": ["\\lfloor#1\\rfloor", 1], "argmin": ["\\operatorname{argmin}"], "Cov": ["\\operatorname{Cov}"]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
     <script>
         const thebe_selector = ".thebe,.cell"
@@ -55,7 +55,7 @@
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="1.2. Introduction to pandas" href="pandas.html" />
+    <link rel="next" title="1.2. Introduction to numpy" href="numpy.html" />
     <link rel="prev" title="1. Representation of data" href="overview.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
@@ -117,18 +117,18 @@
     </a>
    </li>
    <li class="toctree-l2">
+    <a class="reference internal" href="numpy.html">
+     1.2. Introduction to numpy
+    </a>
+   </li>
+   <li class="toctree-l2">
     <a class="reference internal" href="pandas.html">
-     1.2. Introduction to pandas
+     1.3. Introduction to pandas
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="split-apply-combine.html">
-     1.3. Split–apply–combine
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="seaborn.html">
-     1.4. Introduction to seaborn
+     1.4. Split–apply–combine
     </a>
    </li>
   </ul>
@@ -144,25 +144,30 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../statistics/exploratory.html">
-     2.1. Exploratory analysis
+    <a class="reference internal" href="../statistics/distributions.html">
+     2.1. Distributions
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../statistics/distributions.html">
-     2.2. Continuous distributions
+    <a class="reference internal" href="../statistics/summary.html">
+     2.2. Summary statistics
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../statistics/outliers.html">
+     2.3. Outliers
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../statistics/correlation.html">
-     2.3. Correlation
+     2.4. Correlation
     </a>
    </li>
   </ul>
  </li>
  <li class="toctree-l1 has-children">
   <a class="reference internal" href="../supervised/overview.html">
-   3. Supervised learning
+   3. Classification
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
   <label for="toctree-checkbox-3">
@@ -173,6 +178,85 @@
    <li class="toctree-l2">
     <a class="reference internal" href="../supervised/scikit.html">
      3.1. Using scikit-learn
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../supervised/performance.html">
+     3.2. Classifier performance
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../supervised/decision-trees.html">
+     3.3. Decision trees
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../supervised/nearest-neighbors.html">
+     3.4. Nearest neighbors
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../supervised/svm.html">
+     3.5. Support vector machine
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../supervised/model-selection.html">
+     3.6. Model selection
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../regression/overview.html">
+   4. Regression
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../regression/linear.html">
+     4.1. Linear regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../regression/multilinear.html">
+     4.2. Multilinear and polynomial regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../regression/regularization.html">
+     4.3. Regularization
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../regression/logistic.html">
+     4.4. Logistic regression
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../unsupervised/overview.html">
+   5. Unsupervised learning
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <label for="toctree-checkbox-5">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../unsupervised/preliminaries.html">
+     5.1. Preliminaries
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../unsupervised/k-means.html">
+     5.2. k-means
     </a>
    </li>
   </ul>
@@ -271,6 +355,11 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#dummy-one-hot-encoding">
+   Dummy/one-hot encoding
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#missing-values">
    Missing values
   </a>
@@ -314,6 +403,11 @@
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#collections-of-values">
    Collections of values
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#dummy-one-hot-encoding">
+   Dummy/one-hot encoding
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -395,15 +489,33 @@
 <p>Index sets tend to be categorical or discrete data. For instance, you could have a series of light wavelengths indexed by color names. When the index set consists of timestamps, we have a <strong>time series</strong>. When the index set consists of consecutive integers, we describe the series as a <strong>vector</strong> or a <strong>one-dimensional array</strong>. If the indices are pairs of integers taken from consecutive sets, we have a <strong>matrix</strong> or a <strong>two-dimensional array</strong>.</p>
 <p>A <strong>data frame</strong> is a collection of series that share the same index set. The individual series are called <strong>columns</strong> of the data frame, and the values of all the columns at a single index value form a <strong>row</strong>.</p>
 </div>
+<div class="section" id="dummy-one-hot-encoding">
+<h2>Dummy/one-hot encoding<a class="headerlink" href="#dummy-one-hot-encoding" title="Permalink to this headline">¶</a></h2>
+<p>One way to convert nominal data to a quantifiable form is through <strong>dummy variables</strong>, also called <strong>one-hot encoding</strong>. A category that has <span class="math notranslate nohighlight">\(m\)</span> unique options <span class="math notranslate nohighlight">\(c_1,\ldots,c_m\)</span> can be replaced by <span class="math notranslate nohighlight">\(m-1\)</span> binary variables <span class="math notranslate nohighlight">\(x_i\)</span>. The value <span class="math notranslate nohighlight">\(c_1\)</span> corresponds to <span class="math notranslate nohighlight">\(x_1=1\)</span>, <span class="math notranslate nohighlight">\(x_2=\cdots=x_{m-1}=0\)</span>. The value <span class="math notranslate nohighlight">\(c_2\)</span> is translated into <span class="math notranslate nohighlight">\(x_2=1\)</span>, <span class="math notranslate nohighlight">\(x_1=x_3=\cdots=0\)</span>, and so on. The value <span class="math notranslate nohighlight">\(c_m\)</span> means that all the <span class="math notranslate nohighlight">\(x_i\)</span> are zero.</p>
+<div class="proof example admonition" id="example-data-types-dummy">
+<p class="admonition-title"><span class="caption-number">Example 1.1.5 </span></p>
+<div class="example-content section" id="proof-content">
+<p>Suppose that the <em>stooge</em> variable can take the values <code class="docutils literal notranslate"><span class="pre">Moe</span></code>, <code class="docutils literal notranslate"><span class="pre">Larry</span></code>, <code class="docutils literal notranslate"><span class="pre">Curly</span></code>, or <code class="docutils literal notranslate"><span class="pre">Shemp</span></code>. Then the vector</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">Curly</span><span class="p">,</span><span class="n">Moe</span><span class="p">,</span><span class="n">Curly</span><span class="p">,</span><span class="n">Shemp</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>would be replaced by the array</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="p">]</span>
+</pre></div>
+</div>
+<p>(Note: Nobody likes Larry.)</p>
+</div>
+</div></div>
 <div class="section" id="missing-values">
 <h2>Missing values<a class="headerlink" href="#missing-values" title="Permalink to this headline">¶</a></h2>
-<p>In the real world, we often must cope with data series that have missing values. This is a common source of mistakes and confusion. While a few languages have a dedicated “missing” value defined, in most cases (including Python) it’s common to use <code class="docutils literal notranslate"><span class="pre">NaN</span></code> to represent a missing value, even when the rest of the data in the series are not expressed as float numbers. It’s useful to know the following.</p>
+<p>In real data sets, we often must cope with data series that have missing values. This is a common source of mistakes and confusion, especially because there is no universal practice. Sometimes zero is used to represent a missing number. It’s also common to use an impossible value, such as <span class="math notranslate nohighlight">\(-999\)</span> to represent weight, to signify missing data.</p>
+<p>While a few computer languages have a dedicated “missing” value defined, in most cases (including Python) it’s common to use <code class="docutils literal notranslate"><span class="pre">NaN</span></code> to represent a missing value, even when the rest of the data in the series are not expressed as float numbers. It’s useful to know the following.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>By definition, every operation that involves a <code class="docutils literal notranslate"><span class="pre">NaN</span></code> value results in a <code class="docutils literal notranslate"><span class="pre">NaN</span></code>.</p>
 </div>
 <p>Notoriously, one consequence of this behavior is that <code class="docutils literal notranslate"><span class="pre">NaN==NaN</span></code> is <code class="docutils literal notranslate"><span class="pre">NaN</span></code>, not “true!” When you get unexpected or inexplicable behavior, it’s worth determining whether you have been unknowingly operating with <code class="docutils literal notranslate"><span class="pre">NaN</span></code>s.</p>
-<p>Some data sources might use an empty string or <code class="docutils literal notranslate"><span class="pre">&quot;N/A&quot;</span></code> to designate missing values. It’s often up to the user to cope correctly with such cases.</p>
+<p>The process of detecting and dealing with missing or impossible values is part of <strong>data cleaning</strong>. (Other data cleaning tasks include dealing with incorrectly formatted input and removing duplicates.) Sometimes, the missing values are simply dropped from the data; in other cases, they are replaced with average or other representative values through a process called <strong>imputation</strong>.</p>
 </div>
 </div>
 
@@ -504,15 +616,33 @@
 <p>Index sets tend to be categorical or discrete data. For instance, you could have a series of light wavelengths indexed by color names. When the index set consists of timestamps, we have a <strong>time series</strong>. When the index set consists of consecutive integers, we describe the series as a <strong>vector</strong> or a <strong>one-dimensional array</strong>. If the indices are pairs of integers taken from consecutive sets, we have a <strong>matrix</strong> or a <strong>two-dimensional array</strong>.</p>
 <p>A <strong>data frame</strong> is a collection of series that share the same index set. The individual series are called <strong>columns</strong> of the data frame, and the values of all the columns at a single index value form a <strong>row</strong>.</p>
 </div>
+<div class="section" id="dummy-one-hot-encoding">
+<h2>Dummy/one-hot encoding<a class="headerlink" href="#dummy-one-hot-encoding" title="Permalink to this headline">¶</a></h2>
+<p>One way to convert nominal data to a quantifiable form is through <strong>dummy variables</strong>, also called <strong>one-hot encoding</strong>. A category that has <span class="math notranslate nohighlight">\(m\)</span> unique options <span class="math notranslate nohighlight">\(c_1,\ldots,c_m\)</span> can be replaced by <span class="math notranslate nohighlight">\(m-1\)</span> binary variables <span class="math notranslate nohighlight">\(x_i\)</span>. The value <span class="math notranslate nohighlight">\(c_1\)</span> corresponds to <span class="math notranslate nohighlight">\(x_1=1\)</span>, <span class="math notranslate nohighlight">\(x_2=\cdots=x_{m-1}=0\)</span>. The value <span class="math notranslate nohighlight">\(c_2\)</span> is translated into <span class="math notranslate nohighlight">\(x_2=1\)</span>, <span class="math notranslate nohighlight">\(x_1=x_3=\cdots=0\)</span>, and so on. The value <span class="math notranslate nohighlight">\(c_m\)</span> means that all the <span class="math notranslate nohighlight">\(x_i\)</span> are zero.</p>
+<div class="proof example admonition" id="example-data-types-dummy">
+<p class="admonition-title"><span class="caption-number">Example 1.1.5 </span></p>
+<div class="example-content section" id="proof-content">
+<p>Suppose that the <em>stooge</em> variable can take the values <code class="docutils literal notranslate"><span class="pre">Moe</span></code>, <code class="docutils literal notranslate"><span class="pre">Larry</span></code>, <code class="docutils literal notranslate"><span class="pre">Curly</span></code>, or <code class="docutils literal notranslate"><span class="pre">Shemp</span></code>. Then the vector</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">Curly</span><span class="p">,</span><span class="n">Moe</span><span class="p">,</span><span class="n">Curly</span><span class="p">,</span><span class="n">Shemp</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>would be replaced by the array</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="p">]</span>
+</pre></div>
+</div>
+<p>(Note: Nobody likes Larry.)</p>
+</div>
+</div></div>
 <div class="section" id="missing-values">
 <h2>Missing values<a class="headerlink" href="#missing-values" title="Permalink to this headline">¶</a></h2>
-<p>In the real world, we often must cope with data series that have missing values. This is a common source of mistakes and confusion. While a few languages have a dedicated “missing” value defined, in most cases (including Python) it’s common to use <code class="docutils literal notranslate"><span class="pre">NaN</span></code> to represent a missing value, even when the rest of the data in the series are not expressed as float numbers. It’s useful to know the following.</p>
+<p>In real data sets, we often must cope with data series that have missing values. This is a common source of mistakes and confusion, especially because there is no universal practice. Sometimes zero is used to represent a missing number. It’s also common to use an impossible value, such as <span class="math notranslate nohighlight">\(-999\)</span> to represent weight, to signify missing data.</p>
+<p>While a few computer languages have a dedicated “missing” value defined, in most cases (including Python) it’s common to use <code class="docutils literal notranslate"><span class="pre">NaN</span></code> to represent a missing value, even when the rest of the data in the series are not expressed as float numbers. It’s useful to know the following.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>By definition, every operation that involves a <code class="docutils literal notranslate"><span class="pre">NaN</span></code> value results in a <code class="docutils literal notranslate"><span class="pre">NaN</span></code>.</p>
 </div>
 <p>Notoriously, one consequence of this behavior is that <code class="docutils literal notranslate"><span class="pre">NaN==NaN</span></code> is <code class="docutils literal notranslate"><span class="pre">NaN</span></code>, not “true!” When you get unexpected or inexplicable behavior, it’s worth determining whether you have been unknowingly operating with <code class="docutils literal notranslate"><span class="pre">NaN</span></code>s.</p>
-<p>Some data sources might use an empty string or <code class="docutils literal notranslate"><span class="pre">&quot;N/A&quot;</span></code> to designate missing values. It’s often up to the user to cope correctly with such cases.</p>
+<p>The process of detecting and dealing with missing or impossible values is part of <strong>data cleaning</strong>. (Other data cleaning tasks include dealing with incorrectly formatted input and removing duplicates.) Sometimes, the missing values are simply dropped from the data; in other cases, they are replaced with average or other representative values through a process called <strong>imputation</strong>.</p>
 </div>
 </div>
 
@@ -548,10 +678,10 @@
             <p class="prev-next-title"><span class="section-number">1. </span>Representation of data</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="pandas.html" title="next page">
+    <a class='right-next' id="next-link" href="numpy.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">1.2. </span>Introduction to pandas</p>
+        <p class="prev-next-title"><span class="section-number">1.2. </span>Introduction to numpy</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

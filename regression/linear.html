@@ -1,0 +1,1233 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>4.1. Linear regression &#8212; Data Science 1</title>
+    
+  <link href="../_static/css/theme.css" rel="stylesheet">
+  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>window.MathJax = {"tex": {"macros": {"float": ["\\mathbb{F}"], "real": ["\\mathbb{R}"], "complex": ["\\mathbb{C}"], "nat": ["\\mathbb{N}"], "integer": ["\\mathbb{Z}"], "bfa": "\\mathbf{a}", "bfe": "\\mathbf{e}", "bfx": "\\mathbf{x}", "bfX": "\\mathbf{X}", "bfw": "\\mathbf{w}", "bfy": "\\mathbf{y}", "bfz": "\\mathbf{z}", "bfzero": "\\boldsymbol{0}", "rmn": ["\\mathbb{R}^{#1 \\times #2}", 2], "dd": ["\\frac{d #1}{d #2}", 2], "pp": ["\\frac{\\partial #1}{\\partial #2}", 2], "norm": ["\\| #1 \\|", 1], "twonorm": ["\\| #1 \\|_2", 1], "onenorm": ["\\| #1 \\|_1", 1], "infnorm": ["\\| #1 \\|_\\infty", 1], "innerprod": ["\\langle #1,#2 \\rangle", 2], "pr": ["^{(#1)}", 1], "diag": ["\\operatorname{diag}"], "sign": ["\\operatorname{sign}"], "ee": ["\\times 10^"], "floor": ["\\lfloor#1\\rfloor", 1], "argmin": ["\\operatorname{argmin}"], "Cov": ["\\operatorname{Cov}"]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script>
+        const thebe_selector = ".thebe,.cell"
+        const thebe_selector_input = "pre,.cell_input div.highlight"
+        const thebe_selector_output = ".output,.cell_output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="4.2. Multilinear and polynomial regression" href="multilinear.html" />
+    <link rel="prev" title="4. Regression" href="overview.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Data Science 1</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   Data Science 1 @ UD Math
+  </a>
+ </li>
+</ul>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../representation/overview.html">
+   1. Representation of data
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../representation/data-types.html">
+     1.1. Types of data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../representation/numpy.html">
+     1.2. Introduction to numpy
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../representation/pandas.html">
+     1.3. Introduction to pandas
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../representation/split-apply-combine.html">
+     1.4. Split–apply–combine
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../statistics/overview.html">
+   2. Descriptive statistics
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../statistics/distributions.html">
+     2.1. Distributions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../statistics/summary.html">
+     2.2. Summary statistics
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../statistics/outliers.html">
+     2.3. Outliers
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../statistics/correlation.html">
+     2.4. Correlation
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../supervised/overview.html">
+   3. Classification
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../supervised/scikit.html">
+     3.1. Using scikit-learn
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../supervised/performance.html">
+     3.2. Classifier performance
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../supervised/decision-trees.html">
+     3.3. Decision trees
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../supervised/nearest-neighbors.html">
+     3.4. Nearest neighbors
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../supervised/svm.html">
+     3.5. Support vector machine
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../supervised/model-selection.html">
+     3.6. Model selection
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="overview.html">
+   4. Regression
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     4.1. Linear regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="multilinear.html">
+     4.2. Multilinear and polynomial regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="regularization.html">
+     4.3. Regularization
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="logistic.html">
+     4.4. Logistic regression
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../unsupervised/overview.html">
+   5. Unsupervised learning
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <label for="toctree-checkbox-5">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../unsupervised/preliminaries.html">
+     5.1. Preliminaries
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        <a class="dropdown-buttons"
+            href="../_sources/regression/linear.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download notebook file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/regression/linear.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/UD-Math-Data-Science-1/notes/main?urlpath=tree/regression/linear.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <button type="button" class="btn btn-secondary topbarbtn"
+            onclick="initThebeSBT()" title="Launch Thebe" data-toggle="tooltip" data-placement="left"><i
+                class="fas fa-play"></i><span style="margin-left: .4em;">Live Code</span></button>
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#performance-metrics">
+   Performance metrics
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#mse">
+     MSE
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#coefficient-of-determination">
+     Coefficient of determination
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#case-study-arctic-ice">
+   Case study: Arctic ice
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <!-- Table of contents that is only displayed when printing the page -->
+    <div id="jb-print-docs-body" class="onlyprint">
+        <h1>Linear regression</h1>
+        <!-- Table of contents -->
+        <div id="print-main-content" class="row">
+            <div class="col-12 col-md-12 pl-md-5 pr-md-5">
+            <div id="jb-print-toc">
+                
+                <div>
+                    <h2> Contents </h2>
+                </div>
+                <nav aria-label="Page">
+                    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#performance-metrics">
+   Performance metrics
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#mse">
+     MSE
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#coefficient-of-determination">
+     Coefficient of determination
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#case-study-arctic-ice">
+   Case study: Arctic ice
+  </a>
+ </li>
+</ul>
+
+                </nav>
+            </div>
+            
+              <div>
+                
+  <div class="tex2jax_ignore mathjax_ignore section" id="linear-regression">
+<h1><span class="section-number">4.1. </span>Linear regression<a class="headerlink" href="#linear-regression" title="Permalink to this headline">¶</a></h1>
+<p>You have probably encountered the most basic form of regression: fitting a straight line to data points <span class="math notranslate nohighlight">\((x_i,y_i)\)</span> in the <span class="math notranslate nohighlight">\(xy\)</span>-plane. In this we assume a relation</p>
+<div class="math notranslate nohighlight">
+\[
+y \approx f(x) = ax + b,
+\]</div>
+<p>and define a <strong>loss function</strong> or <em>misfit function</em> that adds up how far predictions are from the data:</p>
+<div class="math notranslate nohighlight">
+\[
+L(a,b) = \sum_{i=1}^n (f(x_i)-y_i)^2 = \sum_{i=1}^n (a x_i+b-y_i)^2.
+\]</div>
+<p>This problem can be solved by a little multidimensional calculus. If we hold <span class="math notranslate nohighlight">\(b\)</span> fixed and take a derivative with respect to <span class="math notranslate nohighlight">\(a\)</span>, then</p>
+<div class="math notranslate nohighlight">
+\[
+\pp{L}{a} = \sum_{i=1}^n 2x_i(a x_i + b - y_i) = 2 a \left(\sum_{i=1}^n x_i^2\right) + 2b\left(\sum_{i=1}^n x_i\right) - \sum_{i=1}^n y_i.
+\]</div>
+<p>Similarly, if we hold <span class="math notranslate nohighlight">\(a\)</span> fixed and differentiate with respect to <span class="math notranslate nohighlight">\(b\)</span>, then</p>
+<div class="math notranslate nohighlight">
+\[
+\pp{L}{b} = \sum_{i=1}^n 2(a x_i + b - y_i) = 2 a \left(\sum_{i=1}^n x_i\right) + 2bn - \sum_{i=1}^n y_i.
+\]</div>
+<p>Setting both derivatives to zero creates a system of two linear equations to be solved for <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span>.</p>
+<p>Before moving on, we adopt a vector-oriented view of the process. As a sum of squares, the loss function can be written as a 2-norm:</p>
+<div class="math notranslate nohighlight">
+\[
+L(a,b) =  \| a \bfx + b \bfe - \bfy \|_2^2,
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\bfe\)</span> is a vector of <span class="math notranslate nohighlight">\(n\)</span> ones. Minimizing <span class="math notranslate nohighlight">\(L\)</span> over all values of <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span> is called the <strong>least squares</strong> problem. (More specifically, this setup is called <em>simple least squares</em> or <em>ordinary least squares</em>.)</p>
+<div class="section" id="performance-metrics">
+<h2>Performance metrics<a class="headerlink" href="#performance-metrics" title="Permalink to this headline">¶</a></h2>
+<p>We need to establish ways to measure regression performance. Unlike with binary classification, in regression it’s not just a matter of “right” and “wrong” answers.</p>
+<p>Suppose a regressor is represented by the function <span class="math notranslate nohighlight">\(f(x)\)</span>. We let <span class="math notranslate nohighlight">\((x_i,y_i)\)</span> for <span class="math notranslate nohighlight">\(i=1,\ldots,m\)</span> be the test set, which may be different from the training set.</p>
+<p>The quantities <span class="math notranslate nohighlight">\(y_i-f(x_i)\)</span> are known as <strong>residuals</strong> of the approximation, although they are often called <em>errors</em> as well, confusingly enough.</p>
+<div class="section" id="mse">
+<h3>MSE<a class="headerlink" href="#mse" title="Permalink to this headline">¶</a></h3>
+<p>A natural metric is the <strong>mean squared error</strong>,</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{1}{m} \sum_{i=1}^m [y_i - f(x_i)]^2.
+\]</div>
+<p>If the training and test sets are the same, then the MSE is minimized by the standard regression algorithm. A closely related measure is the <strong>mean absolute error</strong>,</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{1}{m} \sum_{i=1}^m |y_i - f(x_i)|,
+\]</div>
+<p>which is less sensitive to large outlier errors.</p>
+<p>While easy to understand, these error measurements are dimensional and depend on the scaling of the variables.</p>
+</div>
+<div class="section" id="coefficient-of-determination">
+<h3>Coefficient of determination<a class="headerlink" href="#coefficient-of-determination" title="Permalink to this headline">¶</a></h3>
+<p>The <strong>coefficient of determination</strong> is denoted <span class="math notranslate nohighlight">\(R^2\)</span> and defined as</p>
+<div class="math notranslate nohighlight">
+\[
+1 - \frac{\sum_{i=1}^m [y_i - f(x_i)]^2}{\sum_{i=1}^m [y_i - \bar{y}]^2},
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\bar{y}\)</span> is the mean of the target value over the test set. This quantity is dimensionless and therefore independent of scaling. A perfect regressor has an <span class="math notranslate nohighlight">\(R^2\)</span> value of 1, while a baseline regressor that always predicts <span class="math notranslate nohighlight">\(\bar{y}\)</span> would have <span class="math notranslate nohighlight">\(R^2=0\)</span>.</p>
+<p>An interpretation of the definition in words is that <span class="math notranslate nohighlight">\(R^2\)</span> is the fraction of the variance in the true labels that is echoed by the variance in the regressor’s predictions. When <span class="math notranslate nohighlight">\(R^2&lt;1\)</span>, we say that the data has <em>unexplained variance</em> not accounted for by the regressor.</p>
+<p>The notation is unfortunate, because <span class="math notranslate nohighlight">\(R^2\)</span> can actually be negative! Such a result indicates that the regressor is doing worse than the baseline constant mean value prediction. However, if <span class="math notranslate nohighlight">\(f\)</span> is the result of a standard linear regression, and if the test set is the training set, then <span class="math notranslate nohighlight">\(R^2\)</span> equals the square of the Pearson correlation coefficient between the true and predicted values and is therefore between 0 and 1.</p>
+</div>
+</div>
+<div class="section" id="case-study-arctic-ice">
+<h2>Case study: Arctic ice<a class="headerlink" href="#case-study-arctic-ice" title="Permalink to this headline">¶</a></h2>
+<p>Let’s import data about the extent of sea ice in the Arctic circle, collected monthly since 1979.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="n">ice</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;sea-ice.csv&quot;</span><span class="p">)</span>
+<span class="n">ice</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">s</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">ice</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span>   <span class="c1"># simplify names</span>
+<span class="n">ice</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>year</th>
+      <th>mo</th>
+      <th>data-type</th>
+      <th>region</th>
+      <th>extent</th>
+      <th>area</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1979</td>
+      <td>1</td>
+      <td>Goddard</td>
+      <td>N</td>
+      <td>15.41</td>
+      <td>12.41</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1980</td>
+      <td>1</td>
+      <td>Goddard</td>
+      <td>N</td>
+      <td>14.86</td>
+      <td>11.94</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1981</td>
+      <td>1</td>
+      <td>Goddard</td>
+      <td>N</td>
+      <td>14.91</td>
+      <td>11.91</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1982</td>
+      <td>1</td>
+      <td>Goddard</td>
+      <td>N</td>
+      <td>15.18</td>
+      <td>12.19</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1983</td>
+      <td>1</td>
+      <td>Goddard</td>
+      <td>N</td>
+      <td>14.94</td>
+      <td>12.01</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>513</th>
+      <td>2017</td>
+      <td>12</td>
+      <td>Goddard</td>
+      <td>N</td>
+      <td>11.74</td>
+      <td>10.26</td>
+    </tr>
+    <tr>
+      <th>514</th>
+      <td>2018</td>
+      <td>12</td>
+      <td>Goddard</td>
+      <td>N</td>
+      <td>11.86</td>
+      <td>10.45</td>
+    </tr>
+    <tr>
+      <th>515</th>
+      <td>2019</td>
+      <td>12</td>
+      <td>Goddard</td>
+      <td>N</td>
+      <td>11.90</td>
+      <td>10.52</td>
+    </tr>
+    <tr>
+      <th>516</th>
+      <td>2020</td>
+      <td>12</td>
+      <td>Goddard</td>
+      <td>N</td>
+      <td>11.73</td>
+      <td>10.16</td>
+    </tr>
+    <tr>
+      <th>517</th>
+      <td>2021</td>
+      <td>12</td>
+      <td>NRTSI-G</td>
+      <td>N</td>
+      <td>12.19</td>
+      <td>10.69</td>
+    </tr>
+  </tbody>
+</table>
+<p>518 rows × 6 columns</p>
+</div></div></div>
+</div>
+<p>A quick plot reveals something odd-looking.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">relplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">ice</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;mo&quot;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s2">&quot;extent&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/linear_3_0.png" src="../_images/linear_3_0.png" />
+</div>
+</div>
+<p>Everything in the plot is dominated by two large negative values. These probably represent missing or unreliable data, so we remove those rows.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ice</span> <span class="o">=</span> <span class="n">ice</span><span class="p">[</span><span class="n">ice</span><span class="p">[</span><span class="s2">&quot;extent&quot;</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">relplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">ice</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;mo&quot;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s2">&quot;extent&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/linear_5_0.png" src="../_images/linear_5_0.png" />
+</div>
+</div>
+<p>Each dot represents one measurement, and they are grouped by month. As you would expect, the extent of ice rises in the winter and falls in summer.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bymo</span> <span class="o">=</span> <span class="n">ice</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;mo&quot;</span><span class="p">)</span>
+<span class="n">bymo</span><span class="p">[</span><span class="s2">&quot;extent&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>mo
+1     14.214762
+2     15.100233
+3     15.256977
+4     14.525581
+5     13.117442
+6     11.539767
+7      9.097907
+8      6.793256
+9      5.993488
+10     7.887907
+11    10.458182
+12    12.664419
+Name: extent, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<p>While the effect of the seasonal variation somewhat cancels out over time when fitting a line, it’s sensible to remove this obvious trend before the fit takes place. We will add a column that measures the relative change from the mean in each month.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ice</span><span class="p">[</span><span class="s2">&quot;detrended&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">bymo</span><span class="p">[</span><span class="s2">&quot;extent&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">/</span><span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">relplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">ice</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;mo&quot;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s2">&quot;detrended&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/cn/8w40979d27x0kv2wsnx7zgvm0000gp/T/ipykernel_64051/4253492415.py:1: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  ice[&quot;detrended&quot;] = bymo[&quot;extent&quot;].transform(lambda x: x/x.mean() - 1)
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.FacetGrid at 0x7f7d803fa220&gt;
+</pre></div>
+</div>
+<img alt="../_images/linear_9_2.png" src="../_images/linear_9_2.png" />
+</div>
+</div>
+<p>An <code class="docutils literal notranslate"><span class="pre">lmplot</span></code> in seaborn will show the best-fit line.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">lmplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">ice</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;year&quot;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s2">&quot;detrended&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/linear_11_0.png" src="../_images/linear_11_0.png" />
+</div>
+</div>
+<p>However, keep Simpson’s paradox in mind. The previous plot showed considerably more variance in the warm months. How do the fits look for the data within each month?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">lmplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">ice</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;year&quot;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s2">&quot;detrended&quot;</span><span class="p">,</span><span class="n">col</span><span class="o">=</span><span class="s2">&quot;mo&quot;</span><span class="p">,</span><span class="n">col_wrap</span><span class="o">=</span><span class="mi">4</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/linear_13_0.png" src="../_images/linear_13_0.png" />
+</div>
+</div>
+<p>While the correlation is negative in each month, the effect size is clearly larger in the summer.</p>
+<p>We can get numerical information about a regression line by using a <code class="docutils literal notranslate"><span class="pre">LinearRegression()</span></code> in sklearn. We will focus on the data for August.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LinearRegression</span>
+<span class="n">lm</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span>
+
+<span class="n">aug</span> <span class="o">=</span> <span class="n">ice</span><span class="p">[</span><span class="s2">&quot;mo&quot;</span><span class="p">]</span><span class="o">==</span><span class="mi">8</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">ice</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">aug</span><span class="p">,</span><span class="s2">&quot;year&quot;</span><span class="p">])</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">ice</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">aug</span><span class="p">,</span><span class="s2">&quot;detrended&quot;</span><span class="p">]</span>
+<span class="n">lm</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>LinearRegression()
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can get the slope and <span class="math notranslate nohighlight">\(y\)</span>-intercept of the regression line from the learner’s properties.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">lm</span><span class="o">.</span><span class="n">coef_</span><span class="p">,</span><span class="n">lm</span><span class="o">.</span><span class="n">intercept_</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(array([-0.01103658]), 22.07316493030779)
+</pre></div>
+</div>
+</div>
+</div>
+<p>The slope indicates a loss of 1% per year. (Big oof.) Here, we assess the performance on the training set. The <code class="docutils literal notranslate"><span class="pre">score</span></code> method of the regressor object computes the coefficient of determination.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_squared_error</span>
+<span class="n">R2</span> <span class="o">=</span> <span class="n">lm</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+<span class="n">yhat</span> <span class="o">=</span> <span class="n">lm</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="n">mse</span> <span class="o">=</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">yhat</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;MSE:&quot;</span><span class="p">,</span><span class="n">mse</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;variance in data:&quot;</span><span class="p">,</span><span class="n">y</span><span class="o">.</span><span class="n">var</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;R-squared:&quot;</span><span class="p">,</span><span class="n">R2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>MSE: 0.004013897553371555
+variance in data: 0.023314236588503352
+R-squared: 0.8237357450183896
+</pre></div>
+</div>
+</div>
+</div>
+<p>An <span class="math notranslate nohighlight">\(R^2\)</span> value this close to 1 would usually be considered a sign of a good fit, although we have not tested for generalization to new data.</p>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "UD-Math-Data-Science-1/notes",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./regression"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </div>
+        </div>
+    </div>
+    <div id="main-content" class="row noprint">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="tex2jax_ignore mathjax_ignore section" id="linear-regression">
+<h1><span class="section-number">4.1. </span>Linear regression<a class="headerlink" href="#linear-regression" title="Permalink to this headline">¶</a></h1>
+<p>You have probably encountered the most basic form of regression: fitting a straight line to data points <span class="math notranslate nohighlight">\((x_i,y_i)\)</span> in the <span class="math notranslate nohighlight">\(xy\)</span>-plane. In this we assume a relation</p>
+<div class="math notranslate nohighlight">
+\[
+y \approx f(x) = ax + b,
+\]</div>
+<p>and define a <strong>loss function</strong> or <em>misfit function</em> that adds up how far predictions are from the data:</p>
+<div class="math notranslate nohighlight">
+\[
+L(a,b) = \sum_{i=1}^n (f(x_i)-y_i)^2 = \sum_{i=1}^n (a x_i+b-y_i)^2.
+\]</div>
+<p>This problem can be solved by a little multidimensional calculus. If we hold <span class="math notranslate nohighlight">\(b\)</span> fixed and take a derivative with respect to <span class="math notranslate nohighlight">\(a\)</span>, then</p>
+<div class="math notranslate nohighlight">
+\[
+\pp{L}{a} = \sum_{i=1}^n 2x_i(a x_i + b - y_i) = 2 a \left(\sum_{i=1}^n x_i^2\right) + 2b\left(\sum_{i=1}^n x_i\right) - \sum_{i=1}^n y_i.
+\]</div>
+<p>Similarly, if we hold <span class="math notranslate nohighlight">\(a\)</span> fixed and differentiate with respect to <span class="math notranslate nohighlight">\(b\)</span>, then</p>
+<div class="math notranslate nohighlight">
+\[
+\pp{L}{b} = \sum_{i=1}^n 2(a x_i + b - y_i) = 2 a \left(\sum_{i=1}^n x_i\right) + 2bn - \sum_{i=1}^n y_i.
+\]</div>
+<p>Setting both derivatives to zero creates a system of two linear equations to be solved for <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span>.</p>
+<p>Before moving on, we adopt a vector-oriented view of the process. As a sum of squares, the loss function can be written as a 2-norm:</p>
+<div class="math notranslate nohighlight">
+\[
+L(a,b) =  \| a \bfx + b \bfe - \bfy \|_2^2,
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\bfe\)</span> is a vector of <span class="math notranslate nohighlight">\(n\)</span> ones. Minimizing <span class="math notranslate nohighlight">\(L\)</span> over all values of <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span> is called the <strong>least squares</strong> problem. (More specifically, this setup is called <em>simple least squares</em> or <em>ordinary least squares</em>.)</p>
+<div class="section" id="performance-metrics">
+<h2>Performance metrics<a class="headerlink" href="#performance-metrics" title="Permalink to this headline">¶</a></h2>
+<p>We need to establish ways to measure regression performance. Unlike with binary classification, in regression it’s not just a matter of “right” and “wrong” answers.</p>
+<p>Suppose a regressor is represented by the function <span class="math notranslate nohighlight">\(f(x)\)</span>. We let <span class="math notranslate nohighlight">\((x_i,y_i)\)</span> for <span class="math notranslate nohighlight">\(i=1,\ldots,m\)</span> be the test set, which may be different from the training set.</p>
+<p>The quantities <span class="math notranslate nohighlight">\(y_i-f(x_i)\)</span> are known as <strong>residuals</strong> of the approximation, although they are often called <em>errors</em> as well, confusingly enough.</p>
+<div class="section" id="mse">
+<h3>MSE<a class="headerlink" href="#mse" title="Permalink to this headline">¶</a></h3>
+<p>A natural metric is the <strong>mean squared error</strong>,</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{1}{m} \sum_{i=1}^m [y_i - f(x_i)]^2.
+\]</div>
+<p>If the training and test sets are the same, then the MSE is minimized by the standard regression algorithm. A closely related measure is the <strong>mean absolute error</strong>,</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{1}{m} \sum_{i=1}^m |y_i - f(x_i)|,
+\]</div>
+<p>which is less sensitive to large outlier errors.</p>
+<p>While easy to understand, these error measurements are dimensional and depend on the scaling of the variables.</p>
+</div>
+<div class="section" id="coefficient-of-determination">
+<h3>Coefficient of determination<a class="headerlink" href="#coefficient-of-determination" title="Permalink to this headline">¶</a></h3>
+<p>The <strong>coefficient of determination</strong> is denoted <span class="math notranslate nohighlight">\(R^2\)</span> and defined as</p>
+<div class="math notranslate nohighlight">
+\[
+1 - \frac{\sum_{i=1}^m [y_i - f(x_i)]^2}{\sum_{i=1}^m [y_i - \bar{y}]^2},
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\bar{y}\)</span> is the mean of the target value over the test set. This quantity is dimensionless and therefore independent of scaling. A perfect regressor has an <span class="math notranslate nohighlight">\(R^2\)</span> value of 1, while a baseline regressor that always predicts <span class="math notranslate nohighlight">\(\bar{y}\)</span> would have <span class="math notranslate nohighlight">\(R^2=0\)</span>.</p>
+<p>An interpretation of the definition in words is that <span class="math notranslate nohighlight">\(R^2\)</span> is the fraction of the variance in the true labels that is echoed by the variance in the regressor’s predictions. When <span class="math notranslate nohighlight">\(R^2&lt;1\)</span>, we say that the data has <em>unexplained variance</em> not accounted for by the regressor.</p>
+<p>The notation is unfortunate, because <span class="math notranslate nohighlight">\(R^2\)</span> can actually be negative! Such a result indicates that the regressor is doing worse than the baseline constant mean value prediction. However, if <span class="math notranslate nohighlight">\(f\)</span> is the result of a standard linear regression, and if the test set is the training set, then <span class="math notranslate nohighlight">\(R^2\)</span> equals the square of the Pearson correlation coefficient between the true and predicted values and is therefore between 0 and 1.</p>
+</div>
+</div>
+<div class="section" id="case-study-arctic-ice">
+<h2>Case study: Arctic ice<a class="headerlink" href="#case-study-arctic-ice" title="Permalink to this headline">¶</a></h2>
+<p>Let’s import data about the extent of sea ice in the Arctic circle, collected monthly since 1979.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="n">ice</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;sea-ice.csv&quot;</span><span class="p">)</span>
+<span class="n">ice</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">s</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">ice</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span>   <span class="c1"># simplify names</span>
+<span class="n">ice</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>year</th>
+      <th>mo</th>
+      <th>data-type</th>
+      <th>region</th>
+      <th>extent</th>
+      <th>area</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1979</td>
+      <td>1</td>
+      <td>Goddard</td>
+      <td>N</td>
+      <td>15.41</td>
+      <td>12.41</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1980</td>
+      <td>1</td>
+      <td>Goddard</td>
+      <td>N</td>
+      <td>14.86</td>
+      <td>11.94</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1981</td>
+      <td>1</td>
+      <td>Goddard</td>
+      <td>N</td>
+      <td>14.91</td>
+      <td>11.91</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1982</td>
+      <td>1</td>
+      <td>Goddard</td>
+      <td>N</td>
+      <td>15.18</td>
+      <td>12.19</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1983</td>
+      <td>1</td>
+      <td>Goddard</td>
+      <td>N</td>
+      <td>14.94</td>
+      <td>12.01</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>513</th>
+      <td>2017</td>
+      <td>12</td>
+      <td>Goddard</td>
+      <td>N</td>
+      <td>11.74</td>
+      <td>10.26</td>
+    </tr>
+    <tr>
+      <th>514</th>
+      <td>2018</td>
+      <td>12</td>
+      <td>Goddard</td>
+      <td>N</td>
+      <td>11.86</td>
+      <td>10.45</td>
+    </tr>
+    <tr>
+      <th>515</th>
+      <td>2019</td>
+      <td>12</td>
+      <td>Goddard</td>
+      <td>N</td>
+      <td>11.90</td>
+      <td>10.52</td>
+    </tr>
+    <tr>
+      <th>516</th>
+      <td>2020</td>
+      <td>12</td>
+      <td>Goddard</td>
+      <td>N</td>
+      <td>11.73</td>
+      <td>10.16</td>
+    </tr>
+    <tr>
+      <th>517</th>
+      <td>2021</td>
+      <td>12</td>
+      <td>NRTSI-G</td>
+      <td>N</td>
+      <td>12.19</td>
+      <td>10.69</td>
+    </tr>
+  </tbody>
+</table>
+<p>518 rows × 6 columns</p>
+</div></div></div>
+</div>
+<p>A quick plot reveals something odd-looking.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">relplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">ice</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;mo&quot;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s2">&quot;extent&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/linear_3_0.png" src="../_images/linear_3_0.png" />
+</div>
+</div>
+<p>Everything in the plot is dominated by two large negative values. These probably represent missing or unreliable data, so we remove those rows.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ice</span> <span class="o">=</span> <span class="n">ice</span><span class="p">[</span><span class="n">ice</span><span class="p">[</span><span class="s2">&quot;extent&quot;</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">relplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">ice</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;mo&quot;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s2">&quot;extent&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/linear_5_0.png" src="../_images/linear_5_0.png" />
+</div>
+</div>
+<p>Each dot represents one measurement, and they are grouped by month. As you would expect, the extent of ice rises in the winter and falls in summer.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bymo</span> <span class="o">=</span> <span class="n">ice</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;mo&quot;</span><span class="p">)</span>
+<span class="n">bymo</span><span class="p">[</span><span class="s2">&quot;extent&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>mo
+1     14.214762
+2     15.100233
+3     15.256977
+4     14.525581
+5     13.117442
+6     11.539767
+7      9.097907
+8      6.793256
+9      5.993488
+10     7.887907
+11    10.458182
+12    12.664419
+Name: extent, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<p>While the effect of the seasonal variation somewhat cancels out over time when fitting a line, it’s sensible to remove this obvious trend before the fit takes place. We will add a column that measures the relative change from the mean in each month.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ice</span><span class="p">[</span><span class="s2">&quot;detrended&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">bymo</span><span class="p">[</span><span class="s2">&quot;extent&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">/</span><span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">relplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">ice</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;mo&quot;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s2">&quot;detrended&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/cn/8w40979d27x0kv2wsnx7zgvm0000gp/T/ipykernel_64051/4253492415.py:1: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  ice[&quot;detrended&quot;] = bymo[&quot;extent&quot;].transform(lambda x: x/x.mean() - 1)
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.FacetGrid at 0x7f7d803fa220&gt;
+</pre></div>
+</div>
+<img alt="../_images/linear_9_2.png" src="../_images/linear_9_2.png" />
+</div>
+</div>
+<p>An <code class="docutils literal notranslate"><span class="pre">lmplot</span></code> in seaborn will show the best-fit line.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">lmplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">ice</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;year&quot;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s2">&quot;detrended&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/linear_11_0.png" src="../_images/linear_11_0.png" />
+</div>
+</div>
+<p>However, keep Simpson’s paradox in mind. The previous plot showed considerably more variance in the warm months. How do the fits look for the data within each month?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">lmplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">ice</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;year&quot;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s2">&quot;detrended&quot;</span><span class="p">,</span><span class="n">col</span><span class="o">=</span><span class="s2">&quot;mo&quot;</span><span class="p">,</span><span class="n">col_wrap</span><span class="o">=</span><span class="mi">4</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/linear_13_0.png" src="../_images/linear_13_0.png" />
+</div>
+</div>
+<p>While the correlation is negative in each month, the effect size is clearly larger in the summer.</p>
+<p>We can get numerical information about a regression line by using a <code class="docutils literal notranslate"><span class="pre">LinearRegression()</span></code> in sklearn. We will focus on the data for August.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LinearRegression</span>
+<span class="n">lm</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span>
+
+<span class="n">aug</span> <span class="o">=</span> <span class="n">ice</span><span class="p">[</span><span class="s2">&quot;mo&quot;</span><span class="p">]</span><span class="o">==</span><span class="mi">8</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">ice</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">aug</span><span class="p">,</span><span class="s2">&quot;year&quot;</span><span class="p">])</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">ice</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">aug</span><span class="p">,</span><span class="s2">&quot;detrended&quot;</span><span class="p">]</span>
+<span class="n">lm</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>LinearRegression()
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can get the slope and <span class="math notranslate nohighlight">\(y\)</span>-intercept of the regression line from the learner’s properties.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">lm</span><span class="o">.</span><span class="n">coef_</span><span class="p">,</span><span class="n">lm</span><span class="o">.</span><span class="n">intercept_</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(array([-0.01103658]), 22.07316493030779)
+</pre></div>
+</div>
+</div>
+</div>
+<p>The slope indicates a loss of 1% per year. (Big oof.) Here, we assess the performance on the training set. The <code class="docutils literal notranslate"><span class="pre">score</span></code> method of the regressor object computes the coefficient of determination.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_squared_error</span>
+<span class="n">R2</span> <span class="o">=</span> <span class="n">lm</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+<span class="n">yhat</span> <span class="o">=</span> <span class="n">lm</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="n">mse</span> <span class="o">=</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">yhat</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;MSE:&quot;</span><span class="p">,</span><span class="n">mse</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;variance in data:&quot;</span><span class="p">,</span><span class="n">y</span><span class="o">.</span><span class="n">var</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;R-squared:&quot;</span><span class="p">,</span><span class="n">R2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>MSE: 0.004013897553371555
+variance in data: 0.023314236588503352
+R-squared: 0.8237357450183896
+</pre></div>
+</div>
+</div>
+</div>
+<p>An <span class="math notranslate nohighlight">\(R^2\)</span> value this close to 1 would usually be considered a sign of a good fit, although we have not tested for generalization to new data.</p>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "UD-Math-Data-Science-1/notes",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./regression"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+            <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="overview.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title"><span class="section-number">4. </span>Regression</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="multilinear.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">4.2. </span>Multilinear and polynomial regression</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+        
+        </div>
+    </div>
+    <footer class="footer">
+  <p>
+    
+      By Tobin A. Driscoll<br/>
+    
+        &copy; Copyright 2021.<br/>
+  </p>
+</footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+
+  </body>
+</html>

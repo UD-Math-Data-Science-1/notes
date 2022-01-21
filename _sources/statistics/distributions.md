@@ -10,71 +10,70 @@ kernelspec:
   language: python
   name: python3
 ---
-# Continuous distributions
+# Distributions
 
-We will again be illustrating some ideas using the Adult data set.
+We will illustrate some concepts using a data set that is provided by seaborn, a useful data visualization package.
 
 ```{code-cell} ipython3
 import pandas as pd
 import seaborn as sns
 
-names = [ 
-    "age","workclass","fnlwgt","education","education_num",
-    "marital_status","occupation","relationship","race","sex",
-    "capital_gain","capital_loss","hours_per_week","country","income_level"
-]
-dtypes = [ 
-    "int64","category","int64","category","int64",
-    "category","category","category","category","category",
-    "int64","int64","int64","category","category"
-]
-adult = pd.read_table("adult.data",delimiter=",",names=names,dtype=dict(zip(names,dtypes)))
-bysex = adult.groupby("sex")
+cars = sns.load_dataset("mpg")
+cars
 ```
+
+## Histogram
+
+One of the fastest ways to become familiar with a data set is to visualize it. To visualize a distribution of continuous values, we can use a **histogram**. We choose ordered real values $t_1 < t_2 < \cdots < t_m$. Define *bin* $k$ to be the interval $B_k=[t_k,t_{k+1})$, with the convention that $t_0=-\infty$ and $t_{m+1}=\infty$. This gives us a series of counts $c_k$, where $c_k$ is defined as the number of data values in interval $B_k$. A histogram plots those counts, typically using a bar graph.
+
+In seaborn, you plot a histogram using `displot`.
+
+```{code-cell}
+sns.displot(data=cars,x="mpg");
+```
+
+You can specify the number of bins used (or their edges).
+
+```{code-cell}
+sns.displot(data=cars,x="mpg",bins=20);
+```
+
+Much as we use grouping in pandas, we can use categories in a series to split the data in seaborn. In this case, we use three different colors (hues) for three different regions of origin.
+
+```{code-cell}
+sns.displot(data=cars,x="mpg",hue="origin");
+```
+
+That graph is a little messy because of the overlaps. We can instead split the data and plot as columns of subplots.
+
+```{code-cell}
+sns.displot(data=cars,x="mpg",col="origin");
+```
+
+In either case, it's easy to see that the U.S. cars are more clustered on the left (smaller MPG) than the Japanese and European cars.
+
+You can even combine grouping by plot column with grouping by color.
+
+```{code-cell}
+sns.displot(data=cars,x="mpg",col="origin",hue="cylinders",multiple="stack");
+```
+
 
 ## Distribution functions
 
-The **cumulative distribution function** (CDF) is the inverse of percentiles. Specifically, $F(x)$ is the probability that a population value will be less than or equal to $x$. The domain of $F$ is the real line (unless otherwise restricted), and the range is the interval $[0,1]$.
+The **cumulative distribution function** (CDF) $F(x)$ is the probability that a data value will be less than or equal to $x$. The domain of $F$ is the real line (unless otherwise restricted), and the range is the interval $[0,1]$.
 
 When a sample is used to estimate a continuous CDF, the resulting is a stair-step (piecewise constant) graph known as the **empirical CDF**.
 
 ```{code-cell}
-sns.displot(adult,x="age",col="sex",kind="ecdf");
+sns.displot(data=cars,x="mpg",col="origin",kind="ecdf");
 ```
 
-For a simple, continuous probability distribution, we can expect the CDF to be continuous and differentiable. The derivative of the CDF is called the **probability distribution function** (PDF), and it is the continuous analog of a histogram divided into infinitesimally small bins. 
+If we could account for infinitely many observations, we would expect (in most cases) the CDF to be continuous and differentiable. The derivative of the CDF, $f(x)=F'(x)$, is called the **probability distribution function** (PDF). The PDF is the continuous analog of a histogram divided into infinitesimally small bins. Note that because the probability of observing *some* real value is 100%, we have the constraint
 
-
-## Exponential distribution
-
-An **exponential distribution** is a distribution on nonnegative real numbers. It is parameterized by a positive number $\lambda$. It has PDF equal to 
-
-```{math}
-f(x) = \lambda e^{-\lambda x}
-```
-
-and CDF equal to
-
-```{math}
-F(x) = 1 - e^{-\lambda x}.
-```
-
-The mean of the distribution is $1/\lambda$, the variance is $1/\lambda^2$, and the median is $\ln(2)/\lambda$.
-
-```{code-cell}
-:tags: ["hide-input"]
-import numpy as np
-import matplotlib.pyplot as plt
-
-lam = 1
-x = np.arange(0,300)*4/300
-plt.plot(x,lam*np.exp(-lam*x))
-plt.xlabel("x")
-plt.ylabel("f(x)")
-plt.title("PDF of exponential distribution, lambda=1");
-```
-
-The exponential distribution is often used as a model for randomly occurring events, such as the time between callers to a customer service line or the magnitudes of earthquakes.
+$$
+\int_{-\infty}^\infty f(x)\, dx = 1.
+$$
 
 ## Normal distribution
 
@@ -84,7 +83,7 @@ $$
 f(x) = \frac{1}{\sqrt{2\pi\sigma^2}} \exp\left( -\frac{(x-\mu)^2}{2\sigma^2} \right).
 $$
 
-The CDF cannot be expressed using elementary functions. A normal PDF is peaked at the mean and drops off superexponentially and symmetrically on both sides.
+The CDF cannot be expressed using elementary functions. A normal PDF is peaked at the mean, dropping superexponentially and symmetrically on both sides.
 
 ```{code-cell}
 :tags: ["hide-input"]
@@ -101,11 +100,9 @@ plt.ylabel("f(x)")
 plt.title("PDF of normal distribution, mu=1, sigma=2");
 ```
 
-For normally distributed data, a common definition of outliers is to reject values that satisfy $|x-\mu|>2\sigma$, which would discard about 5% of values on average. A less aggressive criterion uses $3\sigma$ instead of $2\sigma$. 
-
 ## Kernel density estimation
 
-It can be helpful to go from a discrete distribution, as described by a histogram, with a continuous function that estimates the PDF. One technique to do this is called **kernel density estimation** (KDE).
+It can be helpful to go from a discrete distribution, as described by a histogram, to a continuous function that approximates the PDF. One technique to do this is called **kernel density estimation** (KDE).
 
 Let $g(x)$ be a normal distribution with mean zero and a chosen variance. If we have samples $x_1,\ldots,x_n$, define
 
@@ -121,14 +118,10 @@ $$
 
 as the KDE approximation to the PDF.
 
-For example, here again are the sex-grouped histograms for ages in the Adult data set:
+For example, using the MPG data:
 
 ```{code-cell}
-sns.displot(adult,x="age",col="sex",bins=18)
+sns.displot(data=cars,x="mpg",hue="origin",kind="kde");
 ```
 
-And here are the KDE estimates:
-
-```{code-cell}
-sns.displot(adult,x="age",col="sex",kind="kde")
-```
+Based on these curves, it would be plausible to approximate the distribution of cars from Europe as a normal distribution, but the asymmetry in the other two cases would make that approximation less satisfying.

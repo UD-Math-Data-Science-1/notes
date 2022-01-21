@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>2.2. Continuous distributions &#8212; Data Science 1</title>
+    <title>2.1. Distributions &#8212; Data Science 1</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet">
   <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -44,7 +44,7 @@
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>window.MathJax = {"tex": {"macros": {"float": ["\\mathbb{F}"], "real": ["\\mathbb{R}"], "complex": ["\\mathbb{C}"], "nat": ["\\mathbb{N}"], "integer": ["\\mathbb{Z}"], "bfx": "\\mathbf{x}", "bfX": "\\mathbf{X}", "bfy": "\\mathbf{y}", "bfz": "\\mathbf{z}", "rmn": ["\\mathbb{R}^{#1 \\times #2}", 2], "dd": ["\\frac{d #1}{d #2}", 2], "pp": ["\\frac{\\partial #1}{\\partial #2}", 2], "norm": ["\\| #1 \\|", 1], "twonorm": ["\\| #1 \\|_2", 1], "onenorm": ["\\| #1 \\|_1", 1], "infnorm": ["\\| #1 \\|_\\infty", 1], "innerprod": ["\\langle #1,#2 \\rangle", 2], "pr": ["^{(#1)}", 1], "diag": ["\\operatorname{diag}"], "sign": ["\\operatorname{sign}"], "ee": ["\\times 10^"], "floor": ["\\lfloor#1\\rfloor", 1], "argmin": ["\\operatorname{argmin}"], "Cov": ["\\operatorname{Cov}"]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script>window.MathJax = {"tex": {"macros": {"float": ["\\mathbb{F}"], "real": ["\\mathbb{R}"], "complex": ["\\mathbb{C}"], "nat": ["\\mathbb{N}"], "integer": ["\\mathbb{Z}"], "bfa": "\\mathbf{a}", "bfe": "\\mathbf{e}", "bfx": "\\mathbf{x}", "bfX": "\\mathbf{X}", "bfw": "\\mathbf{w}", "bfy": "\\mathbf{y}", "bfz": "\\mathbf{z}", "bfzero": "\\boldsymbol{0}", "rmn": ["\\mathbb{R}^{#1 \\times #2}", 2], "dd": ["\\frac{d #1}{d #2}", 2], "pp": ["\\frac{\\partial #1}{\\partial #2}", 2], "norm": ["\\| #1 \\|", 1], "twonorm": ["\\| #1 \\|_2", 1], "onenorm": ["\\| #1 \\|_1", 1], "infnorm": ["\\| #1 \\|_\\infty", 1], "innerprod": ["\\langle #1,#2 \\rangle", 2], "pr": ["^{(#1)}", 1], "diag": ["\\operatorname{diag}"], "sign": ["\\operatorname{sign}"], "ee": ["\\times 10^"], "floor": ["\\lfloor#1\\rfloor", 1], "argmin": ["\\operatorname{argmin}"], "Cov": ["\\operatorname{Cov}"]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
     <script>
         const thebe_selector = ".thebe,.cell"
@@ -55,8 +55,8 @@
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="2.3. Correlation" href="correlation.html" />
-    <link rel="prev" title="2.1. Exploratory analysis" href="exploratory.html" />
+    <link rel="next" title="2.2. Summary statistics" href="summary.html" />
+    <link rel="prev" title="2. Descriptive statistics" href="overview.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -117,18 +117,18 @@
     </a>
    </li>
    <li class="toctree-l2">
+    <a class="reference internal" href="../representation/numpy.html">
+     1.2. Introduction to numpy
+    </a>
+   </li>
+   <li class="toctree-l2">
     <a class="reference internal" href="../representation/pandas.html">
-     1.2. Introduction to pandas
+     1.3. Introduction to pandas
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../representation/split-apply-combine.html">
-     1.3. Split–apply–combine
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../representation/seaborn.html">
-     1.4. Introduction to seaborn
+     1.4. Split–apply–combine
     </a>
    </li>
   </ul>
@@ -143,26 +143,31 @@
    </i>
   </label>
   <ul class="current">
-   <li class="toctree-l2">
-    <a class="reference internal" href="exploratory.html">
-     2.1. Exploratory analysis
-    </a>
-   </li>
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
-     2.2. Continuous distributions
+     2.1. Distributions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="summary.html">
+     2.2. Summary statistics
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="outliers.html">
+     2.3. Outliers
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="correlation.html">
-     2.3. Correlation
+     2.4. Correlation
     </a>
    </li>
   </ul>
  </li>
  <li class="toctree-l1 has-children">
   <a class="reference internal" href="../supervised/overview.html">
-   3. Supervised learning
+   3. Classification
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
   <label for="toctree-checkbox-3">
@@ -173,6 +178,53 @@
    <li class="toctree-l2">
     <a class="reference internal" href="../supervised/scikit.html">
      3.1. Using scikit-learn
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../supervised/performance.html">
+     3.2. Classifier performance
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../supervised/decision-trees.html">
+     3.3. Decision trees
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../supervised/nearest-neighbors.html">
+     3.4. Nearest neighbors
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../supervised/svm.html">
+     3.5. Support vector machine
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../supervised/model-selection.html">
+     3.6. Model selection
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../regression/overview.html">
+   4. Regression
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../regression/linear.html">
+     4.1. Linear regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../regression/polynomial.html">
+     4.2. Multilinear and polynomial regression
     </a>
    </li>
   </ul>
@@ -272,13 +324,13 @@
             <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#distribution-functions">
-   Distribution functions
+  <a class="reference internal nav-link" href="#histogram">
+   Histogram
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#exponential-distribution">
-   Exponential distribution
+  <a class="reference internal nav-link" href="#distribution-functions">
+   Distribution functions
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -299,7 +351,7 @@
 </div>
     <!-- Table of contents that is only displayed when printing the page -->
     <div id="jb-print-docs-body" class="onlyprint">
-        <h1>Continuous distributions</h1>
+        <h1>Distributions</h1>
         <!-- Table of contents -->
         <div id="print-main-content" class="row">
             <div class="col-12 col-md-12 pl-md-5 pr-md-5">
@@ -311,13 +363,13 @@
                 <nav aria-label="Page">
                     <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#distribution-functions">
-   Distribution functions
+  <a class="reference internal nav-link" href="#histogram">
+   Histogram
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#exponential-distribution">
-   Exponential distribution
+  <a class="reference internal nav-link" href="#distribution-functions">
+   Distribution functions
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -337,37 +389,194 @@
             
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="continuous-distributions">
-<h1><span class="section-number">2.2. </span>Continuous distributions<a class="headerlink" href="#continuous-distributions" title="Permalink to this headline">¶</a></h1>
-<p>We will again be illustrating some ideas using the Adult data set.</p>
+  <div class="tex2jax_ignore mathjax_ignore section" id="distributions">
+<h1><span class="section-number">2.1. </span>Distributions<a class="headerlink" href="#distributions" title="Permalink to this headline">¶</a></h1>
+<p>We will illustrate some concepts using a data set that is provided by seaborn, a useful data visualization package.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
 
-<span class="n">names</span> <span class="o">=</span> <span class="p">[</span> 
-    <span class="s2">&quot;age&quot;</span><span class="p">,</span><span class="s2">&quot;workclass&quot;</span><span class="p">,</span><span class="s2">&quot;fnlwgt&quot;</span><span class="p">,</span><span class="s2">&quot;education&quot;</span><span class="p">,</span><span class="s2">&quot;education_num&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;marital_status&quot;</span><span class="p">,</span><span class="s2">&quot;occupation&quot;</span><span class="p">,</span><span class="s2">&quot;relationship&quot;</span><span class="p">,</span><span class="s2">&quot;race&quot;</span><span class="p">,</span><span class="s2">&quot;sex&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;capital_gain&quot;</span><span class="p">,</span><span class="s2">&quot;capital_loss&quot;</span><span class="p">,</span><span class="s2">&quot;hours_per_week&quot;</span><span class="p">,</span><span class="s2">&quot;country&quot;</span><span class="p">,</span><span class="s2">&quot;income_level&quot;</span>
-<span class="p">]</span>
-<span class="n">dtypes</span> <span class="o">=</span> <span class="p">[</span> 
-    <span class="s2">&quot;int64&quot;</span><span class="p">,</span><span class="s2">&quot;category&quot;</span><span class="p">,</span><span class="s2">&quot;int64&quot;</span><span class="p">,</span><span class="s2">&quot;category&quot;</span><span class="p">,</span><span class="s2">&quot;int64&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;category&quot;</span><span class="p">,</span><span class="s2">&quot;category&quot;</span><span class="p">,</span><span class="s2">&quot;category&quot;</span><span class="p">,</span><span class="s2">&quot;category&quot;</span><span class="p">,</span><span class="s2">&quot;category&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;int64&quot;</span><span class="p">,</span><span class="s2">&quot;int64&quot;</span><span class="p">,</span><span class="s2">&quot;int64&quot;</span><span class="p">,</span><span class="s2">&quot;category&quot;</span><span class="p">,</span><span class="s2">&quot;category&quot;</span>
-<span class="p">]</span>
-<span class="n">adult</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_table</span><span class="p">(</span><span class="s2">&quot;adult.data&quot;</span><span class="p">,</span><span class="n">delimiter</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">,</span><span class="n">names</span><span class="o">=</span><span class="n">names</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">names</span><span class="p">,</span><span class="n">dtypes</span><span class="p">)))</span>
-<span class="n">bysex</span> <span class="o">=</span> <span class="n">adult</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;sex&quot;</span><span class="p">)</span>
+<span class="n">cars</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">load_dataset</span><span class="p">(</span><span class="s2">&quot;mpg&quot;</span><span class="p">)</span>
+<span class="n">cars</span>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>mpg</th>
+      <th>cylinders</th>
+      <th>displacement</th>
+      <th>horsepower</th>
+      <th>weight</th>
+      <th>acceleration</th>
+      <th>model_year</th>
+      <th>origin</th>
+      <th>name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>18.0</td>
+      <td>8</td>
+      <td>307.0</td>
+      <td>130.0</td>
+      <td>3504</td>
+      <td>12.0</td>
+      <td>70</td>
+      <td>usa</td>
+      <td>chevrolet chevelle malibu</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>15.0</td>
+      <td>8</td>
+      <td>350.0</td>
+      <td>165.0</td>
+      <td>3693</td>
+      <td>11.5</td>
+      <td>70</td>
+      <td>usa</td>
+      <td>buick skylark 320</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>18.0</td>
+      <td>8</td>
+      <td>318.0</td>
+      <td>150.0</td>
+      <td>3436</td>
+      <td>11.0</td>
+      <td>70</td>
+      <td>usa</td>
+      <td>plymouth satellite</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>16.0</td>
+      <td>8</td>
+      <td>304.0</td>
+      <td>150.0</td>
+      <td>3433</td>
+      <td>12.0</td>
+      <td>70</td>
+      <td>usa</td>
+      <td>amc rebel sst</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>17.0</td>
+      <td>8</td>
+      <td>302.0</td>
+      <td>140.0</td>
+      <td>3449</td>
+      <td>10.5</td>
+      <td>70</td>
+      <td>usa</td>
+      <td>ford torino</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>393</th>
+      <td>27.0</td>
+      <td>4</td>
+      <td>140.0</td>
+      <td>86.0</td>
+      <td>2790</td>
+      <td>15.6</td>
+      <td>82</td>
+      <td>usa</td>
+      <td>ford mustang gl</td>
+    </tr>
+    <tr>
+      <th>394</th>
+      <td>44.0</td>
+      <td>4</td>
+      <td>97.0</td>
+      <td>52.0</td>
+      <td>2130</td>
+      <td>24.6</td>
+      <td>82</td>
+      <td>europe</td>
+      <td>vw pickup</td>
+    </tr>
+    <tr>
+      <th>395</th>
+      <td>32.0</td>
+      <td>4</td>
+      <td>135.0</td>
+      <td>84.0</td>
+      <td>2295</td>
+      <td>11.6</td>
+      <td>82</td>
+      <td>usa</td>
+      <td>dodge rampage</td>
+    </tr>
+    <tr>
+      <th>396</th>
+      <td>28.0</td>
+      <td>4</td>
+      <td>120.0</td>
+      <td>79.0</td>
+      <td>2625</td>
+      <td>18.6</td>
+      <td>82</td>
+      <td>usa</td>
+      <td>ford ranger</td>
+    </tr>
+    <tr>
+      <th>397</th>
+      <td>31.0</td>
+      <td>4</td>
+      <td>119.0</td>
+      <td>82.0</td>
+      <td>2720</td>
+      <td>19.4</td>
+      <td>82</td>
+      <td>usa</td>
+      <td>chevy s-10</td>
+    </tr>
+  </tbody>
+</table>
+<p>398 rows × 9 columns</p>
+</div></div></div>
 </div>
-<div class="section" id="distribution-functions">
-<h2>Distribution functions<a class="headerlink" href="#distribution-functions" title="Permalink to this headline">¶</a></h2>
-<p>The <strong>cumulative distribution function</strong> (CDF) is the inverse of percentiles. Specifically, <span class="math notranslate nohighlight">\(F(x)\)</span> is the probability that a population value will be less than or equal to <span class="math notranslate nohighlight">\(x\)</span>. The domain of <span class="math notranslate nohighlight">\(F\)</span> is the real line (unless otherwise restricted), and the range is the interval <span class="math notranslate nohighlight">\([0,1]\)</span>.</p>
-<p>When a sample is used to estimate a continuous CDF, the resulting is a stair-step (piecewise constant) graph known as the <strong>empirical CDF</strong>.</p>
+<div class="section" id="histogram">
+<h2>Histogram<a class="headerlink" href="#histogram" title="Permalink to this headline">¶</a></h2>
+<p>One of the fastest ways to become familiar with a data set is to visualize it. To visualize a distribution of continuous values, we can use a <strong>histogram</strong>. We choose ordered real values <span class="math notranslate nohighlight">\(t_1 &lt; t_2 &lt; \cdots &lt; t_m\)</span>. Define <em>bin</em> <span class="math notranslate nohighlight">\(k\)</span> to be the interval <span class="math notranslate nohighlight">\(B_k=[t_k,t_{k+1})\)</span>, with the convention that <span class="math notranslate nohighlight">\(t_0=-\infty\)</span> and <span class="math notranslate nohighlight">\(t_{m+1}=\infty\)</span>. This gives us a series of counts <span class="math notranslate nohighlight">\(c_k\)</span>, where <span class="math notranslate nohighlight">\(c_k\)</span> is defined as the number of data values in interval <span class="math notranslate nohighlight">\(B_k\)</span>. A histogram plots those counts, typically using a bar graph.</p>
+<p>In seaborn, you plot a histogram using <code class="docutils literal notranslate"><span class="pre">displot</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">displot</span><span class="p">(</span><span class="n">adult</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;age&quot;</span><span class="p">,</span><span class="n">col</span><span class="o">=</span><span class="s2">&quot;sex&quot;</span><span class="p">,</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;ecdf&quot;</span><span class="p">);</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">displot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">cars</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;mpg&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -375,28 +584,10 @@
 <img alt="../_images/distributions_3_0.png" src="../_images/distributions_3_0.png" />
 </div>
 </div>
-<p>For a simple, continuous probability distribution, we can expect the CDF to be continuous and differentiable. The derivative of the CDF is called the <strong>probability distribution function</strong> (PDF), and it is the continuous analog of a histogram divided into infinitesimally small bins.</p>
-</div>
-<div class="section" id="exponential-distribution">
-<h2>Exponential distribution<a class="headerlink" href="#exponential-distribution" title="Permalink to this headline">¶</a></h2>
-<p>An <strong>exponential distribution</strong> is a distribution on nonnegative real numbers. It is parameterized by a positive number <span class="math notranslate nohighlight">\(\lambda\)</span>. It has PDF equal to</p>
-<div class="math notranslate nohighlight">
-\[f(x) = \lambda e^{-\lambda x}\]</div>
-<p>and CDF equal to</p>
-<div class="math notranslate nohighlight">
-\[F(x) = 1 - e^{-\lambda x}.\]</div>
-<p>The mean of the distribution is <span class="math notranslate nohighlight">\(1/\lambda\)</span>, the variance is <span class="math notranslate nohighlight">\(1/\lambda^2\)</span>, and the median is <span class="math notranslate nohighlight">\(\ln(2)/\lambda\)</span>.</p>
-<div class="cell tag_hide-input docutils container">
+<p>You can specify the number of bins used (or their edges).</p>
+<div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-
-<span class="n">lam</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">300</span><span class="p">)</span><span class="o">*</span><span class="mi">4</span><span class="o">/</span><span class="mi">300</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">lam</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">lam</span><span class="o">*</span><span class="n">x</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;f(x)&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;PDF of exponential distribution, lambda=1&quot;</span><span class="p">);</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">displot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">cars</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;mpg&quot;</span><span class="p">,</span><span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -404,7 +595,60 @@
 <img alt="../_images/distributions_5_0.png" src="../_images/distributions_5_0.png" />
 </div>
 </div>
-<p>The exponential distribution is often used as a model for randomly occurring events, such as the time between callers to a customer service line or the magnitudes of earthquakes.</p>
+<p>Much as we use grouping in pandas, we can use categories in a series to split the data in seaborn. In this case, we use three different colors (hues) for three different regions of origin.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">displot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">cars</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;mpg&quot;</span><span class="p">,</span><span class="n">hue</span><span class="o">=</span><span class="s2">&quot;origin&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/distributions_7_0.png" src="../_images/distributions_7_0.png" />
+</div>
+</div>
+<p>That graph is a little messy because of the overlaps. We can instead split the data and plot as columns of subplots.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">displot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">cars</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;mpg&quot;</span><span class="p">,</span><span class="n">col</span><span class="o">=</span><span class="s2">&quot;origin&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/distributions_9_0.png" src="../_images/distributions_9_0.png" />
+</div>
+</div>
+<p>In either case, it’s easy to see that the U.S. cars are more clustered on the left (smaller MPG) than the Japanese and European cars.</p>
+<p>You can even combine grouping by plot column with grouping by color.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">displot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">cars</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;mpg&quot;</span><span class="p">,</span><span class="n">col</span><span class="o">=</span><span class="s2">&quot;origin&quot;</span><span class="p">,</span><span class="n">hue</span><span class="o">=</span><span class="s2">&quot;cylinders&quot;</span><span class="p">,</span><span class="n">multiple</span><span class="o">=</span><span class="s2">&quot;stack&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/distributions_11_0.png" src="../_images/distributions_11_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="distribution-functions">
+<h2>Distribution functions<a class="headerlink" href="#distribution-functions" title="Permalink to this headline">¶</a></h2>
+<p>The <strong>cumulative distribution function</strong> (CDF) <span class="math notranslate nohighlight">\(F(x)\)</span> is the probability that a data value will be less than or equal to <span class="math notranslate nohighlight">\(x\)</span>. The domain of <span class="math notranslate nohighlight">\(F\)</span> is the real line (unless otherwise restricted), and the range is the interval <span class="math notranslate nohighlight">\([0,1]\)</span>.</p>
+<p>When a sample is used to estimate a continuous CDF, the resulting is a stair-step (piecewise constant) graph known as the <strong>empirical CDF</strong>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">displot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">cars</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;mpg&quot;</span><span class="p">,</span><span class="n">col</span><span class="o">=</span><span class="s2">&quot;origin&quot;</span><span class="p">,</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;ecdf&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/distributions_13_0.png" src="../_images/distributions_13_0.png" />
+</div>
+</div>
+<p>If we could account for infinitely many observations, we would expect (in most cases) the CDF to be continuous and differentiable. The derivative of the CDF, <span class="math notranslate nohighlight">\(f(x)=F'(x)\)</span>, is called the <strong>probability distribution function</strong> (PDF). The PDF is the continuous analog of a histogram divided into infinitesimally small bins. Note that because the probability of observing <em>some</em> real value is 100%, we have the constraint</p>
+<div class="math notranslate nohighlight">
+\[
+\int_{-\infty}^\infty f(x)\, dx = 1.
+\]</div>
 </div>
 <div class="section" id="normal-distribution">
 <h2>Normal distribution<a class="headerlink" href="#normal-distribution" title="Permalink to this headline">¶</a></h2>
@@ -413,7 +657,7 @@
 \[
 f(x) = \frac{1}{\sqrt{2\pi\sigma^2}} \exp\left( -\frac{(x-\mu)^2}{2\sigma^2} \right).
 \]</div>
-<p>The CDF cannot be expressed using elementary functions. A normal PDF is peaked at the mean and drops off superexponentially and symmetrically on both sides.</p>
+<p>The CDF cannot be expressed using elementary functions. A normal PDF is peaked at the mean, dropping superexponentially and symmetrically on both sides.</p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -431,14 +675,13 @@ f(x) = \frac{1}{\sqrt{2\pi\sigma^2}} \exp\left( -\frac{(x-\mu)^2}{2\sigma^2} \ri
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/distributions_7_0.png" src="../_images/distributions_7_0.png" />
+<img alt="../_images/distributions_15_0.png" src="../_images/distributions_15_0.png" />
 </div>
 </div>
-<p>For normally distributed data, a common definition of outliers is to reject values that satisfy <span class="math notranslate nohighlight">\(|x-\mu|&gt;2\sigma\)</span>, which would discard about 5% of values on average. A less aggressive criterion uses <span class="math notranslate nohighlight">\(3\sigma\)</span> instead of <span class="math notranslate nohighlight">\(2\sigma\)</span>.</p>
 </div>
 <div class="section" id="kernel-density-estimation">
 <h2>Kernel density estimation<a class="headerlink" href="#kernel-density-estimation" title="Permalink to this headline">¶</a></h2>
-<p>It can be helpful to go from a discrete distribution, as described by a histogram, with a continuous function that estimates the PDF. One technique to do this is called <strong>kernel density estimation</strong> (KDE).</p>
+<p>It can be helpful to go from a discrete distribution, as described by a histogram, to a continuous function that approximates the PDF. One technique to do this is called <strong>kernel density estimation</strong> (KDE).</p>
 <p>Let <span class="math notranslate nohighlight">\(g(x)\)</span> be a normal distribution with mean zero and a chosen variance. If we have samples <span class="math notranslate nohighlight">\(x_1,\ldots,x_n\)</span>, define</p>
 <div class="math notranslate nohighlight">
 \[
@@ -450,34 +693,18 @@ f(x) = \frac{1}{\sqrt{2\pi\sigma^2}} \exp\left( -\frac{(x-\mu)^2}{2\sigma^2} \ri
 \frac{\tilde{f}(x) }{\int_{-\infty}^\infty \tilde{f}(x) \, dx}
 \]</div>
 <p>as the KDE approximation to the PDF.</p>
-<p>For example, here again are the sex-grouped histograms for ages in the Adult data set:</p>
+<p>For example, using the MPG data:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">displot</span><span class="p">(</span><span class="n">adult</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;age&quot;</span><span class="p">,</span><span class="n">col</span><span class="o">=</span><span class="s2">&quot;sex&quot;</span><span class="p">,</span><span class="n">bins</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">displot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">cars</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;mpg&quot;</span><span class="p">,</span><span class="n">hue</span><span class="o">=</span><span class="s2">&quot;origin&quot;</span><span class="p">,</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;kde&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.FacetGrid at 0x7fcaba36c820&gt;
-</pre></div>
-</div>
-<img alt="../_images/distributions_9_1.png" src="../_images/distributions_9_1.png" />
+<img alt="../_images/distributions_17_0.png" src="../_images/distributions_17_0.png" />
 </div>
 </div>
-<p>And here are the KDE estimates:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">displot</span><span class="p">(</span><span class="n">adult</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;age&quot;</span><span class="p">,</span><span class="n">col</span><span class="o">=</span><span class="s2">&quot;sex&quot;</span><span class="p">,</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;kde&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.FacetGrid at 0x7fca980c9070&gt;
-</pre></div>
-</div>
-<img alt="../_images/distributions_11_1.png" src="../_images/distributions_11_1.png" />
-</div>
-</div>
+<p>Based on these curves, it would be plausible to approximate the distribution of cars from Europe as a normal distribution, but the asymmetry in the other two cases would make that approximation less satisfying.</p>
 </div>
 </div>
 
@@ -511,37 +738,194 @@ f(x) = \frac{1}{\sqrt{2\pi\sigma^2}} \exp\left( -\frac{(x-\mu)^2}{2\sigma^2} \ri
         
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="continuous-distributions">
-<h1><span class="section-number">2.2. </span>Continuous distributions<a class="headerlink" href="#continuous-distributions" title="Permalink to this headline">¶</a></h1>
-<p>We will again be illustrating some ideas using the Adult data set.</p>
+  <div class="tex2jax_ignore mathjax_ignore section" id="distributions">
+<h1><span class="section-number">2.1. </span>Distributions<a class="headerlink" href="#distributions" title="Permalink to this headline">¶</a></h1>
+<p>We will illustrate some concepts using a data set that is provided by seaborn, a useful data visualization package.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
 
-<span class="n">names</span> <span class="o">=</span> <span class="p">[</span> 
-    <span class="s2">&quot;age&quot;</span><span class="p">,</span><span class="s2">&quot;workclass&quot;</span><span class="p">,</span><span class="s2">&quot;fnlwgt&quot;</span><span class="p">,</span><span class="s2">&quot;education&quot;</span><span class="p">,</span><span class="s2">&quot;education_num&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;marital_status&quot;</span><span class="p">,</span><span class="s2">&quot;occupation&quot;</span><span class="p">,</span><span class="s2">&quot;relationship&quot;</span><span class="p">,</span><span class="s2">&quot;race&quot;</span><span class="p">,</span><span class="s2">&quot;sex&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;capital_gain&quot;</span><span class="p">,</span><span class="s2">&quot;capital_loss&quot;</span><span class="p">,</span><span class="s2">&quot;hours_per_week&quot;</span><span class="p">,</span><span class="s2">&quot;country&quot;</span><span class="p">,</span><span class="s2">&quot;income_level&quot;</span>
-<span class="p">]</span>
-<span class="n">dtypes</span> <span class="o">=</span> <span class="p">[</span> 
-    <span class="s2">&quot;int64&quot;</span><span class="p">,</span><span class="s2">&quot;category&quot;</span><span class="p">,</span><span class="s2">&quot;int64&quot;</span><span class="p">,</span><span class="s2">&quot;category&quot;</span><span class="p">,</span><span class="s2">&quot;int64&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;category&quot;</span><span class="p">,</span><span class="s2">&quot;category&quot;</span><span class="p">,</span><span class="s2">&quot;category&quot;</span><span class="p">,</span><span class="s2">&quot;category&quot;</span><span class="p">,</span><span class="s2">&quot;category&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;int64&quot;</span><span class="p">,</span><span class="s2">&quot;int64&quot;</span><span class="p">,</span><span class="s2">&quot;int64&quot;</span><span class="p">,</span><span class="s2">&quot;category&quot;</span><span class="p">,</span><span class="s2">&quot;category&quot;</span>
-<span class="p">]</span>
-<span class="n">adult</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_table</span><span class="p">(</span><span class="s2">&quot;adult.data&quot;</span><span class="p">,</span><span class="n">delimiter</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">,</span><span class="n">names</span><span class="o">=</span><span class="n">names</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">names</span><span class="p">,</span><span class="n">dtypes</span><span class="p">)))</span>
-<span class="n">bysex</span> <span class="o">=</span> <span class="n">adult</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;sex&quot;</span><span class="p">)</span>
+<span class="n">cars</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">load_dataset</span><span class="p">(</span><span class="s2">&quot;mpg&quot;</span><span class="p">)</span>
+<span class="n">cars</span>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>mpg</th>
+      <th>cylinders</th>
+      <th>displacement</th>
+      <th>horsepower</th>
+      <th>weight</th>
+      <th>acceleration</th>
+      <th>model_year</th>
+      <th>origin</th>
+      <th>name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>18.0</td>
+      <td>8</td>
+      <td>307.0</td>
+      <td>130.0</td>
+      <td>3504</td>
+      <td>12.0</td>
+      <td>70</td>
+      <td>usa</td>
+      <td>chevrolet chevelle malibu</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>15.0</td>
+      <td>8</td>
+      <td>350.0</td>
+      <td>165.0</td>
+      <td>3693</td>
+      <td>11.5</td>
+      <td>70</td>
+      <td>usa</td>
+      <td>buick skylark 320</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>18.0</td>
+      <td>8</td>
+      <td>318.0</td>
+      <td>150.0</td>
+      <td>3436</td>
+      <td>11.0</td>
+      <td>70</td>
+      <td>usa</td>
+      <td>plymouth satellite</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>16.0</td>
+      <td>8</td>
+      <td>304.0</td>
+      <td>150.0</td>
+      <td>3433</td>
+      <td>12.0</td>
+      <td>70</td>
+      <td>usa</td>
+      <td>amc rebel sst</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>17.0</td>
+      <td>8</td>
+      <td>302.0</td>
+      <td>140.0</td>
+      <td>3449</td>
+      <td>10.5</td>
+      <td>70</td>
+      <td>usa</td>
+      <td>ford torino</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>393</th>
+      <td>27.0</td>
+      <td>4</td>
+      <td>140.0</td>
+      <td>86.0</td>
+      <td>2790</td>
+      <td>15.6</td>
+      <td>82</td>
+      <td>usa</td>
+      <td>ford mustang gl</td>
+    </tr>
+    <tr>
+      <th>394</th>
+      <td>44.0</td>
+      <td>4</td>
+      <td>97.0</td>
+      <td>52.0</td>
+      <td>2130</td>
+      <td>24.6</td>
+      <td>82</td>
+      <td>europe</td>
+      <td>vw pickup</td>
+    </tr>
+    <tr>
+      <th>395</th>
+      <td>32.0</td>
+      <td>4</td>
+      <td>135.0</td>
+      <td>84.0</td>
+      <td>2295</td>
+      <td>11.6</td>
+      <td>82</td>
+      <td>usa</td>
+      <td>dodge rampage</td>
+    </tr>
+    <tr>
+      <th>396</th>
+      <td>28.0</td>
+      <td>4</td>
+      <td>120.0</td>
+      <td>79.0</td>
+      <td>2625</td>
+      <td>18.6</td>
+      <td>82</td>
+      <td>usa</td>
+      <td>ford ranger</td>
+    </tr>
+    <tr>
+      <th>397</th>
+      <td>31.0</td>
+      <td>4</td>
+      <td>119.0</td>
+      <td>82.0</td>
+      <td>2720</td>
+      <td>19.4</td>
+      <td>82</td>
+      <td>usa</td>
+      <td>chevy s-10</td>
+    </tr>
+  </tbody>
+</table>
+<p>398 rows × 9 columns</p>
+</div></div></div>
 </div>
-<div class="section" id="distribution-functions">
-<h2>Distribution functions<a class="headerlink" href="#distribution-functions" title="Permalink to this headline">¶</a></h2>
-<p>The <strong>cumulative distribution function</strong> (CDF) is the inverse of percentiles. Specifically, <span class="math notranslate nohighlight">\(F(x)\)</span> is the probability that a population value will be less than or equal to <span class="math notranslate nohighlight">\(x\)</span>. The domain of <span class="math notranslate nohighlight">\(F\)</span> is the real line (unless otherwise restricted), and the range is the interval <span class="math notranslate nohighlight">\([0,1]\)</span>.</p>
-<p>When a sample is used to estimate a continuous CDF, the resulting is a stair-step (piecewise constant) graph known as the <strong>empirical CDF</strong>.</p>
+<div class="section" id="histogram">
+<h2>Histogram<a class="headerlink" href="#histogram" title="Permalink to this headline">¶</a></h2>
+<p>One of the fastest ways to become familiar with a data set is to visualize it. To visualize a distribution of continuous values, we can use a <strong>histogram</strong>. We choose ordered real values <span class="math notranslate nohighlight">\(t_1 &lt; t_2 &lt; \cdots &lt; t_m\)</span>. Define <em>bin</em> <span class="math notranslate nohighlight">\(k\)</span> to be the interval <span class="math notranslate nohighlight">\(B_k=[t_k,t_{k+1})\)</span>, with the convention that <span class="math notranslate nohighlight">\(t_0=-\infty\)</span> and <span class="math notranslate nohighlight">\(t_{m+1}=\infty\)</span>. This gives us a series of counts <span class="math notranslate nohighlight">\(c_k\)</span>, where <span class="math notranslate nohighlight">\(c_k\)</span> is defined as the number of data values in interval <span class="math notranslate nohighlight">\(B_k\)</span>. A histogram plots those counts, typically using a bar graph.</p>
+<p>In seaborn, you plot a histogram using <code class="docutils literal notranslate"><span class="pre">displot</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">displot</span><span class="p">(</span><span class="n">adult</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;age&quot;</span><span class="p">,</span><span class="n">col</span><span class="o">=</span><span class="s2">&quot;sex&quot;</span><span class="p">,</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;ecdf&quot;</span><span class="p">);</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">displot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">cars</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;mpg&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -549,28 +933,10 @@ f(x) = \frac{1}{\sqrt{2\pi\sigma^2}} \exp\left( -\frac{(x-\mu)^2}{2\sigma^2} \ri
 <img alt="../_images/distributions_3_0.png" src="../_images/distributions_3_0.png" />
 </div>
 </div>
-<p>For a simple, continuous probability distribution, we can expect the CDF to be continuous and differentiable. The derivative of the CDF is called the <strong>probability distribution function</strong> (PDF), and it is the continuous analog of a histogram divided into infinitesimally small bins.</p>
-</div>
-<div class="section" id="exponential-distribution">
-<h2>Exponential distribution<a class="headerlink" href="#exponential-distribution" title="Permalink to this headline">¶</a></h2>
-<p>An <strong>exponential distribution</strong> is a distribution on nonnegative real numbers. It is parameterized by a positive number <span class="math notranslate nohighlight">\(\lambda\)</span>. It has PDF equal to</p>
-<div class="math notranslate nohighlight">
-\[f(x) = \lambda e^{-\lambda x}\]</div>
-<p>and CDF equal to</p>
-<div class="math notranslate nohighlight">
-\[F(x) = 1 - e^{-\lambda x}.\]</div>
-<p>The mean of the distribution is <span class="math notranslate nohighlight">\(1/\lambda\)</span>, the variance is <span class="math notranslate nohighlight">\(1/\lambda^2\)</span>, and the median is <span class="math notranslate nohighlight">\(\ln(2)/\lambda\)</span>.</p>
-<div class="cell tag_hide-input docutils container">
+<p>You can specify the number of bins used (or their edges).</p>
+<div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-
-<span class="n">lam</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">300</span><span class="p">)</span><span class="o">*</span><span class="mi">4</span><span class="o">/</span><span class="mi">300</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">lam</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">lam</span><span class="o">*</span><span class="n">x</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;f(x)&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;PDF of exponential distribution, lambda=1&quot;</span><span class="p">);</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">displot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">cars</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;mpg&quot;</span><span class="p">,</span><span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -578,7 +944,60 @@ f(x) = \frac{1}{\sqrt{2\pi\sigma^2}} \exp\left( -\frac{(x-\mu)^2}{2\sigma^2} \ri
 <img alt="../_images/distributions_5_0.png" src="../_images/distributions_5_0.png" />
 </div>
 </div>
-<p>The exponential distribution is often used as a model for randomly occurring events, such as the time between callers to a customer service line or the magnitudes of earthquakes.</p>
+<p>Much as we use grouping in pandas, we can use categories in a series to split the data in seaborn. In this case, we use three different colors (hues) for three different regions of origin.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">displot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">cars</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;mpg&quot;</span><span class="p">,</span><span class="n">hue</span><span class="o">=</span><span class="s2">&quot;origin&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/distributions_7_0.png" src="../_images/distributions_7_0.png" />
+</div>
+</div>
+<p>That graph is a little messy because of the overlaps. We can instead split the data and plot as columns of subplots.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">displot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">cars</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;mpg&quot;</span><span class="p">,</span><span class="n">col</span><span class="o">=</span><span class="s2">&quot;origin&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/distributions_9_0.png" src="../_images/distributions_9_0.png" />
+</div>
+</div>
+<p>In either case, it’s easy to see that the U.S. cars are more clustered on the left (smaller MPG) than the Japanese and European cars.</p>
+<p>You can even combine grouping by plot column with grouping by color.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">displot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">cars</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;mpg&quot;</span><span class="p">,</span><span class="n">col</span><span class="o">=</span><span class="s2">&quot;origin&quot;</span><span class="p">,</span><span class="n">hue</span><span class="o">=</span><span class="s2">&quot;cylinders&quot;</span><span class="p">,</span><span class="n">multiple</span><span class="o">=</span><span class="s2">&quot;stack&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/distributions_11_0.png" src="../_images/distributions_11_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="distribution-functions">
+<h2>Distribution functions<a class="headerlink" href="#distribution-functions" title="Permalink to this headline">¶</a></h2>
+<p>The <strong>cumulative distribution function</strong> (CDF) <span class="math notranslate nohighlight">\(F(x)\)</span> is the probability that a data value will be less than or equal to <span class="math notranslate nohighlight">\(x\)</span>. The domain of <span class="math notranslate nohighlight">\(F\)</span> is the real line (unless otherwise restricted), and the range is the interval <span class="math notranslate nohighlight">\([0,1]\)</span>.</p>
+<p>When a sample is used to estimate a continuous CDF, the resulting is a stair-step (piecewise constant) graph known as the <strong>empirical CDF</strong>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">displot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">cars</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;mpg&quot;</span><span class="p">,</span><span class="n">col</span><span class="o">=</span><span class="s2">&quot;origin&quot;</span><span class="p">,</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;ecdf&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/distributions_13_0.png" src="../_images/distributions_13_0.png" />
+</div>
+</div>
+<p>If we could account for infinitely many observations, we would expect (in most cases) the CDF to be continuous and differentiable. The derivative of the CDF, <span class="math notranslate nohighlight">\(f(x)=F'(x)\)</span>, is called the <strong>probability distribution function</strong> (PDF). The PDF is the continuous analog of a histogram divided into infinitesimally small bins. Note that because the probability of observing <em>some</em> real value is 100%, we have the constraint</p>
+<div class="math notranslate nohighlight">
+\[
+\int_{-\infty}^\infty f(x)\, dx = 1.
+\]</div>
 </div>
 <div class="section" id="normal-distribution">
 <h2>Normal distribution<a class="headerlink" href="#normal-distribution" title="Permalink to this headline">¶</a></h2>
@@ -587,7 +1006,7 @@ f(x) = \frac{1}{\sqrt{2\pi\sigma^2}} \exp\left( -\frac{(x-\mu)^2}{2\sigma^2} \ri
 \[
 f(x) = \frac{1}{\sqrt{2\pi\sigma^2}} \exp\left( -\frac{(x-\mu)^2}{2\sigma^2} \right).
 \]</div>
-<p>The CDF cannot be expressed using elementary functions. A normal PDF is peaked at the mean and drops off superexponentially and symmetrically on both sides.</p>
+<p>The CDF cannot be expressed using elementary functions. A normal PDF is peaked at the mean, dropping superexponentially and symmetrically on both sides.</p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -605,14 +1024,13 @@ f(x) = \frac{1}{\sqrt{2\pi\sigma^2}} \exp\left( -\frac{(x-\mu)^2}{2\sigma^2} \ri
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/distributions_7_0.png" src="../_images/distributions_7_0.png" />
+<img alt="../_images/distributions_15_0.png" src="../_images/distributions_15_0.png" />
 </div>
 </div>
-<p>For normally distributed data, a common definition of outliers is to reject values that satisfy <span class="math notranslate nohighlight">\(|x-\mu|&gt;2\sigma\)</span>, which would discard about 5% of values on average. A less aggressive criterion uses <span class="math notranslate nohighlight">\(3\sigma\)</span> instead of <span class="math notranslate nohighlight">\(2\sigma\)</span>.</p>
 </div>
 <div class="section" id="kernel-density-estimation">
 <h2>Kernel density estimation<a class="headerlink" href="#kernel-density-estimation" title="Permalink to this headline">¶</a></h2>
-<p>It can be helpful to go from a discrete distribution, as described by a histogram, with a continuous function that estimates the PDF. One technique to do this is called <strong>kernel density estimation</strong> (KDE).</p>
+<p>It can be helpful to go from a discrete distribution, as described by a histogram, to a continuous function that approximates the PDF. One technique to do this is called <strong>kernel density estimation</strong> (KDE).</p>
 <p>Let <span class="math notranslate nohighlight">\(g(x)\)</span> be a normal distribution with mean zero and a chosen variance. If we have samples <span class="math notranslate nohighlight">\(x_1,\ldots,x_n\)</span>, define</p>
 <div class="math notranslate nohighlight">
 \[
@@ -624,34 +1042,18 @@ f(x) = \frac{1}{\sqrt{2\pi\sigma^2}} \exp\left( -\frac{(x-\mu)^2}{2\sigma^2} \ri
 \frac{\tilde{f}(x) }{\int_{-\infty}^\infty \tilde{f}(x) \, dx}
 \]</div>
 <p>as the KDE approximation to the PDF.</p>
-<p>For example, here again are the sex-grouped histograms for ages in the Adult data set:</p>
+<p>For example, using the MPG data:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">displot</span><span class="p">(</span><span class="n">adult</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;age&quot;</span><span class="p">,</span><span class="n">col</span><span class="o">=</span><span class="s2">&quot;sex&quot;</span><span class="p">,</span><span class="n">bins</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">displot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">cars</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;mpg&quot;</span><span class="p">,</span><span class="n">hue</span><span class="o">=</span><span class="s2">&quot;origin&quot;</span><span class="p">,</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;kde&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.FacetGrid at 0x7fcaba36c820&gt;
-</pre></div>
-</div>
-<img alt="../_images/distributions_9_1.png" src="../_images/distributions_9_1.png" />
+<img alt="../_images/distributions_17_0.png" src="../_images/distributions_17_0.png" />
 </div>
 </div>
-<p>And here are the KDE estimates:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">displot</span><span class="p">(</span><span class="n">adult</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;age&quot;</span><span class="p">,</span><span class="n">col</span><span class="o">=</span><span class="s2">&quot;sex&quot;</span><span class="p">,</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;kde&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.FacetGrid at 0x7fca980c9070&gt;
-</pre></div>
-</div>
-<img alt="../_images/distributions_11_1.png" src="../_images/distributions_11_1.png" />
-</div>
-</div>
+<p>Based on these curves, it would be plausible to approximate the distribution of cars from Europe as a normal distribution, but the asymmetry in the other two cases would make that approximation less satisfying.</p>
 </div>
 </div>
 
@@ -680,17 +1082,17 @@ f(x) = \frac{1}{\sqrt{2\pi\sigma^2}} \exp\left( -\frac{(x-\mu)^2}{2\sigma^2} \ri
         
             <!-- Previous / next buttons -->
 <div class='prev-next-area'> 
-    <a class='left-prev' id="prev-link" href="exploratory.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="overview.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title"><span class="section-number">2.1. </span>Exploratory analysis</p>
+            <p class="prev-next-title"><span class="section-number">2. </span>Descriptive statistics</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="correlation.html" title="next page">
+    <a class='right-next' id="next-link" href="summary.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">2.3. </span>Correlation</p>
+        <p class="prev-next-title"><span class="section-number">2.2. </span>Summary statistics</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

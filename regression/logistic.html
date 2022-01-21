@@ -1,0 +1,1941 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>4.4. Logistic regression &#8212; Data Science 1</title>
+    
+  <link href="../_static/css/theme.css" rel="stylesheet">
+  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>window.MathJax = {"tex": {"macros": {"float": ["\\mathbb{F}"], "real": ["\\mathbb{R}"], "complex": ["\\mathbb{C}"], "nat": ["\\mathbb{N}"], "integer": ["\\mathbb{Z}"], "bfa": "\\mathbf{a}", "bfe": "\\mathbf{e}", "bfx": "\\mathbf{x}", "bfX": "\\mathbf{X}", "bfw": "\\mathbf{w}", "bfy": "\\mathbf{y}", "bfz": "\\mathbf{z}", "bfzero": "\\boldsymbol{0}", "rmn": ["\\mathbb{R}^{#1 \\times #2}", 2], "dd": ["\\frac{d #1}{d #2}", 2], "pp": ["\\frac{\\partial #1}{\\partial #2}", 2], "norm": ["\\| #1 \\|", 1], "twonorm": ["\\| #1 \\|_2", 1], "onenorm": ["\\| #1 \\|_1", 1], "infnorm": ["\\| #1 \\|_\\infty", 1], "innerprod": ["\\langle #1,#2 \\rangle", 2], "pr": ["^{(#1)}", 1], "diag": ["\\operatorname{diag}"], "sign": ["\\operatorname{sign}"], "ee": ["\\times 10^"], "floor": ["\\lfloor#1\\rfloor", 1], "argmin": ["\\operatorname{argmin}"], "Cov": ["\\operatorname{Cov}"]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script>
+        const thebe_selector = ".thebe,.cell"
+        const thebe_selector_input = "pre,.cell_input div.highlight"
+        const thebe_selector_output = ".output,.cell_output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="5. Unsupervised learning" href="../unsupervised/overview.html" />
+    <link rel="prev" title="4.3. Regularization" href="regularization.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Data Science 1</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   Data Science 1 @ UD Math
+  </a>
+ </li>
+</ul>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../representation/overview.html">
+   1. Representation of data
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../representation/data-types.html">
+     1.1. Types of data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../representation/numpy.html">
+     1.2. Introduction to numpy
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../representation/pandas.html">
+     1.3. Introduction to pandas
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../representation/split-apply-combine.html">
+     1.4. Split–apply–combine
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../statistics/overview.html">
+   2. Descriptive statistics
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../statistics/distributions.html">
+     2.1. Distributions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../statistics/summary.html">
+     2.2. Summary statistics
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../statistics/outliers.html">
+     2.3. Outliers
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../statistics/correlation.html">
+     2.4. Correlation
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../supervised/overview.html">
+   3. Classification
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../supervised/scikit.html">
+     3.1. Using scikit-learn
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../supervised/performance.html">
+     3.2. Classifier performance
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../supervised/decision-trees.html">
+     3.3. Decision trees
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../supervised/nearest-neighbors.html">
+     3.4. Nearest neighbors
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../supervised/svm.html">
+     3.5. Support vector machine
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../supervised/model-selection.html">
+     3.6. Model selection
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="overview.html">
+   4. Regression
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="linear.html">
+     4.1. Linear regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="multilinear.html">
+     4.2. Multilinear and polynomial regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="regularization.html">
+     4.3. Regularization
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     4.4. Logistic regression
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../unsupervised/overview.html">
+   5. Unsupervised learning
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <label for="toctree-checkbox-5">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../unsupervised/preliminaries.html">
+     5.1. Preliminaries
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        <a class="dropdown-buttons"
+            href="../_sources/regression/logistic.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download notebook file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/regression/logistic.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/UD-Math-Data-Science-1/notes/main?urlpath=tree/regression/logistic.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <button type="button" class="btn btn-secondary topbarbtn"
+            onclick="initThebeSBT()" title="Launch Thebe" data-toggle="tooltip" data-placement="left"><i
+                class="fas fa-play"></i><span style="margin-left: .4em;">Live Code</span></button>
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#logistic-and-logit-functions">
+   Logistic and logit functions
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#loss-function">
+   Loss function
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#case-study-personal-spam-filter">
+   Case study: Personal spam filter
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#multiclass-case">
+   Multiclass case
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#case-study-gas-sensor-drift">
+   Case study: Gas sensor drift
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <!-- Table of contents that is only displayed when printing the page -->
+    <div id="jb-print-docs-body" class="onlyprint">
+        <h1>Logistic regression</h1>
+        <!-- Table of contents -->
+        <div id="print-main-content" class="row">
+            <div class="col-12 col-md-12 pl-md-5 pr-md-5">
+            <div id="jb-print-toc">
+                
+                <div>
+                    <h2> Contents </h2>
+                </div>
+                <nav aria-label="Page">
+                    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#logistic-and-logit-functions">
+   Logistic and logit functions
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#loss-function">
+   Loss function
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#case-study-personal-spam-filter">
+   Case study: Personal spam filter
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#multiclass-case">
+   Multiclass case
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#case-study-gas-sensor-drift">
+   Case study: Gas sensor drift
+  </a>
+ </li>
+</ul>
+
+                </nav>
+            </div>
+            
+              <div>
+                
+  <div class="tex2jax_ignore mathjax_ignore section" id="logistic-regression">
+<h1><span class="section-number">4.4. </span>Logistic regression<a class="headerlink" href="#logistic-regression" title="Permalink to this headline">¶</a></h1>
+<p>Logistic regression is, somewhat paradoxically, most often used for classification rather than a regression problem. In the case of <strong>binary logistic regression</strong>, the labels of each instance is either 0 or 1, but the regressor predicts a real number between zero and one. This value is typically interpreted as the probability of observing a 1, and then a threshold is chosen to quantize the output to 0 or 1.</p>
+<div class="section" id="logistic-and-logit-functions">
+<h2>Logistic and logit functions<a class="headerlink" href="#logistic-and-logit-functions" title="Permalink to this headline">¶</a></h2>
+<p>The <strong>logistic function</strong> is defined as</p>
+<div class="math notranslate nohighlight">
+\[
+\sigma(x) = \frac{1}{1+e^{-x}}.
+\]</div>
+<div class="figure align-default">
+<img alt="../_images/logistic.png" src="../_images/logistic.png" />
+</div>
+<p>The logistic function takes the form of a smoothed step up from 0 to 1. Its inverse is the <strong>logit function</strong>,</p>
+<div class="math notranslate nohighlight">
+\[
+\newcommand{logit}{\operatorname{logit}}
+\logit(p) = \ln\left( \frac{p}{1-p} \right).
+\]</div>
+<div class="figure align-default">
+<img alt="../_images/logit.png" src="../_images/logit.png" />
+</div>
+<p>In keeping with interpreting <span class="math notranslate nohighlight">\(p\)</span> as probability, <span class="math notranslate nohighlight">\(\logit(p)\)</span> is the <strong>log-odds ratio</strong>. For instance, if <span class="math notranslate nohighlight">\(p=2/3\)</span>, then the odds ratio is <span class="math notranslate nohighlight">\((2/3)/(1/3)=2\)</span> (i.e., 2:1 odds), and <span class="math notranslate nohighlight">\(\logit(2/3)=\ln(2)\)</span>.</p>
+<p>Logistic regression is the approximation</p>
+<div class="math notranslate nohighlight">
+\[
+\logit(p) \approx \bfx^T\bfw,
+\]</div>
+<p>that is, multilinear regression for the function <span class="math notranslate nohighlight">\(\logit(p)\)</span>, where <span class="math notranslate nohighlight">\(p\)</span> is the probability of the class <span class="math notranslate nohighlight">\(y=1\)</span>. Hence</p>
+<div class="math notranslate nohighlight">
+\[
+p \approx \sigma(\bfx^T\bfw).
+\]</div>
+</div>
+<div class="section" id="loss-function">
+<h2>Loss function<a class="headerlink" href="#loss-function" title="Permalink to this headline">¶</a></h2>
+<p>At a training observation <span class="math notranslate nohighlight">\((\bfx_i,y_i)\)</span>, we know that either <span class="math notranslate nohighlight">\(p=0\)</span> or <span class="math notranslate nohighlight">\(p=1\)</span>. Let <span class="math notranslate nohighlight">\(\hat{p}_i\)</span> be the output of the regressor at this observation:</p>
+<div class="math notranslate nohighlight">
+\[
+\hat{p}_i  = \sigma(\bfx_i^T\bfw).
+\]</div>
+<p>The loss function is then</p>
+<div class="math notranslate nohighlight">
+\[
+L(\bfw) = -\sum_{i=1}^n \left[ y_i \ln(\hat{p}_i) + (1-y_i) \ln(1-\hat{p}_i) \right].
+\]</div>
+<p>Note that observation <span class="math notranslate nohighlight">\(i\)</span> contributes <span class="math notranslate nohighlight">\(-\ln(1-\hat{p}_i)\)</span> if <span class="math notranslate nohighlight">\(y_i=0\)</span> and <span class="math notranslate nohighlight">\(-\ln(\hat{p}_i)\)</span> if <span class="math notranslate nohighlight">\(y_i=1\)</span>. Both quantities increase as <span class="math notranslate nohighlight">\(\hat{p}_i\)</span> gets farther away from <span class="math notranslate nohighlight">\(y_i\)</span>. This loss is a special case of <strong>cross-entropy</strong>, a measure of dissimilarity between the probabilities of 1 occurring in the training versus the prediction.</p>
+<p>As with other forms of linear regression, the loss function is often regularized using the ridge or LASSO penalty. As we covered earlier, there is a hyperparameter <span class="math notranslate nohighlight">\(C\)</span> that emphasizes small <span class="math notranslate nohighlight">\(\|\bfw\|\)</span> as <span class="math notranslate nohighlight">\(C\to 0\)</span>, and pure regression as <span class="math notranslate nohighlight">\(C\to \infty\)</span>.</p>
+</div>
+<div class="section" id="case-study-personal-spam-filter">
+<h2>Case study: Personal spam filter<a class="headerlink" href="#case-study-personal-spam-filter" title="Permalink to this headline">¶</a></h2>
+<p>We will try logistic regression for a simple spam filter. The data set is based on work and personal emails for one individual. The features are calculated word and character frequencies, as well as the appearance of capital letters.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="n">spam</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;spambase.csv&quot;</span><span class="p">)</span>
+<span class="n">spam</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>word_freq_make</th>
+      <th>word_freq_address</th>
+      <th>word_freq_all</th>
+      <th>word_freq_3d</th>
+      <th>word_freq_our</th>
+      <th>word_freq_over</th>
+      <th>word_freq_remove</th>
+      <th>word_freq_internet</th>
+      <th>word_freq_order</th>
+      <th>word_freq_mail</th>
+      <th>...</th>
+      <th>char_freq_%3B</th>
+      <th>char_freq_%28</th>
+      <th>char_freq_%5B</th>
+      <th>char_freq_%21</th>
+      <th>char_freq_%24</th>
+      <th>char_freq_%23</th>
+      <th>capital_run_length_average</th>
+      <th>capital_run_length_longest</th>
+      <th>capital_run_length_total</th>
+      <th>class</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.00</td>
+      <td>0.64</td>
+      <td>0.64</td>
+      <td>0.0</td>
+      <td>0.32</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>...</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>0.0</td>
+      <td>0.778</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>3.756</td>
+      <td>61</td>
+      <td>278</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.21</td>
+      <td>0.28</td>
+      <td>0.50</td>
+      <td>0.0</td>
+      <td>0.14</td>
+      <td>0.28</td>
+      <td>0.21</td>
+      <td>0.07</td>
+      <td>0.00</td>
+      <td>0.94</td>
+      <td>...</td>
+      <td>0.000</td>
+      <td>0.132</td>
+      <td>0.0</td>
+      <td>0.372</td>
+      <td>0.180</td>
+      <td>0.048</td>
+      <td>5.114</td>
+      <td>101</td>
+      <td>1028</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.06</td>
+      <td>0.00</td>
+      <td>0.71</td>
+      <td>0.0</td>
+      <td>1.23</td>
+      <td>0.19</td>
+      <td>0.19</td>
+      <td>0.12</td>
+      <td>0.64</td>
+      <td>0.25</td>
+      <td>...</td>
+      <td>0.010</td>
+      <td>0.143</td>
+      <td>0.0</td>
+      <td>0.276</td>
+      <td>0.184</td>
+      <td>0.010</td>
+      <td>9.821</td>
+      <td>485</td>
+      <td>2259</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.0</td>
+      <td>0.63</td>
+      <td>0.00</td>
+      <td>0.31</td>
+      <td>0.63</td>
+      <td>0.31</td>
+      <td>0.63</td>
+      <td>...</td>
+      <td>0.000</td>
+      <td>0.137</td>
+      <td>0.0</td>
+      <td>0.137</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>3.537</td>
+      <td>40</td>
+      <td>191</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.0</td>
+      <td>0.63</td>
+      <td>0.00</td>
+      <td>0.31</td>
+      <td>0.63</td>
+      <td>0.31</td>
+      <td>0.63</td>
+      <td>...</td>
+      <td>0.000</td>
+      <td>0.135</td>
+      <td>0.0</td>
+      <td>0.135</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>3.537</td>
+      <td>40</td>
+      <td>191</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>4596</th>
+      <td>0.31</td>
+      <td>0.00</td>
+      <td>0.62</td>
+      <td>0.0</td>
+      <td>0.00</td>
+      <td>0.31</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>...</td>
+      <td>0.000</td>
+      <td>0.232</td>
+      <td>0.0</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>1.142</td>
+      <td>3</td>
+      <td>88</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4597</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.0</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>...</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>0.0</td>
+      <td>0.353</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>1.555</td>
+      <td>4</td>
+      <td>14</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4598</th>
+      <td>0.30</td>
+      <td>0.00</td>
+      <td>0.30</td>
+      <td>0.0</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>...</td>
+      <td>0.102</td>
+      <td>0.718</td>
+      <td>0.0</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>1.404</td>
+      <td>6</td>
+      <td>118</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4599</th>
+      <td>0.96</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.0</td>
+      <td>0.32</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>...</td>
+      <td>0.000</td>
+      <td>0.057</td>
+      <td>0.0</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>1.147</td>
+      <td>5</td>
+      <td>78</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4600</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.65</td>
+      <td>0.0</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>...</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>0.0</td>
+      <td>0.125</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>1.250</td>
+      <td>5</td>
+      <td>40</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+<p>4601 rows × 58 columns</p>
+</div></div></div>
+</div>
+<p>We’ll create a feature matrix and label vector, and split into train/test sets.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="n">spam</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s2">&quot;class&quot;</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="s2">&quot;columns&quot;</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">spam</span><span class="p">[</span><span class="s2">&quot;class&quot;</span><span class="p">]</span>
+
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="n">X_tr</span><span class="p">,</span><span class="n">X_te</span><span class="p">,</span><span class="n">y_tr</span><span class="p">,</span><span class="n">y_te</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span><span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>When using norm-based regularization, it’s good practice to standardize the variables, so we will prepare to set up a pipeline.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span>
+<span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">make_pipeline</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>First we use a large value of <span class="math notranslate nohighlight">\(C\)</span> to emphasize the regressive loss rather than the regularization penalty. (The default regularization norm is the 2-norm.) It’s not required to select a solver, but we choose one here that is reliable for small data sets.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
+<span class="n">logr</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">C</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span><span class="n">solver</span><span class="o">=</span><span class="s2">&quot;liblinear&quot;</span><span class="p">)</span>
+<span class="n">pipe</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">StandardScaler</span><span class="p">(),</span><span class="n">logr</span><span class="p">)</span>
+<span class="n">pipe</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_tr</span><span class="p">,</span><span class="n">y_tr</span><span class="p">)</span>
+<span class="n">pipe</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_te</span><span class="p">,</span><span class="n">y_te</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.9337676438653637
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s look at the most extreme regression coefficients.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">logr</span><span class="o">.</span><span class="n">coef_</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">index</span><span class="o">=</span><span class="n">X</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>word_freq_george             -24.055873
+word_freq_cs                  -8.573934
+word_freq_hp                  -3.512677
+word_freq_meeting             -1.940974
+word_freq_lab                 -1.469316
+word_freq_edu                 -1.460705
+word_freq_hpl                 -1.181911
+word_freq_85                  -1.177344
+word_freq_re                  -0.981293
+word_freq_conference          -0.934152
+word_freq_project             -0.776980
+word_freq_pm                  -0.477826
+char_freq_%3B                 -0.379451
+capital_run_length_average    -0.367801
+word_freq_data                -0.346597
+word_freq_labs                -0.287406
+word_freq_original            -0.271247
+char_freq_%5B                 -0.209782
+word_freq_address             -0.196341
+word_freq_table               -0.183580
+word_freq_parts               -0.165103
+word_freq_direct              -0.135774
+word_freq_will                -0.132897
+word_freq_1999                -0.124816
+word_freq_make                -0.110128
+word_freq_receive             -0.082429
+char_freq_%28                 -0.067925
+word_freq_people              -0.021478
+word_freq_email               -0.004437
+word_freq_report               0.022125
+word_freq_all                  0.058893
+word_freq_mail                 0.076243
+word_freq_money                0.149010
+word_freq_you                  0.162890
+word_freq_order                0.183803
+word_freq_telnet               0.212813
+word_freq_over                 0.221469
+word_freq_650                  0.230857
+word_freq_font                 0.239646
+word_freq_your                 0.249595
+word_freq_415                  0.249837
+char_freq_%21                  0.250076
+word_freq_internet             0.265411
+word_freq_857                  0.281856
+word_freq_our                  0.295921
+word_freq_business             0.396552
+word_freq_technology           0.417834
+capital_run_length_total       0.428443
+word_freq_credit               0.458949
+word_freq_addresses            0.504272
+word_freq_000                  0.730850
+word_freq_remove               0.802990
+word_freq_free                 1.135052
+char_freq_%23                  1.155145
+char_freq_%24                  1.262550
+capital_run_length_longest     1.975006
+word_freq_3d                   2.112929
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<p>The word “george” is a strong counter-indicator for spam (remember that this data set comes from an individual), while the presence of “free” or consecutive capital letters is a strong signal of spam.</p>
+<p>The predictions by the regressor are all either 0 or 1. But we can also see the forecasted probabilities before rounding.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;classes:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pipe</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_tr</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="mi">5</span><span class="p">,:]))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">probabilities:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pipe</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_tr</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="mi">5</span><span class="p">,:]))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>classes:
+[0 0 0 0 0]
+
+probabilities:
+[[0.53769264 0.46230736]
+ [0.99694715 0.00305285]
+ [0.63975661 0.36024339]
+ [0.996342   0.003658  ]
+ [0.93740435 0.06259565]]
+</pre></div>
+</div>
+</div>
+</div>
+<p>The probabilities might be useful, e.g., to make decisions based on the results.</p>
+<p>For a validation-based selection of the best regularization parameter, we can use <code class="docutils literal notranslate"><span class="pre">LogisticRegressionCV</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegressionCV</span>
+<span class="n">logr</span> <span class="o">=</span> <span class="n">LogisticRegressionCV</span><span class="p">(</span><span class="n">Cs</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span><span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span><span class="n">solver</span><span class="o">=</span><span class="s2">&quot;liblinear&quot;</span><span class="p">)</span>
+<span class="n">pipe</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">StandardScaler</span><span class="p">(),</span><span class="n">logr</span><span class="p">)</span>
+<span class="n">pipe</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_tr</span><span class="p">,</span><span class="n">y_tr</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;best C value: </span><span class="si">{</span><span class="n">logr</span><span class="o">.</span><span class="n">C_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.3g</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;R2 score: </span><span class="si">{</span><span class="n">pipe</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_te</span><span class="p">,</span><span class="n">y_te</span><span class="p">)</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>best C value: 21.5
+R2 score: 0.9349
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="multiclass-case">
+<h2>Multiclass case<a class="headerlink" href="#multiclass-case" title="Permalink to this headline">¶</a></h2>
+<p>When there are more than two unique labels possible, logistic regression can be extended through the <strong>one-vs-rest</strong> paradigm. Given <span class="math notranslate nohighlight">\(K\)</span> classes, there are <span class="math notranslate nohighlight">\(K\)</span> binary regressors fit for the outcomes “class 1/not class 1,” “class 2/not class 2,” and so on. This gives predictive relative probabilities <span class="math notranslate nohighlight">\(q_1,\ldots,q_K\)</span> for the occurrence of each individual class. Since they need not sum to 1, they can be normalized into predicted probabilities via</p>
+<div class="math notranslate nohighlight">
+\[
+\hat{p}_i = \frac{q_i}{\sum_{k=1}^K q_k}.
+\]</div>
+<!-- 
+Another way to convert them is by using a **softmax** function:
+
+$$
+p_i = \frac{e^{q_i}}{\sum_{k=1}^K e^{q_k}}.
+$$
+
+The softmax exaggerates differences between the $q_i$, making the result closer to a "winner takes all" result.
+ -->
+</div>
+<div class="section" id="case-study-gas-sensor-drift">
+<h2>Case study: Gas sensor drift<a class="headerlink" href="#case-study-gas-sensor-drift" title="Permalink to this headline">¶</a></h2>
+<p>As a multiclass example, we use a data set about gas sensors recording values over long periods of time.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gas</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;gas_drift.csv&quot;</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">gas</span><span class="p">[</span><span class="s2">&quot;Class&quot;</span><span class="p">]</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">gas</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s2">&quot;Class&quot;</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="s2">&quot;columns&quot;</span><span class="p">)</span>
+<span class="n">X_tr</span><span class="p">,</span><span class="n">X_te</span><span class="p">,</span><span class="n">y_tr</span><span class="p">,</span><span class="n">y_te</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span><span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">logr</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">solver</span><span class="o">=</span><span class="s2">&quot;liblinear&quot;</span><span class="p">)</span>
+<span class="n">pipe</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">StandardScaler</span><span class="p">(),</span><span class="n">logr</span><span class="p">)</span>
+<span class="n">pipe</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_tr</span><span class="p">,</span><span class="n">y_tr</span><span class="p">)</span>
+<span class="n">pipe</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_te</span><span class="p">,</span><span class="n">y_te</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.98705966930266
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can now look at predictions of probability for each class.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="n">phat</span> <span class="o">=</span> <span class="n">pipe</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">phat</span><span class="p">,</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Class &quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">7</span><span class="p">)])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Class 1</th>
+      <th>Class 2</th>
+      <th>Class 3</th>
+      <th>Class 4</th>
+      <th>Class 5</th>
+      <th>Class 6</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.063799</td>
+      <td>7.519237e-03</td>
+      <td>0.001233</td>
+      <td>0.571542</td>
+      <td>0.008976</td>
+      <td>3.469312e-01</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.006095</td>
+      <td>5.080764e-01</td>
+      <td>0.023668</td>
+      <td>0.407596</td>
+      <td>0.043982</td>
+      <td>1.058263e-02</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.061460</td>
+      <td>6.384422e-08</td>
+      <td>0.000002</td>
+      <td>0.937864</td>
+      <td>0.000190</td>
+      <td>4.848255e-04</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.000550</td>
+      <td>1.155326e-05</td>
+      <td>0.382025</td>
+      <td>0.532771</td>
+      <td>0.084641</td>
+      <td>8.565403e-11</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.034819</td>
+      <td>1.014740e-05</td>
+      <td>0.000034</td>
+      <td>0.959959</td>
+      <td>0.001611</td>
+      <td>3.567080e-03</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>13905</th>
+      <td>0.005055</td>
+      <td>5.448815e-03</td>
+      <td>0.001287</td>
+      <td>0.052044</td>
+      <td>0.001800</td>
+      <td>9.343653e-01</td>
+    </tr>
+    <tr>
+      <th>13906</th>
+      <td>0.008545</td>
+      <td>7.510422e-03</td>
+      <td>0.000853</td>
+      <td>0.039269</td>
+      <td>0.001048</td>
+      <td>9.427741e-01</td>
+    </tr>
+    <tr>
+      <th>13907</th>
+      <td>0.007100</td>
+      <td>6.657342e-03</td>
+      <td>0.000892</td>
+      <td>0.040465</td>
+      <td>0.001874</td>
+      <td>9.430110e-01</td>
+    </tr>
+    <tr>
+      <th>13908</th>
+      <td>0.004199</td>
+      <td>6.163895e-03</td>
+      <td>0.002197</td>
+      <td>0.057378</td>
+      <td>0.001545</td>
+      <td>9.285169e-01</td>
+    </tr>
+    <tr>
+      <th>13909</th>
+      <td>0.006764</td>
+      <td>1.256542e-02</td>
+      <td>0.001300</td>
+      <td>0.015904</td>
+      <td>0.002576</td>
+      <td>9.608898e-01</td>
+    </tr>
+  </tbody>
+</table>
+<p>13910 rows × 6 columns</p>
+</div></div></div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "UD-Math-Data-Science-1/notes",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./regression"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </div>
+        </div>
+    </div>
+    <div id="main-content" class="row noprint">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="tex2jax_ignore mathjax_ignore section" id="logistic-regression">
+<h1><span class="section-number">4.4. </span>Logistic regression<a class="headerlink" href="#logistic-regression" title="Permalink to this headline">¶</a></h1>
+<p>Logistic regression is, somewhat paradoxically, most often used for classification rather than a regression problem. In the case of <strong>binary logistic regression</strong>, the labels of each instance is either 0 or 1, but the regressor predicts a real number between zero and one. This value is typically interpreted as the probability of observing a 1, and then a threshold is chosen to quantize the output to 0 or 1.</p>
+<div class="section" id="logistic-and-logit-functions">
+<h2>Logistic and logit functions<a class="headerlink" href="#logistic-and-logit-functions" title="Permalink to this headline">¶</a></h2>
+<p>The <strong>logistic function</strong> is defined as</p>
+<div class="math notranslate nohighlight">
+\[
+\sigma(x) = \frac{1}{1+e^{-x}}.
+\]</div>
+<div class="figure align-default">
+<img alt="../_images/logistic.png" src="../_images/logistic.png" />
+</div>
+<p>The logistic function takes the form of a smoothed step up from 0 to 1. Its inverse is the <strong>logit function</strong>,</p>
+<div class="math notranslate nohighlight">
+\[
+\newcommand{logit}{\operatorname{logit}}
+\logit(p) = \ln\left( \frac{p}{1-p} \right).
+\]</div>
+<div class="figure align-default">
+<img alt="../_images/logit.png" src="../_images/logit.png" />
+</div>
+<p>In keeping with interpreting <span class="math notranslate nohighlight">\(p\)</span> as probability, <span class="math notranslate nohighlight">\(\logit(p)\)</span> is the <strong>log-odds ratio</strong>. For instance, if <span class="math notranslate nohighlight">\(p=2/3\)</span>, then the odds ratio is <span class="math notranslate nohighlight">\((2/3)/(1/3)=2\)</span> (i.e., 2:1 odds), and <span class="math notranslate nohighlight">\(\logit(2/3)=\ln(2)\)</span>.</p>
+<p>Logistic regression is the approximation</p>
+<div class="math notranslate nohighlight">
+\[
+\logit(p) \approx \bfx^T\bfw,
+\]</div>
+<p>that is, multilinear regression for the function <span class="math notranslate nohighlight">\(\logit(p)\)</span>, where <span class="math notranslate nohighlight">\(p\)</span> is the probability of the class <span class="math notranslate nohighlight">\(y=1\)</span>. Hence</p>
+<div class="math notranslate nohighlight">
+\[
+p \approx \sigma(\bfx^T\bfw).
+\]</div>
+</div>
+<div class="section" id="loss-function">
+<h2>Loss function<a class="headerlink" href="#loss-function" title="Permalink to this headline">¶</a></h2>
+<p>At a training observation <span class="math notranslate nohighlight">\((\bfx_i,y_i)\)</span>, we know that either <span class="math notranslate nohighlight">\(p=0\)</span> or <span class="math notranslate nohighlight">\(p=1\)</span>. Let <span class="math notranslate nohighlight">\(\hat{p}_i\)</span> be the output of the regressor at this observation:</p>
+<div class="math notranslate nohighlight">
+\[
+\hat{p}_i  = \sigma(\bfx_i^T\bfw).
+\]</div>
+<p>The loss function is then</p>
+<div class="math notranslate nohighlight">
+\[
+L(\bfw) = -\sum_{i=1}^n \left[ y_i \ln(\hat{p}_i) + (1-y_i) \ln(1-\hat{p}_i) \right].
+\]</div>
+<p>Note that observation <span class="math notranslate nohighlight">\(i\)</span> contributes <span class="math notranslate nohighlight">\(-\ln(1-\hat{p}_i)\)</span> if <span class="math notranslate nohighlight">\(y_i=0\)</span> and <span class="math notranslate nohighlight">\(-\ln(\hat{p}_i)\)</span> if <span class="math notranslate nohighlight">\(y_i=1\)</span>. Both quantities increase as <span class="math notranslate nohighlight">\(\hat{p}_i\)</span> gets farther away from <span class="math notranslate nohighlight">\(y_i\)</span>. This loss is a special case of <strong>cross-entropy</strong>, a measure of dissimilarity between the probabilities of 1 occurring in the training versus the prediction.</p>
+<p>As with other forms of linear regression, the loss function is often regularized using the ridge or LASSO penalty. As we covered earlier, there is a hyperparameter <span class="math notranslate nohighlight">\(C\)</span> that emphasizes small <span class="math notranslate nohighlight">\(\|\bfw\|\)</span> as <span class="math notranslate nohighlight">\(C\to 0\)</span>, and pure regression as <span class="math notranslate nohighlight">\(C\to \infty\)</span>.</p>
+</div>
+<div class="section" id="case-study-personal-spam-filter">
+<h2>Case study: Personal spam filter<a class="headerlink" href="#case-study-personal-spam-filter" title="Permalink to this headline">¶</a></h2>
+<p>We will try logistic regression for a simple spam filter. The data set is based on work and personal emails for one individual. The features are calculated word and character frequencies, as well as the appearance of capital letters.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="n">spam</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;spambase.csv&quot;</span><span class="p">)</span>
+<span class="n">spam</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>word_freq_make</th>
+      <th>word_freq_address</th>
+      <th>word_freq_all</th>
+      <th>word_freq_3d</th>
+      <th>word_freq_our</th>
+      <th>word_freq_over</th>
+      <th>word_freq_remove</th>
+      <th>word_freq_internet</th>
+      <th>word_freq_order</th>
+      <th>word_freq_mail</th>
+      <th>...</th>
+      <th>char_freq_%3B</th>
+      <th>char_freq_%28</th>
+      <th>char_freq_%5B</th>
+      <th>char_freq_%21</th>
+      <th>char_freq_%24</th>
+      <th>char_freq_%23</th>
+      <th>capital_run_length_average</th>
+      <th>capital_run_length_longest</th>
+      <th>capital_run_length_total</th>
+      <th>class</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.00</td>
+      <td>0.64</td>
+      <td>0.64</td>
+      <td>0.0</td>
+      <td>0.32</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>...</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>0.0</td>
+      <td>0.778</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>3.756</td>
+      <td>61</td>
+      <td>278</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.21</td>
+      <td>0.28</td>
+      <td>0.50</td>
+      <td>0.0</td>
+      <td>0.14</td>
+      <td>0.28</td>
+      <td>0.21</td>
+      <td>0.07</td>
+      <td>0.00</td>
+      <td>0.94</td>
+      <td>...</td>
+      <td>0.000</td>
+      <td>0.132</td>
+      <td>0.0</td>
+      <td>0.372</td>
+      <td>0.180</td>
+      <td>0.048</td>
+      <td>5.114</td>
+      <td>101</td>
+      <td>1028</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.06</td>
+      <td>0.00</td>
+      <td>0.71</td>
+      <td>0.0</td>
+      <td>1.23</td>
+      <td>0.19</td>
+      <td>0.19</td>
+      <td>0.12</td>
+      <td>0.64</td>
+      <td>0.25</td>
+      <td>...</td>
+      <td>0.010</td>
+      <td>0.143</td>
+      <td>0.0</td>
+      <td>0.276</td>
+      <td>0.184</td>
+      <td>0.010</td>
+      <td>9.821</td>
+      <td>485</td>
+      <td>2259</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.0</td>
+      <td>0.63</td>
+      <td>0.00</td>
+      <td>0.31</td>
+      <td>0.63</td>
+      <td>0.31</td>
+      <td>0.63</td>
+      <td>...</td>
+      <td>0.000</td>
+      <td>0.137</td>
+      <td>0.0</td>
+      <td>0.137</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>3.537</td>
+      <td>40</td>
+      <td>191</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.0</td>
+      <td>0.63</td>
+      <td>0.00</td>
+      <td>0.31</td>
+      <td>0.63</td>
+      <td>0.31</td>
+      <td>0.63</td>
+      <td>...</td>
+      <td>0.000</td>
+      <td>0.135</td>
+      <td>0.0</td>
+      <td>0.135</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>3.537</td>
+      <td>40</td>
+      <td>191</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>4596</th>
+      <td>0.31</td>
+      <td>0.00</td>
+      <td>0.62</td>
+      <td>0.0</td>
+      <td>0.00</td>
+      <td>0.31</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>...</td>
+      <td>0.000</td>
+      <td>0.232</td>
+      <td>0.0</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>1.142</td>
+      <td>3</td>
+      <td>88</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4597</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.0</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>...</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>0.0</td>
+      <td>0.353</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>1.555</td>
+      <td>4</td>
+      <td>14</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4598</th>
+      <td>0.30</td>
+      <td>0.00</td>
+      <td>0.30</td>
+      <td>0.0</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>...</td>
+      <td>0.102</td>
+      <td>0.718</td>
+      <td>0.0</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>1.404</td>
+      <td>6</td>
+      <td>118</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4599</th>
+      <td>0.96</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.0</td>
+      <td>0.32</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>...</td>
+      <td>0.000</td>
+      <td>0.057</td>
+      <td>0.0</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>1.147</td>
+      <td>5</td>
+      <td>78</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4600</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.65</td>
+      <td>0.0</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>...</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>0.0</td>
+      <td>0.125</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>1.250</td>
+      <td>5</td>
+      <td>40</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+<p>4601 rows × 58 columns</p>
+</div></div></div>
+</div>
+<p>We’ll create a feature matrix and label vector, and split into train/test sets.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="n">spam</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s2">&quot;class&quot;</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="s2">&quot;columns&quot;</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">spam</span><span class="p">[</span><span class="s2">&quot;class&quot;</span><span class="p">]</span>
+
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="n">X_tr</span><span class="p">,</span><span class="n">X_te</span><span class="p">,</span><span class="n">y_tr</span><span class="p">,</span><span class="n">y_te</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span><span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>When using norm-based regularization, it’s good practice to standardize the variables, so we will prepare to set up a pipeline.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span>
+<span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">make_pipeline</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>First we use a large value of <span class="math notranslate nohighlight">\(C\)</span> to emphasize the regressive loss rather than the regularization penalty. (The default regularization norm is the 2-norm.) It’s not required to select a solver, but we choose one here that is reliable for small data sets.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
+<span class="n">logr</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">C</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span><span class="n">solver</span><span class="o">=</span><span class="s2">&quot;liblinear&quot;</span><span class="p">)</span>
+<span class="n">pipe</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">StandardScaler</span><span class="p">(),</span><span class="n">logr</span><span class="p">)</span>
+<span class="n">pipe</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_tr</span><span class="p">,</span><span class="n">y_tr</span><span class="p">)</span>
+<span class="n">pipe</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_te</span><span class="p">,</span><span class="n">y_te</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.9337676438653637
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s look at the most extreme regression coefficients.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">logr</span><span class="o">.</span><span class="n">coef_</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">index</span><span class="o">=</span><span class="n">X</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>word_freq_george             -24.055873
+word_freq_cs                  -8.573934
+word_freq_hp                  -3.512677
+word_freq_meeting             -1.940974
+word_freq_lab                 -1.469316
+word_freq_edu                 -1.460705
+word_freq_hpl                 -1.181911
+word_freq_85                  -1.177344
+word_freq_re                  -0.981293
+word_freq_conference          -0.934152
+word_freq_project             -0.776980
+word_freq_pm                  -0.477826
+char_freq_%3B                 -0.379451
+capital_run_length_average    -0.367801
+word_freq_data                -0.346597
+word_freq_labs                -0.287406
+word_freq_original            -0.271247
+char_freq_%5B                 -0.209782
+word_freq_address             -0.196341
+word_freq_table               -0.183580
+word_freq_parts               -0.165103
+word_freq_direct              -0.135774
+word_freq_will                -0.132897
+word_freq_1999                -0.124816
+word_freq_make                -0.110128
+word_freq_receive             -0.082429
+char_freq_%28                 -0.067925
+word_freq_people              -0.021478
+word_freq_email               -0.004437
+word_freq_report               0.022125
+word_freq_all                  0.058893
+word_freq_mail                 0.076243
+word_freq_money                0.149010
+word_freq_you                  0.162890
+word_freq_order                0.183803
+word_freq_telnet               0.212813
+word_freq_over                 0.221469
+word_freq_650                  0.230857
+word_freq_font                 0.239646
+word_freq_your                 0.249595
+word_freq_415                  0.249837
+char_freq_%21                  0.250076
+word_freq_internet             0.265411
+word_freq_857                  0.281856
+word_freq_our                  0.295921
+word_freq_business             0.396552
+word_freq_technology           0.417834
+capital_run_length_total       0.428443
+word_freq_credit               0.458949
+word_freq_addresses            0.504272
+word_freq_000                  0.730850
+word_freq_remove               0.802990
+word_freq_free                 1.135052
+char_freq_%23                  1.155145
+char_freq_%24                  1.262550
+capital_run_length_longest     1.975006
+word_freq_3d                   2.112929
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<p>The word “george” is a strong counter-indicator for spam (remember that this data set comes from an individual), while the presence of “free” or consecutive capital letters is a strong signal of spam.</p>
+<p>The predictions by the regressor are all either 0 or 1. But we can also see the forecasted probabilities before rounding.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;classes:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pipe</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_tr</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="mi">5</span><span class="p">,:]))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">probabilities:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pipe</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_tr</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="mi">5</span><span class="p">,:]))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>classes:
+[0 0 0 0 0]
+
+probabilities:
+[[0.53769264 0.46230736]
+ [0.99694715 0.00305285]
+ [0.63975661 0.36024339]
+ [0.996342   0.003658  ]
+ [0.93740435 0.06259565]]
+</pre></div>
+</div>
+</div>
+</div>
+<p>The probabilities might be useful, e.g., to make decisions based on the results.</p>
+<p>For a validation-based selection of the best regularization parameter, we can use <code class="docutils literal notranslate"><span class="pre">LogisticRegressionCV</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegressionCV</span>
+<span class="n">logr</span> <span class="o">=</span> <span class="n">LogisticRegressionCV</span><span class="p">(</span><span class="n">Cs</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span><span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span><span class="n">solver</span><span class="o">=</span><span class="s2">&quot;liblinear&quot;</span><span class="p">)</span>
+<span class="n">pipe</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">StandardScaler</span><span class="p">(),</span><span class="n">logr</span><span class="p">)</span>
+<span class="n">pipe</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_tr</span><span class="p">,</span><span class="n">y_tr</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;best C value: </span><span class="si">{</span><span class="n">logr</span><span class="o">.</span><span class="n">C_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.3g</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;R2 score: </span><span class="si">{</span><span class="n">pipe</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_te</span><span class="p">,</span><span class="n">y_te</span><span class="p">)</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>best C value: 21.5
+R2 score: 0.9349
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="multiclass-case">
+<h2>Multiclass case<a class="headerlink" href="#multiclass-case" title="Permalink to this headline">¶</a></h2>
+<p>When there are more than two unique labels possible, logistic regression can be extended through the <strong>one-vs-rest</strong> paradigm. Given <span class="math notranslate nohighlight">\(K\)</span> classes, there are <span class="math notranslate nohighlight">\(K\)</span> binary regressors fit for the outcomes “class 1/not class 1,” “class 2/not class 2,” and so on. This gives predictive relative probabilities <span class="math notranslate nohighlight">\(q_1,\ldots,q_K\)</span> for the occurrence of each individual class. Since they need not sum to 1, they can be normalized into predicted probabilities via</p>
+<div class="math notranslate nohighlight">
+\[
+\hat{p}_i = \frac{q_i}{\sum_{k=1}^K q_k}.
+\]</div>
+<!-- 
+Another way to convert them is by using a **softmax** function:
+
+$$
+p_i = \frac{e^{q_i}}{\sum_{k=1}^K e^{q_k}}.
+$$
+
+The softmax exaggerates differences between the $q_i$, making the result closer to a "winner takes all" result.
+ -->
+</div>
+<div class="section" id="case-study-gas-sensor-drift">
+<h2>Case study: Gas sensor drift<a class="headerlink" href="#case-study-gas-sensor-drift" title="Permalink to this headline">¶</a></h2>
+<p>As a multiclass example, we use a data set about gas sensors recording values over long periods of time.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gas</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;gas_drift.csv&quot;</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">gas</span><span class="p">[</span><span class="s2">&quot;Class&quot;</span><span class="p">]</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">gas</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s2">&quot;Class&quot;</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="s2">&quot;columns&quot;</span><span class="p">)</span>
+<span class="n">X_tr</span><span class="p">,</span><span class="n">X_te</span><span class="p">,</span><span class="n">y_tr</span><span class="p">,</span><span class="n">y_te</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span><span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">logr</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">solver</span><span class="o">=</span><span class="s2">&quot;liblinear&quot;</span><span class="p">)</span>
+<span class="n">pipe</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">StandardScaler</span><span class="p">(),</span><span class="n">logr</span><span class="p">)</span>
+<span class="n">pipe</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_tr</span><span class="p">,</span><span class="n">y_tr</span><span class="p">)</span>
+<span class="n">pipe</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_te</span><span class="p">,</span><span class="n">y_te</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.98705966930266
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can now look at predictions of probability for each class.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="n">phat</span> <span class="o">=</span> <span class="n">pipe</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">phat</span><span class="p">,</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Class &quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">7</span><span class="p">)])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Class 1</th>
+      <th>Class 2</th>
+      <th>Class 3</th>
+      <th>Class 4</th>
+      <th>Class 5</th>
+      <th>Class 6</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.063799</td>
+      <td>7.519237e-03</td>
+      <td>0.001233</td>
+      <td>0.571542</td>
+      <td>0.008976</td>
+      <td>3.469312e-01</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.006095</td>
+      <td>5.080764e-01</td>
+      <td>0.023668</td>
+      <td>0.407596</td>
+      <td>0.043982</td>
+      <td>1.058263e-02</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.061460</td>
+      <td>6.384422e-08</td>
+      <td>0.000002</td>
+      <td>0.937864</td>
+      <td>0.000190</td>
+      <td>4.848255e-04</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.000550</td>
+      <td>1.155326e-05</td>
+      <td>0.382025</td>
+      <td>0.532771</td>
+      <td>0.084641</td>
+      <td>8.565403e-11</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.034819</td>
+      <td>1.014740e-05</td>
+      <td>0.000034</td>
+      <td>0.959959</td>
+      <td>0.001611</td>
+      <td>3.567080e-03</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>13905</th>
+      <td>0.005055</td>
+      <td>5.448815e-03</td>
+      <td>0.001287</td>
+      <td>0.052044</td>
+      <td>0.001800</td>
+      <td>9.343653e-01</td>
+    </tr>
+    <tr>
+      <th>13906</th>
+      <td>0.008545</td>
+      <td>7.510422e-03</td>
+      <td>0.000853</td>
+      <td>0.039269</td>
+      <td>0.001048</td>
+      <td>9.427741e-01</td>
+    </tr>
+    <tr>
+      <th>13907</th>
+      <td>0.007100</td>
+      <td>6.657342e-03</td>
+      <td>0.000892</td>
+      <td>0.040465</td>
+      <td>0.001874</td>
+      <td>9.430110e-01</td>
+    </tr>
+    <tr>
+      <th>13908</th>
+      <td>0.004199</td>
+      <td>6.163895e-03</td>
+      <td>0.002197</td>
+      <td>0.057378</td>
+      <td>0.001545</td>
+      <td>9.285169e-01</td>
+    </tr>
+    <tr>
+      <th>13909</th>
+      <td>0.006764</td>
+      <td>1.256542e-02</td>
+      <td>0.001300</td>
+      <td>0.015904</td>
+      <td>0.002576</td>
+      <td>9.608898e-01</td>
+    </tr>
+  </tbody>
+</table>
+<p>13910 rows × 6 columns</p>
+</div></div></div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "UD-Math-Data-Science-1/notes",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./regression"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+            <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="regularization.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title"><span class="section-number">4.3. </span>Regularization</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="../unsupervised/overview.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">5. </span>Unsupervised learning</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+        
+        </div>
+    </div>
+    <footer class="footer">
+  <p>
+    
+      By Tobin A. Driscoll<br/>
+    
+        &copy; Copyright 2021.<br/>
+  </p>
+</footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+
+  </body>
+</html>

@@ -21,7 +21,15 @@ pen = sns.load_dataset("penguins")
 pen
 ```
 
-There are often observations that we believe to be linked, either because one influences the other, or both are influenced by some other factor. That is, we say the quantities are **correlated**. There are several ways to measure correlation.
+There are often observations that we believe to be linked, either because one influences the other, or both are influenced by some other factor. That is, we say the quantities are **correlated**. This can become apparent using `pairplot` in seaborn.
+
+```{code-cell}
+sns.pairplot(pen,hue="species");
+```
+
+The panels along the diagonal show each quantitative variable's distribution as a KDE plot. The other panels show scatter plots putting one pair at a time of the variables on the coordinate axes. There appears to be a strong positive correlation between flipper length and body mass in all three species, while the relationship between flipper length and bill length is less clear.
+
+There are several ways to measure correlation.
 
 ## Covariance
 
@@ -47,7 +55,7 @@ where $\sigma_X^2$ and $\sigma_Y^2$ are the variances of $X$ and $Y$. The value 
 For example, we might reasonably expect flipper length and body mass to be correlated in penguins, as a plot confirms:
 
 ```{code-cell}
-sns.relplot(data=pen,x="flipper_length_mm",y="body_mass_g")
+sns.relplot(data=pen,x="flipper_length_mm",y="body_mass_g");
 ```
 
 Covariance allows us to confirm a positive relationship:
@@ -67,7 +75,7 @@ flip.corr(mass)
 
 The value of about $0.87$ suggests that knowing one of the values would allow us to predict the other one rather well using a best-fit straight line (more on that in a future chapter).
 
-As usual when dealing with means, however, the Pearson coefficient can be sensitive to outlier values. For example, let's correlate two series of length 20 that differ in just one value:
+As usual when dealing with means, however, the Pearson coefficient can be sensitive to outlier values. For example, let's correlate two series that differ in only one element: $0,1,2,\ldots,19$, and the same sequence with the fifth value replaced by $-100$.
 
 ```{code-cell}
 x = pd.Series(range(20))
@@ -76,7 +84,7 @@ y[4] = -100
 x.corr(y)
 ```
 
-About half of the predictive value was lost. 
+Over half of the predictive value was lost. 
 
 ## Spearman coefficient
 
@@ -108,3 +116,28 @@ x.corr(y,"spearman")
 ```
 
 Since real data almost always features outlying or anomalous values, it's important to think about the robustness of the statistics you choose.
+
+## Simpson's paradox
+
+We can find all the pairwise correlation coefficients in the same style as the grid of pair plots at the top of this section.
+
+```{code-cell}
+pen.corr()
+```
+
+For instance, in row 4, column 3 of the array, you can find the same coefficient 0.87 that we found above. Note that each variable is perfectly correlated with itself.
+
+Something interesting happens if we compute the correlations using the species for grouping.
+
+```{code-cell}
+pen.groupby("species").corr()
+```
+
+Within each species, the correlation between body mass and bill depth is greater than 0.5. But look at what happens if we lump all three species together:
+
+```{code-cell}
+pen["bill_depth_mm"].corr(pen["body_mass_g"])
+```
+
+We now have a fairly sizable *negative* correlation! This is an example of **Simpson's paradox**. The reason for it can be seen from the pair plot above. Within each color, there is a strong positive association. But the relationship isn't identical across species, and what dominates the combination is the large gap between the Gentoo and the other species. Careless computation of correlations is malpractice!
+
