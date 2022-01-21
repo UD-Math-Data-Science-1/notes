@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Hierarchical &#8212; Data Science 1</title>
+    <title>5.3. Hierarchical &#8212; Data Science 1</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet">
   <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -55,6 +55,7 @@
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="5.2. k-means" href="k-means.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -98,7 +99,7 @@
   </a>
  </li>
 </ul>
-<ul class="nav bd-sidenav">
+<ul class="current nav bd-sidenav">
  <li class="toctree-l1 has-children">
   <a class="reference internal" href="../representation/overview.html">
    1. Representation of data
@@ -125,8 +126,8 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../representation/split-apply-combine.html">
-     1.4. Split–apply–combine
+    <a class="reference internal" href="../representation/seaborn.html">
+     1.4. Introduction to seaborn
     </a>
    </li>
   </ul>
@@ -142,8 +143,8 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../statistics/distributions.html">
-     2.1. Distributions
+    <a class="reference internal" href="../statistics/split-apply-combine.html">
+     2.1. Split–apply–combine
     </a>
    </li>
    <li class="toctree-l2">
@@ -237,16 +238,16 @@
    </li>
   </ul>
  </li>
- <li class="toctree-l1 has-children">
+ <li class="toctree-l1 current active has-children">
   <a class="reference internal" href="overview.html">
    5. Unsupervised learning
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
   <label for="toctree-checkbox-5">
    <i class="fas fa-chevron-down">
    </i>
   </label>
-  <ul>
+  <ul class="current">
    <li class="toctree-l2">
     <a class="reference internal" href="preliminaries.html">
      5.1. Preliminaries
@@ -255,6 +256,11 @@
    <li class="toctree-l2">
     <a class="reference internal" href="k-means.html">
      5.2. k-means
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     5.3. Hierarchical
     </a>
    </li>
   </ul>
@@ -400,17 +406,18 @@
               <div>
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="hierarchical">
-<h1>Hierarchical<a class="headerlink" href="#hierarchical" title="Permalink to this headline">¶</a></h1>
+<h1><span class="section-number">5.3. </span>Hierarchical<a class="headerlink" href="#hierarchical" title="Permalink to this headline">¶</a></h1>
 <p>The idea behind hierarchical clustering is to organize all the sample points into a tree structure called a <strong>dendrogram</strong>. At the root of the tree is the entire sample set, while each leaf of the tree is a single sample vector. Groups of similar samples are connected as nearby relatives in the tree, with less-similar groups located as more distant relatives.</p>
 <p>Dendrograms can be found by starting with the root and recursively splitting, or by starting at the leaves and recursively merging. We will describe the latter approach, known as <strong>agglomerative clustering</strong>.</p>
 <p>The algorithm begins with <span class="math notranslate nohighlight">\(n\)</span> singleton clusters, i.e., <span class="math notranslate nohighlight">\(C_i=\{\bfx_i\}\)</span>. Then, the similarity or distance between each pair of clusters is determined. The pair with the minimum distance is merged, and the process repeats.</p>
 <p>Common ways to define the distance between two clusters <span class="math notranslate nohighlight">\(C_i\)</span> and <span class="math notranslate nohighlight">\(C_j\)</span> are:</p>
 <ul class="simple">
-<li><p><strong>single linkage</strong> or <em>minimum linkage</em>: <span class="math notranslate nohighlight">\(\displaystyle \min_{\bfx\in C_i,\bfy\in C_j} \{ \|\bfx-\bfy \}\)</span></p></li>
-<li><p><strong>complete linkage</strong> or <em>maximum linkage</em>: <span class="math notranslate nohighlight">\(\displaystyle \max_{\bfx\in C_i,\bfy\in C_j} \{ \|\bfx-\bfy\| \}\)</span></p></li>
-<li><p><strong>average linkage</strong>: <span class="math notranslate nohighlight">\(\displaystyle \frac{1}{|C_i|\,|C_j|} \sum_{\bfx\in C_i,\bfy\in C_j} \| \bfx-\bfy \|\)</span></p></li>
 <li><p><strong>Ward linkage</strong>: increase in inertia by merging them</p></li>
+<li><p><strong>single linkage</strong> or <em>minimum linkage</em>: <span class="math notranslate nohighlight">\(\displaystyle \min_{\bfx\in C_i,\,\bfy\in C_j} \{ \|\bfx-\bfy \| \}\)</span></p></li>
+<li><p><strong>complete linkage</strong> or <em>maximum linkage</em>: <span class="math notranslate nohighlight">\(\displaystyle \max_{\bfx\in C_i,\,\bfy\in C_j} \{ \|\bfx-\bfy\| \}\)</span></p></li>
+<li><p><strong>average linkage</strong>: <span class="math notranslate nohighlight">\(\displaystyle \frac{1}{|C_i|\,|C_j|} \sum_{\bfx\in C_i,\,\bfy\in C_j} \| \bfx-\bfy \|\)</span></p></li>
 </ul>
+<p>Absent any other considerations, Ward linkage is probably the most reliable (and is the sklearn default).</p>
 <div class="section" id="toy-example">
 <h2>Toy example<a class="headerlink" href="#toy-example" title="Permalink to this headline">¶</a></h2>
 <p>Let’s use 5 sample points in the plane.</p>
@@ -573,17 +580,18 @@ Name: agg, dtype: int64
               <div>
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="hierarchical">
-<h1>Hierarchical<a class="headerlink" href="#hierarchical" title="Permalink to this headline">¶</a></h1>
+<h1><span class="section-number">5.3. </span>Hierarchical<a class="headerlink" href="#hierarchical" title="Permalink to this headline">¶</a></h1>
 <p>The idea behind hierarchical clustering is to organize all the sample points into a tree structure called a <strong>dendrogram</strong>. At the root of the tree is the entire sample set, while each leaf of the tree is a single sample vector. Groups of similar samples are connected as nearby relatives in the tree, with less-similar groups located as more distant relatives.</p>
 <p>Dendrograms can be found by starting with the root and recursively splitting, or by starting at the leaves and recursively merging. We will describe the latter approach, known as <strong>agglomerative clustering</strong>.</p>
 <p>The algorithm begins with <span class="math notranslate nohighlight">\(n\)</span> singleton clusters, i.e., <span class="math notranslate nohighlight">\(C_i=\{\bfx_i\}\)</span>. Then, the similarity or distance between each pair of clusters is determined. The pair with the minimum distance is merged, and the process repeats.</p>
 <p>Common ways to define the distance between two clusters <span class="math notranslate nohighlight">\(C_i\)</span> and <span class="math notranslate nohighlight">\(C_j\)</span> are:</p>
 <ul class="simple">
-<li><p><strong>single linkage</strong> or <em>minimum linkage</em>: <span class="math notranslate nohighlight">\(\displaystyle \min_{\bfx\in C_i,\bfy\in C_j} \{ \|\bfx-\bfy \}\)</span></p></li>
-<li><p><strong>complete linkage</strong> or <em>maximum linkage</em>: <span class="math notranslate nohighlight">\(\displaystyle \max_{\bfx\in C_i,\bfy\in C_j} \{ \|\bfx-\bfy\| \}\)</span></p></li>
-<li><p><strong>average linkage</strong>: <span class="math notranslate nohighlight">\(\displaystyle \frac{1}{|C_i|\,|C_j|} \sum_{\bfx\in C_i,\bfy\in C_j} \| \bfx-\bfy \|\)</span></p></li>
 <li><p><strong>Ward linkage</strong>: increase in inertia by merging them</p></li>
+<li><p><strong>single linkage</strong> or <em>minimum linkage</em>: <span class="math notranslate nohighlight">\(\displaystyle \min_{\bfx\in C_i,\,\bfy\in C_j} \{ \|\bfx-\bfy \| \}\)</span></p></li>
+<li><p><strong>complete linkage</strong> or <em>maximum linkage</em>: <span class="math notranslate nohighlight">\(\displaystyle \max_{\bfx\in C_i,\,\bfy\in C_j} \{ \|\bfx-\bfy\| \}\)</span></p></li>
+<li><p><strong>average linkage</strong>: <span class="math notranslate nohighlight">\(\displaystyle \frac{1}{|C_i|\,|C_j|} \sum_{\bfx\in C_i,\,\bfy\in C_j} \| \bfx-\bfy \|\)</span></p></li>
 </ul>
+<p>Absent any other considerations, Ward linkage is probably the most reliable (and is the sklearn default).</p>
 <div class="section" id="toy-example">
 <h2>Toy example<a class="headerlink" href="#toy-example" title="Permalink to this headline">¶</a></h2>
 <p>Let’s use 5 sample points in the plane.</p>
@@ -739,7 +747,14 @@ Name: agg, dtype: int64
               
         
             <!-- Previous / next buttons -->
-<div class='prev-next-area'>
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="k-means.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title"><span class="section-number">5.2. </span>k-means</p>
+        </div>
+    </a>
 </div>
         
         </div>
