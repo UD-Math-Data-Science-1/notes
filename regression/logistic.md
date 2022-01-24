@@ -29,7 +29,6 @@ $$
 The logistic function takes the form of a smoothed step up from 0 to 1. Its inverse is the **logit function**,
 
 $$
-\newcommand{logit}{\operatorname{logit}}
 \logit(p) = \ln\left( \frac{p}{1-p} \right).
 $$
 

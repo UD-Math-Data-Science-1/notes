@@ -52,7 +52,7 @@ $$
 Using calculus to minimize $d^2$ as a function of $t$ eventually gives
 
 $$
-t_\text{min} = \frac{(s_2-a_2)w_1-(s_1-a_1)w_2}{w_1^2+w^2^2}.
+t_\text{min} = \frac{(s_2-a_2)w_1-(s_1-a_1)w_2}{w_1^2+w_2^2}.
 $$
 
 Note that $w_1^2+w_2^2=\|[w_1,w_2]\|_2^2$. Substituting $t_\text{min}$ into $d^2$ and taking a square root gives

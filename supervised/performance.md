@@ -78,10 +78,6 @@ metrics.ConfusionMatrixDisplay(C,display_labels=lbl).plot();
 Hence there are 656 true positives (funded) and 12 true negatives (rejected). Therefore, the **accuracy** is 
 
 $$
-\newcommand{TP}{\text{TP}}
-\newcommand{FP}{\text{FP}}
-\newcommand{TN}{\text{TN}}
-\newcommand{FN}{\text{FN}}
 \text{accuracy} = \frac{\TP + \TN}{\TP + \FP + \TN + \FN} = \frac{680}{828} = 0.821256\ldots,
 $$
 
