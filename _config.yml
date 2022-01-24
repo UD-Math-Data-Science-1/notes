@@ -4,7 +4,7 @@ author: Tobin A. Driscoll
 logo: logo.png
 
 exclude_patterns: 
-  - etc/*
+  - etc/*.ipynb
 
 parse:
   myst_enable_extensions:
@@ -20,7 +20,12 @@ kernelspec:
   name: python3
   display_name: Python 3
   language: python
-  
+
+latex:
+  latex_documents:
+    targetname: datasci1.tex
+  latex_engine: xelatex
+
 execute:
   execute_notebooks: cache
   timeout: 120
@@ -51,13 +56,18 @@ sphinx:
           "bfy" : "\\mathbf{y}"
           "bfz" : "\\mathbf{z}"
           "bfzero" : "\\boldsymbol{0}"
+          "bfmu" : "\\boldsymbol{\\mu}"
+          "TP" : "\\text{TP}"
+          "TN" : "\\text{TN}"
+          "FP" : "\\text{FP}"
+          "FN" : "\\text{FN}"
           "rmn" : ["\\mathbb{R}^{#1 \\times #2}",2]
           "dd" : ["\\frac{d #1}{d #2}",2]
           "pp" : ["\\frac{\\partial #1}{\\partial #2}",2]
-          "norm" : ["\\| #1 \\|",1]
-          "twonorm" : ["\\| #1 \\|_2",1]
-          "onenorm" : ["\\| #1 \\|_1",1]
-          "infnorm" : ["\\| #1 \\|_\\infty",1]
+          "norm" : ["\\lVert #1 \\rVert",1]
+          "twonorm" : ["\\norm{#1}_2",1]
+          "onenorm" : ["\\norm{#1}_1",1]
+          "infnorm" : ["\\norm{#1}_\\infty",1]
           "innerprod" : ["\\langle #1,#2 \\rangle",2]
           "pr" : ["^{(#1)}",1]
           "diag": ["\\operatorname{diag}"]
@@ -66,6 +76,19 @@ sphinx:
           "floor": ["\\lfloor#1\\rfloor",1]
           "argmin": ["\\operatorname{argmin}"]
           "Cov": ["\\operatorname{Cov}"]
+          "logit": ["\\operatorname{logit}"]
+    
+    latex_additional_files: etc/preamble.tex
+    latex_elements:
+      preamble: >
+        \usepackage{mathtools}
+        \usepackage{fontspec}
+        \usepackage{unicode-math}
+        \setmainfont[Ligatures=TeX]{TeX Gyre Schola}
+        \setmathfont{TeX Gyre Schola Math}
+        \include{preamble}
+      passoptionstopackages: \PassOptionsToPackage{svgnames}{xcolor}
+      sphinxsetup: verbatimwithframe=false,VerbatimColor={RGB}{255,252,245}
 
   extra_extensions:
   - sphinx_proof
