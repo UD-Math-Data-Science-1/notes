@@ -21,9 +21,9 @@ The algorithm begins with $n$ singleton clusters, i.e., $C_i=\{\bfx_i\}$. Then, 
 Common ways to define the distance between two clusters $C_i$ and $C_j$ are:
 
 * **Ward linkage**: increase in inertia by merging them
-* **single linkage** or *minimum linkage*: $\displaystyle \min_{\bfx\in C_i,\,\bfy\in C_j} \{ \|\bfx-\bfy \| \}$
-* **complete linkage** or *maximum linkage*: $\displaystyle \max_{\bfx\in C_i,\,\bfy\in C_j} \{ \|\bfx-\bfy\| \}$
-* **average linkage**: $\displaystyle \frac{1}{|C_i|\,|C_j|} \sum_{\bfx\in C_i,\,\bfy\in C_j} \| \bfx-\bfy \|$
+* **single linkage** or *minimum linkage*: $\displaystyle \min_{\bfx\in C_i,\,\bfy\in C_j} \{ \norm{\bfx-\bfy } \}$
+* **complete linkage** or *maximum linkage*: $\displaystyle \max_{\bfx\in C_i,\,\bfy\in C_j} \{ \norm{\bfx-\bfy} \}$
+* **average linkage**: $\displaystyle \frac{1}{|C_i|\,|C_j|} \sum_{\bfx\in C_i,\,\bfy\in C_j} \norm{ \bfx-\bfy }$
 
 Absent any other considerations, Ward linkage is probably the most reliable (and is the sklearn default).
 ## Toy example

@@ -17,7 +17,7 @@ The $k$-means algorithm is one of the best-known and most widely used clustering
 Given a sample matrix $\bfX$ with $n$ rows $\bfx_i$, the algorithm divides the sample points into disjoint sets $C_1,\ldots,C_k$. Cluster $j$ has a **centroid** $\bfmu_j$, which is the mean of the points in $C_j$. Define the **inertia** of $C_j$ as 
 
 $$
-I_j = \sum_{\bfx\in C_j} \| \bfx - \bfmu_j \|^2.
+I_j = \sum_{\bfx\in C_j} \norm{ \bfx - \bfmu_j }^2.
 $$
 
 The goal of the algorithm is to choose the clusters in order to minimize the total inertia,

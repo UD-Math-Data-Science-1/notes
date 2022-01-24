@@ -42,7 +42,7 @@ $$
 we now get the compact expression
 
 $$
-L(\bfw) = \| \bfX \bfw- \bfy \|_2^2.
+L(\bfw) = \twonorm{\bfX \bfw- \bfy}^2.
 $$
 
 As in the univariate case, minimizing the loss boils down to solving a linear system of equations for $\bfw$.

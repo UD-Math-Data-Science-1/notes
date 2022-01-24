@@ -38,13 +38,13 @@ A problem with more than one solution is called **ill-posed**. If we made tiny c
 The ill conditioning can be regularized away by modifying the least squares loss function to penalize complexity in the model, in the form of excessively large regression coefficients. The common choices are **ridge regression**,
 
 $$
-L(\bfw) = \| \bfX \bfw- \bfy \|_2^2 + \alpha \|\bfw\|_2^2,
+L(\bfw) = \twonorm{ \bfX \bfw- \bfy }^2 + \alpha \twonorm{\bfw}^2,
 $$
 
 and **LASSO**, 
 
 $$
-L(\bfw) = \| \bfX \bfw- \bfy \|_2^2 + \alpha \|\bfw\|_1.
+L(\bfw) = \twonorm{ \bfX \bfw- \bfy }^2 + \alpha \onenorm{\bfw}.
 $$
 
 As $\alpha\to 0$, both forms revert to the usual least squares loss, but as $\alpha \to \infty$, the optimization becomes increasingly concerned with prioritizing a small result for $\bfw$. 
