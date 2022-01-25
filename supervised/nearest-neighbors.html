@@ -44,7 +44,7 @@
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>window.MathJax = {"tex": {"macros": {"float": ["\\mathbb{F}"], "real": ["\\mathbb{R}"], "complex": ["\\mathbb{C}"], "nat": ["\\mathbb{N}"], "integer": ["\\mathbb{Z}"], "bfa": "\\mathbf{a}", "bfe": "\\mathbf{e}", "bfx": "\\mathbf{x}", "bfX": "\\mathbf{X}", "bfw": "\\mathbf{w}", "bfy": "\\mathbf{y}", "bfz": "\\mathbf{z}", "bfzero": "\\boldsymbol{0}", "rmn": ["\\mathbb{R}^{#1 \\times #2}", 2], "dd": ["\\frac{d #1}{d #2}", 2], "pp": ["\\frac{\\partial #1}{\\partial #2}", 2], "norm": ["\\| #1 \\|", 1], "twonorm": ["\\| #1 \\|_2", 1], "onenorm": ["\\| #1 \\|_1", 1], "infnorm": ["\\| #1 \\|_\\infty", 1], "innerprod": ["\\langle #1,#2 \\rangle", 2], "pr": ["^{(#1)}", 1], "diag": ["\\operatorname{diag}"], "sign": ["\\operatorname{sign}"], "ee": ["\\times 10^"], "floor": ["\\lfloor#1\\rfloor", 1], "argmin": ["\\operatorname{argmin}"], "Cov": ["\\operatorname{Cov}"]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script>window.MathJax = {"tex": {"macros": {"float": ["\\mathbb{F}"], "real": ["\\mathbb{R}"], "complex": ["\\mathbb{C}"], "nat": ["\\mathbb{N}"], "integer": ["\\mathbb{Z}"], "bfa": "\\mathbf{a}", "bfe": "\\mathbf{e}", "bfx": "\\mathbf{x}", "bfX": "\\mathbf{X}", "bfw": "\\mathbf{w}", "bfy": "\\mathbf{y}", "bfz": "\\mathbf{z}", "bfzero": "\\boldsymbol{0}", "bfmu": "\\boldsymbol{\\mu}", "TP": "\\text{TP}", "TN": "\\text{TN}", "FP": "\\text{FP}", "FN": "\\text{FN}", "rmn": ["\\mathbb{R}^{#1 \\times #2}", 2], "dd": ["\\frac{d #1}{d #2}", 2], "pp": ["\\frac{\\partial #1}{\\partial #2}", 2], "norm": ["\\lVert #1 \\rVert", 1], "twonorm": ["\\norm{#1}_2", 1], "onenorm": ["\\norm{#1}_1", 1], "infnorm": ["\\norm{#1}_\\infty", 1], "innerprod": ["\\langle #1,#2 \\rangle", 2], "pr": ["^{(#1)}", 1], "diag": ["\\operatorname{diag}"], "sign": ["\\operatorname{sign}"], "ee": ["\\times 10^"], "floor": ["\\lfloor#1\\rfloor", 1], "argmin": ["\\operatorname{argmin}"], "Cov": ["\\operatorname{Cov}"], "logit": ["\\operatorname{logit}"]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
     <script>
         const thebe_selector = ".thebe,.cell"
@@ -445,22 +445,22 @@
 <div class="proof definition admonition" id="definition-0">
 <p class="admonition-title"><span class="caption-number">Definition 3.4.1 </span></p>
 <div class="definition-content section" id="proof-content">
-<p>A <strong>norm</strong> is a function <span class="math notranslate nohighlight">\(\|\bfx\|\)</span> on <span class="math notranslate nohighlight">\(\real^d\)</span> that satisfies the following properties:</p>
+<p>A <strong>norm</strong> is a function <span class="math notranslate nohighlight">\(\norm{\bfx}\)</span> on <span class="math notranslate nohighlight">\(\real^d\)</span> that satisfies the following properties:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-\|\bfzero\| &amp;= 0,  \\ 
-\|\bfx\| &amp;&gt; 0 \text{ if $\bfx$ is a nonzero vector}, \\ 
-\|c\bfx\| &amp;= |c| \, \|x\| \text{ for any real number $c$}, \\ 
-\|\bfx + \bfy \| &amp;\le \bfx + \bfy.
+\norm{\bfzero} &amp;= 0,  \\ 
+\norm{\bfx} &amp;&gt; 0 \text{ if $\bfx$ is a nonzero vector}, \\ 
+\norm{c\bfx} &amp;= |c| \, \norm{x} \text{ for any real number $c$}, \\ 
+\norm{\bfx + \bfy } &amp;\le \bfx + \bfy.
 \end{split}\]</div>
 </div>
 </div><p>The last inequality above is called the <strong>triangle inequality</strong>. It turns out that these four characteristics are all we expect from a function that behaves like a distance.</p>
 <p>We will encounter two different norms:</p>
 <ul class="simple">
-<li><p>The 2-norm, <span class="math notranslate nohighlight">\(\|\bfx\|_2 = \bigl(x_1^2 + x_2^2 + \cdots + x_d^2\bigr)^{1/2}.\)</span></p></li>
-<li><p>The 1-norm, <span class="math notranslate nohighlight">\(\|\bfx\|_1 = |x_1| + |x_2| + \cdots + |x_d|.\)</span></p></li>
+<li><p>The 2-norm, <span class="math notranslate nohighlight">\(\twonorm{\bfx} = \bigl(x_1^2 + x_2^2 + \cdots + x_d^2\bigr)^{1/2}.\)</span></p></li>
+<li><p>The 1-norm, <span class="math notranslate nohighlight">\(\onenorm{\bfx} = |x_1| + |x_2| + \cdots + |x_d|.\)</span></p></li>
 </ul>
-<p>On the number line (i.e., <span class="math notranslate nohighlight">\(\real^1\)</span>), the distance between two values is just the absolute value of their difference, <span class="math notranslate nohighlight">\(|x-y|\)</span>. In <span class="math notranslate nohighlight">\(\real^d\)</span>, the distance between two vectors is the norm of their difference, <span class="math notranslate nohighlight">\(\| \bfx - \bfy \|\)</span>.</p>
+<p>On the number line (i.e., <span class="math notranslate nohighlight">\(\real^1\)</span>), the distance between two values is just the absolute value of their difference, <span class="math notranslate nohighlight">\(|x-y|\)</span>. In <span class="math notranslate nohighlight">\(\real^d\)</span>, the distance between two vectors is the norm of their difference, <span class="math notranslate nohighlight">\(\norm{ \bfx - \bfy }\)</span>.</p>
 <p>The 2-norm is also called the <em>Euclidean norm</em>. It generalizes ordinary geometric distance in <span class="math notranslate nohighlight">\(\real^2\)</span> and <span class="math notranslate nohighlight">\(\real^3\)</span> and is usually considered the default. The 1-norm is sometimes called the <em>Manhattan norm</em>, because in <span class="math notranslate nohighlight">\(\real^2\)</span> it represents the total number of east/west and north/south moves needed between points on a grid.</p>
 </div>
 <div class="section" id="algorithm">
@@ -909,22 +909,22 @@ weighted avg       0.99      0.99      0.98        67
 <div class="proof definition admonition" id="definition-0">
 <p class="admonition-title"><span class="caption-number">Definition 3.4.1 </span></p>
 <div class="definition-content section" id="proof-content">
-<p>A <strong>norm</strong> is a function <span class="math notranslate nohighlight">\(\|\bfx\|\)</span> on <span class="math notranslate nohighlight">\(\real^d\)</span> that satisfies the following properties:</p>
+<p>A <strong>norm</strong> is a function <span class="math notranslate nohighlight">\(\norm{\bfx}\)</span> on <span class="math notranslate nohighlight">\(\real^d\)</span> that satisfies the following properties:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-\|\bfzero\| &amp;= 0,  \\ 
-\|\bfx\| &amp;&gt; 0 \text{ if $\bfx$ is a nonzero vector}, \\ 
-\|c\bfx\| &amp;= |c| \, \|x\| \text{ for any real number $c$}, \\ 
-\|\bfx + \bfy \| &amp;\le \bfx + \bfy.
+\norm{\bfzero} &amp;= 0,  \\ 
+\norm{\bfx} &amp;&gt; 0 \text{ if $\bfx$ is a nonzero vector}, \\ 
+\norm{c\bfx} &amp;= |c| \, \norm{x} \text{ for any real number $c$}, \\ 
+\norm{\bfx + \bfy } &amp;\le \bfx + \bfy.
 \end{split}\]</div>
 </div>
 </div><p>The last inequality above is called the <strong>triangle inequality</strong>. It turns out that these four characteristics are all we expect from a function that behaves like a distance.</p>
 <p>We will encounter two different norms:</p>
 <ul class="simple">
-<li><p>The 2-norm, <span class="math notranslate nohighlight">\(\|\bfx\|_2 = \bigl(x_1^2 + x_2^2 + \cdots + x_d^2\bigr)^{1/2}.\)</span></p></li>
-<li><p>The 1-norm, <span class="math notranslate nohighlight">\(\|\bfx\|_1 = |x_1| + |x_2| + \cdots + |x_d|.\)</span></p></li>
+<li><p>The 2-norm, <span class="math notranslate nohighlight">\(\twonorm{\bfx} = \bigl(x_1^2 + x_2^2 + \cdots + x_d^2\bigr)^{1/2}.\)</span></p></li>
+<li><p>The 1-norm, <span class="math notranslate nohighlight">\(\onenorm{\bfx} = |x_1| + |x_2| + \cdots + |x_d|.\)</span></p></li>
 </ul>
-<p>On the number line (i.e., <span class="math notranslate nohighlight">\(\real^1\)</span>), the distance between two values is just the absolute value of their difference, <span class="math notranslate nohighlight">\(|x-y|\)</span>. In <span class="math notranslate nohighlight">\(\real^d\)</span>, the distance between two vectors is the norm of their difference, <span class="math notranslate nohighlight">\(\| \bfx - \bfy \|\)</span>.</p>
+<p>On the number line (i.e., <span class="math notranslate nohighlight">\(\real^1\)</span>), the distance between two values is just the absolute value of their difference, <span class="math notranslate nohighlight">\(|x-y|\)</span>. In <span class="math notranslate nohighlight">\(\real^d\)</span>, the distance between two vectors is the norm of their difference, <span class="math notranslate nohighlight">\(\norm{ \bfx - \bfy }\)</span>.</p>
 <p>The 2-norm is also called the <em>Euclidean norm</em>. It generalizes ordinary geometric distance in <span class="math notranslate nohighlight">\(\real^2\)</span> and <span class="math notranslate nohighlight">\(\real^3\)</span> and is usually considered the default. The 1-norm is sometimes called the <em>Manhattan norm</em>, because in <span class="math notranslate nohighlight">\(\real^2\)</span> it represents the total number of east/west and north/south moves needed between points on a grid.</p>
 </div>
 <div class="section" id="algorithm">

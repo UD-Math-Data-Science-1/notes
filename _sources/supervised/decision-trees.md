@@ -67,7 +67,7 @@ This value is 1/2 for $n=0$ and approaches zero as $n\to\infty$.
 Now we can describe the partition process. If $j$ is a dimension (feature) number and $\theta$ is a numerical threshold, then the sample set can be partitioned into complementary sets $S_L$, in which $x_j \le \theta$, and $S_R$, in which $x_j > \theta$. Define the quality measure
 
 $$
-Q(j,\theta) = |S| H(S) + |T| H(T).
+Q(j,\theta) = \lvert S\rvert\, H(S) + \lvert T \rvert \, H(T).
 $$
 
 Choose the $(j,\theta)$ that minimize $Q$, and then recursively partition $S$ and $T$.

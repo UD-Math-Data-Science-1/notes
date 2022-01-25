@@ -44,7 +44,7 @@
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>window.MathJax = {"tex": {"macros": {"float": ["\\mathbb{F}"], "real": ["\\mathbb{R}"], "complex": ["\\mathbb{C}"], "nat": ["\\mathbb{N}"], "integer": ["\\mathbb{Z}"], "bfa": "\\mathbf{a}", "bfe": "\\mathbf{e}", "bfx": "\\mathbf{x}", "bfX": "\\mathbf{X}", "bfw": "\\mathbf{w}", "bfy": "\\mathbf{y}", "bfz": "\\mathbf{z}", "bfzero": "\\boldsymbol{0}", "rmn": ["\\mathbb{R}^{#1 \\times #2}", 2], "dd": ["\\frac{d #1}{d #2}", 2], "pp": ["\\frac{\\partial #1}{\\partial #2}", 2], "norm": ["\\| #1 \\|", 1], "twonorm": ["\\| #1 \\|_2", 1], "onenorm": ["\\| #1 \\|_1", 1], "infnorm": ["\\| #1 \\|_\\infty", 1], "innerprod": ["\\langle #1,#2 \\rangle", 2], "pr": ["^{(#1)}", 1], "diag": ["\\operatorname{diag}"], "sign": ["\\operatorname{sign}"], "ee": ["\\times 10^"], "floor": ["\\lfloor#1\\rfloor", 1], "argmin": ["\\operatorname{argmin}"], "Cov": ["\\operatorname{Cov}"]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script>window.MathJax = {"tex": {"macros": {"float": ["\\mathbb{F}"], "real": ["\\mathbb{R}"], "complex": ["\\mathbb{C}"], "nat": ["\\mathbb{N}"], "integer": ["\\mathbb{Z}"], "bfa": "\\mathbf{a}", "bfe": "\\mathbf{e}", "bfx": "\\mathbf{x}", "bfX": "\\mathbf{X}", "bfw": "\\mathbf{w}", "bfy": "\\mathbf{y}", "bfz": "\\mathbf{z}", "bfzero": "\\boldsymbol{0}", "bfmu": "\\boldsymbol{\\mu}", "TP": "\\text{TP}", "TN": "\\text{TN}", "FP": "\\text{FP}", "FN": "\\text{FN}", "rmn": ["\\mathbb{R}^{#1 \\times #2}", 2], "dd": ["\\frac{d #1}{d #2}", 2], "pp": ["\\frac{\\partial #1}{\\partial #2}", 2], "norm": ["\\lVert #1 \\rVert", 1], "twonorm": ["\\norm{#1}_2", 1], "onenorm": ["\\norm{#1}_1", 1], "infnorm": ["\\norm{#1}_\\infty", 1], "innerprod": ["\\langle #1,#2 \\rangle", 2], "pr": ["^{(#1)}", 1], "diag": ["\\operatorname{diag}"], "sign": ["\\operatorname{sign}"], "ee": ["\\times 10^"], "floor": ["\\lfloor#1\\rfloor", 1], "argmin": ["\\operatorname{argmin}"], "Cov": ["\\operatorname{Cov}"], "logit": ["\\operatorname{logit}"]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
     <script>
         const thebe_selector = ".thebe,.cell"
@@ -428,12 +428,11 @@
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="k-means">
 <h1><span class="section-number">5.2. </span>k-means<a class="headerlink" href="#k-means" title="Permalink to this headline">¶</a></h1>
-<p>The <span class="math notranslate nohighlight">\(k\)</span>-means algorithm is one of the best-known and most widely used clustering methods, although it has some serious limitations and drawbacks.
-<span class="math notranslate nohighlight">\(\newcommand{\bmu}{\boldsymbol{\mu}}\)</span></p>
-<p>Given a sample matrix <span class="math notranslate nohighlight">\(\bfX\)</span> with <span class="math notranslate nohighlight">\(n\)</span> rows <span class="math notranslate nohighlight">\(\bfx_i\)</span>, the algorithm divides the sample points into disjoint sets <span class="math notranslate nohighlight">\(C_1,\ldots,C_k\)</span>. Cluster <span class="math notranslate nohighlight">\(j\)</span> has a <strong>centroid</strong> <span class="math notranslate nohighlight">\(\bmu_j\)</span>, which is the mean of the points in <span class="math notranslate nohighlight">\(C_j\)</span>. Define the <strong>inertia</strong> of <span class="math notranslate nohighlight">\(C_j\)</span> as</p>
+<p>The <span class="math notranslate nohighlight">\(k\)</span>-means algorithm is one of the best-known and most widely used clustering methods, although it has some serious limitations and drawbacks.</p>
+<p>Given a sample matrix <span class="math notranslate nohighlight">\(\bfX\)</span> with <span class="math notranslate nohighlight">\(n\)</span> rows <span class="math notranslate nohighlight">\(\bfx_i\)</span>, the algorithm divides the sample points into disjoint sets <span class="math notranslate nohighlight">\(C_1,\ldots,C_k\)</span>. Cluster <span class="math notranslate nohighlight">\(j\)</span> has a <strong>centroid</strong> <span class="math notranslate nohighlight">\(\bfmu_j\)</span>, which is the mean of the points in <span class="math notranslate nohighlight">\(C_j\)</span>. Define the <strong>inertia</strong> of <span class="math notranslate nohighlight">\(C_j\)</span> as</p>
 <div class="math notranslate nohighlight">
 \[
-I_j = \sum_{\bfx\in C_j} \| \bfx - \bmu_j \|^2.
+I_j = \sum_{\bfx\in C_j} \norm{ \bfx - \bfmu_j }^2.
 \]</div>
 <p>The goal of the algorithm is to choose the clusters in order to minimize the total inertia,</p>
 <div class="math notranslate nohighlight">
@@ -450,7 +449,7 @@ I = \sum_{j=1}^k I_j.
 </ul>
 <div class="math notranslate nohighlight">
 \[
-\bmu_j^+ = \frac{1}{|C_j|} \sum_{\bfx\in C_j} \bfx.
+\bfmu_j^+ = \frac{1}{|C_j|} \sum_{\bfx\in C_j} \bfx.
 \]</div>
 <p>The algorithm stops when the assignment step does not change any of the clusters. In practice, this almost always happens quickly.</p>
 </div>
@@ -458,9 +457,9 @@ I = \sum_{j=1}^k I_j.
 <h2>Practical issues<a class="headerlink" href="#practical-issues" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p><strong>Initialization</strong> The performance of <span class="math notranslate nohighlight">\(k\)</span>-means depends a great deal on the initial set of centroids. Traditionally, the centroids were chosen as random members of the sample set, but better/more reliable heuristics, such as <em><span class="math notranslate nohighlight">\(k\)</span>-means++</em>, have since become more dominant.</p></li>
-<li><p><strong>Multiple runs</strong> All the initialization methods include an element of randomness, and since the Lloyd algorithm usually converges quickly, it is usually run with multiple instances of the initialization, and the run with the lowest inertia is kept.</p></li>
+<li><p><strong>\bfmultiple runs</strong> All the initialization methods include an element of randomness, and since the Lloyd algorithm usually converges quickly, it is usually run with \bfmultiple instances of the initialization, and the run with the lowest inertia is kept.</p></li>
 <li><p><strong>Selection of <span class="math notranslate nohighlight">\(k\)</span></strong> The algorithm treats <span class="math notranslate nohighlight">\(k\)</span> as a hyperparameter. Occam’s Razor dictates preferring smaller values to large ones. There are many suggestions on how to find the choice that gives the most “bang for the buck.”</p></li>
-<li><p><strong>Distance metric</strong> The Lloyd algorithm often fails to converge for norms other than the 2-norm, and must be modified if another norm is preferred.</p></li>
+<li><p><strong>Distance metric</strong> The Lloyd algorithm often fails to converge for norms other than the 2-norm, and \bfmust be modified if another norm is preferred.</p></li>
 <li><p><strong>Shape effects</strong> Because of the dependence on the 2-norm, the inertia criterion disfavors long, skinny clusters (i.e., anisotropic), and clusters of unequal spread (variance). Basically, it wants to find spherical blobs of roughly equal size and membership.</p></li>
 </ul>
 </div>
@@ -727,12 +726,11 @@ For example, we can load a famous data set generated from handwriting recognitio
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="k-means">
 <h1><span class="section-number">5.2. </span>k-means<a class="headerlink" href="#k-means" title="Permalink to this headline">¶</a></h1>
-<p>The <span class="math notranslate nohighlight">\(k\)</span>-means algorithm is one of the best-known and most widely used clustering methods, although it has some serious limitations and drawbacks.
-<span class="math notranslate nohighlight">\(\newcommand{\bmu}{\boldsymbol{\mu}}\)</span></p>
-<p>Given a sample matrix <span class="math notranslate nohighlight">\(\bfX\)</span> with <span class="math notranslate nohighlight">\(n\)</span> rows <span class="math notranslate nohighlight">\(\bfx_i\)</span>, the algorithm divides the sample points into disjoint sets <span class="math notranslate nohighlight">\(C_1,\ldots,C_k\)</span>. Cluster <span class="math notranslate nohighlight">\(j\)</span> has a <strong>centroid</strong> <span class="math notranslate nohighlight">\(\bmu_j\)</span>, which is the mean of the points in <span class="math notranslate nohighlight">\(C_j\)</span>. Define the <strong>inertia</strong> of <span class="math notranslate nohighlight">\(C_j\)</span> as</p>
+<p>The <span class="math notranslate nohighlight">\(k\)</span>-means algorithm is one of the best-known and most widely used clustering methods, although it has some serious limitations and drawbacks.</p>
+<p>Given a sample matrix <span class="math notranslate nohighlight">\(\bfX\)</span> with <span class="math notranslate nohighlight">\(n\)</span> rows <span class="math notranslate nohighlight">\(\bfx_i\)</span>, the algorithm divides the sample points into disjoint sets <span class="math notranslate nohighlight">\(C_1,\ldots,C_k\)</span>. Cluster <span class="math notranslate nohighlight">\(j\)</span> has a <strong>centroid</strong> <span class="math notranslate nohighlight">\(\bfmu_j\)</span>, which is the mean of the points in <span class="math notranslate nohighlight">\(C_j\)</span>. Define the <strong>inertia</strong> of <span class="math notranslate nohighlight">\(C_j\)</span> as</p>
 <div class="math notranslate nohighlight">
 \[
-I_j = \sum_{\bfx\in C_j} \| \bfx - \bmu_j \|^2.
+I_j = \sum_{\bfx\in C_j} \norm{ \bfx - \bfmu_j }^2.
 \]</div>
 <p>The goal of the algorithm is to choose the clusters in order to minimize the total inertia,</p>
 <div class="math notranslate nohighlight">
@@ -749,7 +747,7 @@ I = \sum_{j=1}^k I_j.
 </ul>
 <div class="math notranslate nohighlight">
 \[
-\bmu_j^+ = \frac{1}{|C_j|} \sum_{\bfx\in C_j} \bfx.
+\bfmu_j^+ = \frac{1}{|C_j|} \sum_{\bfx\in C_j} \bfx.
 \]</div>
 <p>The algorithm stops when the assignment step does not change any of the clusters. In practice, this almost always happens quickly.</p>
 </div>
@@ -757,9 +755,9 @@ I = \sum_{j=1}^k I_j.
 <h2>Practical issues<a class="headerlink" href="#practical-issues" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p><strong>Initialization</strong> The performance of <span class="math notranslate nohighlight">\(k\)</span>-means depends a great deal on the initial set of centroids. Traditionally, the centroids were chosen as random members of the sample set, but better/more reliable heuristics, such as <em><span class="math notranslate nohighlight">\(k\)</span>-means++</em>, have since become more dominant.</p></li>
-<li><p><strong>Multiple runs</strong> All the initialization methods include an element of randomness, and since the Lloyd algorithm usually converges quickly, it is usually run with multiple instances of the initialization, and the run with the lowest inertia is kept.</p></li>
+<li><p><strong>\bfmultiple runs</strong> All the initialization methods include an element of randomness, and since the Lloyd algorithm usually converges quickly, it is usually run with \bfmultiple instances of the initialization, and the run with the lowest inertia is kept.</p></li>
 <li><p><strong>Selection of <span class="math notranslate nohighlight">\(k\)</span></strong> The algorithm treats <span class="math notranslate nohighlight">\(k\)</span> as a hyperparameter. Occam’s Razor dictates preferring smaller values to large ones. There are many suggestions on how to find the choice that gives the most “bang for the buck.”</p></li>
-<li><p><strong>Distance metric</strong> The Lloyd algorithm often fails to converge for norms other than the 2-norm, and must be modified if another norm is preferred.</p></li>
+<li><p><strong>Distance metric</strong> The Lloyd algorithm often fails to converge for norms other than the 2-norm, and \bfmust be modified if another norm is preferred.</p></li>
 <li><p><strong>Shape effects</strong> Because of the dependence on the 2-norm, the inertia criterion disfavors long, skinny clusters (i.e., anisotropic), and clusters of unequal spread (variance). Basically, it wants to find spherical blobs of roughly equal size and membership.</p></li>
 </ul>
 </div>

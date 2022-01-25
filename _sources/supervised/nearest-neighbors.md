@@ -19,13 +19,13 @@ Our first learning algorithm is conceptually simple: Given a new point to classi
 The existence of "closest" examples means that we need to define a notion of distance in spaces of any dimension. Let $\real^d$ be the space of vectors with $d$ real components, and let $\bfzero$ be the vector of all zeros.
 
 ```{prf:definition}
-A **norm** is a function $\|\bfx\|$ on $\real^d$ that satisfies the following properties:
+A **norm** is a function $\norm{\bfx}$ on $\real^d$ that satisfies the following properties:
 
 $$
-\|\bfzero\| &= 0,  \\ 
-\|\bfx\| &> 0 \text{ if $\bfx$ is a nonzero vector}, \\ 
-\|c\bfx\| &= |c| \, \|x\| \text{ for any real number $c$}, \\ 
-\|\bfx + \bfy \| &\le \bfx + \bfy.
+\norm{\bfzero} &= 0,  \\ 
+\norm{\bfx} &> 0 \text{ if $\bfx$ is a nonzero vector}, \\ 
+\norm{c\bfx} &= |c| \, \norm{x} \text{ for any real number $c$}, \\ 
+\norm{\bfx + \bfy } &\le \bfx + \bfy.
 $$
 ```
 
@@ -33,10 +33,10 @@ The last inequality above is called the **triangle inequality**. It turns out th
 
 We will encounter two different norms:
 
-* The 2-norm, $\|\bfx\|_2 = \bigl(x_1^2 + x_2^2 + \cdots + x_d^2\bigr)^{1/2}.$
-* The 1-norm, $\|\bfx\|_1 = |x_1| + |x_2| + \cdots + |x_d|.$
+* The 2-norm, $\twonorm{\bfx} = \bigl(x_1^2 + x_2^2 + \cdots + x_d^2\bigr)^{1/2}.$
+* The 1-norm, $\onenorm{\bfx} = |x_1| + |x_2| + \cdots + |x_d|.$
 
-On the number line (i.e., $\real^1$), the distance between two values is just the absolute value of their difference, $|x-y|$. In $\real^d$, the distance between two vectors is the norm of their difference, $\| \bfx - \bfy \|$. 
+On the number line (i.e., $\real^1$), the distance between two values is just the absolute value of their difference, $|x-y|$. In $\real^d$, the distance between two vectors is the norm of their difference, $\norm{ \bfx - \bfy }$. 
 
 The 2-norm is also called the *Euclidean norm*. It generalizes ordinary geometric distance in $\real^2$ and $\real^3$ and is usually considered the default. The 1-norm is sometimes called the *Manhattan norm*, because in $\real^2$ it represents the total number of east/west and north/south moves needed between points on a grid.
 

@@ -13,12 +13,11 @@ kernelspec:
 # k-means
 
 The $k$-means algorithm is one of the best-known and most widely used clustering methods, although it has some serious limitations and drawbacks. 
-$\newcommand{\bmu}{\boldsymbol{\mu}}$
 
-Given a sample matrix $\bfX$ with $n$ rows $\bfx_i$, the algorithm divides the sample points into disjoint sets $C_1,\ldots,C_k$. Cluster $j$ has a **centroid** $\bmu_j$, which is the mean of the points in $C_j$. Define the **inertia** of $C_j$ as 
+Given a sample matrix $\bfX$ with $n$ rows $\bfx_i$, the algorithm divides the sample points into disjoint sets $C_1,\ldots,C_k$. Cluster $j$ has a **centroid** $\bfmu_j$, which is the mean of the points in $C_j$. Define the **inertia** of $C_j$ as 
 
 $$
-I_j = \sum_{\bfx\in C_j} \| \bfx - \bmu_j \|^2.
+I_j = \sum_{\bfx\in C_j} \norm{ \bfx - \bfmu_j }^2.
 $$
 
 The goal of the algorithm is to choose the clusters in order to minimize the total inertia,
@@ -37,7 +36,7 @@ The standard method is known as **Lloyd's algorithm**. Starting with values for 
 * **Update** Recalculate the centroids based on the cluster assignments:
 
 $$
-\bmu_j^+ = \frac{1}{|C_j|} \sum_{\bfx\in C_j} \bfx.
+\bfmu_j^+ = \frac{1}{|C_j|} \sum_{\bfx\in C_j} \bfx.
 $$
 
 The algorithm stops when the assignment step does not change any of the clusters. In practice, this almost always happens quickly. 
@@ -45,9 +44,9 @@ The algorithm stops when the assignment step does not change any of the clusters
 ## Practical issues
 
 * **Initialization** The performance of $k$-means depends a great deal on the initial set of centroids. Traditionally, the centroids were chosen as random members of the sample set, but better/more reliable heuristics, such as *$k$-means++*, have since become more dominant. 
-* **Multiple runs** All the initialization methods include an element of randomness, and since the Lloyd algorithm usually converges quickly, it is usually run with multiple instances of the initialization, and the run with the lowest inertia is kept.
+* **\bfmultiple runs** All the initialization methods include an element of randomness, and since the Lloyd algorithm usually converges quickly, it is usually run with \bfmultiple instances of the initialization, and the run with the lowest inertia is kept.
 * **Selection of $k$** The algorithm treats $k$ as a hyperparameter. Occam's Razor dictates preferring smaller values to large ones. There are many suggestions on how to find the choice that gives the most "bang for the buck."
-* **Distance metric** The Lloyd algorithm often fails to converge for norms other than the 2-norm, and must be modified if another norm is preferred.
+* **Distance metric** The Lloyd algorithm often fails to converge for norms other than the 2-norm, and \bfmust be modified if another norm is preferred.
 * **Shape effects** Because of the dependence on the 2-norm, the inertia criterion disfavors long, skinny clusters (i.e., anisotropic), and clusters of unequal spread (variance). Basically, it wants to find spherical blobs of roughly equal size and membership.
 
 ## Toy example

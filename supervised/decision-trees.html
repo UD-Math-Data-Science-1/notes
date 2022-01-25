@@ -44,7 +44,7 @@
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>window.MathJax = {"tex": {"macros": {"float": ["\\mathbb{F}"], "real": ["\\mathbb{R}"], "complex": ["\\mathbb{C}"], "nat": ["\\mathbb{N}"], "integer": ["\\mathbb{Z}"], "bfa": "\\mathbf{a}", "bfe": "\\mathbf{e}", "bfx": "\\mathbf{x}", "bfX": "\\mathbf{X}", "bfw": "\\mathbf{w}", "bfy": "\\mathbf{y}", "bfz": "\\mathbf{z}", "bfzero": "\\boldsymbol{0}", "rmn": ["\\mathbb{R}^{#1 \\times #2}", 2], "dd": ["\\frac{d #1}{d #2}", 2], "pp": ["\\frac{\\partial #1}{\\partial #2}", 2], "norm": ["\\| #1 \\|", 1], "twonorm": ["\\| #1 \\|_2", 1], "onenorm": ["\\| #1 \\|_1", 1], "infnorm": ["\\| #1 \\|_\\infty", 1], "innerprod": ["\\langle #1,#2 \\rangle", 2], "pr": ["^{(#1)}", 1], "diag": ["\\operatorname{diag}"], "sign": ["\\operatorname{sign}"], "ee": ["\\times 10^"], "floor": ["\\lfloor#1\\rfloor", 1], "argmin": ["\\operatorname{argmin}"], "Cov": ["\\operatorname{Cov}"]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script>window.MathJax = {"tex": {"macros": {"float": ["\\mathbb{F}"], "real": ["\\mathbb{R}"], "complex": ["\\mathbb{C}"], "nat": ["\\mathbb{N}"], "integer": ["\\mathbb{Z}"], "bfa": "\\mathbf{a}", "bfe": "\\mathbf{e}", "bfx": "\\mathbf{x}", "bfX": "\\mathbf{X}", "bfw": "\\mathbf{w}", "bfy": "\\mathbf{y}", "bfz": "\\mathbf{z}", "bfzero": "\\boldsymbol{0}", "bfmu": "\\boldsymbol{\\mu}", "TP": "\\text{TP}", "TN": "\\text{TN}", "FP": "\\text{FP}", "FN": "\\text{FN}", "rmn": ["\\mathbb{R}^{#1 \\times #2}", 2], "dd": ["\\frac{d #1}{d #2}", 2], "pp": ["\\frac{\\partial #1}{\\partial #2}", 2], "norm": ["\\lVert #1 \\rVert", 1], "twonorm": ["\\norm{#1}_2", 1], "onenorm": ["\\norm{#1}_1", 1], "infnorm": ["\\norm{#1}_\\infty", 1], "innerprod": ["\\langle #1,#2 \\rangle", 2], "pr": ["^{(#1)}", 1], "diag": ["\\operatorname{diag}"], "sign": ["\\operatorname{sign}"], "ee": ["\\times 10^"], "floor": ["\\lfloor#1\\rfloor", 1], "argmin": ["\\operatorname{argmin}"], "Cov": ["\\operatorname{Cov}"], "logit": ["\\operatorname{logit}"]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
     <script>
         const thebe_selector = ".thebe,.cell"
@@ -492,7 +492,7 @@ H(S) &amp;= \frac{n}{n+2}\left( 1 - \frac{n}{n+2} \right) + 2 \frac{1}{n+2}\left
 <p>Now we can describe the partition process. If <span class="math notranslate nohighlight">\(j\)</span> is a dimension (feature) number and <span class="math notranslate nohighlight">\(\theta\)</span> is a numerical threshold, then the sample set can be partitioned into complementary sets <span class="math notranslate nohighlight">\(S_L\)</span>, in which <span class="math notranslate nohighlight">\(x_j \le \theta\)</span>, and <span class="math notranslate nohighlight">\(S_R\)</span>, in which <span class="math notranslate nohighlight">\(x_j &gt; \theta\)</span>. Define the quality measure</p>
 <div class="math notranslate nohighlight">
 \[
-Q(j,\theta) = |S| H(S) + |T| H(T).
+Q(j,\theta) = \lvert S\rvert\, H(S) + \lvert T \rvert \, H(T).
 \]</div>
 <p>Choose the <span class="math notranslate nohighlight">\((j,\theta)\)</span> that minimize <span class="math notranslate nohighlight">\(Q\)</span>, and then recursively partition <span class="math notranslate nohighlight">\(S\)</span> and <span class="math notranslate nohighlight">\(T\)</span>.</p>
 <div class="proof example admonition" id="example-decision-trees-partition">
@@ -767,7 +767,7 @@ H(S) &amp;= \frac{n}{n+2}\left( 1 - \frac{n}{n+2} \right) + 2 \frac{1}{n+2}\left
 <p>Now we can describe the partition process. If <span class="math notranslate nohighlight">\(j\)</span> is a dimension (feature) number and <span class="math notranslate nohighlight">\(\theta\)</span> is a numerical threshold, then the sample set can be partitioned into complementary sets <span class="math notranslate nohighlight">\(S_L\)</span>, in which <span class="math notranslate nohighlight">\(x_j \le \theta\)</span>, and <span class="math notranslate nohighlight">\(S_R\)</span>, in which <span class="math notranslate nohighlight">\(x_j &gt; \theta\)</span>. Define the quality measure</p>
 <div class="math notranslate nohighlight">
 \[
-Q(j,\theta) = |S| H(S) + |T| H(T).
+Q(j,\theta) = \lvert S\rvert\, H(S) + \lvert T \rvert \, H(T).
 \]</div>
 <p>Choose the <span class="math notranslate nohighlight">\((j,\theta)\)</span> that minimize <span class="math notranslate nohighlight">\(Q\)</span>, and then recursively partition <span class="math notranslate nohighlight">\(S\)</span> and <span class="math notranslate nohighlight">\(T\)</span>.</p>
 <div class="proof example admonition" id="example-decision-trees-partition">

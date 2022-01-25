@@ -44,7 +44,7 @@
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>window.MathJax = {"tex": {"macros": {"float": ["\\mathbb{F}"], "real": ["\\mathbb{R}"], "complex": ["\\mathbb{C}"], "nat": ["\\mathbb{N}"], "integer": ["\\mathbb{Z}"], "bfa": "\\mathbf{a}", "bfe": "\\mathbf{e}", "bfx": "\\mathbf{x}", "bfX": "\\mathbf{X}", "bfw": "\\mathbf{w}", "bfy": "\\mathbf{y}", "bfz": "\\mathbf{z}", "bfzero": "\\boldsymbol{0}", "rmn": ["\\mathbb{R}^{#1 \\times #2}", 2], "dd": ["\\frac{d #1}{d #2}", 2], "pp": ["\\frac{\\partial #1}{\\partial #2}", 2], "norm": ["\\| #1 \\|", 1], "twonorm": ["\\| #1 \\|_2", 1], "onenorm": ["\\| #1 \\|_1", 1], "infnorm": ["\\| #1 \\|_\\infty", 1], "innerprod": ["\\langle #1,#2 \\rangle", 2], "pr": ["^{(#1)}", 1], "diag": ["\\operatorname{diag}"], "sign": ["\\operatorname{sign}"], "ee": ["\\times 10^"], "floor": ["\\lfloor#1\\rfloor", 1], "argmin": ["\\operatorname{argmin}"], "Cov": ["\\operatorname{Cov}"]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script>window.MathJax = {"tex": {"macros": {"float": ["\\mathbb{F}"], "real": ["\\mathbb{R}"], "complex": ["\\mathbb{C}"], "nat": ["\\mathbb{N}"], "integer": ["\\mathbb{Z}"], "bfa": "\\mathbf{a}", "bfe": "\\mathbf{e}", "bfx": "\\mathbf{x}", "bfX": "\\mathbf{X}", "bfw": "\\mathbf{w}", "bfy": "\\mathbf{y}", "bfz": "\\mathbf{z}", "bfzero": "\\boldsymbol{0}", "bfmu": "\\boldsymbol{\\mu}", "TP": "\\text{TP}", "TN": "\\text{TN}", "FP": "\\text{FP}", "FN": "\\text{FN}", "rmn": ["\\mathbb{R}^{#1 \\times #2}", 2], "dd": ["\\frac{d #1}{d #2}", 2], "pp": ["\\frac{\\partial #1}{\\partial #2}", 2], "norm": ["\\lVert #1 \\rVert", 1], "twonorm": ["\\norm{#1}_2", 1], "onenorm": ["\\norm{#1}_1", 1], "infnorm": ["\\norm{#1}_\\infty", 1], "innerprod": ["\\langle #1,#2 \\rangle", 2], "pr": ["^{(#1)}", 1], "diag": ["\\operatorname{diag}"], "sign": ["\\operatorname{sign}"], "ee": ["\\times 10^"], "floor": ["\\lfloor#1\\rfloor", 1], "argmin": ["\\operatorname{argmin}"], "Cov": ["\\operatorname{Cov}"], "logit": ["\\operatorname{logit}"]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
     <script>
         const thebe_selector = ".thebe,.cell"
@@ -452,7 +452,6 @@
 <p>The logistic function takes the form of a smoothed step up from 0 to 1. Its inverse is the <strong>logit function</strong>,</p>
 <div class="math notranslate nohighlight">
 \[
-\newcommand{logit}{\operatorname{logit}}
 \logit(p) = \ln\left( \frac{p}{1-p} \right).
 \]</div>
 <div class="figure align-default">
@@ -483,7 +482,7 @@ p \approx \sigma(\bfx^T\bfw).
 L(\bfw) = -\sum_{i=1}^n \left[ y_i \ln(\hat{p}_i) + (1-y_i) \ln(1-\hat{p}_i) \right].
 \]</div>
 <p>Note that observation <span class="math notranslate nohighlight">\(i\)</span> contributes <span class="math notranslate nohighlight">\(-\ln(1-\hat{p}_i)\)</span> if <span class="math notranslate nohighlight">\(y_i=0\)</span> and <span class="math notranslate nohighlight">\(-\ln(\hat{p}_i)\)</span> if <span class="math notranslate nohighlight">\(y_i=1\)</span>. Both quantities increase as <span class="math notranslate nohighlight">\(\hat{p}_i\)</span> gets farther away from <span class="math notranslate nohighlight">\(y_i\)</span>. This loss is a special case of <strong>cross-entropy</strong>, a measure of dissimilarity between the probabilities of 1 occurring in the training versus the prediction.</p>
-<p>As with other forms of linear regression, the loss function is often regularized using the ridge or LASSO penalty. As we covered earlier, there is a hyperparameter <span class="math notranslate nohighlight">\(C\)</span> that emphasizes small <span class="math notranslate nohighlight">\(\|\bfw\|\)</span> as <span class="math notranslate nohighlight">\(C\to 0\)</span>, and pure regression as <span class="math notranslate nohighlight">\(C\to \infty\)</span>.</p>
+<p>As with other forms of linear regression, the loss function is often regularized using the ridge or LASSO penalty. As we covered earlier, there is a hyperparameter <span class="math notranslate nohighlight">\(C\)</span> that emphasizes small <span class="math notranslate nohighlight">\(\norm{\bfw}\)</span> as <span class="math notranslate nohighlight">\(C\to 0\)</span>, and pure regression as <span class="math notranslate nohighlight">\(C\to \infty\)</span>.</p>
 </div>
 <div class="section" id="case-study-personal-spam-filter">
 <h2>Case study: Personal spam filter<a class="headerlink" href="#case-study-personal-spam-filter" title="Permalink to this headline">¶</a></h2>
@@ -1193,7 +1192,6 @@ The softmax exaggerates differences between the $q_i$, making the result closer 
 <p>The logistic function takes the form of a smoothed step up from 0 to 1. Its inverse is the <strong>logit function</strong>,</p>
 <div class="math notranslate nohighlight">
 \[
-\newcommand{logit}{\operatorname{logit}}
 \logit(p) = \ln\left( \frac{p}{1-p} \right).
 \]</div>
 <div class="figure align-default">
@@ -1224,7 +1222,7 @@ p \approx \sigma(\bfx^T\bfw).
 L(\bfw) = -\sum_{i=1}^n \left[ y_i \ln(\hat{p}_i) + (1-y_i) \ln(1-\hat{p}_i) \right].
 \]</div>
 <p>Note that observation <span class="math notranslate nohighlight">\(i\)</span> contributes <span class="math notranslate nohighlight">\(-\ln(1-\hat{p}_i)\)</span> if <span class="math notranslate nohighlight">\(y_i=0\)</span> and <span class="math notranslate nohighlight">\(-\ln(\hat{p}_i)\)</span> if <span class="math notranslate nohighlight">\(y_i=1\)</span>. Both quantities increase as <span class="math notranslate nohighlight">\(\hat{p}_i\)</span> gets farther away from <span class="math notranslate nohighlight">\(y_i\)</span>. This loss is a special case of <strong>cross-entropy</strong>, a measure of dissimilarity between the probabilities of 1 occurring in the training versus the prediction.</p>
-<p>As with other forms of linear regression, the loss function is often regularized using the ridge or LASSO penalty. As we covered earlier, there is a hyperparameter <span class="math notranslate nohighlight">\(C\)</span> that emphasizes small <span class="math notranslate nohighlight">\(\|\bfw\|\)</span> as <span class="math notranslate nohighlight">\(C\to 0\)</span>, and pure regression as <span class="math notranslate nohighlight">\(C\to \infty\)</span>.</p>
+<p>As with other forms of linear regression, the loss function is often regularized using the ridge or LASSO penalty. As we covered earlier, there is a hyperparameter <span class="math notranslate nohighlight">\(C\)</span> that emphasizes small <span class="math notranslate nohighlight">\(\norm{\bfw}\)</span> as <span class="math notranslate nohighlight">\(C\to 0\)</span>, and pure regression as <span class="math notranslate nohighlight">\(C\to \infty\)</span>.</p>
 </div>
 <div class="section" id="case-study-personal-spam-filter">
 <h2>Case study: Personal spam filter<a class="headerlink" href="#case-study-personal-spam-filter" title="Permalink to this headline">¶</a></h2>

@@ -41,7 +41,7 @@ Setting both derivatives to zero creates a system of two linear equations to be 
 Before moving on, we adopt a vector-oriented view of the process. As a sum of squares, the loss function can be written as a 2-norm:
 
 $$
-L(a,b) =  \| a \bfx + b \bfe - \bfy \|_2^2,
+L(a,b) =  \twonorm{a \bfx + b \bfe - \bfy}^2,
 $$
 
 where $\bfe$ is a vector of $n$ ones. Minimizing $L$ over all values of $a$ and $b$ is called the **least squares** problem. (More specifically, this setup is called *simple least squares* or *ordinary least squares*.)

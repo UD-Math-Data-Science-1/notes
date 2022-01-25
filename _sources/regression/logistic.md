@@ -29,7 +29,6 @@ $$
 The logistic function takes the form of a smoothed step up from 0 to 1. Its inverse is the **logit function**,
 
 $$
-\newcommand{logit}{\operatorname{logit}}
 \logit(p) = \ln\left( \frac{p}{1-p} \right).
 $$
 
@@ -66,7 +65,7 @@ $$
 
 Note that observation $i$ contributes $-\ln(1-\hat{p}_i)$ if $y_i=0$ and $-\ln(\hat{p}_i)$ if $y_i=1$. Both quantities increase as $\hat{p}_i$ gets farther away from $y_i$. This loss is a special case of **cross-entropy**, a measure of dissimilarity between the probabilities of 1 occurring in the training versus the prediction.
 
-As with other forms of linear regression, the loss function is often regularized using the ridge or LASSO penalty. As we covered earlier, there is a hyperparameter $C$ that emphasizes small $\|\bfw\|$ as $C\to 0$, and pure regression as $C\to \infty$. 
+As with other forms of linear regression, the loss function is often regularized using the ridge or LASSO penalty. As we covered earlier, there is a hyperparameter $C$ that emphasizes small $\norm{\bfw}$ as $C\to 0$, and pure regression as $C\to \infty$. 
 
 
 ## Case study: Personal spam filter

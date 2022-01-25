@@ -52,20 +52,20 @@ $$
 Using calculus to minimize $d^2$ as a function of $t$ eventually gives
 
 $$
-t_\text{min} = \frac{(s_2-a_2)w_1-(s_1-a_1)w_2}{w_1^2+w^2^2}.
+t_\text{min} = \frac{(s_2-a_2)w_1-(s_1-a_1)w_2}{w_1^2+w_2^2}.
 $$
 
-Note that $w_1^2+w_2^2=\|[w_1,w_2]\|_2^2$. Substituting $t_\text{min}$ into $d^2$ and taking a square root gives
+Note that $w_1^2+w_2^2=\norm{[w_1,w_2]}_2^2$. Substituting $t_\text{min}$ into $d^2$ and taking a square root gives
 
 $$
-d_\text{min} = \frac{|(s_1-a_1)w_1 + (s_2-a_2)w_2|}{\|\bfw\|^2}
- = \frac{|(s_1w_1 + s_2w_2 + b|}{\|\bfw\|_2}.
+d_\text{min} = \frac{|(s_1-a_1)w_1 + (s_2-a_2)w_2|}{\norm{\bfw}^2}
+ = \frac{|(s_1w_1 + s_2w_2 + b|}{\norm{\bfw}_2}.
 $$
 
 It is clear that $w_1 s_1 + w_2 s_2 + b > 0$ represents the half-plane on one side of the line, and $$w_1 s_1 + w_2 s_2 + b < 0$ represents the other. Suppose we use $y_i=+1$ for all the labels on one side, and $y_i=-1$ for all the labels on the other side. Finally, the condition that the distance from the line to point $(x_{i,1},x_{i,2})$ be no smaller than the margin $M$, and that the point be on the correct side of the line, is 
 
 $$
-y_i\left( \frac{ s_1w_1 + s_2w_2 + b }{\|\bfw\|_2} \right) \ge M,
+y_i\left( \frac{ s_1w_1 + s_2w_2 + b }{\norm{\bfw}_2} \right) \ge M,
 $$
 
 which must hold true for all $i$ as we maximize the margin $M$. 
@@ -91,13 +91,13 @@ $$
 as the **inner product** between vectors $\bfx$ and $\bfw$. It follows easily that
 
 $$
-\bfw^T\bfw = \|\bfw\|_2^2,
+\bfw^T\bfw = \norm{\bfw}_2^2,
 $$
 
 which is the important fact that makes the 2-norm special. One form of the constrained optimization problem (known as the *primal formulation*) is
 
 $$
-\text{minimize } & \|\bfw\|_2 \\ 
+\text{minimize } & \norm{\bfw}_2 \\ 
 \text{subject to } & y_i(\bfw^T \bfx_i + b) \ge 1,\, i = 1,\ldots,n.
 $$
 

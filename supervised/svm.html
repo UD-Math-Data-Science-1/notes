@@ -44,7 +44,7 @@
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>window.MathJax = {"tex": {"macros": {"float": ["\\mathbb{F}"], "real": ["\\mathbb{R}"], "complex": ["\\mathbb{C}"], "nat": ["\\mathbb{N}"], "integer": ["\\mathbb{Z}"], "bfa": "\\mathbf{a}", "bfe": "\\mathbf{e}", "bfx": "\\mathbf{x}", "bfX": "\\mathbf{X}", "bfw": "\\mathbf{w}", "bfy": "\\mathbf{y}", "bfz": "\\mathbf{z}", "bfzero": "\\boldsymbol{0}", "rmn": ["\\mathbb{R}^{#1 \\times #2}", 2], "dd": ["\\frac{d #1}{d #2}", 2], "pp": ["\\frac{\\partial #1}{\\partial #2}", 2], "norm": ["\\| #1 \\|", 1], "twonorm": ["\\| #1 \\|_2", 1], "onenorm": ["\\| #1 \\|_1", 1], "infnorm": ["\\| #1 \\|_\\infty", 1], "innerprod": ["\\langle #1,#2 \\rangle", 2], "pr": ["^{(#1)}", 1], "diag": ["\\operatorname{diag}"], "sign": ["\\operatorname{sign}"], "ee": ["\\times 10^"], "floor": ["\\lfloor#1\\rfloor", 1], "argmin": ["\\operatorname{argmin}"], "Cov": ["\\operatorname{Cov}"]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script>window.MathJax = {"tex": {"macros": {"float": ["\\mathbb{F}"], "real": ["\\mathbb{R}"], "complex": ["\\mathbb{C}"], "nat": ["\\mathbb{N}"], "integer": ["\\mathbb{Z}"], "bfa": "\\mathbf{a}", "bfe": "\\mathbf{e}", "bfx": "\\mathbf{x}", "bfX": "\\mathbf{X}", "bfw": "\\mathbf{w}", "bfy": "\\mathbf{y}", "bfz": "\\mathbf{z}", "bfzero": "\\boldsymbol{0}", "bfmu": "\\boldsymbol{\\mu}", "TP": "\\text{TP}", "TN": "\\text{TN}", "FP": "\\text{FP}", "FN": "\\text{FN}", "rmn": ["\\mathbb{R}^{#1 \\times #2}", 2], "dd": ["\\frac{d #1}{d #2}", 2], "pp": ["\\frac{\\partial #1}{\\partial #2}", 2], "norm": ["\\lVert #1 \\rVert", 1], "twonorm": ["\\norm{#1}_2", 1], "onenorm": ["\\norm{#1}_1", 1], "infnorm": ["\\norm{#1}_\\infty", 1], "innerprod": ["\\langle #1,#2 \\rangle", 2], "pr": ["^{(#1)}", 1], "diag": ["\\operatorname{diag}"], "sign": ["\\operatorname{sign}"], "ee": ["\\times 10^"], "floor": ["\\lfloor#1\\rfloor", 1], "argmin": ["\\operatorname{argmin}"], "Cov": ["\\operatorname{Cov}"], "logit": ["\\operatorname{logit}"]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
     <script>
         const thebe_selector = ".thebe,.cell"
@@ -448,18 +448,18 @@ d^2 = (s_1-a_1+tw_2)^2 + (s2-a_2-tw_1)^2.
 <p>Using calculus to minimize <span class="math notranslate nohighlight">\(d^2\)</span> as a function of <span class="math notranslate nohighlight">\(t\)</span> eventually gives</p>
 <div class="math notranslate nohighlight">
 \[
-t_\text{min} = \frac{(s_2-a_2)w_1-(s_1-a_1)w_2}{w_1^2+w^2^2}.
+t_\text{min} = \frac{(s_2-a_2)w_1-(s_1-a_1)w_2}{w_1^2+w_2^2}.
 \]</div>
-<p>Note that <span class="math notranslate nohighlight">\(w_1^2+w_2^2=\|[w_1,w_2]\|_2^2\)</span>. Substituting <span class="math notranslate nohighlight">\(t_\text{min}\)</span> into <span class="math notranslate nohighlight">\(d^2\)</span> and taking a square root gives</p>
+<p>Note that <span class="math notranslate nohighlight">\(w_1^2+w_2^2=\norm{[w_1,w_2]}_2^2\)</span>. Substituting <span class="math notranslate nohighlight">\(t_\text{min}\)</span> into <span class="math notranslate nohighlight">\(d^2\)</span> and taking a square root gives</p>
 <div class="math notranslate nohighlight">
 \[
-d_\text{min} = \frac{|(s_1-a_1)w_1 + (s_2-a_2)w_2|}{\|\bfw\|^2}
- = \frac{|(s_1w_1 + s_2w_2 + b|}{\|\bfw\|_2}.
+d_\text{min} = \frac{|(s_1-a_1)w_1 + (s_2-a_2)w_2|}{\norm{\bfw}^2}
+ = \frac{|(s_1w_1 + s_2w_2 + b|}{\norm{\bfw}_2}.
 \]</div>
 <p>It is clear that <span class="math notranslate nohighlight">\(w_1 s_1 + w_2 s_2 + b &gt; 0\)</span> represents the half-plane on one side of the line, and $<span class="math notranslate nohighlight">\(w_1 s_1 + w_2 s_2 + b &lt; 0\)</span> represents the other. Suppose we use <span class="math notranslate nohighlight">\(y_i=+1\)</span> for all the labels on one side, and <span class="math notranslate nohighlight">\(y_i=-1\)</span> for all the labels on the other side. Finally, the condition that the distance from the line to point <span class="math notranslate nohighlight">\((x_{i,1},x_{i,2})\)</span> be no smaller than the margin <span class="math notranslate nohighlight">\(M\)</span>, and that the point be on the correct side of the line, is</p>
 <div class="math notranslate nohighlight">
 \[
-y_i\left( \frac{ s_1w_1 + s_2w_2 + b }{\|\bfw\|_2} \right) \ge M,
+y_i\left( \frac{ s_1w_1 + s_2w_2 + b }{\norm{\bfw}_2} \right) \ge M,
 \]</div>
 <p>which must hold true for all <span class="math notranslate nohighlight">\(i\)</span> as we maximize the margin <span class="math notranslate nohighlight">\(M\)</span>.</p>
 <p>This is a <em>constrained optimization</em> problem. The details of how it’s solved are interesting, but beyond us in this space.</p>
@@ -479,12 +479,12 @@ w_1 x_1 + w_2 x_2 + \cdots + w_d x_d + b = 0,
 <p>as the <strong>inner product</strong> between vectors <span class="math notranslate nohighlight">\(\bfx\)</span> and <span class="math notranslate nohighlight">\(\bfw\)</span>. It follows easily that</p>
 <div class="math notranslate nohighlight">
 \[
-\bfw^T\bfw = \|\bfw\|_2^2,
+\bfw^T\bfw = \norm{\bfw}_2^2,
 \]</div>
 <p>which is the important fact that makes the 2-norm special. One form of the constrained optimization problem (known as the <em>primal formulation</em>) is</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-\text{minimize } &amp; \|\bfw\|_2 \\ 
+\text{minimize } &amp; \norm{\bfw}_2 \\ 
 \text{subject to } &amp; y_i(\bfw^T \bfx_i + b) \ge 1,\, i = 1,\ldots,n.
 \end{split}\]</div>
 <p>Usually, though, the optimization is actually performed on an equivalent <em>dual formulation</em>, which finds the <span class="math notranslate nohighlight">\(d+1\)</span> support vectors and the margin rather than <span class="math notranslate nohighlight">\(\bfw\)</span> and <span class="math notranslate nohighlight">\(b\)</span> directly.</p>
@@ -636,18 +636,18 @@ d^2 = (s_1-a_1+tw_2)^2 + (s2-a_2-tw_1)^2.
 <p>Using calculus to minimize <span class="math notranslate nohighlight">\(d^2\)</span> as a function of <span class="math notranslate nohighlight">\(t\)</span> eventually gives</p>
 <div class="math notranslate nohighlight">
 \[
-t_\text{min} = \frac{(s_2-a_2)w_1-(s_1-a_1)w_2}{w_1^2+w^2^2}.
+t_\text{min} = \frac{(s_2-a_2)w_1-(s_1-a_1)w_2}{w_1^2+w_2^2}.
 \]</div>
-<p>Note that <span class="math notranslate nohighlight">\(w_1^2+w_2^2=\|[w_1,w_2]\|_2^2\)</span>. Substituting <span class="math notranslate nohighlight">\(t_\text{min}\)</span> into <span class="math notranslate nohighlight">\(d^2\)</span> and taking a square root gives</p>
+<p>Note that <span class="math notranslate nohighlight">\(w_1^2+w_2^2=\norm{[w_1,w_2]}_2^2\)</span>. Substituting <span class="math notranslate nohighlight">\(t_\text{min}\)</span> into <span class="math notranslate nohighlight">\(d^2\)</span> and taking a square root gives</p>
 <div class="math notranslate nohighlight">
 \[
-d_\text{min} = \frac{|(s_1-a_1)w_1 + (s_2-a_2)w_2|}{\|\bfw\|^2}
- = \frac{|(s_1w_1 + s_2w_2 + b|}{\|\bfw\|_2}.
+d_\text{min} = \frac{|(s_1-a_1)w_1 + (s_2-a_2)w_2|}{\norm{\bfw}^2}
+ = \frac{|(s_1w_1 + s_2w_2 + b|}{\norm{\bfw}_2}.
 \]</div>
 <p>It is clear that <span class="math notranslate nohighlight">\(w_1 s_1 + w_2 s_2 + b &gt; 0\)</span> represents the half-plane on one side of the line, and $<span class="math notranslate nohighlight">\(w_1 s_1 + w_2 s_2 + b &lt; 0\)</span> represents the other. Suppose we use <span class="math notranslate nohighlight">\(y_i=+1\)</span> for all the labels on one side, and <span class="math notranslate nohighlight">\(y_i=-1\)</span> for all the labels on the other side. Finally, the condition that the distance from the line to point <span class="math notranslate nohighlight">\((x_{i,1},x_{i,2})\)</span> be no smaller than the margin <span class="math notranslate nohighlight">\(M\)</span>, and that the point be on the correct side of the line, is</p>
 <div class="math notranslate nohighlight">
 \[
-y_i\left( \frac{ s_1w_1 + s_2w_2 + b }{\|\bfw\|_2} \right) \ge M,
+y_i\left( \frac{ s_1w_1 + s_2w_2 + b }{\norm{\bfw}_2} \right) \ge M,
 \]</div>
 <p>which must hold true for all <span class="math notranslate nohighlight">\(i\)</span> as we maximize the margin <span class="math notranslate nohighlight">\(M\)</span>.</p>
 <p>This is a <em>constrained optimization</em> problem. The details of how it’s solved are interesting, but beyond us in this space.</p>
@@ -667,12 +667,12 @@ w_1 x_1 + w_2 x_2 + \cdots + w_d x_d + b = 0,
 <p>as the <strong>inner product</strong> between vectors <span class="math notranslate nohighlight">\(\bfx\)</span> and <span class="math notranslate nohighlight">\(\bfw\)</span>. It follows easily that</p>
 <div class="math notranslate nohighlight">
 \[
-\bfw^T\bfw = \|\bfw\|_2^2,
+\bfw^T\bfw = \norm{\bfw}_2^2,
 \]</div>
 <p>which is the important fact that makes the 2-norm special. One form of the constrained optimization problem (known as the <em>primal formulation</em>) is</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-\text{minimize } &amp; \|\bfw\|_2 \\ 
+\text{minimize } &amp; \norm{\bfw}_2 \\ 
 \text{subject to } &amp; y_i(\bfw^T \bfx_i + b) \ge 1,\, i = 1,\ldots,n.
 \end{split}\]</div>
 <p>Usually, though, the optimization is actually performed on an equivalent <em>dual formulation</em>, which finds the <span class="math notranslate nohighlight">\(d+1\)</span> support vectors and the margin rather than <span class="math notranslate nohighlight">\(\bfw\)</span> and <span class="math notranslate nohighlight">\(b\)</span> directly.</p>

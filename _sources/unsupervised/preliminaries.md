@@ -21,7 +21,7 @@ The first decision we have to make is how to measure *similarity*. Mostly we con
 We already have the 2-norm (Euclidean) and 1-norm (Manhattan) distances defined. Another important norm, especially in text processing, is *cosine distance*. Vector geometry shows that for vectors $\mathbf{u}$ and $\mathbf{v}$ in $\real^d$, the angle $\theta$ between the vectors satisfies
 
 $$
-\cos(\theta) = \frac{\mathbf{u}^T\mathbf{v}}{\|\mathbf{u}\|_2 \|\mathbf{v}\|_2}.
+\cos(\theta) = \frac{\mathbf{u}^T\mathbf{v}}{\twonorm{\mathbf{u}} \, \twonorm{\mathbf{v}}}.
 $$
 
 The **cosine distance** between $\mathbf{u}$ and $\mathbf{v}$ is $\tfrac{1}{2}[1-\cos(\theta)]$. This is zero when $\theta=0$ and has max value 1 at $\theta=\pi$. This metric is sensitive only to the relative directions of the vectors, not their geometric lengths. However, it does not meet all the requirements of a norm, such as the triangle inequality.
