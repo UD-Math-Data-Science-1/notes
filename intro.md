@@ -1,6 +1,28 @@
 # Data Science 1 @ UD Math
 
-Here we go.
+## Useful guides
+
+* [pandas user guide](https://pandas.pydata.org/docs/user_guide/index.html),  [cheat sheet](https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf), [long summary](https://www.webpages.uidaho.edu/~stevel/504/pandas%20dataframe%20notes.pdf)
+* [seaborn tutorial](https://seaborn.pydata.org/tutorial.html), [cheat sheet](https://storage.googleapis.com/kaggle-forum-message-attachments/724698/14798/seaborn.JPG)
+* [scikit-learn user guide](https://scikit-learn.org/stable/user_guide.html), [cheat sheet])(http://datacamp-community-prod.s3.amazonaws.com/eb807da5-dce5-4b97-a54d-74e89f14266b)
+* [numpy cheat sheet](http://datacamp-community-prod.s3.amazonaws.com/ba1fe95a-8b70-4d2f-95b0-bc954e9071b0)
+
+## Data sources
+
+Here are places around the web with data available for download.
+
+* [World Bank](https://datacatalog.worldbank.org/home) Focuses on economic and development data.
+* [World Health Organization](https://www.who.int/gho/database/en/) Information on health and disease.
+* [Registry of Open Data on AWS](https://registry.opendata.aws/) Access to datasets used by governments and researchers that happen to be stored on Amazon's servers. Skewed toward large sets, and a bit of a grab-bag.
+* [Five Thirty-Eight](https://data.fivethirtyeight.com/) Data used to support the site's journalism, mainly in politics and sports. 
+* [U.S. Census Bureau](https://data.census.gov/cedsci/) Tons of demographic data about the U.S.
+* [Data.gov](https://www.data.gov/) Home for all open U.S. government data.
+* [Delaware Open Data](https://data.delaware.gov) Publicly available data from the state government.
+* [UNICEF Portal](https://open.unicef.org) Worldwide data about child welfare.
+* [Kaggle](https://www.kaggle.com/datasets) Long-time host of data science competitions. 
+* [UCI Machine Learning Repository](https://archive.ics.uci.edu/ml/index.php) Long-standing site for datasets that have been used extensively in machine learning research.
+* [Open ML](https://www.openml.org/search?type=data&from=300&q=qualities.NumberOfClasses%3A%3E2) Sort of abandoned years ago, but lots of eclectic datasets remain.
+* [IMDB Datasets](https://www.imdb.com/interfaces/) Information about movies and TVs. (Big files!)
 
 ## Glossary
 
@@ -49,3 +71,4 @@ A much more exhaustive glossary can be found [here](https://www.analyticsvidhya.
 * **Spyder** Free development environment that somewhat resembles MATLAB.
 * **Thonny** Bare-bones development environment intended to prioritize beginners.
 * **Google Colab** Free cloud-based service for jumping into Jupyter notebooks without installing any software locally.
+
