@@ -13,7 +13,7 @@ kernelspec:
 
 # Summary statistics
 
-We continue with the MPG data for illustrations.
+We will use data about car fuel efficiency for illustrations.
 
 ```{code-cell}
 import pandas as pd
@@ -28,6 +28,7 @@ The `describe` method of a data frame gives summary statistics for each column o
 cars.describe()
 ```
 
+## Mean, variance, standard deviation
 
 You certainly know about the **mean** of values $x_1,\ldots,x_n$:
 
@@ -43,23 +44,11 @@ The "std" row of the summary table is a measurement of spread. First define the 
 \sigma^2 = \frac{1}{n}\sum_{i=1}^n (x_i - \bar{x})^2.
 ```
 
-Variance is the average of the squares of deviations from the mean. As such, it has the units that are the square of the data, which can be hard to interpret. Its square root $\sigma$ is the **standard deviation** (STD), and it has the same units as the data. A small STD implies that the data values are all fairly close to the mean, while a large STD implies wider spread.
+Variance is the average of the squares of deviations from the mean. As such, it has the units that are the square of the data, which can be hard to interpret. Its square root $\sigma$ is the **standard deviation** (STD), and it has the same units as the data. 
 
-These statistics can be computed separately for grouped data. For example, the mean of MPG for the three regions in the data are
+A small STD implies that the data values are all fairly close to the mean, while a large STD implies wider spread. For data that are distributed normally, about 68% of the values lie within one standard deviation of the mean. The mean of the U.S. distribution is more than one STD less than the means from the other regions (although the data does not look like a normal distribution).
 
-```{code-cell}
-cars.groupby("origin")["mpg"].mean()
-```
-
-The mean in the U.S. is certainly smaller. But is the difference accounted for by how spread out the values are? We should at least compare to the standard deviation:
-
-```{code-cell}
-cars.groupby("origin")["mpg"].std()
-```
-
-For data that are distributed normally, about 68% of the values lie within one standard deviation of the mean. The mean of the U.S. distribution is more than one STD less than the means from the other regions (although the data does not look like a normal distribution).
-
-## z-scores
+### z-scores
 
 Given data values $x_1,\ldots,x_n$, we can define related values known as **standardized scores** or **z-scores**:
 
@@ -73,22 +62,11 @@ The z-scores have mean zero and standard deviation equal to 1; in physical terms
 def standardize(x):
     return (x-x.mean())/x.std()
 
-cars["mpg_z"] = cars.groupby("origin")["mpg"].transform(standardize)
-cars[["origin","mpg","mpg_z"]]
-```
-
-The standardization occurred separately within each group, so that each histogram is now centered at zero.
-
-```{code-cell}
-sns.displot(data=cars,x="mpg_z",col="origin")
-```
-
-```{code-cell}
-cars.groupby("origin")["mpg_z"].mean()
+cars["mpg_z"] = standardize(cars["mpg"]))
+cars[["mpg","mpg_z"]].describe()
 ```
 
 (Recall that floating-point values are rounded to 15–16 digits.)
-
 
 ## Populations and samples
 

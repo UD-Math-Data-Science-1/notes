@@ -66,6 +66,8 @@ A much more exhaustive glossary can be found [here](https://www.analyticsvidhya.
 
 ### Editors/IDEs
 
+* **Jupyter** Popular format and system for interactive editing, execution, and export of notebooks.
+* **Jupyter Lab** Layer over Jupyter notebook functionality to help manage notebooks and extensions.
 * **PyCharm** Feature-rich freemium development environment for Python, geared toward large, complex projects.
 * **VS Code** Free all-purpose editor with many extensions for working closely with git, Github, Jupyter, and Python.
 * **Spyder** Free development environment that somewhat resembles MATLAB.

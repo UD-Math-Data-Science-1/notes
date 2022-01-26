@@ -11,8 +11,8 @@ chapters:
     - file: representation/seaborn
   - file: statistics/overview
     sections:
-    - file: statistics/split-apply-combine
     - file: statistics/summary
+    - file: statistics/split-apply-combine
     - file: statistics/outliers
     - file: statistics/correlation
   - file: supervised/overview
