@@ -17,14 +17,14 @@ For illustrations, let us load a data set about penguins.
 ```{code-cell} ipython3
 import pandas as pd
 import seaborn as sns
-pen = sns.load_dataset("penguins")
-pen
+penguins = sns.load_dataset("penguins")
+penguins
 ```
 
 There are often observations that we believe to be linked, either because one influences the other, or both are influenced by some other factor. That is, we say the quantities are **correlated**. This can become apparent using `pairplot` in seaborn.
 
 ```{code-cell}
-sns.pairplot(pen,hue="species");
+sns.pairplot(penguins,hue="species");
 ```
 
 The panels along the diagonal show each quantitative variable's distribution as a KDE plot. The other panels show scatter plots putting one pair at a time of the variables on the coordinate axes. There appears to be a strong positive correlation between flipper length and body mass in all three species, while the relationship between flipper length and bill length is less clear.
@@ -39,7 +39,9 @@ $$
 \Cov(X,Y) = \frac{1}{n} \sum_{i=1}^n (x_i-\mu_X)(y_i-\mu_Y).
 $$
 
-One explanation for the name is that $\Cov(X,X)$ and $Cov(Y,Y)$ are just the variances of $X$ and $Y$. However, covariance is not easy to interpret. Its units are the products of the units of the two variables, and it is sensitive to rescaling the variables (e.g., grams versus kilograms).
+One explanation for the name is that $\Cov(X,X)$ and $\Cov(Y,Y)$ are just the variances of $X$ and $Y$. 
+
+Covariance is not easy to interpret. Its units are the products of the units of the two variables, and it is sensitive to rescaling the variables (e.g., grams versus kilograms).
 
 ## Pearson correlation coefficient
 
@@ -55,14 +57,14 @@ where $\sigma_X^2$ and $\sigma_Y^2$ are the variances of $X$ and $Y$. The value 
 For example, we might reasonably expect flipper length and body mass to be correlated in penguins, as a plot confirms:
 
 ```{code-cell}
-sns.relplot(data=pen,x="flipper_length_mm",y="body_mass_g");
+sns.relplot(data=penguins,x="flipper_length_mm",y="body_mass_g");
 ```
 
 Covariance allows us to confirm a positive relationship:
 
 ```{code-cell}
-flip = pen["flipper_length_mm"]
-mass = pen["body_mass_g"]
+flip = penguins["flipper_length_mm"]
+mass = penguins["body_mass_g"]
 
 flip.cov(mass)
 ```
@@ -117,27 +119,47 @@ x.corr(y,"spearman")
 
 Since real data almost always features outlying or anomalous values, it's important to think about the robustness of the statistics you choose.
 
+## Categorical correlation
+
+An ordinal variable, such as days of the week, are often straightforward to quantify as consecutive integers. But a nominal variable poses a different challenge. 
+
+For example, grouped histograms suggest an association between body mass and species of penguin.
+
+```{code-cell}
+sns.displot(data=penguins,x="body_mass_g",col="species");
+```
+
+How can we quantify the association? The first step is to convert the species column into dummy variables.
+
+```{code-cell}
+dum = pd.get_dummies(penguins,columns=["species"])
+dum
+```
+
+The original species column has been replaced by three binary indicator columns. Now we can look for correlations between them and the body mass:
+
+```{code-cell}
+dum[["body_mass_g","species_Adelie","species_Chinstrap","species_Gentoo"]].corr()
+```
+
+As you can see from the above, Adelie and (to a lesser extent) Chinstrap are associated with lower mass, while Gentoo is strongly associated with higher mass.
+
 ## Simpson's paradox
 
 We can find all the pairwise correlation coefficients in the same style as the grid of pair plots at the top of this section.
 
 ```{code-cell}
-pen.corr()
+penguins.corr()
 ```
 
-For instance, in row 4, column 3 of the array, you can find the same coefficient 0.87 that we found above. Note that each variable is perfectly correlated with itself.
-
-Something interesting happens if we compute the correlations using the species for grouping.
+For example, the correlation between body mass and bill depth is about $-0.472$. But something interesting happens if we compute the correlations *after* grouping by species.
 
 ```{code-cell}
-pen.groupby("species").corr()
+penguins.groupby("species").corr()
 ```
 
-Within each species, the correlation between body mass and bill depth is greater than 0.5. But look at what happens if we lump all three species together:
+Within each individual species, the correlation between body mass and bill depth is greater than $0.5$!
+This is an example of **Simpson's paradox**. The reason for it can be seen from the pair plot above. Within each color, there is a strong positive association. But the relationship isn't identical across species, and what dominates the combination of all three is the large gap between the Gentoo and the other species.
 
-```{code-cell}
-pen["bill_depth_mm"].corr(pen["body_mass_g"])
-```
-
-We now have a fairly sizable *negative* correlation! This is an example of **Simpson's paradox**. The reason for it can be seen from the pair plot above. Within each color, there is a strong positive association. But the relationship isn't identical across species, and what dominates the combination is the large gap between the Gentoo and the other species. Careless computation of correlations is malpractice!
+Simpson's paradox shows how important it us to understand the dataset before spewing out statistics about it. There are contexts where combining species of penguins makes sense, but in the case of body mass, we are really dealing with three separate distributions.
 
