@@ -98,13 +98,13 @@ If the sorted values are $1,3,3,4,5,5,5$, then $n=7$ and the sample median is $y
 A set of percentiles dividing probability into $q$ equal pieces is called the $q$–**quantiles**.
 
 ```{prf:example}
-The 4-quantiles are called **quartiles**. The first quartile is the 25th percentile, or the value that exceeds 1/4 of the population. The second quartile is the median. The third quantile is the 75th percentile. 
+The 4-quantiles are called **quartiles**. The first quartile is the 25th percentile, or the value that exceeds 1/4 of the population. The second quartile is the median. The third quartile is the 75th percentile. 
 
 Sometimes the definition is extended to the *zeroth quartile*, which is the minimum sample value, and the *fourth quartile*, which is the maximum sample value.
 ```
 
 ```{warning}
-If this isn't confusing enough yet, sometimes the word *quantile* is casually used to mean *percentile*.
+If this isn't confusing enough yet, sometimes the word *quantile* is used to mean *percentile*. This is the usage in pandas.
 ```
 
 One way to measure spread in the values is the **interquartile range** (IQR), which is the difference between the 75th percentile and the 25th percentile. For some distributions, the median and IQR might be a good substitute for the mean and standard deviation.
@@ -112,15 +112,15 @@ One way to measure spread in the values is the **interquartile range** (IQR), wh
 A common way to visualize quartiles is by a **box plot**.
 
 ```{code-cell} ipython3
-sns.catplot(data=cars,x="origin",y="mpg",kind="box")
+sns.catplot(data=cars,x="origin",y="mpg",kind="box");
 ```
 
-The colored boxes in each category show the quartiles, with the interior horizontal line showing the median. The "whiskers" and dots are explained in the next section. 
+Each colored box shows the interquartile range, with the interior horizontal line showing the median. The "whiskers" and dots are explained in the next section. 
 
 An alternative to a box plot is a **violin plot**.
 
 ```{code-cell} ipython3
-sns.catplot(data=cars,x="mpg",y="origin",kind="violin")
+sns.catplot(data=cars,x="mpg",y="origin",kind="violin");
 ```
 
 In a violin plot, the inner lines still show the same information as the box plot, and the sides of the "violins" are KDE estimates of the continuous distributions.
