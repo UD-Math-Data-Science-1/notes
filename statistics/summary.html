@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>2.2. Summary statistics &#8212; Data Science 1</title>
+    <title>2.1. Summary statistics &#8212; Data Science 1</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet">
   <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -29,6 +29,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
     <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     
@@ -55,8 +56,8 @@
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="2.3. Outliers" href="outliers.html" />
-    <link rel="prev" title="2.1. Split–apply–combine" href="split-apply-combine.html" />
+    <link rel="next" title="2.2. Split–apply–combine" href="split-apply-combine.html" />
+    <link rel="prev" title="2. Descriptive statistics" href="overview.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -143,14 +144,14 @@
    </i>
   </label>
   <ul class="current">
-   <li class="toctree-l2">
-    <a class="reference internal" href="split-apply-combine.html">
-     2.1. Split–apply–combine
-    </a>
-   </li>
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
-     2.2. Summary statistics
+     2.1. Summary statistics
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="split-apply-combine.html">
+     2.2. Split–apply–combine
     </a>
    </li>
    <li class="toctree-l2">
@@ -361,9 +362,16 @@
             <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#z-scores">
-   z-scores
+  <a class="reference internal nav-link" href="#mean-variance-standard-deviation">
+   Mean, variance, standard deviation
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#z-scores">
+     z-scores
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#populations-and-samples">
@@ -371,8 +379,8 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#quantiles-and-percentiles">
-   Quantiles and percentiles
+  <a class="reference internal nav-link" href="#median-and-quantiles">
+   Median and quantiles
   </a>
  </li>
 </ul>
@@ -395,9 +403,16 @@
                 <nav aria-label="Page">
                     <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#z-scores">
-   z-scores
+  <a class="reference internal nav-link" href="#mean-variance-standard-deviation">
+   Mean, variance, standard deviation
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#z-scores">
+     z-scores
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#populations-and-samples">
@@ -405,8 +420,8 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#quantiles-and-percentiles">
-   Quantiles and percentiles
+  <a class="reference internal nav-link" href="#median-and-quantiles">
+   Median and quantiles
   </a>
  </li>
 </ul>
@@ -417,8 +432,8 @@
               <div>
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="summary-statistics">
-<h1><span class="section-number">2.2. </span>Summary statistics<a class="headerlink" href="#summary-statistics" title="Permalink to this headline">¶</a></h1>
-<p>We continue with the MPG data for illustrations.</p>
+<h1><span class="section-number">2.1. </span>Summary statistics<a class="headerlink" href="#summary-statistics" title="Permalink to this headline">¶</a></h1>
+<p>We will use data about car fuel efficiency for illustrations.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -549,50 +564,18 @@
 </table>
 </div></div></div>
 </div>
+<div class="section" id="mean-variance-standard-deviation">
+<h2>Mean, variance, standard deviation<a class="headerlink" href="#mean-variance-standard-deviation" title="Permalink to this headline">¶</a></h2>
 <p>You certainly know about the <strong>mean</strong> of values <span class="math notranslate nohighlight">\(x_1,\ldots,x_n\)</span>:</p>
 <div class="math notranslate nohighlight" id="equation-eq-statistics-mean">
-<span class="eqno">(2.2.1)<a class="headerlink" href="#equation-eq-statistics-mean" title="Permalink to this equation">¶</a></span>\[\bar{x} = \frac{1}{n}\sum_{i=1}^n x_i.\]</div>
+<span class="eqno">(2.1.1)<a class="headerlink" href="#equation-eq-statistics-mean" title="Permalink to this equation">¶</a></span>\[\mu = \frac{1}{n}\sum_{i=1}^n x_i.\]</div>
 <p>The “std” row of the summary table is a measurement of spread. First define the <strong>variance</strong> <span class="math notranslate nohighlight">\(\sigma^2\)</span> as</p>
 <div class="math notranslate nohighlight" id="equation-eq-statistics-var">
-<span class="eqno">(2.2.2)<a class="headerlink" href="#equation-eq-statistics-var" title="Permalink to this equation">¶</a></span>\[\sigma^2 = \frac{1}{n}\sum_{i=1}^n (x_i - \bar{x})^2.\]</div>
-<p>Variance is the average of the squares of deviations from the mean. As such, it has the units that are the square of the data, which can be hard to interpret. Its square root <span class="math notranslate nohighlight">\(\sigma\)</span> is the <strong>standard deviation</strong> (STD), and it has the same units as the data. A small STD implies that the data values are all fairly close to the mean, while a large STD implies wider spread.</p>
-<p>These statistics can be computed separately for grouped data. For example, the mean of MPG for the three regions in the data are</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cars</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;origin&quot;</span><span class="p">)[</span><span class="s2">&quot;mpg&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>origin
-europe    27.891429
-japan     30.450633
-usa       20.083534
-Name: mpg, dtype: float64
-</pre></div>
-</div>
-</div>
-</div>
-<p>The mean in the U.S. is certainly smaller. But is the difference accounted for by how spread out the values are? We should at least compare to the standard deviation:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cars</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;origin&quot;</span><span class="p">)[</span><span class="s2">&quot;mpg&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>origin
-europe    6.723930
-japan     6.090048
-usa       6.402892
-Name: mpg, dtype: float64
-</pre></div>
-</div>
-</div>
-</div>
-<p>For data that are distributed normally, about 68% of the values lie within one standard deviation of the mean. The mean of the U.S. distribution is more than one STD less than the means from the other regions (although the data does not look like a normal distribution).</p>
+<span class="eqno">(2.1.2)<a class="headerlink" href="#equation-eq-statistics-var" title="Permalink to this equation">¶</a></span>\[\sigma^2 = \frac{1}{n}\sum_{i=1}^n (x_i - \mu)^2.\]</div>
+<p>Variance is the average of the squares of deviations from the mean. As such, it has the units that are the square of the data, which can be hard to interpret. Its square root <span class="math notranslate nohighlight">\(\sigma\)</span> is the <strong>standard deviation</strong> (STD), and it has the same units as the data.</p>
+<p>A small STD implies that the data values are all fairly close to the mean, while a large STD implies wider spread. For data that are distributed normally, about 68% of the values lie within one standard deviation of the mean. The mean of the U.S. distribution is more than one STD less than the means from the other regions (although the data does not look like a normal distribution).</p>
 <div class="section" id="z-scores">
-<h2>z-scores<a class="headerlink" href="#z-scores" title="Permalink to this headline">¶</a></h2>
+<h3>z-scores<a class="headerlink" href="#z-scores" title="Permalink to this headline">¶</a></h3>
 <p>Given data values <span class="math notranslate nohighlight">\(x_1,\ldots,x_n\)</span>, we can define related values known as <strong>standardized scores</strong> or <strong>z-scores</strong>:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -604,8 +587,8 @@ z_i = \frac{x-\mu}{\sigma}, \ldots i=1,\ldots,n.
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">standardize</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="k">return</span> <span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span><span class="o">/</span><span class="n">x</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
 
-<span class="n">cars</span><span class="p">[</span><span class="s2">&quot;mpg_z&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cars</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;origin&quot;</span><span class="p">)[</span><span class="s2">&quot;mpg&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">standardize</span><span class="p">)</span>
-<span class="n">cars</span><span class="p">[[</span><span class="s2">&quot;origin&quot;</span><span class="p">,</span><span class="s2">&quot;mpg&quot;</span><span class="p">,</span><span class="s2">&quot;mpg_z&quot;</span><span class="p">]]</span>
+<span class="n">cars</span><span class="p">[</span><span class="s2">&quot;mpg_z&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">standardize</span><span class="p">(</span><span class="n">cars</span><span class="p">[</span><span class="s2">&quot;mpg&quot;</span><span class="p">])</span>
+<span class="n">cars</span><span class="p">[[</span><span class="s2">&quot;mpg&quot;</span><span class="p">,</span><span class="s2">&quot;mpg_z&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -628,173 +611,135 @@ z_i = \frac{x-\mu}{\sigma}, \ldots i=1,\ldots,n.
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>origin</th>
       <th>mpg</th>
       <th>mpg_z</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>0</th>
-      <td>usa</td>
-      <td>18.0</td>
-      <td>-0.325405</td>
+      <th>count</th>
+      <td>398.000000</td>
+      <td>3.980000e+02</td>
     </tr>
     <tr>
-      <th>1</th>
-      <td>usa</td>
-      <td>15.0</td>
-      <td>-0.793943</td>
+      <th>mean</th>
+      <td>23.514573</td>
+      <td>-1.041043e-15</td>
     </tr>
     <tr>
-      <th>2</th>
-      <td>usa</td>
-      <td>18.0</td>
-      <td>-0.325405</td>
+      <th>std</th>
+      <td>7.815984</td>
+      <td>1.000000e+00</td>
     </tr>
     <tr>
-      <th>3</th>
-      <td>usa</td>
-      <td>16.0</td>
-      <td>-0.637764</td>
+      <th>min</th>
+      <td>9.000000</td>
+      <td>-1.857037e+00</td>
     </tr>
     <tr>
-      <th>4</th>
-      <td>usa</td>
-      <td>17.0</td>
-      <td>-0.481585</td>
+      <th>25%</th>
+      <td>17.500000</td>
+      <td>-7.695221e-01</td>
     </tr>
     <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
+      <th>50%</th>
+      <td>23.000000</td>
+      <td>-6.583596e-02</td>
     </tr>
     <tr>
-      <th>393</th>
-      <td>usa</td>
-      <td>27.0</td>
-      <td>1.080210</td>
+      <th>75%</th>
+      <td>29.000000</td>
+      <td>7.018217e-01</td>
     </tr>
     <tr>
-      <th>394</th>
-      <td>europe</td>
-      <td>44.0</td>
-      <td>2.395708</td>
-    </tr>
-    <tr>
-      <th>395</th>
-      <td>usa</td>
-      <td>32.0</td>
-      <td>1.861107</td>
-    </tr>
-    <tr>
-      <th>396</th>
-      <td>usa</td>
-      <td>28.0</td>
-      <td>1.236389</td>
-    </tr>
-    <tr>
-      <th>397</th>
-      <td>usa</td>
-      <td>31.0</td>
-      <td>1.704927</td>
+      <th>max</th>
+      <td>46.600000</td>
+      <td>2.953617e+00</td>
     </tr>
   </tbody>
 </table>
-<p>398 rows × 3 columns</p>
 </div></div></div>
 </div>
-<p>The standardization occurred separately within each group, so that each histogram is now centered at zero.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">displot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">cars</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;mpg_z&quot;</span><span class="p">,</span><span class="n">col</span><span class="o">=</span><span class="s2">&quot;origin&quot;</span><span class="p">)</span>
-</pre></div>
+<p>(Recall that floating-point values are rounded to 15–16 digits, so it’s unlikely that we can make the mean exactly zero.)</p>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.FacetGrid at 0x7f8db231a100&gt;
-</pre></div>
-</div>
-<img alt="../_images/summary_11_1.png" src="../_images/summary_11_1.png" />
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cars</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;origin&quot;</span><span class="p">)[</span><span class="s2">&quot;mpg_z&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>origin
-europe   -2.918301e-16
-japan     1.365293e-15
-usa       1.161053e-15
-Name: mpg_z, dtype: float64
-</pre></div>
-</div>
-</div>
-</div>
-<p>(Recall that floating-point values are rounded to 15–16 digits.)</p>
 </div>
 <div class="section" id="populations-and-samples">
 <h2>Populations and samples<a class="headerlink" href="#populations-and-samples" title="Permalink to this headline">¶</a></h2>
 <p>In statistics one refers to the <strong>population</strong> as the entire universe of available values. Thus, the ages of everyone on Earth at some instant has a particular mean and standard deviation. However, in order to estimate those values, we can only measure a <strong>sample</strong> of the population directly.</p>
-<p>It can be proved that <a class="reference internal" href="#equation-eq-statistics-mean">(2.2.1)</a> is an accurate way to estimate the mean of a population, in a particular precise sense. If, in a thought experiment, we could average this estimate over all possible samples of size <span class="math notranslate nohighlight">\(n\)</span>, the result would be exactly the population mean.</p>
-<p>However, if we use the formula <a class="reference internal" href="#equation-eq-statistics-var">(2.2.2)</a> to compute variance of a sample, and average over all possible sample sets, we would <em>not</em> get the variance of the population; we call this a <strong>biased estimator</strong>. The unbiased estimator for variance is</p>
+<p>When <a class="reference internal" href="#equation-eq-statistics-mean">(2.1.1)</a> is used to compute the mean of a sample rather than a population, we change the notation a bit as a reminder:</p>
+<div class="math notranslate nohighlight" id="equation-eq-statistics-mean-sample">
+<span class="eqno">(2.1.3)<a class="headerlink" href="#equation-eq-statistics-mean-sample" title="Permalink to this equation">¶</a></span>\[\bar{x} = \frac{1}{n}\sum_{i=1}^n x_i.\]</div>
+<p>This in turn can be used within <a class="reference internal" href="#equation-eq-statistics-var">(2.1.2)</a> to compute <strong>sample variance</strong>:</p>
+<div class="math notranslate nohighlight">
+\[s_n^2 = \frac{1}{n}\sum_{i=1}^n (x_i - \bar{x})^2.\]</div>
+<p>It can be proved that the sample mean is an accurate way to estimate the population mean, in a particular precise sense. If, in a thought experiment, we could average <span class="math notranslate nohighlight">\(\bar{x}\)</span> over all possible samples of size <span class="math notranslate nohighlight">\(n\)</span>, the result would be exactly the population mean <span class="math notranslate nohighlight">\(\mu\)</span>. We say that <span class="math notranslate nohighlight">\(\bar{x}\)</span> is an <strong>unbiased estimator</strong> for <span class="math notranslate nohighlight">\(\mu\)</span>.</p>
+<p>However, the same conclusion does not hold for sample variance. If <span class="math notranslate nohighlight">\(s_n^2\)</span> is averaged over all possible sample sets, we would <em>not</em> get the population variance <span class="math notranslate nohighlight">\(\sigma^2\)</span>. Hence <span class="math notranslate nohighlight">\(s_n^2\)</span> is a <strong>biased estimator</strong> of the population variance. An unbiased estimator for <span class="math notranslate nohighlight">\(\sigma^2\)</span> is</p>
 <div class="math notranslate nohighlight" id="equation-eq-statistics-var-sample">
-<span class="eqno">(2.2.3)<a class="headerlink" href="#equation-eq-statistics-var-sample" title="Permalink to this equation">¶</a></span>\[\hat{\sigma}^2 = \frac{1}{n-1}\sum_{i=1}^n (x_i - \bar{x})^2.\]</div>
-<p>As you can see from the formulas, the difference between variance and sample variance is small when the sample size <span class="math notranslate nohighlight">\(n\)</span> is large. The <code class="docutils literal notranslate"><span class="pre">std</span></code> and <code class="docutils literal notranslate"><span class="pre">var</span></code> methods in pandas all calculate sample standard deviations and variances.</p>
+<span class="eqno">(2.1.4)<a class="headerlink" href="#equation-eq-statistics-var-sample" title="Permalink to this equation">¶</a></span>\[s_{n-1}^2 = \frac{1}{n-1}\sum_{i=1}^n (x_i - \bar{x})^2.\]</div>
+<div class="proof example admonition" id="example-summary-sample">
+<p class="admonition-title"><span class="caption-number">Example 2.1.1 </span></p>
+<div class="example-content section" id="proof-content">
+<p>The values [1, 4, 9, 16, 25] have mean $<span class="math notranslate nohighlight">\(\bar{x}=55/5 = 11\)</span>. The sample variance is</p>
+<div class="math notranslate nohighlight">
+\[
+s_n^2 = \frac{(1-11)^2+(4-11)^2+(9-11)^2+(16-11)^2+(25-11)^2}{5} = \frac{374}{5} = 74.8.
+\]</div>
+<p>But the unbiased estimate of population variance from this sample is</p>
+<div class="math notranslate nohighlight">
+\[
+s_{n-1}^2 = \frac{374}{4} = 93.5.
+\]</div>
 </div>
-<div class="section" id="quantiles-and-percentiles">
-<h2>Quantiles and percentiles<a class="headerlink" href="#quantiles-and-percentiles" title="Permalink to this headline">¶</a></h2>
+</div><p>As you can see from the formulas, the sample variance is always too large as an estimator, but the difference vanishes as the sample size <span class="math notranslate nohighlight">\(n\)</span> increases.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Sources are not always clear about this terminology. Some use <em>sample variance</em> to mean <span class="math notranslate nohighlight">\(s_{n-1}^2\)</span>, not <span class="math notranslate nohighlight">\(s_n^2\)</span>, and many even omit the subscripts. You always have to check each source.</p>
+</div>
+<p>For standard deviation, <em>neither</em> <span class="math notranslate nohighlight">\(s_n\)</span> <em>nor</em> <span class="math notranslate nohighlight">\(s_{n-1}\)</span> is an unbiased estimator of <span class="math notranslate nohighlight">\(\sigma\)</span>. There is no simple correction that works for all distributions. Unfortunately, <code class="docutils literal notranslate"><span class="pre">std</span></code> in numpy returns <span class="math notranslate nohighlight">\(s_n\)</span>, while <code class="docutils literal notranslate"><span class="pre">std</span></code> in pandas returns <span class="math notranslate nohighlight">\(s_{n-1}\)</span>.</p>
+</div>
+<div class="section" id="median-and-quantiles">
+<h2>Median and quantiles<a class="headerlink" href="#median-and-quantiles" title="Permalink to this headline">¶</a></h2>
 <p>Mean, variance, and standard deviation are not the most relevant statistics for every data set. There are many alternatives.</p>
 <p>For any <span class="math notranslate nohighlight">\(0&lt;p&lt;1\)</span>, the <span class="math notranslate nohighlight">\(100p\)</span>-<strong>percentile</strong> is the value of <span class="math notranslate nohighlight">\(x\)</span> such that <span class="math notranslate nohighlight">\(p\)</span> is the probability of observing a population value less than or equal to <span class="math notranslate nohighlight">\(x\)</span>. In other words, percentiles are the inverse function of the CDF.</p>
 <p>The 50th percentile is known as the <strong>median</strong> of the population. The unbiased sample median of <span class="math notranslate nohighlight">\(x_1,\ldots,x_n\)</span> can be computed by sorting the values into <span class="math notranslate nohighlight">\(y_1,\ldots,y_n\)</span>. If <span class="math notranslate nohighlight">\(n\)</span> is odd, then <span class="math notranslate nohighlight">\(y_{(n+1)/2}\)</span> is the sample median; otherwise, the average of <span class="math notranslate nohighlight">\(y_{n/2}\)</span> and <span class="math notranslate nohighlight">\(y_{1+(n/2)}\)</span> is the sample median. Computing unbiased sample estimates of percentiles other than the median is a little complicated, and we won’t go into the details.</p>
-<div class="proof example admonition" id="example-0">
-<p class="admonition-title"><span class="caption-number">Example 2.2.1 </span></p>
+<div class="proof example admonition" id="example-1">
+<p class="admonition-title"><span class="caption-number">Example 2.1.2 </span></p>
 <div class="example-content section" id="proof-content">
 <p>If the sorted values are <span class="math notranslate nohighlight">\(1,3,3,4,5,5,5\)</span>, then <span class="math notranslate nohighlight">\(n=7\)</span> and the sample median is <span class="math notranslate nohighlight">\(y_4=4\)</span>. If the sample values are <span class="math notranslate nohighlight">\(1,3,3,4,5,5,5,9\)</span>, then <span class="math notranslate nohighlight">\(n=8\)</span> and the sample median is <span class="math notranslate nohighlight">\((4+5)/2=4.5\)</span>.</p>
 </div>
 </div><p>A set of percentiles dividing probability into <span class="math notranslate nohighlight">\(q\)</span> equal pieces is called the <span class="math notranslate nohighlight">\(q\)</span>–<strong>quantiles</strong>.</p>
-<div class="proof example admonition" id="example-1">
-<p class="admonition-title"><span class="caption-number">Example 2.2.2 </span></p>
+<div class="proof example admonition" id="example-2">
+<p class="admonition-title"><span class="caption-number">Example 2.1.3 </span></p>
 <div class="example-content section" id="proof-content">
-<p>The 4-quantiles are called <strong>quartiles</strong>. The first quartile is the 25th percentile, or the value that exceeds 1/4 of the population. The second quartile is the median. The third quantile is the 75th percentile.</p>
+<p>The 4-quantiles are called <strong>quartiles</strong>. The first quartile is the 25th percentile, or the value that exceeds 1/4 of the population. The second quartile is the median. The third quartile is the 75th percentile.</p>
 <p>Sometimes the definition is extended to the <em>zeroth quartile</em>, which is the minimum sample value, and the <em>fourth quartile</em>, which is the maximum sample value.</p>
 </div>
 </div><div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>If this isn’t confusing enough yet, sometimes the word <em>quantile</em> is casually used to mean <em>percentile</em>.</p>
+<p>If this all isn’t confusing enough yet, sometimes the word <em>quantile</em> is used to mean <em>percentile</em>. This is the case for the <code class="docutils literal notranslate"><span class="pre">quantile</span></code> method in pandas.</p>
 </div>
-<p>One way to measure spread in the values is the <strong>interquartile range</strong> (IQR), which is the difference between the 75th percentile and the 25th percentile. For some distributions, the median and IQR might be a good substitute for the mean and standard deviation.</p>
+<p>The <strong>interquartile range</strong> (IQR), which is the difference between the 75th percentile and the 25th percentile, is a measurement of the spread of the values. For some distributions, the median and IQR might be a good substitute for the mean and standard deviation.</p>
 <p>A common way to visualize quartiles is by a <strong>box plot</strong>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">catplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">cars</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;origin&quot;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s2">&quot;mpg&quot;</span><span class="p">,</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;box&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">catplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">cars</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;origin&quot;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s2">&quot;mpg&quot;</span><span class="p">,</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;box&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.FacetGrid at 0x7f8dc23817f0&gt;
-</pre></div>
-</div>
-<img alt="../_images/summary_14_1.png" src="../_images/summary_14_1.png" />
+<img alt="../_images/summary_7_0.png" src="../_images/summary_7_0.png" />
 </div>
 </div>
-<p>The colored boxes in each category show the quartiles, with the interior horizontal line showing the median. The “whiskers” and dots are explained in the next section.</p>
+<p>Each colored box shows the interquartile range, with the interior horizontal line showing the median. The “whiskers” and dots are explained in a later section.</p>
 <p>An alternative to a box plot is a <strong>violin plot</strong>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">catplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">cars</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;mpg&quot;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s2">&quot;origin&quot;</span><span class="p">,</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;violin&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">catplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">cars</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;mpg&quot;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s2">&quot;origin&quot;</span><span class="p">,</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;violin&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.FacetGrid at 0x7f8db26f1ee0&gt;
-</pre></div>
-</div>
-<img alt="../_images/summary_16_1.png" src="../_images/summary_16_1.png" />
+<img alt="../_images/summary_9_0.png" src="../_images/summary_9_0.png" />
 </div>
 </div>
 <p>In a violin plot, the inner lines still show the same information as the box plot, and the sides of the “violins” are KDE estimates of the continuous distributions.</p>
@@ -832,8 +777,8 @@ Name: mpg_z, dtype: float64
               <div>
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="summary-statistics">
-<h1><span class="section-number">2.2. </span>Summary statistics<a class="headerlink" href="#summary-statistics" title="Permalink to this headline">¶</a></h1>
-<p>We continue with the MPG data for illustrations.</p>
+<h1><span class="section-number">2.1. </span>Summary statistics<a class="headerlink" href="#summary-statistics" title="Permalink to this headline">¶</a></h1>
+<p>We will use data about car fuel efficiency for illustrations.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -964,50 +909,18 @@ Name: mpg_z, dtype: float64
 </table>
 </div></div></div>
 </div>
+<div class="section" id="mean-variance-standard-deviation">
+<h2>Mean, variance, standard deviation<a class="headerlink" href="#mean-variance-standard-deviation" title="Permalink to this headline">¶</a></h2>
 <p>You certainly know about the <strong>mean</strong> of values <span class="math notranslate nohighlight">\(x_1,\ldots,x_n\)</span>:</p>
 <div class="math notranslate nohighlight" id="equation-eq-statistics-mean">
-<span class="eqno">(2.2.1)<a class="headerlink" href="#equation-eq-statistics-mean" title="Permalink to this equation">¶</a></span>\[\bar{x} = \frac{1}{n}\sum_{i=1}^n x_i.\]</div>
+<span class="eqno">(2.1.1)<a class="headerlink" href="#equation-eq-statistics-mean" title="Permalink to this equation">¶</a></span>\[\mu = \frac{1}{n}\sum_{i=1}^n x_i.\]</div>
 <p>The “std” row of the summary table is a measurement of spread. First define the <strong>variance</strong> <span class="math notranslate nohighlight">\(\sigma^2\)</span> as</p>
 <div class="math notranslate nohighlight" id="equation-eq-statistics-var">
-<span class="eqno">(2.2.2)<a class="headerlink" href="#equation-eq-statistics-var" title="Permalink to this equation">¶</a></span>\[\sigma^2 = \frac{1}{n}\sum_{i=1}^n (x_i - \bar{x})^2.\]</div>
-<p>Variance is the average of the squares of deviations from the mean. As such, it has the units that are the square of the data, which can be hard to interpret. Its square root <span class="math notranslate nohighlight">\(\sigma\)</span> is the <strong>standard deviation</strong> (STD), and it has the same units as the data. A small STD implies that the data values are all fairly close to the mean, while a large STD implies wider spread.</p>
-<p>These statistics can be computed separately for grouped data. For example, the mean of MPG for the three regions in the data are</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cars</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;origin&quot;</span><span class="p">)[</span><span class="s2">&quot;mpg&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>origin
-europe    27.891429
-japan     30.450633
-usa       20.083534
-Name: mpg, dtype: float64
-</pre></div>
-</div>
-</div>
-</div>
-<p>The mean in the U.S. is certainly smaller. But is the difference accounted for by how spread out the values are? We should at least compare to the standard deviation:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cars</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;origin&quot;</span><span class="p">)[</span><span class="s2">&quot;mpg&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>origin
-europe    6.723930
-japan     6.090048
-usa       6.402892
-Name: mpg, dtype: float64
-</pre></div>
-</div>
-</div>
-</div>
-<p>For data that are distributed normally, about 68% of the values lie within one standard deviation of the mean. The mean of the U.S. distribution is more than one STD less than the means from the other regions (although the data does not look like a normal distribution).</p>
+<span class="eqno">(2.1.2)<a class="headerlink" href="#equation-eq-statistics-var" title="Permalink to this equation">¶</a></span>\[\sigma^2 = \frac{1}{n}\sum_{i=1}^n (x_i - \mu)^2.\]</div>
+<p>Variance is the average of the squares of deviations from the mean. As such, it has the units that are the square of the data, which can be hard to interpret. Its square root <span class="math notranslate nohighlight">\(\sigma\)</span> is the <strong>standard deviation</strong> (STD), and it has the same units as the data.</p>
+<p>A small STD implies that the data values are all fairly close to the mean, while a large STD implies wider spread. For data that are distributed normally, about 68% of the values lie within one standard deviation of the mean. The mean of the U.S. distribution is more than one STD less than the means from the other regions (although the data does not look like a normal distribution).</p>
 <div class="section" id="z-scores">
-<h2>z-scores<a class="headerlink" href="#z-scores" title="Permalink to this headline">¶</a></h2>
+<h3>z-scores<a class="headerlink" href="#z-scores" title="Permalink to this headline">¶</a></h3>
 <p>Given data values <span class="math notranslate nohighlight">\(x_1,\ldots,x_n\)</span>, we can define related values known as <strong>standardized scores</strong> or <strong>z-scores</strong>:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -1019,8 +932,8 @@ z_i = \frac{x-\mu}{\sigma}, \ldots i=1,\ldots,n.
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">standardize</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="k">return</span> <span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span><span class="o">/</span><span class="n">x</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
 
-<span class="n">cars</span><span class="p">[</span><span class="s2">&quot;mpg_z&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cars</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;origin&quot;</span><span class="p">)[</span><span class="s2">&quot;mpg&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">standardize</span><span class="p">)</span>
-<span class="n">cars</span><span class="p">[[</span><span class="s2">&quot;origin&quot;</span><span class="p">,</span><span class="s2">&quot;mpg&quot;</span><span class="p">,</span><span class="s2">&quot;mpg_z&quot;</span><span class="p">]]</span>
+<span class="n">cars</span><span class="p">[</span><span class="s2">&quot;mpg_z&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">standardize</span><span class="p">(</span><span class="n">cars</span><span class="p">[</span><span class="s2">&quot;mpg&quot;</span><span class="p">])</span>
+<span class="n">cars</span><span class="p">[[</span><span class="s2">&quot;mpg&quot;</span><span class="p">,</span><span class="s2">&quot;mpg_z&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -1043,173 +956,135 @@ z_i = \frac{x-\mu}{\sigma}, \ldots i=1,\ldots,n.
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>origin</th>
       <th>mpg</th>
       <th>mpg_z</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>0</th>
-      <td>usa</td>
-      <td>18.0</td>
-      <td>-0.325405</td>
+      <th>count</th>
+      <td>398.000000</td>
+      <td>3.980000e+02</td>
     </tr>
     <tr>
-      <th>1</th>
-      <td>usa</td>
-      <td>15.0</td>
-      <td>-0.793943</td>
+      <th>mean</th>
+      <td>23.514573</td>
+      <td>-1.041043e-15</td>
     </tr>
     <tr>
-      <th>2</th>
-      <td>usa</td>
-      <td>18.0</td>
-      <td>-0.325405</td>
+      <th>std</th>
+      <td>7.815984</td>
+      <td>1.000000e+00</td>
     </tr>
     <tr>
-      <th>3</th>
-      <td>usa</td>
-      <td>16.0</td>
-      <td>-0.637764</td>
+      <th>min</th>
+      <td>9.000000</td>
+      <td>-1.857037e+00</td>
     </tr>
     <tr>
-      <th>4</th>
-      <td>usa</td>
-      <td>17.0</td>
-      <td>-0.481585</td>
+      <th>25%</th>
+      <td>17.500000</td>
+      <td>-7.695221e-01</td>
     </tr>
     <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
+      <th>50%</th>
+      <td>23.000000</td>
+      <td>-6.583596e-02</td>
     </tr>
     <tr>
-      <th>393</th>
-      <td>usa</td>
-      <td>27.0</td>
-      <td>1.080210</td>
+      <th>75%</th>
+      <td>29.000000</td>
+      <td>7.018217e-01</td>
     </tr>
     <tr>
-      <th>394</th>
-      <td>europe</td>
-      <td>44.0</td>
-      <td>2.395708</td>
-    </tr>
-    <tr>
-      <th>395</th>
-      <td>usa</td>
-      <td>32.0</td>
-      <td>1.861107</td>
-    </tr>
-    <tr>
-      <th>396</th>
-      <td>usa</td>
-      <td>28.0</td>
-      <td>1.236389</td>
-    </tr>
-    <tr>
-      <th>397</th>
-      <td>usa</td>
-      <td>31.0</td>
-      <td>1.704927</td>
+      <th>max</th>
+      <td>46.600000</td>
+      <td>2.953617e+00</td>
     </tr>
   </tbody>
 </table>
-<p>398 rows × 3 columns</p>
 </div></div></div>
 </div>
-<p>The standardization occurred separately within each group, so that each histogram is now centered at zero.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">displot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">cars</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;mpg_z&quot;</span><span class="p">,</span><span class="n">col</span><span class="o">=</span><span class="s2">&quot;origin&quot;</span><span class="p">)</span>
-</pre></div>
+<p>(Recall that floating-point values are rounded to 15–16 digits, so it’s unlikely that we can make the mean exactly zero.)</p>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.FacetGrid at 0x7f8db231a100&gt;
-</pre></div>
-</div>
-<img alt="../_images/summary_11_1.png" src="../_images/summary_11_1.png" />
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cars</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;origin&quot;</span><span class="p">)[</span><span class="s2">&quot;mpg_z&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>origin
-europe   -2.918301e-16
-japan     1.365293e-15
-usa       1.161053e-15
-Name: mpg_z, dtype: float64
-</pre></div>
-</div>
-</div>
-</div>
-<p>(Recall that floating-point values are rounded to 15–16 digits.)</p>
 </div>
 <div class="section" id="populations-and-samples">
 <h2>Populations and samples<a class="headerlink" href="#populations-and-samples" title="Permalink to this headline">¶</a></h2>
 <p>In statistics one refers to the <strong>population</strong> as the entire universe of available values. Thus, the ages of everyone on Earth at some instant has a particular mean and standard deviation. However, in order to estimate those values, we can only measure a <strong>sample</strong> of the population directly.</p>
-<p>It can be proved that <a class="reference internal" href="#equation-eq-statistics-mean">(2.2.1)</a> is an accurate way to estimate the mean of a population, in a particular precise sense. If, in a thought experiment, we could average this estimate over all possible samples of size <span class="math notranslate nohighlight">\(n\)</span>, the result would be exactly the population mean.</p>
-<p>However, if we use the formula <a class="reference internal" href="#equation-eq-statistics-var">(2.2.2)</a> to compute variance of a sample, and average over all possible sample sets, we would <em>not</em> get the variance of the population; we call this a <strong>biased estimator</strong>. The unbiased estimator for variance is</p>
+<p>When <a class="reference internal" href="#equation-eq-statistics-mean">(2.1.1)</a> is used to compute the mean of a sample rather than a population, we change the notation a bit as a reminder:</p>
+<div class="math notranslate nohighlight" id="equation-eq-statistics-mean-sample">
+<span class="eqno">(2.1.3)<a class="headerlink" href="#equation-eq-statistics-mean-sample" title="Permalink to this equation">¶</a></span>\[\bar{x} = \frac{1}{n}\sum_{i=1}^n x_i.\]</div>
+<p>This in turn can be used within <a class="reference internal" href="#equation-eq-statistics-var">(2.1.2)</a> to compute <strong>sample variance</strong>:</p>
+<div class="math notranslate nohighlight">
+\[s_n^2 = \frac{1}{n}\sum_{i=1}^n (x_i - \bar{x})^2.\]</div>
+<p>It can be proved that the sample mean is an accurate way to estimate the population mean, in a particular precise sense. If, in a thought experiment, we could average <span class="math notranslate nohighlight">\(\bar{x}\)</span> over all possible samples of size <span class="math notranslate nohighlight">\(n\)</span>, the result would be exactly the population mean <span class="math notranslate nohighlight">\(\mu\)</span>. We say that <span class="math notranslate nohighlight">\(\bar{x}\)</span> is an <strong>unbiased estimator</strong> for <span class="math notranslate nohighlight">\(\mu\)</span>.</p>
+<p>However, the same conclusion does not hold for sample variance. If <span class="math notranslate nohighlight">\(s_n^2\)</span> is averaged over all possible sample sets, we would <em>not</em> get the population variance <span class="math notranslate nohighlight">\(\sigma^2\)</span>. Hence <span class="math notranslate nohighlight">\(s_n^2\)</span> is a <strong>biased estimator</strong> of the population variance. An unbiased estimator for <span class="math notranslate nohighlight">\(\sigma^2\)</span> is</p>
 <div class="math notranslate nohighlight" id="equation-eq-statistics-var-sample">
-<span class="eqno">(2.2.3)<a class="headerlink" href="#equation-eq-statistics-var-sample" title="Permalink to this equation">¶</a></span>\[\hat{\sigma}^2 = \frac{1}{n-1}\sum_{i=1}^n (x_i - \bar{x})^2.\]</div>
-<p>As you can see from the formulas, the difference between variance and sample variance is small when the sample size <span class="math notranslate nohighlight">\(n\)</span> is large. The <code class="docutils literal notranslate"><span class="pre">std</span></code> and <code class="docutils literal notranslate"><span class="pre">var</span></code> methods in pandas all calculate sample standard deviations and variances.</p>
+<span class="eqno">(2.1.4)<a class="headerlink" href="#equation-eq-statistics-var-sample" title="Permalink to this equation">¶</a></span>\[s_{n-1}^2 = \frac{1}{n-1}\sum_{i=1}^n (x_i - \bar{x})^2.\]</div>
+<div class="proof example admonition" id="example-summary-sample">
+<p class="admonition-title"><span class="caption-number">Example 2.1.1 </span></p>
+<div class="example-content section" id="proof-content">
+<p>The values [1, 4, 9, 16, 25] have mean $<span class="math notranslate nohighlight">\(\bar{x}=55/5 = 11\)</span>. The sample variance is</p>
+<div class="math notranslate nohighlight">
+\[
+s_n^2 = \frac{(1-11)^2+(4-11)^2+(9-11)^2+(16-11)^2+(25-11)^2}{5} = \frac{374}{5} = 74.8.
+\]</div>
+<p>But the unbiased estimate of population variance from this sample is</p>
+<div class="math notranslate nohighlight">
+\[
+s_{n-1}^2 = \frac{374}{4} = 93.5.
+\]</div>
 </div>
-<div class="section" id="quantiles-and-percentiles">
-<h2>Quantiles and percentiles<a class="headerlink" href="#quantiles-and-percentiles" title="Permalink to this headline">¶</a></h2>
+</div><p>As you can see from the formulas, the sample variance is always too large as an estimator, but the difference vanishes as the sample size <span class="math notranslate nohighlight">\(n\)</span> increases.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Sources are not always clear about this terminology. Some use <em>sample variance</em> to mean <span class="math notranslate nohighlight">\(s_{n-1}^2\)</span>, not <span class="math notranslate nohighlight">\(s_n^2\)</span>, and many even omit the subscripts. You always have to check each source.</p>
+</div>
+<p>For standard deviation, <em>neither</em> <span class="math notranslate nohighlight">\(s_n\)</span> <em>nor</em> <span class="math notranslate nohighlight">\(s_{n-1}\)</span> is an unbiased estimator of <span class="math notranslate nohighlight">\(\sigma\)</span>. There is no simple correction that works for all distributions. Unfortunately, <code class="docutils literal notranslate"><span class="pre">std</span></code> in numpy returns <span class="math notranslate nohighlight">\(s_n\)</span>, while <code class="docutils literal notranslate"><span class="pre">std</span></code> in pandas returns <span class="math notranslate nohighlight">\(s_{n-1}\)</span>.</p>
+</div>
+<div class="section" id="median-and-quantiles">
+<h2>Median and quantiles<a class="headerlink" href="#median-and-quantiles" title="Permalink to this headline">¶</a></h2>
 <p>Mean, variance, and standard deviation are not the most relevant statistics for every data set. There are many alternatives.</p>
 <p>For any <span class="math notranslate nohighlight">\(0&lt;p&lt;1\)</span>, the <span class="math notranslate nohighlight">\(100p\)</span>-<strong>percentile</strong> is the value of <span class="math notranslate nohighlight">\(x\)</span> such that <span class="math notranslate nohighlight">\(p\)</span> is the probability of observing a population value less than or equal to <span class="math notranslate nohighlight">\(x\)</span>. In other words, percentiles are the inverse function of the CDF.</p>
 <p>The 50th percentile is known as the <strong>median</strong> of the population. The unbiased sample median of <span class="math notranslate nohighlight">\(x_1,\ldots,x_n\)</span> can be computed by sorting the values into <span class="math notranslate nohighlight">\(y_1,\ldots,y_n\)</span>. If <span class="math notranslate nohighlight">\(n\)</span> is odd, then <span class="math notranslate nohighlight">\(y_{(n+1)/2}\)</span> is the sample median; otherwise, the average of <span class="math notranslate nohighlight">\(y_{n/2}\)</span> and <span class="math notranslate nohighlight">\(y_{1+(n/2)}\)</span> is the sample median. Computing unbiased sample estimates of percentiles other than the median is a little complicated, and we won’t go into the details.</p>
-<div class="proof example admonition" id="example-0">
-<p class="admonition-title"><span class="caption-number">Example 2.2.1 </span></p>
+<div class="proof example admonition" id="example-1">
+<p class="admonition-title"><span class="caption-number">Example 2.1.2 </span></p>
 <div class="example-content section" id="proof-content">
 <p>If the sorted values are <span class="math notranslate nohighlight">\(1,3,3,4,5,5,5\)</span>, then <span class="math notranslate nohighlight">\(n=7\)</span> and the sample median is <span class="math notranslate nohighlight">\(y_4=4\)</span>. If the sample values are <span class="math notranslate nohighlight">\(1,3,3,4,5,5,5,9\)</span>, then <span class="math notranslate nohighlight">\(n=8\)</span> and the sample median is <span class="math notranslate nohighlight">\((4+5)/2=4.5\)</span>.</p>
 </div>
 </div><p>A set of percentiles dividing probability into <span class="math notranslate nohighlight">\(q\)</span> equal pieces is called the <span class="math notranslate nohighlight">\(q\)</span>–<strong>quantiles</strong>.</p>
-<div class="proof example admonition" id="example-1">
-<p class="admonition-title"><span class="caption-number">Example 2.2.2 </span></p>
+<div class="proof example admonition" id="example-2">
+<p class="admonition-title"><span class="caption-number">Example 2.1.3 </span></p>
 <div class="example-content section" id="proof-content">
-<p>The 4-quantiles are called <strong>quartiles</strong>. The first quartile is the 25th percentile, or the value that exceeds 1/4 of the population. The second quartile is the median. The third quantile is the 75th percentile.</p>
+<p>The 4-quantiles are called <strong>quartiles</strong>. The first quartile is the 25th percentile, or the value that exceeds 1/4 of the population. The second quartile is the median. The third quartile is the 75th percentile.</p>
 <p>Sometimes the definition is extended to the <em>zeroth quartile</em>, which is the minimum sample value, and the <em>fourth quartile</em>, which is the maximum sample value.</p>
 </div>
 </div><div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>If this isn’t confusing enough yet, sometimes the word <em>quantile</em> is casually used to mean <em>percentile</em>.</p>
+<p>If this all isn’t confusing enough yet, sometimes the word <em>quantile</em> is used to mean <em>percentile</em>. This is the case for the <code class="docutils literal notranslate"><span class="pre">quantile</span></code> method in pandas.</p>
 </div>
-<p>One way to measure spread in the values is the <strong>interquartile range</strong> (IQR), which is the difference between the 75th percentile and the 25th percentile. For some distributions, the median and IQR might be a good substitute for the mean and standard deviation.</p>
+<p>The <strong>interquartile range</strong> (IQR), which is the difference between the 75th percentile and the 25th percentile, is a measurement of the spread of the values. For some distributions, the median and IQR might be a good substitute for the mean and standard deviation.</p>
 <p>A common way to visualize quartiles is by a <strong>box plot</strong>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">catplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">cars</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;origin&quot;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s2">&quot;mpg&quot;</span><span class="p">,</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;box&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">catplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">cars</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;origin&quot;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s2">&quot;mpg&quot;</span><span class="p">,</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;box&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.FacetGrid at 0x7f8dc23817f0&gt;
-</pre></div>
-</div>
-<img alt="../_images/summary_14_1.png" src="../_images/summary_14_1.png" />
+<img alt="../_images/summary_7_0.png" src="../_images/summary_7_0.png" />
 </div>
 </div>
-<p>The colored boxes in each category show the quartiles, with the interior horizontal line showing the median. The “whiskers” and dots are explained in the next section.</p>
+<p>Each colored box shows the interquartile range, with the interior horizontal line showing the median. The “whiskers” and dots are explained in a later section.</p>
 <p>An alternative to a box plot is a <strong>violin plot</strong>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">catplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">cars</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;mpg&quot;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s2">&quot;origin&quot;</span><span class="p">,</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;violin&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">catplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">cars</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;mpg&quot;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s2">&quot;origin&quot;</span><span class="p">,</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;violin&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.FacetGrid at 0x7f8db26f1ee0&gt;
-</pre></div>
-</div>
-<img alt="../_images/summary_16_1.png" src="../_images/summary_16_1.png" />
+<img alt="../_images/summary_9_0.png" src="../_images/summary_9_0.png" />
 </div>
 </div>
 <p>In a violin plot, the inner lines still show the same information as the box plot, and the sides of the “violins” are KDE estimates of the continuous distributions.</p>
@@ -1241,17 +1116,17 @@ Name: mpg_z, dtype: float64
         
             <!-- Previous / next buttons -->
 <div class='prev-next-area'> 
-    <a class='left-prev' id="prev-link" href="split-apply-combine.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="overview.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title"><span class="section-number">2.1. </span>Split–apply–combine</p>
+            <p class="prev-next-title"><span class="section-number">2. </span>Descriptive statistics</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="outliers.html" title="next page">
+    <a class='right-next' id="next-link" href="split-apply-combine.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">2.3. </span>Outliers</p>
+        <p class="prev-next-title"><span class="section-number">2.2. </span>Split–apply–combine</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

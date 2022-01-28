@@ -144,13 +144,13 @@
   </label>
   <ul class="current">
    <li class="toctree-l2">
-    <a class="reference internal" href="split-apply-combine.html">
-     2.1. Split–apply–combine
+    <a class="reference internal" href="summary.html">
+     2.1. Summary statistics
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="summary.html">
-     2.2. Summary statistics
+    <a class="reference internal" href="split-apply-combine.html">
+     2.2. Split–apply–combine
     </a>
    </li>
    <li class="toctree-l2">
@@ -376,6 +376,11 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#categorical-correlation">
+   Categorical correlation
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#simpson-s-paradox">
    Simpson’s paradox
   </a>
@@ -415,6 +420,11 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#categorical-correlation">
+   Categorical correlation
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#simpson-s-paradox">
    Simpson’s paradox
   </a>
@@ -433,8 +443,8 @@
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="n">pen</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">load_dataset</span><span class="p">(</span><span class="s2">&quot;penguins&quot;</span><span class="p">)</span>
-<span class="n">pen</span>
+<span class="n">penguins</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">load_dataset</span><span class="p">(</span><span class="s2">&quot;penguins&quot;</span><span class="p">)</span>
+<span class="n">penguins</span>
 </pre></div>
 </div>
 </div>
@@ -585,7 +595,7 @@
 <p>There are often observations that we believe to be linked, either because one influences the other, or both are influenced by some other factor. That is, we say the quantities are <strong>correlated</strong>. This can become apparent using <code class="docutils literal notranslate"><span class="pre">pairplot</span></code> in seaborn.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">pairplot</span><span class="p">(</span><span class="n">pen</span><span class="p">,</span><span class="n">hue</span><span class="o">=</span><span class="s2">&quot;species&quot;</span><span class="p">);</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">pairplot</span><span class="p">(</span><span class="n">penguins</span><span class="p">,</span><span class="n">hue</span><span class="o">=</span><span class="s2">&quot;species&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -602,7 +612,8 @@
 \[
 \Cov(X,Y) = \frac{1}{n} \sum_{i=1}^n (x_i-\mu_X)(y_i-\mu_Y).
 \]</div>
-<p>One explanation for the name is that <span class="math notranslate nohighlight">\(\Cov(X,X)\)</span> and <span class="math notranslate nohighlight">\(Cov(Y,Y)\)</span> are just the variances of <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>. However, covariance is not easy to interpret. Its units are the products of the units of the two variables, and it is sensitive to rescaling the variables (e.g., grams versus kilograms).</p>
+<p>One explanation for the name is that <span class="math notranslate nohighlight">\(\Cov(X,X)\)</span> and <span class="math notranslate nohighlight">\(\Cov(Y,Y)\)</span> are just the variances of <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>.</p>
+<p>Covariance is not easy to interpret. Its units are the products of the units of the two variables, and it is sensitive to rescaling the variables (e.g., grams versus kilograms).</p>
 </div>
 <div class="section" id="pearson-correlation-coefficient">
 <h2>Pearson correlation coefficient<a class="headerlink" href="#pearson-correlation-coefficient" title="Permalink to this headline">¶</a></h2>
@@ -616,7 +627,7 @@
 <p>For example, we might reasonably expect flipper length and body mass to be correlated in penguins, as a plot confirms:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">relplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">pen</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;flipper_length_mm&quot;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s2">&quot;body_mass_g&quot;</span><span class="p">);</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">relplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">penguins</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;flipper_length_mm&quot;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s2">&quot;body_mass_g&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -627,8 +638,8 @@
 <p>Covariance allows us to confirm a positive relationship:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">flip</span> <span class="o">=</span> <span class="n">pen</span><span class="p">[</span><span class="s2">&quot;flipper_length_mm&quot;</span><span class="p">]</span>
-<span class="n">mass</span> <span class="o">=</span> <span class="n">pen</span><span class="p">[</span><span class="s2">&quot;body_mass_g&quot;</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">flip</span> <span class="o">=</span> <span class="n">penguins</span><span class="p">[</span><span class="s2">&quot;flipper_length_mm&quot;</span><span class="p">]</span>
+<span class="n">mass</span> <span class="o">=</span> <span class="n">penguins</span><span class="p">[</span><span class="s2">&quot;body_mass_g&quot;</span><span class="p">]</span>
 
 <span class="n">flip</span><span class="o">.</span><span class="n">cov</span><span class="p">(</span><span class="n">mass</span><span class="p">)</span>
 </pre></div>
@@ -722,12 +733,269 @@
 </div>
 <p>Since real data almost always features outlying or anomalous values, it’s important to think about the robustness of the statistics you choose.</p>
 </div>
+<div class="section" id="categorical-correlation">
+<h2>Categorical correlation<a class="headerlink" href="#categorical-correlation" title="Permalink to this headline">¶</a></h2>
+<p>An ordinal variable, such as days of the week, are often straightforward to quantify as consecutive integers. But a nominal variable poses a different challenge.</p>
+<p>For example, grouped histograms suggest an association between body mass and species of penguin.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">displot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">penguins</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;body_mass_g&quot;</span><span class="p">,</span><span class="n">col</span><span class="o">=</span><span class="s2">&quot;species&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/correlation_19_0.png" src="../_images/correlation_19_0.png" />
+</div>
+</div>
+<p>How can we quantify the association? The first step is to convert the species column into dummy variables.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dum</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">penguins</span><span class="p">,</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;species&quot;</span><span class="p">])</span>
+<span class="n">dum</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>island</th>
+      <th>bill_length_mm</th>
+      <th>bill_depth_mm</th>
+      <th>flipper_length_mm</th>
+      <th>body_mass_g</th>
+      <th>sex</th>
+      <th>species_Adelie</th>
+      <th>species_Chinstrap</th>
+      <th>species_Gentoo</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Torgersen</td>
+      <td>39.1</td>
+      <td>18.7</td>
+      <td>181.0</td>
+      <td>3750.0</td>
+      <td>Male</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Torgersen</td>
+      <td>39.5</td>
+      <td>17.4</td>
+      <td>186.0</td>
+      <td>3800.0</td>
+      <td>Female</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Torgersen</td>
+      <td>40.3</td>
+      <td>18.0</td>
+      <td>195.0</td>
+      <td>3250.0</td>
+      <td>Female</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Torgersen</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Torgersen</td>
+      <td>36.7</td>
+      <td>19.3</td>
+      <td>193.0</td>
+      <td>3450.0</td>
+      <td>Female</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>339</th>
+      <td>Biscoe</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>340</th>
+      <td>Biscoe</td>
+      <td>46.8</td>
+      <td>14.3</td>
+      <td>215.0</td>
+      <td>4850.0</td>
+      <td>Female</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>341</th>
+      <td>Biscoe</td>
+      <td>50.4</td>
+      <td>15.7</td>
+      <td>222.0</td>
+      <td>5750.0</td>
+      <td>Male</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>342</th>
+      <td>Biscoe</td>
+      <td>45.2</td>
+      <td>14.8</td>
+      <td>212.0</td>
+      <td>5200.0</td>
+      <td>Female</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>343</th>
+      <td>Biscoe</td>
+      <td>49.9</td>
+      <td>16.1</td>
+      <td>213.0</td>
+      <td>5400.0</td>
+      <td>Male</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+<p>344 rows × 9 columns</p>
+</div></div></div>
+</div>
+<p>The original species column has been replaced by three binary indicator columns. Now we can look for correlations between them and the body mass:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dum</span><span class="p">[[</span><span class="s2">&quot;body_mass_g&quot;</span><span class="p">,</span><span class="s2">&quot;species_Adelie&quot;</span><span class="p">,</span><span class="s2">&quot;species_Chinstrap&quot;</span><span class="p">,</span><span class="s2">&quot;species_Gentoo&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>body_mass_g</th>
+      <th>species_Adelie</th>
+      <th>species_Chinstrap</th>
+      <th>species_Gentoo</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>body_mass_g</th>
+      <td>1.000000</td>
+      <td>-0.556385</td>
+      <td>-0.291561</td>
+      <td>0.818198</td>
+    </tr>
+    <tr>
+      <th>species_Adelie</th>
+      <td>-0.556385</td>
+      <td>1.000000</td>
+      <td>-0.441643</td>
+      <td>-0.667991</td>
+    </tr>
+    <tr>
+      <th>species_Chinstrap</th>
+      <td>-0.291561</td>
+      <td>-0.441643</td>
+      <td>1.000000</td>
+      <td>-0.372649</td>
+    </tr>
+    <tr>
+      <th>species_Gentoo</th>
+      <td>0.818198</td>
+      <td>-0.667991</td>
+      <td>-0.372649</td>
+      <td>1.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>As you can see from the above, Adelie and (to a lesser extent) Chinstrap are associated with lower mass, while Gentoo is strongly associated with higher mass.</p>
+</div>
 <div class="section" id="simpson-s-paradox">
 <h2>Simpson’s paradox<a class="headerlink" href="#simpson-s-paradox" title="Permalink to this headline">¶</a></h2>
 <p>We can find all the pairwise correlation coefficients in the same style as the grid of pair plots at the top of this section.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pen</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">penguins</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -789,11 +1057,10 @@
 </table>
 </div></div></div>
 </div>
-<p>For instance, in row 4, column 3 of the array, you can find the same coefficient 0.87 that we found above. Note that each variable is perfectly correlated with itself.</p>
-<p>Something interesting happens if we compute the correlations using the species for grouping.</p>
+<p>For example, the correlation between body mass and bill depth is about <span class="math notranslate nohighlight">\(-0.472\)</span>. But something interesting happens if we compute the correlations <em>after</em> grouping by species.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pen</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;species&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">penguins</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;species&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -923,20 +1190,9 @@
 </table>
 </div></div></div>
 </div>
-<p>Within each species, the correlation between body mass and bill depth is greater than 0.5. But look at what happens if we lump all three species together:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pen</span><span class="p">[</span><span class="s2">&quot;bill_depth_mm&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">corr</span><span class="p">(</span><span class="n">pen</span><span class="p">[</span><span class="s2">&quot;body_mass_g&quot;</span><span class="p">])</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-0.47191562118606645
-</pre></div>
-</div>
-</div>
-</div>
-<p>We now have a fairly sizable <em>negative</em> correlation! This is an example of <strong>Simpson’s paradox</strong>. The reason for it can be seen from the pair plot above. Within each color, there is a strong positive association. But the relationship isn’t identical across species, and what dominates the combination is the large gap between the Gentoo and the other species. Careless computation of correlations is malpractice!</p>
+<p>Within each individual species, the correlation between body mass and bill depth is greater than <span class="math notranslate nohighlight">\(0.5\)</span>!
+This is an example of <strong>Simpson’s paradox</strong>. The reason for it can be seen from the pair plot above. Within each color, there is a strong positive association. But the relationship isn’t identical across species, and what dominates the combination of all three is the large gap between the Gentoo and the other species.</p>
+<p>Simpson’s paradox shows how important it us to understand the dataset before spewing out statistics about it. There are contexts where combining species of penguins makes sense, but in the case of body mass, we are really dealing with three separate distributions.</p>
 </div>
 </div>
 
@@ -977,8 +1233,8 @@
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="n">pen</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">load_dataset</span><span class="p">(</span><span class="s2">&quot;penguins&quot;</span><span class="p">)</span>
-<span class="n">pen</span>
+<span class="n">penguins</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">load_dataset</span><span class="p">(</span><span class="s2">&quot;penguins&quot;</span><span class="p">)</span>
+<span class="n">penguins</span>
 </pre></div>
 </div>
 </div>
@@ -1129,7 +1385,7 @@
 <p>There are often observations that we believe to be linked, either because one influences the other, or both are influenced by some other factor. That is, we say the quantities are <strong>correlated</strong>. This can become apparent using <code class="docutils literal notranslate"><span class="pre">pairplot</span></code> in seaborn.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">pairplot</span><span class="p">(</span><span class="n">pen</span><span class="p">,</span><span class="n">hue</span><span class="o">=</span><span class="s2">&quot;species&quot;</span><span class="p">);</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">pairplot</span><span class="p">(</span><span class="n">penguins</span><span class="p">,</span><span class="n">hue</span><span class="o">=</span><span class="s2">&quot;species&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -1146,7 +1402,8 @@
 \[
 \Cov(X,Y) = \frac{1}{n} \sum_{i=1}^n (x_i-\mu_X)(y_i-\mu_Y).
 \]</div>
-<p>One explanation for the name is that <span class="math notranslate nohighlight">\(\Cov(X,X)\)</span> and <span class="math notranslate nohighlight">\(Cov(Y,Y)\)</span> are just the variances of <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>. However, covariance is not easy to interpret. Its units are the products of the units of the two variables, and it is sensitive to rescaling the variables (e.g., grams versus kilograms).</p>
+<p>One explanation for the name is that <span class="math notranslate nohighlight">\(\Cov(X,X)\)</span> and <span class="math notranslate nohighlight">\(\Cov(Y,Y)\)</span> are just the variances of <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>.</p>
+<p>Covariance is not easy to interpret. Its units are the products of the units of the two variables, and it is sensitive to rescaling the variables (e.g., grams versus kilograms).</p>
 </div>
 <div class="section" id="pearson-correlation-coefficient">
 <h2>Pearson correlation coefficient<a class="headerlink" href="#pearson-correlation-coefficient" title="Permalink to this headline">¶</a></h2>
@@ -1160,7 +1417,7 @@
 <p>For example, we might reasonably expect flipper length and body mass to be correlated in penguins, as a plot confirms:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">relplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">pen</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;flipper_length_mm&quot;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s2">&quot;body_mass_g&quot;</span><span class="p">);</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">relplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">penguins</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;flipper_length_mm&quot;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s2">&quot;body_mass_g&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -1171,8 +1428,8 @@
 <p>Covariance allows us to confirm a positive relationship:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">flip</span> <span class="o">=</span> <span class="n">pen</span><span class="p">[</span><span class="s2">&quot;flipper_length_mm&quot;</span><span class="p">]</span>
-<span class="n">mass</span> <span class="o">=</span> <span class="n">pen</span><span class="p">[</span><span class="s2">&quot;body_mass_g&quot;</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">flip</span> <span class="o">=</span> <span class="n">penguins</span><span class="p">[</span><span class="s2">&quot;flipper_length_mm&quot;</span><span class="p">]</span>
+<span class="n">mass</span> <span class="o">=</span> <span class="n">penguins</span><span class="p">[</span><span class="s2">&quot;body_mass_g&quot;</span><span class="p">]</span>
 
 <span class="n">flip</span><span class="o">.</span><span class="n">cov</span><span class="p">(</span><span class="n">mass</span><span class="p">)</span>
 </pre></div>
@@ -1266,12 +1523,269 @@
 </div>
 <p>Since real data almost always features outlying or anomalous values, it’s important to think about the robustness of the statistics you choose.</p>
 </div>
+<div class="section" id="categorical-correlation">
+<h2>Categorical correlation<a class="headerlink" href="#categorical-correlation" title="Permalink to this headline">¶</a></h2>
+<p>An ordinal variable, such as days of the week, are often straightforward to quantify as consecutive integers. But a nominal variable poses a different challenge.</p>
+<p>For example, grouped histograms suggest an association between body mass and species of penguin.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">displot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">penguins</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;body_mass_g&quot;</span><span class="p">,</span><span class="n">col</span><span class="o">=</span><span class="s2">&quot;species&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/correlation_19_0.png" src="../_images/correlation_19_0.png" />
+</div>
+</div>
+<p>How can we quantify the association? The first step is to convert the species column into dummy variables.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dum</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">penguins</span><span class="p">,</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;species&quot;</span><span class="p">])</span>
+<span class="n">dum</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>island</th>
+      <th>bill_length_mm</th>
+      <th>bill_depth_mm</th>
+      <th>flipper_length_mm</th>
+      <th>body_mass_g</th>
+      <th>sex</th>
+      <th>species_Adelie</th>
+      <th>species_Chinstrap</th>
+      <th>species_Gentoo</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Torgersen</td>
+      <td>39.1</td>
+      <td>18.7</td>
+      <td>181.0</td>
+      <td>3750.0</td>
+      <td>Male</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Torgersen</td>
+      <td>39.5</td>
+      <td>17.4</td>
+      <td>186.0</td>
+      <td>3800.0</td>
+      <td>Female</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Torgersen</td>
+      <td>40.3</td>
+      <td>18.0</td>
+      <td>195.0</td>
+      <td>3250.0</td>
+      <td>Female</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Torgersen</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Torgersen</td>
+      <td>36.7</td>
+      <td>19.3</td>
+      <td>193.0</td>
+      <td>3450.0</td>
+      <td>Female</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>339</th>
+      <td>Biscoe</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>340</th>
+      <td>Biscoe</td>
+      <td>46.8</td>
+      <td>14.3</td>
+      <td>215.0</td>
+      <td>4850.0</td>
+      <td>Female</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>341</th>
+      <td>Biscoe</td>
+      <td>50.4</td>
+      <td>15.7</td>
+      <td>222.0</td>
+      <td>5750.0</td>
+      <td>Male</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>342</th>
+      <td>Biscoe</td>
+      <td>45.2</td>
+      <td>14.8</td>
+      <td>212.0</td>
+      <td>5200.0</td>
+      <td>Female</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>343</th>
+      <td>Biscoe</td>
+      <td>49.9</td>
+      <td>16.1</td>
+      <td>213.0</td>
+      <td>5400.0</td>
+      <td>Male</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+<p>344 rows × 9 columns</p>
+</div></div></div>
+</div>
+<p>The original species column has been replaced by three binary indicator columns. Now we can look for correlations between them and the body mass:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dum</span><span class="p">[[</span><span class="s2">&quot;body_mass_g&quot;</span><span class="p">,</span><span class="s2">&quot;species_Adelie&quot;</span><span class="p">,</span><span class="s2">&quot;species_Chinstrap&quot;</span><span class="p">,</span><span class="s2">&quot;species_Gentoo&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>body_mass_g</th>
+      <th>species_Adelie</th>
+      <th>species_Chinstrap</th>
+      <th>species_Gentoo</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>body_mass_g</th>
+      <td>1.000000</td>
+      <td>-0.556385</td>
+      <td>-0.291561</td>
+      <td>0.818198</td>
+    </tr>
+    <tr>
+      <th>species_Adelie</th>
+      <td>-0.556385</td>
+      <td>1.000000</td>
+      <td>-0.441643</td>
+      <td>-0.667991</td>
+    </tr>
+    <tr>
+      <th>species_Chinstrap</th>
+      <td>-0.291561</td>
+      <td>-0.441643</td>
+      <td>1.000000</td>
+      <td>-0.372649</td>
+    </tr>
+    <tr>
+      <th>species_Gentoo</th>
+      <td>0.818198</td>
+      <td>-0.667991</td>
+      <td>-0.372649</td>
+      <td>1.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>As you can see from the above, Adelie and (to a lesser extent) Chinstrap are associated with lower mass, while Gentoo is strongly associated with higher mass.</p>
+</div>
 <div class="section" id="simpson-s-paradox">
 <h2>Simpson’s paradox<a class="headerlink" href="#simpson-s-paradox" title="Permalink to this headline">¶</a></h2>
 <p>We can find all the pairwise correlation coefficients in the same style as the grid of pair plots at the top of this section.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pen</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">penguins</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -1333,11 +1847,10 @@
 </table>
 </div></div></div>
 </div>
-<p>For instance, in row 4, column 3 of the array, you can find the same coefficient 0.87 that we found above. Note that each variable is perfectly correlated with itself.</p>
-<p>Something interesting happens if we compute the correlations using the species for grouping.</p>
+<p>For example, the correlation between body mass and bill depth is about <span class="math notranslate nohighlight">\(-0.472\)</span>. But something interesting happens if we compute the correlations <em>after</em> grouping by species.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pen</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;species&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">penguins</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;species&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -1467,20 +1980,9 @@
 </table>
 </div></div></div>
 </div>
-<p>Within each species, the correlation between body mass and bill depth is greater than 0.5. But look at what happens if we lump all three species together:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pen</span><span class="p">[</span><span class="s2">&quot;bill_depth_mm&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">corr</span><span class="p">(</span><span class="n">pen</span><span class="p">[</span><span class="s2">&quot;body_mass_g&quot;</span><span class="p">])</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-0.47191562118606645
-</pre></div>
-</div>
-</div>
-</div>
-<p>We now have a fairly sizable <em>negative</em> correlation! This is an example of <strong>Simpson’s paradox</strong>. The reason for it can be seen from the pair plot above. Within each color, there is a strong positive association. But the relationship isn’t identical across species, and what dominates the combination is the large gap between the Gentoo and the other species. Careless computation of correlations is malpractice!</p>
+<p>Within each individual species, the correlation between body mass and bill depth is greater than <span class="math notranslate nohighlight">\(0.5\)</span>!
+This is an example of <strong>Simpson’s paradox</strong>. The reason for it can be seen from the pair plot above. Within each color, there is a strong positive association. But the relationship isn’t identical across species, and what dominates the combination of all three is the large gap between the Gentoo and the other species.</p>
+<p>Simpson’s paradox shows how important it us to understand the dataset before spewing out statistics about it. There are contexts where combining species of penguins makes sense, but in the case of body mass, we are really dealing with three separate distributions.</p>
 </div>
 </div>
 
