@@ -34,14 +34,14 @@ You certainly know about the **mean** of values $x_1,\ldots,x_n$:
 
 ```{math}
 :label: eq-statistics-mean
-\bar{x} = \frac{1}{n}\sum_{i=1}^n x_i.
+\mu = \frac{1}{n}\sum_{i=1}^n x_i.
 ```
 
 The "std" row of the summary table is a measurement of spread. First define the **variance** $\sigma^2$ as 
 
 ```{math}
 :label: eq-statistics-var
-\sigma^2 = \frac{1}{n}\sum_{i=1}^n (x_i - \bar{x})^2.
+\sigma^2 = \frac{1}{n}\sum_{i=1}^n (x_i - \mu)^2.
 ```
 
 Variance is the average of the squares of deviations from the mean. As such, it has the units that are the square of the data, which can be hard to interpret. Its square root $\sigma$ is the **standard deviation** (STD), and it has the same units as the data. 
@@ -62,28 +62,62 @@ The z-scores have mean zero and standard deviation equal to 1; in physical terms
 def standardize(x):
     return (x-x.mean())/x.std()
 
-cars["mpg_z"] = standardize(cars["mpg"]))
+cars["mpg_z"] = standardize(cars["mpg"])
 cars[["mpg","mpg_z"]].describe()
 ```
 
-(Recall that floating-point values are rounded to 15–16 digits.)
+(Recall that floating-point values are rounded to 15–16 digits, so it's unlikely that we can make the mean exactly zero.)
 
 ## Populations and samples
 
 In statistics one refers to the **population** as the entire universe of available values. Thus, the ages of everyone on Earth at some instant has a particular mean and standard deviation. However, in order to estimate those values, we can only measure a **sample** of the population directly. 
 
-It can be proved that {eq}`eq-statistics-mean` is an accurate way to estimate the mean of a population, in a particular precise sense. If, in a thought experiment, we could average this estimate over all possible samples of size $n$, the result would be exactly the population mean. 
+When {eq}`eq-statistics-mean` is used to compute the mean of a sample rather than a population, we change the notation a bit as a reminder:
 
-However, if we use the formula {eq}`eq-statistics-var` to compute variance of a sample, and average over all possible sample sets, we would *not* get the variance of the population; we call this a **biased estimator**. The unbiased estimator for variance is
+```{math}
+:label: eq-statistics-mean-sample
+\bar{x} = \frac{1}{n}\sum_{i=1}^n x_i.
+```
+
+This in turn can be used within {eq}`eq-statistics-var` to compute **sample variance**:
+
+```{math}
+s_n^2 = \frac{1}{n}\sum_{i=1}^n (x_i - \bar{x})^2.
+```
+
+It can be proved that the sample mean is an accurate way to estimate the population mean, in a particular precise sense. If, in a thought experiment, we could average $\bar{x}$ over all possible samples of size $n$, the result would be exactly the population mean $\mu$. We say that $\bar{x}$ is an **unbiased estimator** for $\mu$.
+
+However, the same conclusion does not hold for sample variance. If $s_n^2$ is averaged over all possible sample sets, we would *not* get the population variance $\sigma^2$. Hence $s_n^2$ is a **biased estimator** of the population variance. An unbiased estimator for $\sigma^2$ is
 
 ```{math}
 :label: eq-statistics-var-sample
-\hat{\sigma}^2 = \frac{1}{n-1}\sum_{i=1}^n (x_i - \bar{x})^2.
+s_{n-1}^2 = \frac{1}{n-1}\sum_{i=1}^n (x_i - \bar{x})^2.
 ```
 
-As you can see from the formulas, the difference between variance and sample variance is small when the sample size $n$ is large. The `std` and `var` methods in pandas all calculate sample standard deviations and variances.
+::::{prf:example}
+:label: example-summary-sample
+The values [1, 4, 9, 16, 25] have mean $$\bar{x}=55/5 = 11$. The sample variance is 
 
-## Quantiles and percentiles
+$$
+s_n^2 = \frac{(1-11)^2+(4-11)^2+(9-11)^2+(16-11)^2+(25-11)^2}{5} = \frac{374}{5} = 74.8.
+$$
+
+But the unbiased estimate of population variance from this sample is 
+
+$$
+s_{n-1}^2 = \frac{374}{4} = 93.5.
+$$
+::::
+
+As you can see from the formulas, the sample variance is always too large as an estimator, but the difference vanishes as the sample size $n$ increases. 
+
+```{warning}
+Sources are not always clear about this terminology. Some use *sample variance* to mean $s_{n-1}^2$, not $s_n^2$, and many even omit the subscripts. You always have to check each source.
+```
+
+For standard deviation, *neither* $s_n$ *nor* $s_{n-1}$ is an unbiased estimator of $\sigma$. There is no simple correction that works for all distributions. Unfortunately, `std` in numpy returns $s_n$, while `std` in pandas returns $s_{n-1}$.
+
+## Median and quantiles
 
 Mean, variance, and standard deviation are not the most relevant statistics for every data set. There are many alternatives.
 
@@ -107,7 +141,7 @@ Sometimes the definition is extended to the *zeroth quartile*, which is the mini
 If this isn't confusing enough yet, sometimes the word *quantile* is used to mean *percentile*. This is the usage in pandas.
 ```
 
-One way to measure spread in the values is the **interquartile range** (IQR), which is the difference between the 75th percentile and the 25th percentile. For some distributions, the median and IQR might be a good substitute for the mean and standard deviation.
+The **interquartile range** (IQR), which is the difference between the 75th percentile and the 25th percentile, is a measurement of the spread of the values. For some distributions, the median and IQR might be a good substitute for the mean and standard deviation.
 
 A common way to visualize quartiles is by a **box plot**.
 
@@ -115,7 +149,7 @@ A common way to visualize quartiles is by a **box plot**.
 sns.catplot(data=cars,x="origin",y="mpg",kind="box");
 ```
 
-Each colored box shows the interquartile range, with the interior horizontal line showing the median. The "whiskers" and dots are explained in the next section. 
+Each colored box shows the interquartile range, with the interior horizontal line showing the median. The "whiskers" and dots are explained in a later section. 
 
 An alternative to a box plot is a **violin plot**.
 
