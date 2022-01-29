@@ -15,6 +15,7 @@ chapters:
     - file: statistics/split-apply-combine
     - file: statistics/outliers
     - file: statistics/correlation
+    - file: statistics/exercises
   - file: supervised/overview
     sections:
     - file: supervised/scikit
