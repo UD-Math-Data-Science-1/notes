@@ -45,14 +45,30 @@ Covariance is not easy to interpret. Its units are the products of the units of 
 
 ## Pearson correlation coefficient
 
-We can remove the dependence on units and scale by applying the covariance to standardized scores for both variables:
+We can remove the dependence on units and scale by applying the covariance to standardized scores for both variables. For two populations, we define 
 
 $$
 \rho(X,Y) = \frac{1}{n} \sum_{i=1}^n \left(\frac{x_i-\mu_X}{\sigma_X}\right)\left(\frac{y_i-\mu_Y}{\sigma_Y}\right)
 = \frac{\Cov(X,Y)}{\sigma_X\sigma_Y},
 $$
 
-where $\sigma_X^2$ and $\sigma_Y^2$ are the variances of $X$ and $Y$. The value of $\rho$, called the **Pearson correlation coefficient**, is between $-1$ and $1$, with the endpoints indicating perfect correlation (negative or positive). 
+where $\sigma_X^2$ and $\sigma_Y^2$ are the population variances of $X$ and $Y$. The value of $\rho$, called the **Pearson correlation coefficient**, is between $-1$ and $1$, with the endpoints indicating perfect correlation (negative or positive). 
+
+For application to samples, we use
+
+:::{math}
+:label: eq-correlation-pearson
+r_{xy} =  \frac{\sum_{i=1}^n (x_i-\bar{x}) (y_i-\bar{y})}{\sqrt{\sum_{i=1}^n (x_i-\bar{x})^2}\,\sqrt{\sum_{i=1}^n (y_i-\bar{y})^2}},
+:::
+
+where $\bar{x}$ and $\bar{y}$ are sample means. An equivalent formula is 
+
+:::{math}
+:label: eq-correlation-pearson-alt
+r_{xy} =  \frac{1}{n-1} \sum_{i=1}^n \left(\frac{x_i-\bar{x}}{s_x}\right)\, \left(\frac{y_i-\bar{y}}{s_y}\right),
+:::
+
+where the quantities in parentheses are z-scores.
 
 For example, we might reasonably expect flipper length and body mass to be correlated in penguins, as a plot confirms:
 

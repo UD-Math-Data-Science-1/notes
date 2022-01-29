@@ -138,7 +138,7 @@ Sometimes the definition is extended to the *zeroth quartile*, which is the mini
 ```
 
 ```{warning}
-If this isn't confusing enough yet, sometimes the word *quantile* is used to mean *percentile*. This is the usage in pandas.
+If this all isn't confusing enough yet, sometimes the word *quantile* is used to mean *percentile*. This is the case for the `quantile` method in pandas.
 ```
 
 The **interquartile range** (IQR), which is the difference between the 75th percentile and the 25th percentile, is a measurement of the spread of the values. For some distributions, the median and IQR might be a good substitute for the mean and standard deviation.
