@@ -13,7 +13,11 @@ kernelspec:
 
 # Outliers
 
-Informally, an **outlier** is a data value that is considered to be far from typical. There are various ways of deciding what "typical" means, and there is no one-size recommendation for all applications. Outliers can appear in data sets for numerous reasons: equipment failure, external effect, mistyping a value, using an extreme value to represent missing data, and so on. The trouble with outliers is that they can have an unreasonably strong influence on the statistics. 
+Informally, an **outlier** is a data value that is considered to be far from typical. In some applications, such as detecting earthquakes or cancer, outliers are the cases of real interest. But we will be thinking of them as unwelcome values that might result from equipment failure, confounding effects, mistyping a value, using an extreme value to represent missing data, and so on. In such cases we want to minimize the effect of the outliers on the statistics. 
+
+There are various ways of deciding what "typical" means, and there is no one-size recommendation for all applications. 
+
+## IQR
 
 Let's look at another data set, based on an fMRI experiment.
 
@@ -31,8 +35,34 @@ $$
 x < Q_1 - 1.5I \text{ or } x > Q_3 + 1.5I.
 $$
 
+
+## Mean and STD
+
 For normal distributions, values more than twice the standard deviation $\sigma$ from the mean might be declared to be outliers; this would exclude 5% of the values, on average. A less aggressive criterion is to allow a distance of $3\sigma$, which excludes only about 0.3% of the values. The IQR criterion above corresponds to about $2.7\sigma$ in the normal case.
 
+The following plot shows the outlier cutoffs for 2000 samples from a normal distribution, using the criteria for 2σ (red), 3σ (blue), and 1.5 IQR (black). 
+```{code-cell}
+:tags: ["hide-input"]
+import seaborn as sns
+import pandas as pd
+import matplotlib.pyplot as plt
+from numpy.random import default_rng
+randn = default_rng(1).normal 
+
+x = pd.Series(randn(size=2000))
+sns.displot(data=x,bins=30);
+m,s = x.mean(),x.std()
+plt.axvline(m-2*s,color='r')
+plt.axvline(m+2*s,color='r')
+plt.axvline(m-3*s,color='b')
+plt.axvline(m+3*s,color='b')
+
+q1,q3 = x.quantile([.25,.75])
+plt.axvline(q3+1.5*(q3-q1),color='k')
+plt.axvline(q1-1.5*(q3-q1),color='k');
+```
+
+For asymmetric distributions, or those with a fat tail, these criteria might show greater differences.
 
 ## Removing outliers
 

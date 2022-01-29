@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>2. Descriptive statistics &#8212; Data Science 1</title>
+    <title>2.5. Exercises &#8212; Data Science 1</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet">
   <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -44,6 +44,8 @@
     <script src="../_static/copybutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>window.MathJax = {"tex": {"macros": {"float": ["\\mathbb{F}"], "real": ["\\mathbb{R}"], "complex": ["\\mathbb{C}"], "nat": ["\\mathbb{N}"], "integer": ["\\mathbb{Z}"], "bfa": "\\mathbf{a}", "bfe": "\\mathbf{e}", "bfx": "\\mathbf{x}", "bfX": "\\mathbf{X}", "bfw": "\\mathbf{w}", "bfy": "\\mathbf{y}", "bfz": "\\mathbf{z}", "bfzero": "\\boldsymbol{0}", "bfmu": "\\boldsymbol{\\mu}", "TP": "\\text{TP}", "TN": "\\text{TN}", "FP": "\\text{FP}", "FN": "\\text{FN}", "rmn": ["\\mathbb{R}^{#1 \\times #2}", 2], "dd": ["\\frac{d #1}{d #2}", 2], "pp": ["\\frac{\\partial #1}{\\partial #2}", 2], "norm": ["\\lVert #1 \\rVert", 1], "twonorm": ["\\norm{#1}_2", 1], "onenorm": ["\\norm{#1}_1", 1], "infnorm": ["\\norm{#1}_\\infty", 1], "innerprod": ["\\langle #1,#2 \\rangle", 2], "pr": ["^{(#1)}", 1], "diag": ["\\operatorname{diag}"], "sign": ["\\operatorname{sign}"], "ee": ["\\times 10^"], "floor": ["\\lfloor#1\\rfloor", 1], "argmin": ["\\operatorname{argmin}"], "Cov": ["\\operatorname{Cov}"], "logit": ["\\operatorname{logit}"]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
     <script>
         const thebe_selector = ".thebe,.cell"
@@ -54,8 +56,8 @@
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="2.1. Summary statistics" href="summary.html" />
-    <link rel="prev" title="1.4. Introduction to seaborn" href="../representation/seaborn.html" />
+    <link rel="next" title="3. Classification" href="../supervised/overview.html" />
+    <link rel="prev" title="2.4. Correlation" href="correlation.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -133,7 +135,7 @@
   </ul>
  </li>
  <li class="toctree-l1 current active has-children">
-  <a class="current reference internal" href="#">
+  <a class="reference internal" href="overview.html">
    2. Descriptive statistics
   </a>
   <input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
@@ -141,7 +143,7 @@
    <i class="fas fa-chevron-down">
    </i>
   </label>
-  <ul>
+  <ul class="current">
    <li class="toctree-l2">
     <a class="reference internal" href="summary.html">
      2.1. Summary statistics
@@ -162,8 +164,8 @@
      2.4. Correlation
     </a>
    </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="exercises.html">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
      2.5. Exercises
     </a>
    </li>
@@ -311,7 +313,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/statistics/overview.md"><button type="button"
+        <a class="dropdown-buttons" href="../_sources/statistics/exercises.md"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.md</button></a>
         <!-- Download PDF via print -->
@@ -341,7 +343,7 @@
 </div>
     <!-- Table of contents that is only displayed when printing the page -->
     <div id="jb-print-docs-body" class="onlyprint">
-        <h1>Descriptive statistics</h1>
+        <h1>Exercises</h1>
         <!-- Table of contents -->
         <div id="print-main-content" class="row">
             <div class="col-12 col-md-12 pl-md-5 pr-md-5">
@@ -351,10 +353,34 @@
             
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="descriptive-statistics">
-<h1><span class="section-number">2. </span>Descriptive statistics<a class="headerlink" href="#descriptive-statistics" title="Permalink to this headline">¶</a></h1>
-<div class="toctree-wrapper compound">
-</div>
+  <div class="tex2jax_ignore mathjax_ignore section" id="exercises">
+<h1><span class="section-number">2.5. </span>Exercises<a class="headerlink" href="#exercises" title="Permalink to this headline">¶</a></h1>
+<p>For these exercises, you may of course use computer help to work on a problem, but your answer should be self-contained without reference to computer output (unless stated otherwise).</p>
+<ol>
+<li><p>For <span class="math notranslate nohighlight">\(n&gt;2\)</span>, Let <span class="math notranslate nohighlight">\(x_i=0\)</span> for <span class="math notranslate nohighlight">\(i=1,\ldots,n-1\)</span>, and <span class="math notranslate nohighlight">\(x_n=M\)</span>. Find the <strong>(a)</strong> mean, <strong>(b)</strong> median, <strong>(c)</strong> variance <span class="math notranslate nohighlight">\(s_{n-1}^2\)</span>, and <strong>(d)</strong> z-scores of the samples in terms of <span class="math notranslate nohighlight">\(M\)</span> and <span class="math notranslate nohighlight">\(n\)</span>.</p></li>
+<li><p>Suppose any samples <span class="math notranslate nohighlight">\(x_1,\ldots,x_n\)</span> have z-scores <span class="math notranslate nohighlight">\(z_1,\ldots,z_n\)</span>.</p>
+<p><strong>(a)</strong> Show that <span class="math notranslate nohighlight">\(\displaystyle \sum_{i=1}^n z_i = 0.\)</span></p>
+<p><strong>(b)</strong> Show that <span class="math notranslate nohighlight">\(\displaystyle \sum_{i=1}^n z_i^2 = n-1.\)</span></p>
+</li>
+<li><p>For the sample set in Exercise 1, find a value <span class="math notranslate nohighlight">\(N\)</span> such that if <span class="math notranslate nohighlight">\(n&gt;N\)</span>, there is at least one outlier according to the 2σ criterion.</p></li>
+<li><p>Define a population by</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+    x_i = \begin{cases}
+    1, &amp; 1 \le i \le 11, \\ 
+    2, &amp; 12 \le i \le 14,\\ 
+    4, &amp; 15 \le i \le 22, \\ 
+    6, &amp; 23 \le i \le 32.
+    \end{cases}
+    \end{split}\]</div>
+<p><strong>(a)</strong> Find the median of the population.</p>
+<p><strong>(b)</strong> Which of the following are outliers according to the 1.5 IQR criterion?</p>
+<div class="math notranslate nohighlight">
+\[-5,0,5,10,15,20\]</div>
+</li>
+<li><p>Prove that two sample sets have a Pearson correlation coefficient equal to 1 if they have identical z-scores.</p></li>
+<li><p>Suppose that two sample sets satisfy <span class="math notranslate nohighlight">\(y_i=-x_i\)</span> for all <span class="math notranslate nohighlight">\(i\)</span>. Prove that the Pearson correlation coefficient between <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> equals <span class="math notranslate nohighlight">\(-1\)</span>.</p></li>
+</ol>
 </div>
 
     <script type="text/x-thebe-config">
@@ -387,10 +413,34 @@
         
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="descriptive-statistics">
-<h1><span class="section-number">2. </span>Descriptive statistics<a class="headerlink" href="#descriptive-statistics" title="Permalink to this headline">¶</a></h1>
-<div class="toctree-wrapper compound">
-</div>
+  <div class="tex2jax_ignore mathjax_ignore section" id="exercises">
+<h1><span class="section-number">2.5. </span>Exercises<a class="headerlink" href="#exercises" title="Permalink to this headline">¶</a></h1>
+<p>For these exercises, you may of course use computer help to work on a problem, but your answer should be self-contained without reference to computer output (unless stated otherwise).</p>
+<ol>
+<li><p>For <span class="math notranslate nohighlight">\(n&gt;2\)</span>, Let <span class="math notranslate nohighlight">\(x_i=0\)</span> for <span class="math notranslate nohighlight">\(i=1,\ldots,n-1\)</span>, and <span class="math notranslate nohighlight">\(x_n=M\)</span>. Find the <strong>(a)</strong> mean, <strong>(b)</strong> median, <strong>(c)</strong> variance <span class="math notranslate nohighlight">\(s_{n-1}^2\)</span>, and <strong>(d)</strong> z-scores of the samples in terms of <span class="math notranslate nohighlight">\(M\)</span> and <span class="math notranslate nohighlight">\(n\)</span>.</p></li>
+<li><p>Suppose any samples <span class="math notranslate nohighlight">\(x_1,\ldots,x_n\)</span> have z-scores <span class="math notranslate nohighlight">\(z_1,\ldots,z_n\)</span>.</p>
+<p><strong>(a)</strong> Show that <span class="math notranslate nohighlight">\(\displaystyle \sum_{i=1}^n z_i = 0.\)</span></p>
+<p><strong>(b)</strong> Show that <span class="math notranslate nohighlight">\(\displaystyle \sum_{i=1}^n z_i^2 = n-1.\)</span></p>
+</li>
+<li><p>For the sample set in Exercise 1, find a value <span class="math notranslate nohighlight">\(N\)</span> such that if <span class="math notranslate nohighlight">\(n&gt;N\)</span>, there is at least one outlier according to the 2σ criterion.</p></li>
+<li><p>Define a population by</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+    x_i = \begin{cases}
+    1, &amp; 1 \le i \le 11, \\ 
+    2, &amp; 12 \le i \le 14,\\ 
+    4, &amp; 15 \le i \le 22, \\ 
+    6, &amp; 23 \le i \le 32.
+    \end{cases}
+    \end{split}\]</div>
+<p><strong>(a)</strong> Find the median of the population.</p>
+<p><strong>(b)</strong> Which of the following are outliers according to the 1.5 IQR criterion?</p>
+<div class="math notranslate nohighlight">
+\[-5,0,5,10,15,20\]</div>
+</li>
+<li><p>Prove that two sample sets have a Pearson correlation coefficient equal to 1 if they have identical z-scores.</p></li>
+<li><p>Suppose that two sample sets satisfy <span class="math notranslate nohighlight">\(y_i=-x_i\)</span> for all <span class="math notranslate nohighlight">\(i\)</span>. Prove that the Pearson correlation coefficient between <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> equals <span class="math notranslate nohighlight">\(-1\)</span>.</p></li>
+</ol>
 </div>
 
     <script type="text/x-thebe-config">
@@ -418,17 +468,17 @@
         
             <!-- Previous / next buttons -->
 <div class='prev-next-area'> 
-    <a class='left-prev' id="prev-link" href="../representation/seaborn.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="correlation.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title"><span class="section-number">1.4. </span>Introduction to seaborn</p>
+            <p class="prev-next-title"><span class="section-number">2.4. </span>Correlation</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="summary.html" title="next page">
+    <a class='right-next' id="next-link" href="../supervised/overview.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">2.1. </span>Summary statistics</p>
+        <p class="prev-next-title"><span class="section-number">3. </span>Classification</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

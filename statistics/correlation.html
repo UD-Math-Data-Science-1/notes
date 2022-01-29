@@ -29,6 +29,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
     <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     
@@ -617,13 +618,20 @@
 </div>
 <div class="section" id="pearson-correlation-coefficient">
 <h2>Pearson correlation coefficient<a class="headerlink" href="#pearson-correlation-coefficient" title="Permalink to this headline">¶</a></h2>
-<p>We can remove the dependence on units and scale by applying the covariance to standardized scores for both variables:</p>
+<p>We can remove the dependence on units and scale by applying the covariance to standardized scores for both variables. For two populations, we define</p>
 <div class="math notranslate nohighlight">
 \[
 \rho(X,Y) = \frac{1}{n} \sum_{i=1}^n \left(\frac{x_i-\mu_X}{\sigma_X}\right)\left(\frac{y_i-\mu_Y}{\sigma_Y}\right)
 = \frac{\Cov(X,Y)}{\sigma_X\sigma_Y},
 \]</div>
-<p>where <span class="math notranslate nohighlight">\(\sigma_X^2\)</span> and <span class="math notranslate nohighlight">\(\sigma_Y^2\)</span> are the variances of <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>. The value of <span class="math notranslate nohighlight">\(\rho\)</span>, called the <strong>Pearson correlation coefficient</strong>, is between <span class="math notranslate nohighlight">\(-1\)</span> and <span class="math notranslate nohighlight">\(1\)</span>, with the endpoints indicating perfect correlation (negative or positive).</p>
+<p>where <span class="math notranslate nohighlight">\(\sigma_X^2\)</span> and <span class="math notranslate nohighlight">\(\sigma_Y^2\)</span> are the population variances of <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>. The value of <span class="math notranslate nohighlight">\(\rho\)</span>, called the <strong>Pearson correlation coefficient</strong>, is between <span class="math notranslate nohighlight">\(-1\)</span> and <span class="math notranslate nohighlight">\(1\)</span>, with the endpoints indicating perfect correlation (negative or positive).</p>
+<p>For application to samples, we use</p>
+<div class="math notranslate nohighlight" id="equation-eq-correlation-pearson">
+<span class="eqno">(2.4.1)<a class="headerlink" href="#equation-eq-correlation-pearson" title="Permalink to this equation">¶</a></span>\[r_{xy} =  \frac{\sum_{i=1}^n (x_i-\bar{x}) (y_i-\bar{y})}{\sqrt{\sum_{i=1}^n (x_i-\bar{x})^2}\,\sqrt{\sum_{i=1}^n (y_i-\bar{y})^2}},\]</div>
+<p>where <span class="math notranslate nohighlight">\(\bar{x}\)</span> and <span class="math notranslate nohighlight">\(\bar{y}\)</span> are sample means. An equivalent formula is</p>
+<div class="math notranslate nohighlight" id="equation-eq-correlation-pearson-alt">
+<span class="eqno">(2.4.2)<a class="headerlink" href="#equation-eq-correlation-pearson-alt" title="Permalink to this equation">¶</a></span>\[r_{xy} =  \frac{1}{n-1} \sum_{i=1}^n \left(\frac{x_i-\bar{x}}{s_x}\right)\, \left(\frac{y_i-\bar{y}}{s_y}\right),\]</div>
+<p>where the quantities in parentheses are z-scores.</p>
 <p>For example, we might reasonably expect flipper length and body mass to be correlated in penguins, as a plot confirms:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1407,13 +1415,20 @@ This is an example of <strong>Simpson’s paradox</strong>. The reason for it ca
 </div>
 <div class="section" id="pearson-correlation-coefficient">
 <h2>Pearson correlation coefficient<a class="headerlink" href="#pearson-correlation-coefficient" title="Permalink to this headline">¶</a></h2>
-<p>We can remove the dependence on units and scale by applying the covariance to standardized scores for both variables:</p>
+<p>We can remove the dependence on units and scale by applying the covariance to standardized scores for both variables. For two populations, we define</p>
 <div class="math notranslate nohighlight">
 \[
 \rho(X,Y) = \frac{1}{n} \sum_{i=1}^n \left(\frac{x_i-\mu_X}{\sigma_X}\right)\left(\frac{y_i-\mu_Y}{\sigma_Y}\right)
 = \frac{\Cov(X,Y)}{\sigma_X\sigma_Y},
 \]</div>
-<p>where <span class="math notranslate nohighlight">\(\sigma_X^2\)</span> and <span class="math notranslate nohighlight">\(\sigma_Y^2\)</span> are the variances of <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>. The value of <span class="math notranslate nohighlight">\(\rho\)</span>, called the <strong>Pearson correlation coefficient</strong>, is between <span class="math notranslate nohighlight">\(-1\)</span> and <span class="math notranslate nohighlight">\(1\)</span>, with the endpoints indicating perfect correlation (negative or positive).</p>
+<p>where <span class="math notranslate nohighlight">\(\sigma_X^2\)</span> and <span class="math notranslate nohighlight">\(\sigma_Y^2\)</span> are the population variances of <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>. The value of <span class="math notranslate nohighlight">\(\rho\)</span>, called the <strong>Pearson correlation coefficient</strong>, is between <span class="math notranslate nohighlight">\(-1\)</span> and <span class="math notranslate nohighlight">\(1\)</span>, with the endpoints indicating perfect correlation (negative or positive).</p>
+<p>For application to samples, we use</p>
+<div class="math notranslate nohighlight" id="equation-eq-correlation-pearson">
+<span class="eqno">(2.4.1)<a class="headerlink" href="#equation-eq-correlation-pearson" title="Permalink to this equation">¶</a></span>\[r_{xy} =  \frac{\sum_{i=1}^n (x_i-\bar{x}) (y_i-\bar{y})}{\sqrt{\sum_{i=1}^n (x_i-\bar{x})^2}\,\sqrt{\sum_{i=1}^n (y_i-\bar{y})^2}},\]</div>
+<p>where <span class="math notranslate nohighlight">\(\bar{x}\)</span> and <span class="math notranslate nohighlight">\(\bar{y}\)</span> are sample means. An equivalent formula is</p>
+<div class="math notranslate nohighlight" id="equation-eq-correlation-pearson-alt">
+<span class="eqno">(2.4.2)<a class="headerlink" href="#equation-eq-correlation-pearson-alt" title="Permalink to this equation">¶</a></span>\[r_{xy} =  \frac{1}{n-1} \sum_{i=1}^n \left(\frac{x_i-\bar{x}}{s_x}\right)\, \left(\frac{y_i-\bar{y}}{s_y}\right),\]</div>
+<p>where the quantities in parentheses are z-scores.</p>
 <p>For example, we might reasonably expect flipper length and body mass to be correlated in penguins, as a plot confirms:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
