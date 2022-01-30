@@ -13,53 +13,68 @@ kernelspec:
 
 # Classifier performance
 
-Let's return to the classifier for the loan applications data set.
+Let's return to the (cleaned) loan applications dataset.
 
 ```{code-cell} ipython3
-import numpy as np
-from sklearn import neighbors,metrics
+import pandas as pd
+loans = pd.read_csv("loan_clean.csv")
+```
+
+Most of the loan applications were successful, as shown by the distribution of funding percentage.
+
+```{code-cell}
+import seaborn as sns
+sns.displot(data=loans,x="percent_funded",bins=range(50,105,5));
+```
+
+We create a binary classification problem by labelling whether each loan was at least 95% funded. The other columns will form the features for the predictions.
+
+```{code-cell}
+X = loans.drop("percent_funded",axis=1)
+y = loans["percent_funded"] > 95
+```
+
+We will split into test and training sets and apply the nearest neighbors algorithm.
+
+```{code-cell}
+from sklearn.neighbors import KNeighborsClassifier
 from sklearn.model_selection import train_test_split
 
-X = np.loadtxt("data.csv",delimiter=",")
-n,d = X.shape
-y = np.loadtxt("labels.csv",delimiter=",")
+X_tr, X_te, y_tr, y_te = train_test_split(X,y,test_size=0.2,shuffle=True,random_state=0)
 
-X_tr, X_te, y_tr, y_te = train_test_split(X,y,test_size=0.2)
-
-knn = neighbors.KNeighborsClassifier(n_neighbors=11)   
+knn = KNeighborsClassifier(n_neighbors=5)   
 knn.fit(X_tr,y_tr) 
 acc = knn.score(X_te,y_te)
 print(f"accuracy is {acc:.1%}")
 ```
 
-Is this good accuracy? Welp, consider that the vast majority of loans were funded:
+At first, this looks like a good result. But consider that the vast majority of loans were funded:
 
 ```{code-cell}
-funded = sum(y==-1)
-print(f"{funded/n:.1%} were funded")
+funded = sum(y)
+print(f"{funded/len(y):.1%} were funded")
 ```
 
-Therefore, an algorithm that simply "predicts" funding every loan would do nearly as well as the trained classifier! 
+Therefore, an algorithm that simply "predicts" funding every loan would do even better than the trained classifier! 
 
 ```{code-cell}
 from sklearn import metrics
-acc = metrics.accuracy_score(y_te,[-1]*len(y_te))
+acc = metrics.accuracy_score(y_te,[True]*len(y_te))
 print(f"fund-em-all accuracy is {acc:.1%}")
 ```
 
-By comparison, our trained classifier is not impressive at all. We need a metric other than accuracy to detect that, apparently.
+In context, then, our trained classifier is not impressive at all. We need a metric other than accuracy to detect that.
 
 ## Binary classifiers
 
-Recall that a binary classifier is one that produces just two unique labels, which we call "yes" and "no" here.
-To fully understand the performance of a binary classifier, we have to account for four cases:
+Recall that a binary classifier is one that produces just two unique labels, which we call "yes" and "no" here. To fully understand the performance of a binary classifier, we have to account for four cases:
 
 * True positives (TP): Predicts "yes", actually is "yes"
 * False positives (FP): Predicts "yes", actually is "no"
 * True negatives (TN): Predicts "no", actually is "no"
 * False negatives (FN): Predicts "no", actually is "yes"
 
-The four cases correspond to a 2×2 table according to the states of the prediction and *ground truth*, which is the accepted correct value (the given label). The table can be filled with counts or percentages of tested instances, to create a **confusion matrix**, as illustrated in {numref}`fig-supervised-confusion`. 
+The four cases correspond to a 2×2 table according to the states of the prediction and *ground truth*, which is the accepted correct value (i.e., the given label). The table can be filled with counts or percentages of tested instances, to create a **confusion matrix**, as illustrated in {numref}`fig-supervised-confusion`. 
 
 ```{figure} confusion.svg
 ---
@@ -70,18 +85,18 @@ Confusion matrix
 
 ```{code-cell} ipython3
 yhat = knn.predict(X_te)
-C = metrics.confusion_matrix(y_te,yhat,labels=[-1,1])
+C = metrics.confusion_matrix(y_te,yhat,labels=[True,False])
 lbl = ["fund","reject"]
 metrics.ConfusionMatrixDisplay(C,display_labels=lbl).plot();
 ```
 
-Hence there are 656 true positives (funded) and 12 true negatives (rejected). Therefore, the **accuracy** is 
+Hence there are 7470 true positives (funded) and 58 true negatives (rejected). Therefore, the **accuracy** is 
 
 $$
-\text{accuracy} = \frac{\TP + \TN}{\TP + \FP + \TN + \FN} = \frac{680}{828} = 0.821256\ldots,
+\text{accuracy} = \frac{\TP + \TN}{\TP + \FP + \TN + \FN} = \frac{7528}{7944} \approx 0.94763
 $$
 
-i.e., 82.1%. However, there are four other quantities defined by putting a "number correct" value in the numerator and a sum of a row or column in the denominator:
+i.e., 94.8%. However, there are four other quantities defined by putting a "number correct" value in the numerator and the sum of a confusion matrix row or column in the denominator:
 
 $$
 \text{recall (aka sensitvity)} &= \frac{\TP}{\TP + \FN} \\[2mm]
@@ -107,7 +122,7 @@ print(f"precision = {TP/(TP+FP):.1%}")
 print(f"NPV = {TN/(TN+FN):.1%}")
 ```
 
-The recall is almost perfect: virtually nobody who should get a loan will go away disappointed. However, the low specificity would be concerning to those doing the funding, because 95% who should be rejected will be funded as well. (It's now clear that the trained classifier is barely different from the "fund them all" one.)
+The high recall rate means that few who ought to get a loan will go away disappointed. However, the low specificity would be concerning to those doing the funding, because almost 85% of those who should be rejected will be funded as well. 
 
 There are numerous ways to combine these measures into a single number other than standard accuracy. None is universally best, because different applications emphasize different aspects of performance. One of the most popular is the **$F_1$ score**, which is the harmonic mean of the precision and the recall:
 
