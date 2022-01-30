@@ -18,7 +18,7 @@ chapters:
     - file: statistics/exercises
   - file: supervised/overview
     sections:
-    - file: supervised/scikit
+    - file: supervised/sklearn
     - file: supervised/performance
     - file: supervised/decision-trees
     - file: supervised/nearest-neighbors
