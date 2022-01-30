@@ -158,3 +158,41 @@ The result comes back as a series of the same dtype as `y`.
 
 This may seem like hassle and extra work for mere window dressing. Why not just work with arrays? When we are focusing on the math, that's fine. But in an application, it's easy to lose track of what the integer indexes of an array are supposed to mean. By using their names, you keep things clearer in your code and own mind, and sklearn will give you warnings and errors if you aren't using them consistently. In other words, it's *productive* hassle.
 
+## Data cleaning
+
+Raw data often needs to be manipulated into a useable numerical format before algorithms can be applied. We will go through some of these steps for a dataset describing loans made on the crowdfunding site LendingClub.
+
+First, we load the raw data from a CSV (comma separated values) file. 
+
+```{code-cell}
+import pandas as pd
+loans = pd.read_csv("loan.csv")
+loans.head()
+```
+
+The `int_rate` column, which gives the interest rate on the loan, has been interpreted as strings due to the percent sign. We'll strip out those percent signs, and then sklearn will handle the conversion to numbers as needed.
+
+```{code-cell}
+loans["rate"] = loans["int_rate"].str.strip('%')
+```
+
+Let's add a column for the percentage of the loan request that was eventually funded. This will be a target for some of our learning methods.
+
+```{code-cell}
+loans["percent_funded"] = 100*loans["funded_amnt"]/loans["loan_amnt"]
+target = ["percent_funded"]
+```
+
+We will only use a small subset of the numerical columns as features. Let's verify that there are no missing values in those columns.
+
+```{code-cell}
+features = [ "loan_amnt","rate","installment","annual_inc","dti","delinq_2yrs","delinq_amnt"]
+loans = loans.loc[:,features+target]
+loans.isna().sum()
+```
+
+
+Finally, we'll output this cleaned data frame to its own CSV file.
+```{code-cell}
+loans.to_csv("loan_clean.csv")
+```
