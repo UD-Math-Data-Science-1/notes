@@ -29,6 +29,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
     <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     
@@ -56,7 +57,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="3.3. Decision trees" href="decision-trees.html" />
-    <link rel="prev" title="3.1. Using scikit-learn" href="scikit.html" />
+    <link rel="prev" title="3.1. Using scikit-learn" href="sklearn.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -144,13 +145,13 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../statistics/split-apply-combine.html">
-     2.1. Split–apply–combine
+    <a class="reference internal" href="../statistics/summary.html">
+     2.1. Summary statistics
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../statistics/summary.html">
-     2.2. Summary statistics
+    <a class="reference internal" href="../statistics/split-apply-combine.html">
+     2.2. Split–apply–combine
     </a>
    </li>
    <li class="toctree-l2">
@@ -161,6 +162,11 @@
    <li class="toctree-l2">
     <a class="reference internal" href="../statistics/correlation.html">
      2.4. Correlation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../statistics/exercises.html">
+     2.5. Exercises
     </a>
    </li>
   </ul>
@@ -176,7 +182,7 @@
   </label>
   <ul class="current">
    <li class="toctree-l2">
-    <a class="reference internal" href="scikit.html">
+    <a class="reference internal" href="sklearn.html">
      3.1. Using scikit-learn
     </a>
    </li>
@@ -408,20 +414,45 @@
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="classifier-performance">
 <h1><span class="section-number">3.2. </span>Classifier performance<a class="headerlink" href="#classifier-performance" title="Permalink to this headline">¶</a></h1>
-<p>Let’s return to the classifier for the loan applications data set.</p>
+<p>Let’s return to the (cleaned) loan applications dataset.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">neighbors</span><span class="p">,</span><span class="n">metrics</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="n">loans</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;loan_clean.csv&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Most of the loan applications were successful, as shown by the distribution of funding percentage.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">displot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">loans</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;percent_funded&quot;</span><span class="p">,</span><span class="n">bins</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span><span class="mi">105</span><span class="p">,</span><span class="mi">5</span><span class="p">));</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/performance_3_0.png" src="../_images/performance_3_0.png" />
+</div>
+</div>
+<p>We create a binary classification problem by labelling whether each loan was at least 95% funded. The other columns will form the features for the predictions.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="n">loans</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s2">&quot;percent_funded&quot;</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">loans</span><span class="p">[</span><span class="s2">&quot;percent_funded&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">95</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We will split into test and training sets and apply the nearest neighbors algorithm.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">KNeighborsClassifier</span>
 <span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
 
-<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;data.csv&quot;</span><span class="p">,</span><span class="n">delimiter</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
-<span class="n">n</span><span class="p">,</span><span class="n">d</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;labels.csv&quot;</span><span class="p">,</span><span class="n">delimiter</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
+<span class="n">X_tr</span><span class="p">,</span> <span class="n">X_te</span><span class="p">,</span> <span class="n">y_tr</span><span class="p">,</span> <span class="n">y_te</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span><span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
-<span class="n">X_tr</span><span class="p">,</span> <span class="n">X_te</span><span class="p">,</span> <span class="n">y_tr</span><span class="p">,</span> <span class="n">y_te</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
-
-<span class="n">knn</span> <span class="o">=</span> <span class="n">neighbors</span><span class="o">.</span><span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>   
+<span class="n">knn</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>   
 <span class="n">knn</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_tr</span><span class="p">,</span><span class="n">y_tr</span><span class="p">)</span> 
 <span class="n">acc</span> <span class="o">=</span> <span class="n">knn</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_te</span><span class="p">,</span><span class="n">y_te</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;accuracy is </span><span class="si">{</span><span class="n">acc</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -429,74 +460,73 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>accuracy is 78.5%
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>accuracy is 94.8%
 </pre></div>
 </div>
 </div>
 </div>
-<p>Is this good accuracy? Welp, consider that the vast majority of loans were funded:</p>
+<p>At first, this looks like a good result. But consider that the vast majority of loans were funded:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">funded</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">y</span><span class="o">==-</span><span class="mi">1</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">funded</span><span class="o">/</span><span class="n">n</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2"> were funded&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">funded</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">funded</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2"> were funded&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>81.6% were funded
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>95.5% were funded
 </pre></div>
 </div>
 </div>
 </div>
-<p>Therefore, an algorithm that simply “predicts” funding every loan would do nearly as well as the trained classifier!</p>
+<p>Therefore, an algorithm that simply “predicts” funding every loan would do even better than the trained classifier!</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">metrics</span>
-<span class="n">acc</span> <span class="o">=</span> <span class="n">metrics</span><span class="o">.</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_te</span><span class="p">,[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="n">y_te</span><span class="p">))</span>
+<span class="n">acc</span> <span class="o">=</span> <span class="n">metrics</span><span class="o">.</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_te</span><span class="p">,[</span><span class="kc">True</span><span class="p">]</span><span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="n">y_te</span><span class="p">))</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;fund-em-all accuracy is </span><span class="si">{</span><span class="n">acc</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>fund-em-all accuracy is 77.2%
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>fund-em-all accuracy is 95.2%
 </pre></div>
 </div>
 </div>
 </div>
-<p>By comparison, our trained classifier is not impressive at all. We need a metric other than accuracy to detect that, apparently.</p>
+<p>In context, then, our trained classifier is not impressive at all. We need a metric other than accuracy to detect that.</p>
 <div class="section" id="binary-classifiers">
 <h2>Binary classifiers<a class="headerlink" href="#binary-classifiers" title="Permalink to this headline">¶</a></h2>
-<p>Recall that a binary classifier is one that produces just two unique labels, which we call “yes” and “no” here.
-To fully understand the performance of a binary classifier, we have to account for four cases:</p>
+<p>Recall that a binary classifier is one that produces just two unique labels, which we call “yes” and “no” here. To fully understand the performance of a binary classifier, we have to account for four cases:</p>
 <ul class="simple">
 <li><p>True positives (TP): Predicts “yes”, actually is “yes”</p></li>
 <li><p>False positives (FP): Predicts “yes”, actually is “no”</p></li>
 <li><p>True negatives (TN): Predicts “no”, actually is “no”</p></li>
 <li><p>False negatives (FN): Predicts “no”, actually is “yes”</p></li>
 </ul>
-<p>The four cases correspond to a 2×2 table according to the states of the prediction and <em>ground truth</em>, which is the accepted correct value (the given label). The table can be filled with counts or percentages of tested instances, to create a <strong>confusion matrix</strong>, as illustrated in <a class="reference internal" href="#fig-supervised-confusion"><span class="std std-numref">Fig. 3.2.1</span></a>.</p>
+<p>The four cases correspond to a 2×2 table according to the states of the prediction and <em>ground truth</em>, which is the accepted correct value (i.e., the given label). The table can be filled with counts or percentages of tested instances, to create a <strong>confusion matrix</strong>, as illustrated in <a class="reference internal" href="#fig-supervised-confusion"><span class="std std-numref">Fig. 3.2.1</span></a>.</p>
 <div class="figure align-default" id="fig-supervised-confusion">
 <img alt="../_images/confusion.svg" src="../_images/confusion.svg" /><p class="caption"><span class="caption-number">Fig. 3.2.1 </span><span class="caption-text">Confusion matrix</span><a class="headerlink" href="#fig-supervised-confusion" title="Permalink to this image">¶</a></p>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">yhat</span> <span class="o">=</span> <span class="n">knn</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_te</span><span class="p">)</span>
-<span class="n">C</span> <span class="o">=</span> <span class="n">metrics</span><span class="o">.</span><span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_te</span><span class="p">,</span><span class="n">yhat</span><span class="p">,</span><span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">C</span> <span class="o">=</span> <span class="n">metrics</span><span class="o">.</span><span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_te</span><span class="p">,</span><span class="n">yhat</span><span class="p">,</span><span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="kc">True</span><span class="p">,</span><span class="kc">False</span><span class="p">])</span>
 <span class="n">lbl</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;fund&quot;</span><span class="p">,</span><span class="s2">&quot;reject&quot;</span><span class="p">]</span>
 <span class="n">metrics</span><span class="o">.</span><span class="n">ConfusionMatrixDisplay</span><span class="p">(</span><span class="n">C</span><span class="p">,</span><span class="n">display_labels</span><span class="o">=</span><span class="n">lbl</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">();</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/performance_7_0.png" src="../_images/performance_7_0.png" />
+<img alt="../_images/performance_13_0.png" src="../_images/performance_13_0.png" />
 </div>
 </div>
-<p>Hence there are 656 true positives (funded) and 12 true negatives (rejected). Therefore, the <strong>accuracy</strong> is</p>
+<p>Hence there are 7470 true positives (funded) and 58 true negatives (rejected). Therefore, the <strong>accuracy</strong> is</p>
 <div class="math notranslate nohighlight">
 \[
-\text{accuracy} = \frac{\TP + \TN}{\TP + \FP + \TN + \FN} = \frac{680}{828} = 0.821256\ldots,
+\text{accuracy} = \frac{\TP + \TN}{\TP + \FP + \TN + \FN} = \frac{7528}{7944} \approx 0.94763
 \]</div>
-<p>i.e., 82.1%. However, there are four other quantities defined by putting a “number correct” value in the numerator and a sum of a row or column in the denominator:</p>
+<p>i.e., 94.8%. However, there are four other quantities defined by putting a “number correct” value in the numerator and the sum of a confusion matrix row or column in the denominator:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \text{recall (aka sensitvity)} &amp;= \frac{\TP}{\TP + \FN} \\[2mm]
@@ -523,15 +553,15 @@ To fully understand the performance of a binary classifier, we have to account f
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>recall = 100.0%
-specificity = 5.8%
-precision = 78.2%
-NPV = 100.0%
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>recall = 98.7%
+specificity = 15.3%
+precision = 95.9%
+NPV = 37.9%
 </pre></div>
 </div>
 </div>
 </div>
-<p>The recall is almost perfect: virtually nobody who should get a loan will go away disappointed. However, the low specificity would be concerning to those doing the funding, because 95% who should be rejected will be funded as well. (It’s now clear that the trained classifier is barely different from the “fund them all” one.)</p>
+<p>The high recall rate means that few who ought to get a loan will go away disappointed. However, the low specificity would be concerning to those doing the funding, because almost 85% of those who should be rejected will be funded as well.</p>
 <p>There are numerous ways to combine these measures into a single number other than standard accuracy. None is universally best, because different applications emphasize different aspects of performance. One of the most popular is the <strong><span class="math notranslate nohighlight">\(F_1\)</span> score</strong>, which is the harmonic mean of the precision and the recall:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -548,8 +578,8 @@ NPV = 100.0%
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>F1: 0.11
-Balanced: 0.5291005291005291
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>F1: 0.9729096118780932
+Balanced: 0.570238234334972
 </pre></div>
 </div>
 </div>
@@ -583,42 +613,45 @@ print("F1:",metrics.matthews_corrcoef(y_te,yhat)) -->
 <div class="section" id="multiclass-classifiers">
 <h2>Multiclass classifiers<a class="headerlink" href="#multiclass-classifiers" title="Permalink to this headline">¶</a></h2>
 <p>When there are more than two unique possible labels, these measures can be extended using the <strong>one-vs-rest</strong> paradigm. For <span class="math notranslate nohighlight">\(K\)</span> unique labels, this paradigm poses <span class="math notranslate nohighlight">\(K\)</span> binary questions: “Is it in class 1, or not?”, “Is it in class 2, or not?”, etc. This produces <span class="math notranslate nohighlight">\(K\)</span> versions of metrics such as accuracy, recall, <span class="math notranslate nohighlight">\(F_1\)</span>-score, and so on, which can be averaged to give a single score. There are various ways to perform the averaging, depending on whether poorly represented classes are to be weighted more weakly than others. We won’t give the details.</p>
-<p>The confusion matrix also generalizes to <span class="math notranslate nohighlight">\(K\)</span> classes. It’s easiest to see how by an example. We will use a well-known data set derived from automatic recognition of handwritten digits from 0 to 9.</p>
+<p>The confusion matrix also generalizes to <span class="math notranslate nohighlight">\(K\)</span> classes. It’s easiest to see how by an example. We will load a dataset on the characteristics of cars and use quantitative factors to predict the region of origin.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">datasets</span>
-<span class="n">digits</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">load_digits</span><span class="p">()</span>
-<span class="n">X</span> <span class="o">=</span> <span class="n">digits</span><span class="o">.</span><span class="n">data</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">digits</span><span class="o">.</span><span class="n">target</span>
-<span class="n">X_tr</span><span class="p">,</span> <span class="n">X_te</span><span class="p">,</span> <span class="n">y_tr</span><span class="p">,</span> <span class="n">y_te</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;(n,d) =&quot;</span><span class="p">,</span><span class="n">X_tr</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cars</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">load_dataset</span><span class="p">(</span><span class="s2">&quot;mpg&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">cars</span><span class="p">[[</span><span class="s2">&quot;cylinders&quot;</span><span class="p">,</span><span class="s2">&quot;horsepower&quot;</span><span class="p">,</span><span class="s2">&quot;weight&quot;</span><span class="p">,</span><span class="s2">&quot;acceleration&quot;</span><span class="p">,</span><span class="s2">&quot;mpg&quot;</span><span class="p">]]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Categorical</span><span class="p">(</span><span class="n">cars</span><span class="p">[</span><span class="s2">&quot;origin&quot;</span><span class="p">])</span>
 
-<span class="n">knn</span> <span class="o">=</span> <span class="n">neighbors</span><span class="o">.</span><span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<span class="n">X_tr</span><span class="p">,</span> <span class="n">X_te</span><span class="p">,</span> <span class="n">y_tr</span><span class="p">,</span> <span class="n">y_te</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span><span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="s2">&quot;samples,&quot;</span><span class="p">,</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="s2">&quot;features&quot;</span><span class="p">)</span>
+
+<span class="n">knn</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
 <span class="n">knn</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
 <span class="n">yhat</span> <span class="o">=</span> <span class="n">knn</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_te</span><span class="p">)</span>
 
-<span class="n">C</span> <span class="o">=</span> <span class="n">metrics</span><span class="o">.</span><span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_te</span><span class="p">,</span><span class="n">yhat</span><span class="p">)</span>
-<span class="n">metrics</span><span class="o">.</span><span class="n">ConfusionMatrixDisplay</span><span class="p">(</span><span class="n">C</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">();</span>
+<span class="n">labels</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">categories</span>
+<span class="n">C</span> <span class="o">=</span> <span class="n">metrics</span><span class="o">.</span><span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_te</span><span class="p">,</span><span class="n">yhat</span><span class="p">,</span><span class="n">labels</span><span class="o">=</span><span class="n">labels</span><span class="p">)</span>
+<span class="n">metrics</span><span class="o">.</span><span class="n">ConfusionMatrixDisplay</span><span class="p">(</span><span class="n">C</span><span class="p">,</span><span class="n">display_labels</span><span class="o">=</span><span class="n">labels</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">();</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(n,d) = (1437, 64)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>392 samples, 5 features
 </pre></div>
 </div>
-<img alt="../_images/performance_13_1.png" src="../_images/performance_13_1.png" />
+<img alt="../_images/performance_19_1.png" src="../_images/performance_19_1.png" />
 </div>
 </div>
-<p>From the confusion matrix, we can see that, for example, the detection of “1” in the test set gives 35 true positives and a total of 3 false positives. Therefore, that precision is <span class="math notranslate nohighlight">\(35/38=92.1\)</span>%. We can get all the individual precision scores automatically.</p>
+<p>From the confusion matrix, we can see that, for example, out of 52 predictions of “usa” on the test set, there are 5 total false positives. Therefore, that precision is <span class="math notranslate nohighlight">\(47/52=90.4\)</span>%. We can get all the individual precision scores automatically.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">prec</span> <span class="o">=</span> <span class="n">metrics</span><span class="o">.</span><span class="n">precision_score</span><span class="p">(</span><span class="n">y_te</span><span class="p">,</span><span class="n">yhat</span><span class="p">,</span><span class="n">average</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">([</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">p</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">prec</span><span class="p">])</span>
+<span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">p</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">prec</span><span class="p">):</span> <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">labels</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">p</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;100.0%&#39;, &#39;92.1%&#39;, &#39;100.0%&#39;, &#39;97.7%&#39;, &#39;100.0%&#39;, &#39;100.0%&#39;, &#39;100.0%&#39;, &#39;97.2%&#39;, &#39;100.0%&#39;, &#39;100.0%&#39;]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>europe: 62.5%
+japan: 63.2%
+usa: 90.4%
 </pre></div>
 </div>
 </div>
@@ -627,17 +660,16 @@ print("F1:",metrics.matthews_corrcoef(y_te,yhat)) -->
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mac</span> <span class="o">=</span> <span class="n">metrics</span><span class="o">.</span><span class="n">precision_score</span><span class="p">(</span><span class="n">y_te</span><span class="p">,</span><span class="n">yhat</span><span class="p">,</span><span class="n">average</span><span class="o">=</span><span class="s2">&quot;macro&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">([</span><span class="n">mac</span><span class="p">,</span><span class="n">prec</span><span class="o">.</span><span class="n">mean</span><span class="p">()])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">mac</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0.9870019039847682, 0.9870019039847682]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.7201417004048584
 </pre></div>
 </div>
 </div>
 </div>
-<p>When the classes are not well-balanced, you might want to choose a different averaging method.</p>
 </div>
 </div>
 
@@ -673,20 +705,45 @@ print("F1:",metrics.matthews_corrcoef(y_te,yhat)) -->
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="classifier-performance">
 <h1><span class="section-number">3.2. </span>Classifier performance<a class="headerlink" href="#classifier-performance" title="Permalink to this headline">¶</a></h1>
-<p>Let’s return to the classifier for the loan applications data set.</p>
+<p>Let’s return to the (cleaned) loan applications dataset.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">neighbors</span><span class="p">,</span><span class="n">metrics</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="n">loans</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;loan_clean.csv&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Most of the loan applications were successful, as shown by the distribution of funding percentage.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">displot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">loans</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;percent_funded&quot;</span><span class="p">,</span><span class="n">bins</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span><span class="mi">105</span><span class="p">,</span><span class="mi">5</span><span class="p">));</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/performance_3_0.png" src="../_images/performance_3_0.png" />
+</div>
+</div>
+<p>We create a binary classification problem by labelling whether each loan was at least 95% funded. The other columns will form the features for the predictions.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="n">loans</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s2">&quot;percent_funded&quot;</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">loans</span><span class="p">[</span><span class="s2">&quot;percent_funded&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">95</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We will split into test and training sets and apply the nearest neighbors algorithm.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">KNeighborsClassifier</span>
 <span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
 
-<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;data.csv&quot;</span><span class="p">,</span><span class="n">delimiter</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
-<span class="n">n</span><span class="p">,</span><span class="n">d</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;labels.csv&quot;</span><span class="p">,</span><span class="n">delimiter</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
+<span class="n">X_tr</span><span class="p">,</span> <span class="n">X_te</span><span class="p">,</span> <span class="n">y_tr</span><span class="p">,</span> <span class="n">y_te</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span><span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
-<span class="n">X_tr</span><span class="p">,</span> <span class="n">X_te</span><span class="p">,</span> <span class="n">y_tr</span><span class="p">,</span> <span class="n">y_te</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
-
-<span class="n">knn</span> <span class="o">=</span> <span class="n">neighbors</span><span class="o">.</span><span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>   
+<span class="n">knn</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>   
 <span class="n">knn</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_tr</span><span class="p">,</span><span class="n">y_tr</span><span class="p">)</span> 
 <span class="n">acc</span> <span class="o">=</span> <span class="n">knn</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_te</span><span class="p">,</span><span class="n">y_te</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;accuracy is </span><span class="si">{</span><span class="n">acc</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -694,74 +751,73 @@ print("F1:",metrics.matthews_corrcoef(y_te,yhat)) -->
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>accuracy is 78.5%
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>accuracy is 94.8%
 </pre></div>
 </div>
 </div>
 </div>
-<p>Is this good accuracy? Welp, consider that the vast majority of loans were funded:</p>
+<p>At first, this looks like a good result. But consider that the vast majority of loans were funded:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">funded</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">y</span><span class="o">==-</span><span class="mi">1</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">funded</span><span class="o">/</span><span class="n">n</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2"> were funded&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">funded</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">funded</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2"> were funded&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>81.6% were funded
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>95.5% were funded
 </pre></div>
 </div>
 </div>
 </div>
-<p>Therefore, an algorithm that simply “predicts” funding every loan would do nearly as well as the trained classifier!</p>
+<p>Therefore, an algorithm that simply “predicts” funding every loan would do even better than the trained classifier!</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">metrics</span>
-<span class="n">acc</span> <span class="o">=</span> <span class="n">metrics</span><span class="o">.</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_te</span><span class="p">,[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="n">y_te</span><span class="p">))</span>
+<span class="n">acc</span> <span class="o">=</span> <span class="n">metrics</span><span class="o">.</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_te</span><span class="p">,[</span><span class="kc">True</span><span class="p">]</span><span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="n">y_te</span><span class="p">))</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;fund-em-all accuracy is </span><span class="si">{</span><span class="n">acc</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>fund-em-all accuracy is 77.2%
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>fund-em-all accuracy is 95.2%
 </pre></div>
 </div>
 </div>
 </div>
-<p>By comparison, our trained classifier is not impressive at all. We need a metric other than accuracy to detect that, apparently.</p>
+<p>In context, then, our trained classifier is not impressive at all. We need a metric other than accuracy to detect that.</p>
 <div class="section" id="binary-classifiers">
 <h2>Binary classifiers<a class="headerlink" href="#binary-classifiers" title="Permalink to this headline">¶</a></h2>
-<p>Recall that a binary classifier is one that produces just two unique labels, which we call “yes” and “no” here.
-To fully understand the performance of a binary classifier, we have to account for four cases:</p>
+<p>Recall that a binary classifier is one that produces just two unique labels, which we call “yes” and “no” here. To fully understand the performance of a binary classifier, we have to account for four cases:</p>
 <ul class="simple">
 <li><p>True positives (TP): Predicts “yes”, actually is “yes”</p></li>
 <li><p>False positives (FP): Predicts “yes”, actually is “no”</p></li>
 <li><p>True negatives (TN): Predicts “no”, actually is “no”</p></li>
 <li><p>False negatives (FN): Predicts “no”, actually is “yes”</p></li>
 </ul>
-<p>The four cases correspond to a 2×2 table according to the states of the prediction and <em>ground truth</em>, which is the accepted correct value (the given label). The table can be filled with counts or percentages of tested instances, to create a <strong>confusion matrix</strong>, as illustrated in <a class="reference internal" href="#fig-supervised-confusion"><span class="std std-numref">Fig. 3.2.1</span></a>.</p>
+<p>The four cases correspond to a 2×2 table according to the states of the prediction and <em>ground truth</em>, which is the accepted correct value (i.e., the given label). The table can be filled with counts or percentages of tested instances, to create a <strong>confusion matrix</strong>, as illustrated in <a class="reference internal" href="#fig-supervised-confusion"><span class="std std-numref">Fig. 3.2.1</span></a>.</p>
 <div class="figure align-default" id="fig-supervised-confusion">
 <img alt="../_images/confusion.svg" src="../_images/confusion.svg" /><p class="caption"><span class="caption-number">Fig. 3.2.1 </span><span class="caption-text">Confusion matrix</span><a class="headerlink" href="#fig-supervised-confusion" title="Permalink to this image">¶</a></p>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">yhat</span> <span class="o">=</span> <span class="n">knn</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_te</span><span class="p">)</span>
-<span class="n">C</span> <span class="o">=</span> <span class="n">metrics</span><span class="o">.</span><span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_te</span><span class="p">,</span><span class="n">yhat</span><span class="p">,</span><span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">C</span> <span class="o">=</span> <span class="n">metrics</span><span class="o">.</span><span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_te</span><span class="p">,</span><span class="n">yhat</span><span class="p">,</span><span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="kc">True</span><span class="p">,</span><span class="kc">False</span><span class="p">])</span>
 <span class="n">lbl</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;fund&quot;</span><span class="p">,</span><span class="s2">&quot;reject&quot;</span><span class="p">]</span>
 <span class="n">metrics</span><span class="o">.</span><span class="n">ConfusionMatrixDisplay</span><span class="p">(</span><span class="n">C</span><span class="p">,</span><span class="n">display_labels</span><span class="o">=</span><span class="n">lbl</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">();</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/performance_7_0.png" src="../_images/performance_7_0.png" />
+<img alt="../_images/performance_13_0.png" src="../_images/performance_13_0.png" />
 </div>
 </div>
-<p>Hence there are 656 true positives (funded) and 12 true negatives (rejected). Therefore, the <strong>accuracy</strong> is</p>
+<p>Hence there are 7470 true positives (funded) and 58 true negatives (rejected). Therefore, the <strong>accuracy</strong> is</p>
 <div class="math notranslate nohighlight">
 \[
-\text{accuracy} = \frac{\TP + \TN}{\TP + \FP + \TN + \FN} = \frac{680}{828} = 0.821256\ldots,
+\text{accuracy} = \frac{\TP + \TN}{\TP + \FP + \TN + \FN} = \frac{7528}{7944} \approx 0.94763
 \]</div>
-<p>i.e., 82.1%. However, there are four other quantities defined by putting a “number correct” value in the numerator and a sum of a row or column in the denominator:</p>
+<p>i.e., 94.8%. However, there are four other quantities defined by putting a “number correct” value in the numerator and the sum of a confusion matrix row or column in the denominator:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \text{recall (aka sensitvity)} &amp;= \frac{\TP}{\TP + \FN} \\[2mm]
@@ -788,15 +844,15 @@ To fully understand the performance of a binary classifier, we have to account f
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>recall = 100.0%
-specificity = 5.8%
-precision = 78.2%
-NPV = 100.0%
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>recall = 98.7%
+specificity = 15.3%
+precision = 95.9%
+NPV = 37.9%
 </pre></div>
 </div>
 </div>
 </div>
-<p>The recall is almost perfect: virtually nobody who should get a loan will go away disappointed. However, the low specificity would be concerning to those doing the funding, because 95% who should be rejected will be funded as well. (It’s now clear that the trained classifier is barely different from the “fund them all” one.)</p>
+<p>The high recall rate means that few who ought to get a loan will go away disappointed. However, the low specificity would be concerning to those doing the funding, because almost 85% of those who should be rejected will be funded as well.</p>
 <p>There are numerous ways to combine these measures into a single number other than standard accuracy. None is universally best, because different applications emphasize different aspects of performance. One of the most popular is the <strong><span class="math notranslate nohighlight">\(F_1\)</span> score</strong>, which is the harmonic mean of the precision and the recall:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -813,8 +869,8 @@ NPV = 100.0%
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>F1: 0.11
-Balanced: 0.5291005291005291
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>F1: 0.9729096118780932
+Balanced: 0.570238234334972
 </pre></div>
 </div>
 </div>
@@ -848,42 +904,45 @@ print("F1:",metrics.matthews_corrcoef(y_te,yhat)) -->
 <div class="section" id="multiclass-classifiers">
 <h2>Multiclass classifiers<a class="headerlink" href="#multiclass-classifiers" title="Permalink to this headline">¶</a></h2>
 <p>When there are more than two unique possible labels, these measures can be extended using the <strong>one-vs-rest</strong> paradigm. For <span class="math notranslate nohighlight">\(K\)</span> unique labels, this paradigm poses <span class="math notranslate nohighlight">\(K\)</span> binary questions: “Is it in class 1, or not?”, “Is it in class 2, or not?”, etc. This produces <span class="math notranslate nohighlight">\(K\)</span> versions of metrics such as accuracy, recall, <span class="math notranslate nohighlight">\(F_1\)</span>-score, and so on, which can be averaged to give a single score. There are various ways to perform the averaging, depending on whether poorly represented classes are to be weighted more weakly than others. We won’t give the details.</p>
-<p>The confusion matrix also generalizes to <span class="math notranslate nohighlight">\(K\)</span> classes. It’s easiest to see how by an example. We will use a well-known data set derived from automatic recognition of handwritten digits from 0 to 9.</p>
+<p>The confusion matrix also generalizes to <span class="math notranslate nohighlight">\(K\)</span> classes. It’s easiest to see how by an example. We will load a dataset on the characteristics of cars and use quantitative factors to predict the region of origin.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">datasets</span>
-<span class="n">digits</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">load_digits</span><span class="p">()</span>
-<span class="n">X</span> <span class="o">=</span> <span class="n">digits</span><span class="o">.</span><span class="n">data</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">digits</span><span class="o">.</span><span class="n">target</span>
-<span class="n">X_tr</span><span class="p">,</span> <span class="n">X_te</span><span class="p">,</span> <span class="n">y_tr</span><span class="p">,</span> <span class="n">y_te</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;(n,d) =&quot;</span><span class="p">,</span><span class="n">X_tr</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cars</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">load_dataset</span><span class="p">(</span><span class="s2">&quot;mpg&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">cars</span><span class="p">[[</span><span class="s2">&quot;cylinders&quot;</span><span class="p">,</span><span class="s2">&quot;horsepower&quot;</span><span class="p">,</span><span class="s2">&quot;weight&quot;</span><span class="p">,</span><span class="s2">&quot;acceleration&quot;</span><span class="p">,</span><span class="s2">&quot;mpg&quot;</span><span class="p">]]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Categorical</span><span class="p">(</span><span class="n">cars</span><span class="p">[</span><span class="s2">&quot;origin&quot;</span><span class="p">])</span>
 
-<span class="n">knn</span> <span class="o">=</span> <span class="n">neighbors</span><span class="o">.</span><span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<span class="n">X_tr</span><span class="p">,</span> <span class="n">X_te</span><span class="p">,</span> <span class="n">y_tr</span><span class="p">,</span> <span class="n">y_te</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span><span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="s2">&quot;samples,&quot;</span><span class="p">,</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="s2">&quot;features&quot;</span><span class="p">)</span>
+
+<span class="n">knn</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
 <span class="n">knn</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
 <span class="n">yhat</span> <span class="o">=</span> <span class="n">knn</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_te</span><span class="p">)</span>
 
-<span class="n">C</span> <span class="o">=</span> <span class="n">metrics</span><span class="o">.</span><span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_te</span><span class="p">,</span><span class="n">yhat</span><span class="p">)</span>
-<span class="n">metrics</span><span class="o">.</span><span class="n">ConfusionMatrixDisplay</span><span class="p">(</span><span class="n">C</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">();</span>
+<span class="n">labels</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">categories</span>
+<span class="n">C</span> <span class="o">=</span> <span class="n">metrics</span><span class="o">.</span><span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_te</span><span class="p">,</span><span class="n">yhat</span><span class="p">,</span><span class="n">labels</span><span class="o">=</span><span class="n">labels</span><span class="p">)</span>
+<span class="n">metrics</span><span class="o">.</span><span class="n">ConfusionMatrixDisplay</span><span class="p">(</span><span class="n">C</span><span class="p">,</span><span class="n">display_labels</span><span class="o">=</span><span class="n">labels</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">();</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(n,d) = (1437, 64)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>392 samples, 5 features
 </pre></div>
 </div>
-<img alt="../_images/performance_13_1.png" src="../_images/performance_13_1.png" />
+<img alt="../_images/performance_19_1.png" src="../_images/performance_19_1.png" />
 </div>
 </div>
-<p>From the confusion matrix, we can see that, for example, the detection of “1” in the test set gives 35 true positives and a total of 3 false positives. Therefore, that precision is <span class="math notranslate nohighlight">\(35/38=92.1\)</span>%. We can get all the individual precision scores automatically.</p>
+<p>From the confusion matrix, we can see that, for example, out of 52 predictions of “usa” on the test set, there are 5 total false positives. Therefore, that precision is <span class="math notranslate nohighlight">\(47/52=90.4\)</span>%. We can get all the individual precision scores automatically.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">prec</span> <span class="o">=</span> <span class="n">metrics</span><span class="o">.</span><span class="n">precision_score</span><span class="p">(</span><span class="n">y_te</span><span class="p">,</span><span class="n">yhat</span><span class="p">,</span><span class="n">average</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">([</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">p</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">prec</span><span class="p">])</span>
+<span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">p</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">prec</span><span class="p">):</span> <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">labels</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">p</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;100.0%&#39;, &#39;92.1%&#39;, &#39;100.0%&#39;, &#39;97.7%&#39;, &#39;100.0%&#39;, &#39;100.0%&#39;, &#39;100.0%&#39;, &#39;97.2%&#39;, &#39;100.0%&#39;, &#39;100.0%&#39;]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>europe: 62.5%
+japan: 63.2%
+usa: 90.4%
 </pre></div>
 </div>
 </div>
@@ -892,17 +951,16 @@ print("F1:",metrics.matthews_corrcoef(y_te,yhat)) -->
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mac</span> <span class="o">=</span> <span class="n">metrics</span><span class="o">.</span><span class="n">precision_score</span><span class="p">(</span><span class="n">y_te</span><span class="p">,</span><span class="n">yhat</span><span class="p">,</span><span class="n">average</span><span class="o">=</span><span class="s2">&quot;macro&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">([</span><span class="n">mac</span><span class="p">,</span><span class="n">prec</span><span class="o">.</span><span class="n">mean</span><span class="p">()])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">mac</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0.9870019039847682, 0.9870019039847682]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.7201417004048584
 </pre></div>
 </div>
 </div>
 </div>
-<p>When the classes are not well-balanced, you might want to choose a different averaging method.</p>
 </div>
 </div>
 
@@ -931,7 +989,7 @@ print("F1:",metrics.matthews_corrcoef(y_te,yhat)) -->
         
             <!-- Previous / next buttons -->
 <div class='prev-next-area'> 
-    <a class='left-prev' id="prev-link" href="scikit.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="sklearn.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
