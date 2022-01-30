@@ -175,36 +175,35 @@ The point is that each individual metric gives part of the picture, but it can b
 
 When there are more than two unique possible labels, these measures can be extended using the **one-vs-rest** paradigm. For $K$ unique labels, this paradigm poses $K$ binary questions: "Is it in class 1, or not?", "Is it in class 2, or not?", etc. This produces $K$ versions of metrics such as accuracy, recall, $F_1$-score, and so on, which can be averaged to give a single score. There are various ways to perform the averaging, depending on whether poorly represented classes are to be weighted more weakly than others. We won't give the details.
 
-The confusion matrix also generalizes to $K$ classes. It's easiest to see how by an example. We will use a well-known data set derived from automatic recognition of handwritten digits from 0 to 9.
+The confusion matrix also generalizes to $K$ classes. It's easiest to see how by an example. We will load a dataset on the characteristics of cars and use quantitative factors to predict the region of origin. 
 
 ```{code-cell}
-from sklearn import datasets
-digits = datasets.load_digits()
-X = digits.data
-y = digits.target
-X_tr, X_te, y_tr, y_te = train_test_split(X,y,test_size=0.2)
-print("(n,d) =",X_tr.shape)
+cars = sns.load_dataset("mpg").dropna()
+X = cars[["cylinders","horsepower","weight","acceleration","mpg"]]
+y = pd.Categorical(cars["origin"])
 
-knn = neighbors.KNeighborsClassifier(n_neighbors=16)
+X_tr, X_te, y_tr, y_te = train_test_split(X,y,test_size=0.2,shuffle=True,random_state=1)
+print(X.shape[0],"samples,",X.shape[1],"features")
+
+knn = KNeighborsClassifier(n_neighbors=8)
 knn.fit(X,y)
 yhat = knn.predict(X_te)
 
-C = metrics.confusion_matrix(y_te,yhat)
-metrics.ConfusionMatrixDisplay(C).plot();
+labels = y.categories
+C = metrics.confusion_matrix(y_te,yhat,labels=labels)
+metrics.ConfusionMatrixDisplay(C,display_labels=labels).plot();
 ```
 
-From the confusion matrix, we can see that, for example, the detection of "1" in the test set gives 35 true positives and a total of 3 false positives. Therefore, that precision is $35/38=92.1$%. We can get all the individual precision scores automatically.
+From the confusion matrix, we can see that, for example, out of 52 predictions of "usa" on the test set, there are 5 total false positives. Therefore, that precision is $47/52=90.4$%. We can get all the individual precision scores automatically.
 
 ```{code-cell}
 prec = metrics.precision_score(y_te,yhat,average=None)
-print([f"{p:.1%}" for p in prec])
+for (i,p) in enumerate(prec): print(f"{labels[i]}: {p:.1%}")
 ```
 
 To get a composite precision score, we have to specify an averaging method. The `"macro"` option simply takes the mean of the vector above.
 
 ```{code-cell}
 mac = metrics.precision_score(y_te,yhat,average="macro")
-print([mac,prec.mean()])
+print(mac)
 ```
-
-When the classes are not well-balanced, you might want to choose a different averaging method.
