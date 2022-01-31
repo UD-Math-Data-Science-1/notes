@@ -29,6 +29,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
     <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     
@@ -144,13 +145,13 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../statistics/split-apply-combine.html">
-     2.1. Split–apply–combine
+    <a class="reference internal" href="../statistics/summary.html">
+     2.1. Summary statistics
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../statistics/summary.html">
-     2.2. Summary statistics
+    <a class="reference internal" href="../statistics/split-apply-combine.html">
+     2.2. Split–apply–combine
     </a>
    </li>
    <li class="toctree-l2">
@@ -161,6 +162,11 @@
    <li class="toctree-l2">
     <a class="reference internal" href="../statistics/correlation.html">
      2.4. Correlation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../statistics/exercises.html">
+     2.5. Exercises
     </a>
    </li>
   </ul>
@@ -176,7 +182,7 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../supervised/scikit.html">
+    <a class="reference internal" href="../supervised/sklearn.html">
      3.1. Using scikit-learn
     </a>
    </li>
@@ -305,11 +311,14 @@
 
     <div class="dropdown-buttons">
         <!-- ipynb file if we had a myst markdown file -->
-        
-        <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/representation/numpy.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+        <a class="dropdown-buttons"
+            href="../_sources/representation/numpy.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download notebook file" data-toggle="tooltip"
                 data-placement="left">.ipynb</button></a>
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/representation/numpy.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
         <!-- Download PDF via print -->
         <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
                 onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
@@ -332,7 +341,7 @@
         aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
     <div class="dropdown-buttons">
         
-        <a class="binder-button" href="https://mybinder.org/v2/gh/UD-Math-Data-Science-1/notes/main?urlpath=tree/representation/numpy.ipynb"><button type="button"
+        <a class="binder-button" href="https://mybinder.org/v2/gh/UD-Math-Data-Science-1/notes/main?urlpath=tree/representation/numpy.md"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
                 data-placement="left"><img class="binder-button-logo"
                     src="../_static/images/logo_binder.svg"
@@ -480,19 +489,44 @@
 </div>
 </div>
 <p>Informally, an array with one dimension may be referred to as a vector, but that is not an official designation in numpy.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">showthem</span><span class="p">(</span><span class="n">lines</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">()</span> 
+        <span class="nb">print</span><span class="p">(</span><span class="n">line</span><span class="p">,</span><span class="s2">&quot;=&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="nb">eval</span><span class="p">(</span><span class="n">line</span><span class="p">))</span>
+    <span class="k">return</span> <span class="kc">None</span>
+</pre></div>
+</div>
+</div>
+</div>
 <p>The components of the array are referenced starting at 0.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;x[0] =&quot;</span><span class="p">,</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;x[[0,1,2]] =&quot;</span><span class="p">,</span><span class="n">x</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]])</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;x[:3] =&quot;</span><span class="p">,</span><span class="n">x</span><span class="p">[:</span><span class="mi">3</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">showthem</span><span class="p">([</span><span class="s2">&quot;x[0]&quot;</span><span class="p">,</span><span class="s2">&quot;x[[0,1,2]]&quot;</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>x[0] = 1
-x[[0,1,2]] = [1 2 3]
-x[:3] = [1 2 3]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>x[0] =
+1
+
+x[[0,1,2]] =
+[1 2 3]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">showthem</span><span class="p">([</span><span class="s2">&quot;x[:3]&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>x[:3] =
+[1 2 3]
 </pre></div>
 </div>
 </div>
@@ -500,14 +534,16 @@ x[:3] = [1 2 3]
 <p>The use of <code class="docutils literal notranslate"><span class="pre">x[:3]</span></code> above is referred to as <strong>slicing</strong> the array. The <code class="docutils literal notranslate"><span class="pre">:3</span></code> means to take the first three elements. If we want to reference from the end instead of the beginning, we can use negative indexes.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;x[-1] =&quot;</span><span class="p">,</span><span class="n">x</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;x[-3:] =&quot;</span><span class="p">,</span><span class="n">x</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">:])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">showthem</span><span class="p">([</span><span class="s2">&quot;x[-1]&quot;</span><span class="p">,</span><span class="s2">&quot;x[-3:]&quot;</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>x[-1] = 5
-x[-3:] = [3 4 5]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>x[-1] =
+5
+
+x[-3:] =
+[3 4 5]
 </pre></div>
 </div>
 </div>
@@ -515,12 +551,13 @@ x[-3:] = [3 4 5]
 <p>Where numpy slicing gets confusing is that in the range <code class="docutils literal notranslate"><span class="pre">i:j</span></code>, <em>the last index is not part of the slice.</em> This does mean that there are going to be <span class="math notranslate nohighlight">\(j-i\)</span> values in the slice.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;x[1:4]=&quot;</span><span class="p">,</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">4</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">showthem</span><span class="p">([</span><span class="s2">&quot;x[1:4]&quot;</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>x[1:4]= [2 3 4]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>x[1:4] =
+[2 3 4]
 </pre></div>
 </div>
 </div>
@@ -528,12 +565,13 @@ x[-3:] = [3 4 5]
 <p>Also, numpy is happy to let you index past the end of the array. It will just return as much as is available without complaint. This can be a source of frustrating bugs.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;x[1:10]=&quot;</span><span class="p">,</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">10</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">showthem</span><span class="p">([</span><span class="s2">&quot;x[1:10]&quot;</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>x[1:10]= [2 3 4 5]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>x[1:10] =
+[2 3 4 5]
 </pre></div>
 </div>
 </div>
@@ -555,18 +593,6 @@ x[-3:] = [3 4 5]
 </div>
 </div>
 <p>You can slice in each dimension individually.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">showthem</span><span class="p">(</span><span class="n">lines</span><span class="p">):</span>
-    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">()</span> 
-        <span class="nb">print</span><span class="p">(</span><span class="n">line</span><span class="p">,</span><span class="s2">&quot;=&quot;</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="nb">eval</span><span class="p">(</span><span class="n">line</span><span class="p">))</span>
-    <span class="k">return</span> <span class="kc">None</span>
-</pre></div>
-</div>
-</div>
-</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">showthem</span><span class="p">([</span><span class="s2">&quot;A[-2:,:2]&quot;</span><span class="p">])</span>
@@ -682,12 +708,12 @@ x+y =
 </div>
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">ValueError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="n">cn</span><span class="o">/</span><span class="mi">8</span><span class="n">w40979d27x0kv2wsnx7zgvm0000gp</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_95159</span><span class="o">/</span><span class="mf">3262596443.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="n">cn</span><span class="o">/</span><span class="mi">8</span><span class="n">w40979d27x0kv2wsnx7zgvm0000gp</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_53242</span><span class="o">/</span><span class="mf">3262596443.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
 <span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">])</span>
 <span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">10</span><span class="p">,</span><span class="mi">20</span><span class="p">])</span>
 <span class="ne">----&gt; </span><span class="mi">3</span> <span class="n">showthem</span><span class="p">([</span><span class="s2">&quot;x+x&quot;</span><span class="p">,</span><span class="s2">&quot;x+y&quot;</span><span class="p">])</span>
 
-<span class="nn">/var/folders/cn/8w40979d27x0kv2wsnx7zgvm0000gp/T/ipykernel_95159/1104616966.py</span> in <span class="ni">showthem</span><span class="nt">(lines)</span>
+<span class="nn">/var/folders/cn/8w40979d27x0kv2wsnx7zgvm0000gp/T/ipykernel_53242/1104616966.py</span> in <span class="ni">showthem</span><span class="nt">(lines)</span>
 <span class="g g-Whitespace">      </span><span class="mi">3</span>         <span class="nb">print</span><span class="p">()</span>
 <span class="g g-Whitespace">      </span><span class="mi">4</span>         <span class="nb">print</span><span class="p">(</span><span class="n">line</span><span class="p">,</span><span class="s2">&quot;=&quot;</span><span class="p">)</span>
 <span class="ne">----&gt; </span><span class="mi">5</span>         <span class="nb">print</span><span class="p">(</span><span class="nb">eval</span><span class="p">(</span><span class="n">line</span><span class="p">))</span>
@@ -805,7 +831,7 @@ A-y =
 </div>
 </div>
 </div>
-</div>
+<div style="max-width:608px"><div style="position:relative;padding-bottom:66.118421052632%"><iframe id="kaltura_player" src="https://cdnapisec.kaltura.com/p/2358381/sp/235838100/embedIframeJs/uiconf_id/43030021/partner_id/2358381?iframeembed=true&playerId=kaltura_player&entry_id=1_w2pr41c8&flashvars[streamerType]=auto&amp;flashvars[localizationCode]=en&amp;flashvars[leadWithHTML5]=true&amp;flashvars[sideBarContainer.plugin]=true&amp;flashvars[sideBarContainer.position]=left&amp;flashvars[sideBarContainer.clickToClose]=true&amp;flashvars[chapters.plugin]=true&amp;flashvars[chapters.layout]=vertical&amp;flashvars[chapters.thumbnailRotator]=false&amp;flashvars[streamSelector.plugin]=true&amp;flashvars[EmbedPlayer.SpinnerTarget]=videoHolder&amp;flashvars[dualScreen.plugin]=true&amp;flashvars[Kaltura.addCrossoriginToIframe]=true&amp;&wid=1_1bu728r1" width="608" height="402" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen *; encrypted-media *" sandbox="allow-forms allow-same-origin allow-scripts allow-top-navigation allow-pointer-lock allow-popups allow-modals allow-orientation-lock allow-popups-to-escape-sandbox allow-presentation allow-top-navigation-by-user-activation" frameborder="0" title="Kaltura Player" style="position:absolute;top:0;left:0;width:100%;height:100%"></iframe></div></div></div>
 </div>
 
     <script type="text/x-thebe-config">
@@ -895,19 +921,44 @@ A-y =
 </div>
 </div>
 <p>Informally, an array with one dimension may be referred to as a vector, but that is not an official designation in numpy.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">showthem</span><span class="p">(</span><span class="n">lines</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">()</span> 
+        <span class="nb">print</span><span class="p">(</span><span class="n">line</span><span class="p">,</span><span class="s2">&quot;=&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="nb">eval</span><span class="p">(</span><span class="n">line</span><span class="p">))</span>
+    <span class="k">return</span> <span class="kc">None</span>
+</pre></div>
+</div>
+</div>
+</div>
 <p>The components of the array are referenced starting at 0.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;x[0] =&quot;</span><span class="p">,</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;x[[0,1,2]] =&quot;</span><span class="p">,</span><span class="n">x</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]])</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;x[:3] =&quot;</span><span class="p">,</span><span class="n">x</span><span class="p">[:</span><span class="mi">3</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">showthem</span><span class="p">([</span><span class="s2">&quot;x[0]&quot;</span><span class="p">,</span><span class="s2">&quot;x[[0,1,2]]&quot;</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>x[0] = 1
-x[[0,1,2]] = [1 2 3]
-x[:3] = [1 2 3]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>x[0] =
+1
+
+x[[0,1,2]] =
+[1 2 3]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">showthem</span><span class="p">([</span><span class="s2">&quot;x[:3]&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>x[:3] =
+[1 2 3]
 </pre></div>
 </div>
 </div>
@@ -915,14 +966,16 @@ x[:3] = [1 2 3]
 <p>The use of <code class="docutils literal notranslate"><span class="pre">x[:3]</span></code> above is referred to as <strong>slicing</strong> the array. The <code class="docutils literal notranslate"><span class="pre">:3</span></code> means to take the first three elements. If we want to reference from the end instead of the beginning, we can use negative indexes.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;x[-1] =&quot;</span><span class="p">,</span><span class="n">x</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;x[-3:] =&quot;</span><span class="p">,</span><span class="n">x</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">:])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">showthem</span><span class="p">([</span><span class="s2">&quot;x[-1]&quot;</span><span class="p">,</span><span class="s2">&quot;x[-3:]&quot;</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>x[-1] = 5
-x[-3:] = [3 4 5]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>x[-1] =
+5
+
+x[-3:] =
+[3 4 5]
 </pre></div>
 </div>
 </div>
@@ -930,12 +983,13 @@ x[-3:] = [3 4 5]
 <p>Where numpy slicing gets confusing is that in the range <code class="docutils literal notranslate"><span class="pre">i:j</span></code>, <em>the last index is not part of the slice.</em> This does mean that there are going to be <span class="math notranslate nohighlight">\(j-i\)</span> values in the slice.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;x[1:4]=&quot;</span><span class="p">,</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">4</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">showthem</span><span class="p">([</span><span class="s2">&quot;x[1:4]&quot;</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>x[1:4]= [2 3 4]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>x[1:4] =
+[2 3 4]
 </pre></div>
 </div>
 </div>
@@ -943,12 +997,13 @@ x[-3:] = [3 4 5]
 <p>Also, numpy is happy to let you index past the end of the array. It will just return as much as is available without complaint. This can be a source of frustrating bugs.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;x[1:10]=&quot;</span><span class="p">,</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">10</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">showthem</span><span class="p">([</span><span class="s2">&quot;x[1:10]&quot;</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>x[1:10]= [2 3 4 5]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>x[1:10] =
+[2 3 4 5]
 </pre></div>
 </div>
 </div>
@@ -970,18 +1025,6 @@ x[-3:] = [3 4 5]
 </div>
 </div>
 <p>You can slice in each dimension individually.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">showthem</span><span class="p">(</span><span class="n">lines</span><span class="p">):</span>
-    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">()</span> 
-        <span class="nb">print</span><span class="p">(</span><span class="n">line</span><span class="p">,</span><span class="s2">&quot;=&quot;</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="nb">eval</span><span class="p">(</span><span class="n">line</span><span class="p">))</span>
-    <span class="k">return</span> <span class="kc">None</span>
-</pre></div>
-</div>
-</div>
-</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">showthem</span><span class="p">([</span><span class="s2">&quot;A[-2:,:2]&quot;</span><span class="p">])</span>
@@ -1097,12 +1140,12 @@ x+y =
 </div>
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">ValueError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="n">cn</span><span class="o">/</span><span class="mi">8</span><span class="n">w40979d27x0kv2wsnx7zgvm0000gp</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_95159</span><span class="o">/</span><span class="mf">3262596443.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="n">cn</span><span class="o">/</span><span class="mi">8</span><span class="n">w40979d27x0kv2wsnx7zgvm0000gp</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_53242</span><span class="o">/</span><span class="mf">3262596443.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
 <span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">])</span>
 <span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">10</span><span class="p">,</span><span class="mi">20</span><span class="p">])</span>
 <span class="ne">----&gt; </span><span class="mi">3</span> <span class="n">showthem</span><span class="p">([</span><span class="s2">&quot;x+x&quot;</span><span class="p">,</span><span class="s2">&quot;x+y&quot;</span><span class="p">])</span>
 
-<span class="nn">/var/folders/cn/8w40979d27x0kv2wsnx7zgvm0000gp/T/ipykernel_95159/1104616966.py</span> in <span class="ni">showthem</span><span class="nt">(lines)</span>
+<span class="nn">/var/folders/cn/8w40979d27x0kv2wsnx7zgvm0000gp/T/ipykernel_53242/1104616966.py</span> in <span class="ni">showthem</span><span class="nt">(lines)</span>
 <span class="g g-Whitespace">      </span><span class="mi">3</span>         <span class="nb">print</span><span class="p">()</span>
 <span class="g g-Whitespace">      </span><span class="mi">4</span>         <span class="nb">print</span><span class="p">(</span><span class="n">line</span><span class="p">,</span><span class="s2">&quot;=&quot;</span><span class="p">)</span>
 <span class="ne">----&gt; </span><span class="mi">5</span>         <span class="nb">print</span><span class="p">(</span><span class="nb">eval</span><span class="p">(</span><span class="n">line</span><span class="p">))</span>
@@ -1220,7 +1263,7 @@ A-y =
 </div>
 </div>
 </div>
-</div>
+<div style="max-width:608px"><div style="position:relative;padding-bottom:66.118421052632%"><iframe id="kaltura_player" src="https://cdnapisec.kaltura.com/p/2358381/sp/235838100/embedIframeJs/uiconf_id/43030021/partner_id/2358381?iframeembed=true&playerId=kaltura_player&entry_id=1_w2pr41c8&flashvars[streamerType]=auto&amp;flashvars[localizationCode]=en&amp;flashvars[leadWithHTML5]=true&amp;flashvars[sideBarContainer.plugin]=true&amp;flashvars[sideBarContainer.position]=left&amp;flashvars[sideBarContainer.clickToClose]=true&amp;flashvars[chapters.plugin]=true&amp;flashvars[chapters.layout]=vertical&amp;flashvars[chapters.thumbnailRotator]=false&amp;flashvars[streamSelector.plugin]=true&amp;flashvars[EmbedPlayer.SpinnerTarget]=videoHolder&amp;flashvars[dualScreen.plugin]=true&amp;flashvars[Kaltura.addCrossoriginToIframe]=true&amp;&wid=1_1bu728r1" width="608" height="402" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen *; encrypted-media *" sandbox="allow-forms allow-same-origin allow-scripts allow-top-navigation allow-pointer-lock allow-popups allow-modals allow-orientation-lock allow-popups-to-escape-sandbox allow-presentation allow-top-navigation-by-user-activation" frameborder="0" title="Kaltura Player" style="position:absolute;top:0;left:0;width:100%;height:100%"></iframe></div></div></div>
 </div>
 
     <script type="text/x-thebe-config">
