@@ -2,9 +2,9 @@
 
 ## Useful guides
 
-* [pandas user guide](https://pandas.pydata.org/docs/user_guide/index.html),  [cheat sheet](https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf), [long summary](https://www.webpages.uidaho.edu/~stevel/504/pandas%20dataframe%20notes.pdf)
-* [seaborn tutorial](https://seaborn.pydata.org/tutorial.html), [cheat sheet](https://storage.googleapis.com/kaggle-forum-message-attachments/724698/14798/seaborn.JPG)
-* [scikit-learn user guide](https://scikit-learn.org/stable/user_guide.html), [cheat sheet])(http://datacamp-community-prod.s3.amazonaws.com/eb807da5-dce5-4b97-a54d-74e89f14266b)
+* [pandas user guide](https://pandas.pydata.org/docs/user_guide/index.html), [pandas cheat sheet](https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf), [pandas long summary](https://www.webpages.uidaho.edu/~stevel/504/pandas%20dataframe%20notes.pdf)
+* [seaborn tutorial](https://seaborn.pydata.org/tutorial.html), [seaborn cheat sheet](https://storage.googleapis.com/kaggle-forum-message-attachments/724698/14798/seaborn.JPG)
+* [scikit-learn user guide](https://scikit-learn.org/stable/user_guide.html), [sklearn cheat sheet](http://datacamp-community-prod.s3.amazonaws.com/eb807da5-dce5-4b97-a54d-74e89f14266b)
 * [numpy cheat sheet](http://datacamp-community-prod.s3.amazonaws.com/ba1fe95a-8b70-4d2f-95b0-bc954e9071b0)
 
 ## Data sources
