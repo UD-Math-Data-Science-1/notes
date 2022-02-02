@@ -149,13 +149,12 @@ A common way to visualize quartiles is by a **box plot**.
 sns.catplot(data=cars,x="origin",y="mpg",kind="box");
 ```
 
-Each colored box shows the interquartile range, with the interior horizontal line showing the median. The "whiskers" and dots are explained in a later section. 
-
-An alternative to a box plot is a **violin plot**.
+Each colored box shows the interquartile range, with the interior horizontal line showing the median. The "whiskers" and dots are explained in a later section. A related visualization is a **violin plot**.
 
 ```{code-cell} ipython3
 sns.catplot(data=cars,x="mpg",y="origin",kind="violin");
 ```
 
-In a violin plot, the inner lines still show the same information as the box plot, and the sides of the "violins" are KDE estimates of the continuous distributions.
+In a violin plot, the inner lines show the same information as the box plot, with the thick part showing the IQR, while the sides of the "violins" are KDE estimates of the continuous distributions.
 
+<div style="max-width:608px"><div style="position:relative;padding-bottom:66.118421052632%"><iframe id="kaltura_player" src="https://cdnapisec.kaltura.com/p/2358381/sp/235838100/embedIframeJs/uiconf_id/43030021/partner_id/2358381?iframeembed=true&playerId=kaltura_player&entry_id=1_kqyy86qx&flashvars[streamerType]=auto&amp;flashvars[localizationCode]=en&amp;flashvars[leadWithHTML5]=true&amp;flashvars[sideBarContainer.plugin]=true&amp;flashvars[sideBarContainer.position]=left&amp;flashvars[sideBarContainer.clickToClose]=true&amp;flashvars[chapters.plugin]=true&amp;flashvars[chapters.layout]=vertical&amp;flashvars[chapters.thumbnailRotator]=false&amp;flashvars[streamSelector.plugin]=true&amp;flashvars[EmbedPlayer.SpinnerTarget]=videoHolder&amp;flashvars[dualScreen.plugin]=true&amp;flashvars[Kaltura.addCrossoriginToIframe]=true&amp;&wid=1_mp2d99cc" width="608" height="402" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen *; encrypted-media *" sandbox="allow-forms allow-same-origin allow-scripts allow-top-navigation allow-pointer-lock allow-popups allow-modals allow-orientation-lock allow-popups-to-escape-sandbox allow-presentation allow-top-navigation-by-user-activation" frameborder="0" title="Kaltura Player" style="position:absolute;top:0;left:0;width:100%;height:100%"></iframe></div></div>
