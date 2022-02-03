@@ -164,6 +164,11 @@
      2.4. Correlation
     </a>
    </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="exercises.html">
+     2.5. Exercises
+    </a>
+   </li>
   </ul>
  </li>
  <li class="toctree-l1 has-children">
@@ -177,7 +182,7 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../supervised/scikit.html">
+    <a class="reference internal" href="../supervised/sklearn.html">
      3.1. Using scikit-learn
     </a>
    </li>
@@ -430,15 +435,167 @@
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
 
 <span class="n">fmri</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">load_dataset</span><span class="p">(</span><span class="s2">&quot;fmri&quot;</span><span class="p">)</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">catplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">fmri</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;event&quot;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s2">&quot;signal&quot;</span><span class="p">,</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;box&quot;</span><span class="p">)</span>
+<span class="n">fmri</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.FacetGrid at 0x7fb0fa9666d0&gt;
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>subject</th>
+      <th>timepoint</th>
+      <th>event</th>
+      <th>region</th>
+      <th>signal</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>s13</td>
+      <td>18</td>
+      <td>stim</td>
+      <td>parietal</td>
+      <td>-0.017552</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>s5</td>
+      <td>14</td>
+      <td>stim</td>
+      <td>parietal</td>
+      <td>-0.080883</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>s12</td>
+      <td>18</td>
+      <td>stim</td>
+      <td>parietal</td>
+      <td>-0.081033</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>s11</td>
+      <td>18</td>
+      <td>stim</td>
+      <td>parietal</td>
+      <td>-0.046134</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>s10</td>
+      <td>18</td>
+      <td>stim</td>
+      <td>parietal</td>
+      <td>-0.037970</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>We want to focus on the <em>signal</em> column, splitting according to the <em>event</em>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fmri</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;event&quot;</span><span class="p">)[</span><span class="s2">&quot;signal&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
 </pre></div>
 </div>
-<img alt="../_images/outliers_1_1.png" src="../_images/outliers_1_1.png" />
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>count</th>
+      <th>mean</th>
+      <th>std</th>
+      <th>min</th>
+      <th>25%</th>
+      <th>50%</th>
+      <th>75%</th>
+      <th>max</th>
+    </tr>
+    <tr>
+      <th>event</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>cue</th>
+      <td>532.0</td>
+      <td>-0.006669</td>
+      <td>0.047752</td>
+      <td>-0.181241</td>
+      <td>-0.031122</td>
+      <td>-0.008871</td>
+      <td>0.015825</td>
+      <td>0.215735</td>
+    </tr>
+    <tr>
+      <th>stim</th>
+      <td>532.0</td>
+      <td>0.013748</td>
+      <td>0.123179</td>
+      <td>-0.255486</td>
+      <td>-0.062378</td>
+      <td>-0.022202</td>
+      <td>0.058143</td>
+      <td>0.564985</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Here is a box plot of the signal for these groups.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">catplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">fmri</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;event&quot;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s2">&quot;signal&quot;</span><span class="p">,</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;box&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.FacetGrid at 0x7fdcd8cafdc0&gt;
+</pre></div>
+</div>
+<img alt="../_images/outliers_5_1.png" src="../_images/outliers_5_1.png" />
 </div>
 </div>
 <p>The dots lying outside the whiskers in the plot may be considered outliers. They are determined by the quartiles. Let <span class="math notranslate nohighlight">\(Q_1\)</span> and <span class="math notranslate nohighlight">\(Q_3\)</span> be the first and third quartiles (i.e., 25% and 75% percentiles), and let <span class="math notranslate nohighlight">\(I=Q_3-Q_1\)</span> be the interquartile range (IQR). Then <span class="math notranslate nohighlight">\(x\)</span> is an outlier value if</p>
@@ -453,9 +610,7 @@ x &lt; Q_1 - 1.5I \text{ or } x &gt; Q_3 + 1.5I.
 <p>The following plot shows the outlier cutoffs for 2000 samples from a normal distribution, using the criteria for 2σ (red), 3σ (blue), and 1.5 IQR (black).</p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">from</span> <span class="nn">numpy.random</span> <span class="kn">import</span> <span class="n">default_rng</span>
 <span class="n">randn</span> <span class="o">=</span> <span class="n">default_rng</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">normal</span> 
 
@@ -474,7 +629,7 @@ x &lt; Q_1 - 1.5I \text{ or } x &gt; Q_3 + 1.5I.
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/outliers_3_0.png" src="../_images/outliers_3_0.png" />
+<img alt="../_images/outliers_7_0.png" src="../_images/outliers_7_0.png" />
 </div>
 </div>
 <p>For asymmetric distributions, or those with a fat tail, these criteria might show greater differences.</p>
@@ -490,12 +645,10 @@ x &lt; Q_1 - 1.5I \text{ or } x &gt; Q_3 + 1.5I.
 </div><p>Let’s use IQR to remove outliers from the fmri data set. We do this by creating a Boolean-valued series indicating which rows of the frame represent outliers within their group.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="k">def</span> <span class="nf">isoutlier</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-    <span class="n">Q1</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">.25</span><span class="p">)</span>
-    <span class="n">Q3</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">.75</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">isoutlier</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="n">Q1</span><span class="p">,</span><span class="n">Q3</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">quantile</span><span class="p">([</span><span class="mf">.25</span><span class="p">,</span><span class="mf">.75</span><span class="p">])</span>
     <span class="n">I</span> <span class="o">=</span> <span class="n">Q3</span><span class="o">-</span><span class="n">Q1</span>
-    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">logical_or</span><span class="p">(</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="n">Q1</span><span class="o">-</span><span class="mf">1.5</span><span class="o">*</span><span class="n">I</span><span class="p">,</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="n">Q3</span><span class="o">+</span><span class="mf">1.5</span><span class="o">*</span><span class="n">I</span> <span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">x</span> <span class="o">&lt;</span> <span class="n">Q1</span><span class="o">-</span><span class="mf">1.5</span><span class="o">*</span><span class="n">I</span><span class="p">)</span> <span class="o">|</span>  <span class="p">(</span><span class="n">x</span> <span class="o">&gt;</span> <span class="n">Q3</span><span class="o">+</span><span class="mf">1.5</span><span class="o">*</span><span class="n">I</span><span class="p">)</span>
 
 <span class="n">outs</span> <span class="o">=</span> <span class="n">fmri</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;event&quot;</span><span class="p">)[</span><span class="s2">&quot;signal&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">isoutlier</span><span class="p">)</span>
 <span class="n">fmri</span><span class="p">[</span><span class="n">outs</span><span class="p">][</span><span class="s2">&quot;event&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
@@ -570,8 +723,8 @@ Name: signal, dtype: float64
 </div>
 </div>
 </div>
-<p>For the “stim” case in particular, the mean value changes by almost 200%, including a sign change. (Relative to the standard deviation, it’s closer to a 20% change.)</p>
-</div>
+<p>For the <em>stim</em> case in particular, the mean value changes by almost 200%, including a sign change. (Relative to the standard deviation, it’s closer to a 20% change.)</p>
+<div style="max-width:608px"><div style="position:relative;padding-bottom:66.118421052632%"><iframe id="kaltura_player" src="https://cdnapisec.kaltura.com/p/2358381/sp/235838100/embedIframeJs/uiconf_id/43030021/partner_id/2358381?iframeembed=true&playerId=kaltura_player&entry_id=1_vpsvig7f&flashvars[streamerType]=auto&amp;flashvars[localizationCode]=en&amp;flashvars[leadWithHTML5]=true&amp;flashvars[sideBarContainer.plugin]=true&amp;flashvars[sideBarContainer.position]=left&amp;flashvars[sideBarContainer.clickToClose]=true&amp;flashvars[chapters.plugin]=true&amp;flashvars[chapters.layout]=vertical&amp;flashvars[chapters.thumbnailRotator]=false&amp;flashvars[streamSelector.plugin]=true&amp;flashvars[EmbedPlayer.SpinnerTarget]=videoHolder&amp;flashvars[dualScreen.plugin]=true&amp;flashvars[Kaltura.addCrossoriginToIframe]=true&amp;&wid=1_a1t3d8un" width="608" height="402" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen *; encrypted-media *" sandbox="allow-forms allow-same-origin allow-scripts allow-top-navigation allow-pointer-lock allow-popups allow-modals allow-orientation-lock allow-popups-to-escape-sandbox allow-presentation allow-top-navigation-by-user-activation" frameborder="0" title="Kaltura Player" style="position:absolute;top:0;left:0;width:100%;height:100%"></iframe></div></div></div>
 </div>
 
     <script type="text/x-thebe-config">
@@ -617,15 +770,167 @@ Name: signal, dtype: float64
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
 
 <span class="n">fmri</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">load_dataset</span><span class="p">(</span><span class="s2">&quot;fmri&quot;</span><span class="p">)</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">catplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">fmri</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;event&quot;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s2">&quot;signal&quot;</span><span class="p">,</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;box&quot;</span><span class="p">)</span>
+<span class="n">fmri</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.FacetGrid at 0x7fb0fa9666d0&gt;
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>subject</th>
+      <th>timepoint</th>
+      <th>event</th>
+      <th>region</th>
+      <th>signal</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>s13</td>
+      <td>18</td>
+      <td>stim</td>
+      <td>parietal</td>
+      <td>-0.017552</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>s5</td>
+      <td>14</td>
+      <td>stim</td>
+      <td>parietal</td>
+      <td>-0.080883</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>s12</td>
+      <td>18</td>
+      <td>stim</td>
+      <td>parietal</td>
+      <td>-0.081033</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>s11</td>
+      <td>18</td>
+      <td>stim</td>
+      <td>parietal</td>
+      <td>-0.046134</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>s10</td>
+      <td>18</td>
+      <td>stim</td>
+      <td>parietal</td>
+      <td>-0.037970</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>We want to focus on the <em>signal</em> column, splitting according to the <em>event</em>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fmri</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;event&quot;</span><span class="p">)[</span><span class="s2">&quot;signal&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
 </pre></div>
 </div>
-<img alt="../_images/outliers_1_1.png" src="../_images/outliers_1_1.png" />
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>count</th>
+      <th>mean</th>
+      <th>std</th>
+      <th>min</th>
+      <th>25%</th>
+      <th>50%</th>
+      <th>75%</th>
+      <th>max</th>
+    </tr>
+    <tr>
+      <th>event</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>cue</th>
+      <td>532.0</td>
+      <td>-0.006669</td>
+      <td>0.047752</td>
+      <td>-0.181241</td>
+      <td>-0.031122</td>
+      <td>-0.008871</td>
+      <td>0.015825</td>
+      <td>0.215735</td>
+    </tr>
+    <tr>
+      <th>stim</th>
+      <td>532.0</td>
+      <td>0.013748</td>
+      <td>0.123179</td>
+      <td>-0.255486</td>
+      <td>-0.062378</td>
+      <td>-0.022202</td>
+      <td>0.058143</td>
+      <td>0.564985</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Here is a box plot of the signal for these groups.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">catplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">fmri</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;event&quot;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s2">&quot;signal&quot;</span><span class="p">,</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;box&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.FacetGrid at 0x7fdcd8cafdc0&gt;
+</pre></div>
+</div>
+<img alt="../_images/outliers_5_1.png" src="../_images/outliers_5_1.png" />
 </div>
 </div>
 <p>The dots lying outside the whiskers in the plot may be considered outliers. They are determined by the quartiles. Let <span class="math notranslate nohighlight">\(Q_1\)</span> and <span class="math notranslate nohighlight">\(Q_3\)</span> be the first and third quartiles (i.e., 25% and 75% percentiles), and let <span class="math notranslate nohighlight">\(I=Q_3-Q_1\)</span> be the interquartile range (IQR). Then <span class="math notranslate nohighlight">\(x\)</span> is an outlier value if</p>
@@ -640,9 +945,7 @@ x &lt; Q_1 - 1.5I \text{ or } x &gt; Q_3 + 1.5I.
 <p>The following plot shows the outlier cutoffs for 2000 samples from a normal distribution, using the criteria for 2σ (red), 3σ (blue), and 1.5 IQR (black).</p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">from</span> <span class="nn">numpy.random</span> <span class="kn">import</span> <span class="n">default_rng</span>
 <span class="n">randn</span> <span class="o">=</span> <span class="n">default_rng</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">normal</span> 
 
@@ -661,7 +964,7 @@ x &lt; Q_1 - 1.5I \text{ or } x &gt; Q_3 + 1.5I.
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/outliers_3_0.png" src="../_images/outliers_3_0.png" />
+<img alt="../_images/outliers_7_0.png" src="../_images/outliers_7_0.png" />
 </div>
 </div>
 <p>For asymmetric distributions, or those with a fat tail, these criteria might show greater differences.</p>
@@ -677,12 +980,10 @@ x &lt; Q_1 - 1.5I \text{ or } x &gt; Q_3 + 1.5I.
 </div><p>Let’s use IQR to remove outliers from the fmri data set. We do this by creating a Boolean-valued series indicating which rows of the frame represent outliers within their group.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="k">def</span> <span class="nf">isoutlier</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-    <span class="n">Q1</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">.25</span><span class="p">)</span>
-    <span class="n">Q3</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">.75</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">isoutlier</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="n">Q1</span><span class="p">,</span><span class="n">Q3</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">quantile</span><span class="p">([</span><span class="mf">.25</span><span class="p">,</span><span class="mf">.75</span><span class="p">])</span>
     <span class="n">I</span> <span class="o">=</span> <span class="n">Q3</span><span class="o">-</span><span class="n">Q1</span>
-    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">logical_or</span><span class="p">(</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="n">Q1</span><span class="o">-</span><span class="mf">1.5</span><span class="o">*</span><span class="n">I</span><span class="p">,</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="n">Q3</span><span class="o">+</span><span class="mf">1.5</span><span class="o">*</span><span class="n">I</span> <span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">x</span> <span class="o">&lt;</span> <span class="n">Q1</span><span class="o">-</span><span class="mf">1.5</span><span class="o">*</span><span class="n">I</span><span class="p">)</span> <span class="o">|</span>  <span class="p">(</span><span class="n">x</span> <span class="o">&gt;</span> <span class="n">Q3</span><span class="o">+</span><span class="mf">1.5</span><span class="o">*</span><span class="n">I</span><span class="p">)</span>
 
 <span class="n">outs</span> <span class="o">=</span> <span class="n">fmri</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;event&quot;</span><span class="p">)[</span><span class="s2">&quot;signal&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">isoutlier</span><span class="p">)</span>
 <span class="n">fmri</span><span class="p">[</span><span class="n">outs</span><span class="p">][</span><span class="s2">&quot;event&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
@@ -757,8 +1058,8 @@ Name: signal, dtype: float64
 </div>
 </div>
 </div>
-<p>For the “stim” case in particular, the mean value changes by almost 200%, including a sign change. (Relative to the standard deviation, it’s closer to a 20% change.)</p>
-</div>
+<p>For the <em>stim</em> case in particular, the mean value changes by almost 200%, including a sign change. (Relative to the standard deviation, it’s closer to a 20% change.)</p>
+<div style="max-width:608px"><div style="position:relative;padding-bottom:66.118421052632%"><iframe id="kaltura_player" src="https://cdnapisec.kaltura.com/p/2358381/sp/235838100/embedIframeJs/uiconf_id/43030021/partner_id/2358381?iframeembed=true&playerId=kaltura_player&entry_id=1_vpsvig7f&flashvars[streamerType]=auto&amp;flashvars[localizationCode]=en&amp;flashvars[leadWithHTML5]=true&amp;flashvars[sideBarContainer.plugin]=true&amp;flashvars[sideBarContainer.position]=left&amp;flashvars[sideBarContainer.clickToClose]=true&amp;flashvars[chapters.plugin]=true&amp;flashvars[chapters.layout]=vertical&amp;flashvars[chapters.thumbnailRotator]=false&amp;flashvars[streamSelector.plugin]=true&amp;flashvars[EmbedPlayer.SpinnerTarget]=videoHolder&amp;flashvars[dualScreen.plugin]=true&amp;flashvars[Kaltura.addCrossoriginToIframe]=true&amp;&wid=1_a1t3d8un" width="608" height="402" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen *; encrypted-media *" sandbox="allow-forms allow-same-origin allow-scripts allow-top-navigation allow-pointer-lock allow-popups allow-modals allow-orientation-lock allow-popups-to-escape-sandbox allow-presentation allow-top-navigation-by-user-activation" frameborder="0" title="Kaltura Player" style="position:absolute;top:0;left:0;width:100%;height:100%"></iframe></div></div></div>
 </div>
 
     <script type="text/x-thebe-config">

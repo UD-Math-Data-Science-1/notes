@@ -182,7 +182,7 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../supervised/scikit.html">
+    <a class="reference internal" href="../supervised/sklearn.html">
      3.1. Using scikit-learn
     </a>
    </li>
@@ -378,6 +378,27 @@
 <div class="math notranslate nohighlight">
 \[-5,0,5,10,15,20\]</div>
 </li>
+<li><p>Suppose that a population has values <span class="math notranslate nohighlight">\(x_1,x_2,\ldots,x_n\)</span>. Define the function</p>
+<div class="math notranslate nohighlight">
+\[
+    r_2(x) = \sum_{i=1}^n (x_i-x)^2.
+    \]</div>
+<p>Show that <span class="math notranslate nohighlight">\(r_2\)</span> has a global minimum at <span class="math notranslate nohighlight">\(x=\mu\)</span>, the population mean.</p>
+</li>
+<li><p>Suppose that <span class="math notranslate nohighlight">\(n=2k+1\)</span> and a population has values <span class="math notranslate nohighlight">\(x_1,x_2,\ldots,x_{n}\)</span> in sorted order, so that the median is equal to <span class="math notranslate nohighlight">\(x_k\)</span>. Define the function</p>
+<div class="math notranslate nohighlight">
+\[
+    r_1(x) = \sum_{i=1}^n |x_i-x|.
+    \]</div>
+<p>Show that <span class="math notranslate nohighlight">\(r_1\)</span> has a global minimum at <span class="math notranslate nohighlight">\(x=x_k\)</span> by way of the following steps.</p>
+<p><strong>(a)</strong> Explain why the derivative of <span class="math notranslate nohighlight">\(r_1\)</span> is undefined at every <span class="math notranslate nohighlight">\(x_i\)</span>. Consequently, all of the <span class="math notranslate nohighlight">\(x_i\)</span> are critical points of <span class="math notranslate nohighlight">\(r_1\)</span>.</p>
+<p><strong>(b)</strong> Determine <span class="math notranslate nohighlight">\(r_1'\)</span> within each piece of the real axis between observation values, and explain why there cannot be any more critical points to consider. (Note: you can drop all of the absolute values when <span class="math notranslate nohighlight">\(x\)</span> between the <span class="math notranslate nohighlight">\(x_i\)</span>, if you write out the expression in a certain way.)</p>
+<p><strong>(c)</strong> By appealing to the derivative, explain why it must be that</p>
+<div class="math notranslate nohighlight">
+\[
+    r_1(x_1) \ge r_1(x_2) \ge \cdots \ge r_1(x_k) \le r_1(x_{k+1}) \le \cdots \le r_1(x_n).
+    \]</div>
+</li>
 <li><p>Prove that two sample sets have a Pearson correlation coefficient equal to 1 if they have identical z-scores.</p></li>
 <li><p>Suppose that two sample sets satisfy <span class="math notranslate nohighlight">\(y_i=-x_i\)</span> for all <span class="math notranslate nohighlight">\(i\)</span>. Prove that the Pearson correlation coefficient between <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> equals <span class="math notranslate nohighlight">\(-1\)</span>.</p></li>
 </ol>
@@ -437,6 +458,27 @@
 <p><strong>(b)</strong> Which of the following are outliers according to the 1.5 IQR criterion?</p>
 <div class="math notranslate nohighlight">
 \[-5,0,5,10,15,20\]</div>
+</li>
+<li><p>Suppose that a population has values <span class="math notranslate nohighlight">\(x_1,x_2,\ldots,x_n\)</span>. Define the function</p>
+<div class="math notranslate nohighlight">
+\[
+    r_2(x) = \sum_{i=1}^n (x_i-x)^2.
+    \]</div>
+<p>Show that <span class="math notranslate nohighlight">\(r_2\)</span> has a global minimum at <span class="math notranslate nohighlight">\(x=\mu\)</span>, the population mean.</p>
+</li>
+<li><p>Suppose that <span class="math notranslate nohighlight">\(n=2k+1\)</span> and a population has values <span class="math notranslate nohighlight">\(x_1,x_2,\ldots,x_{n}\)</span> in sorted order, so that the median is equal to <span class="math notranslate nohighlight">\(x_k\)</span>. Define the function</p>
+<div class="math notranslate nohighlight">
+\[
+    r_1(x) = \sum_{i=1}^n |x_i-x|.
+    \]</div>
+<p>Show that <span class="math notranslate nohighlight">\(r_1\)</span> has a global minimum at <span class="math notranslate nohighlight">\(x=x_k\)</span> by way of the following steps.</p>
+<p><strong>(a)</strong> Explain why the derivative of <span class="math notranslate nohighlight">\(r_1\)</span> is undefined at every <span class="math notranslate nohighlight">\(x_i\)</span>. Consequently, all of the <span class="math notranslate nohighlight">\(x_i\)</span> are critical points of <span class="math notranslate nohighlight">\(r_1\)</span>.</p>
+<p><strong>(b)</strong> Determine <span class="math notranslate nohighlight">\(r_1'\)</span> within each piece of the real axis between observation values, and explain why there cannot be any more critical points to consider. (Note: you can drop all of the absolute values when <span class="math notranslate nohighlight">\(x\)</span> between the <span class="math notranslate nohighlight">\(x_i\)</span>, if you write out the expression in a certain way.)</p>
+<p><strong>(c)</strong> By appealing to the derivative, explain why it must be that</p>
+<div class="math notranslate nohighlight">
+\[
+    r_1(x_1) \ge r_1(x_2) \ge \cdots \ge r_1(x_k) \le r_1(x_{k+1}) \le \cdots \le r_1(x_n).
+    \]</div>
 </li>
 <li><p>Prove that two sample sets have a Pearson correlation coefficient equal to 1 if they have identical z-scores.</p></li>
 <li><p>Suppose that two sample sets satisfy <span class="math notranslate nohighlight">\(y_i=-x_i\)</span> for all <span class="math notranslate nohighlight">\(i\)</span>. Prove that the Pearson correlation coefficient between <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> equals <span class="math notranslate nohighlight">\(-1\)</span>.</p></li>

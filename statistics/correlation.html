@@ -56,7 +56,7 @@
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="3. Classification" href="../supervised/overview.html" />
+    <link rel="next" title="2.5. Exercises" href="exercises.html" />
     <link rel="prev" title="2.3. Outliers" href="outliers.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
@@ -164,6 +164,11 @@
      2.4. Correlation
     </a>
    </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="exercises.html">
+     2.5. Exercises
+    </a>
+   </li>
   </ul>
  </li>
  <li class="toctree-l1 has-children">
@@ -177,7 +182,7 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../supervised/scikit.html">
+    <a class="reference internal" href="../supervised/sklearn.html">
      3.1. Using scikit-learn
     </a>
    </li>
@@ -694,15 +699,15 @@
 <div class="section" id="spearman-coefficient">
 <h2>Spearman coefficient<a class="headerlink" href="#spearman-coefficient" title="Permalink to this headline">¶</a></h2>
 <p>The Spearman coefficient is one way to lessen the impact of outliers when measuring correlation. The idea is that the values are used only in their relationship to one another.</p>
-<p>Define <span class="math notranslate nohighlight">\(r_i\)</span> as the position of <span class="math notranslate nohighlight">\(x_i\)</span> in a sorted reordering of the sampled values of <span class="math notranslate nohighlight">\(X\)</span>. Similarly, let <span class="math notranslate nohighlight">\(s_i\)</span> be a position or <em>rank</em> series for the values of <span class="math notranslate nohighlight">\(Y\)</span>. Then the <strong>Spearman coefficient</strong> is defined as the Pearson coefficient of the variables <span class="math notranslate nohighlight">\(R\)</span> and <span class="math notranslate nohighlight">\(S\)</span>.</p>
+<p>Define <span class="math notranslate nohighlight">\(s_i\)</span> as the position of <span class="math notranslate nohighlight">\(x_i\)</span> in a sorted reordering of the sampled values of <span class="math notranslate nohighlight">\(X\)</span>. Similarly, let <span class="math notranslate nohighlight">\(t_i\)</span> be a position or <em>rank</em> series for the values of <span class="math notranslate nohighlight">\(Y\)</span>. Then the <strong>Spearman coefficient</strong> is defined as the Pearson coefficient of the variables <span class="math notranslate nohighlight">\(S\)</span> and <span class="math notranslate nohighlight">\(T\)</span>.</p>
 <p>For the example above, it’s trivial to produce the rank series by hand.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">21</span><span class="p">))</span>
-<span class="n">s</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-<span class="n">s</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">21</span><span class="p">))</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">t</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
 
-<span class="n">r</span><span class="o">.</span><span class="n">corr</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="n">t</span><span class="o">.</span><span class="n">corr</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -743,7 +748,7 @@
 </div>
 <div class="section" id="categorical-correlation">
 <h2>Categorical correlation<a class="headerlink" href="#categorical-correlation" title="Permalink to this headline">¶</a></h2>
-<p>An ordinal variable, such as days of the week, are often straightforward to quantify as consecutive integers. But a nominal variable poses a different challenge.</p>
+<p>An ordinal variable, such as the days of the week, is often straightforward to quantify as integers. But a nominal variable poses a different challenge.</p>
 <p>For example, grouped histograms suggest an association between body mass and species of penguin.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -758,178 +763,22 @@
 <p>How can we quantify the association? The first step is to convert the species column into dummy variables.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dum</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">penguins</span><span class="p">,</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;species&quot;</span><span class="p">])</span>
-<span class="n">dum</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;body_mass_g&quot;</span><span class="p">,</span><span class="s2">&quot;species_Adelie&quot;</span><span class="p">,</span><span class="s2">&quot;species_Chinstrap&quot;</span><span class="p">,</span><span class="s2">&quot;species_Gentoo&quot;</span><span class="p">]</span>
+<span class="n">dum</span><span class="p">[</span><span class="n">cols</span><span class="p">]</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="n">cn</span><span class="o">/</span><span class="mi">8</span><span class="n">w40979d27x0kv2wsnx7zgvm0000gp</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_10498</span><span class="o">/</span><span class="mf">2767667291.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;body_mass_g&quot;</span><span class="p">,</span><span class="s2">&quot;species_Adelie&quot;</span><span class="p">,</span><span class="s2">&quot;species_Chinstrap&quot;</span><span class="p">,</span><span class="s2">&quot;species_Gentoo&quot;</span><span class="p">]</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">dum</span><span class="p">[</span><span class="n">cols</span><span class="p">]</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>
 
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>island</th>
-      <th>bill_length_mm</th>
-      <th>bill_depth_mm</th>
-      <th>flipper_length_mm</th>
-      <th>body_mass_g</th>
-      <th>sex</th>
-      <th>species_Adelie</th>
-      <th>species_Chinstrap</th>
-      <th>species_Gentoo</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>Torgersen</td>
-      <td>39.1</td>
-      <td>18.7</td>
-      <td>181.0</td>
-      <td>3750.0</td>
-      <td>Male</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>Torgersen</td>
-      <td>39.5</td>
-      <td>17.4</td>
-      <td>186.0</td>
-      <td>3800.0</td>
-      <td>Female</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>Torgersen</td>
-      <td>40.3</td>
-      <td>18.0</td>
-      <td>195.0</td>
-      <td>3250.0</td>
-      <td>Female</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>Torgersen</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>Torgersen</td>
-      <td>36.7</td>
-      <td>19.3</td>
-      <td>193.0</td>
-      <td>3450.0</td>
-      <td>Female</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th>339</th>
-      <td>Biscoe</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>340</th>
-      <td>Biscoe</td>
-      <td>46.8</td>
-      <td>14.3</td>
-      <td>215.0</td>
-      <td>4850.0</td>
-      <td>Female</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>341</th>
-      <td>Biscoe</td>
-      <td>50.4</td>
-      <td>15.7</td>
-      <td>222.0</td>
-      <td>5750.0</td>
-      <td>Male</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>342</th>
-      <td>Biscoe</td>
-      <td>45.2</td>
-      <td>14.8</td>
-      <td>212.0</td>
-      <td>5200.0</td>
-      <td>Female</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>343</th>
-      <td>Biscoe</td>
-      <td>49.9</td>
-      <td>16.1</td>
-      <td>213.0</td>
-      <td>5400.0</td>
-      <td>Male</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-    </tr>
-  </tbody>
-</table>
-<p>344 rows × 9 columns</p>
-</div></div></div>
+<span class="ne">NameError</span>: name &#39;dum&#39; is not defined
+</pre></div>
+</div>
+</div>
 </div>
 <p>The original species column has been replaced by three binary indicator columns. Now we can look for correlations between them and the body mass:</p>
 <div class="cell docutils container">
@@ -939,62 +788,15 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="n">cn</span><span class="o">/</span><span class="mi">8</span><span class="n">w40979d27x0kv2wsnx7zgvm0000gp</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_10498</span><span class="o">/</span><span class="mf">1693838879.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">dum</span><span class="p">[[</span><span class="s2">&quot;body_mass_g&quot;</span><span class="p">,</span><span class="s2">&quot;species_Adelie&quot;</span><span class="p">,</span><span class="s2">&quot;species_Chinstrap&quot;</span><span class="p">,</span><span class="s2">&quot;species_Gentoo&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>
 
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>body_mass_g</th>
-      <th>species_Adelie</th>
-      <th>species_Chinstrap</th>
-      <th>species_Gentoo</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>body_mass_g</th>
-      <td>1.000000</td>
-      <td>-0.556385</td>
-      <td>-0.291561</td>
-      <td>0.818198</td>
-    </tr>
-    <tr>
-      <th>species_Adelie</th>
-      <td>-0.556385</td>
-      <td>1.000000</td>
-      <td>-0.441643</td>
-      <td>-0.667991</td>
-    </tr>
-    <tr>
-      <th>species_Chinstrap</th>
-      <td>-0.291561</td>
-      <td>-0.441643</td>
-      <td>1.000000</td>
-      <td>-0.372649</td>
-    </tr>
-    <tr>
-      <th>species_Gentoo</th>
-      <td>0.818198</td>
-      <td>-0.667991</td>
-      <td>-0.372649</td>
-      <td>1.000000</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
+<span class="ne">NameError</span>: name &#39;dum&#39; is not defined
+</pre></div>
+</div>
+</div>
 </div>
 <p>As you can see from the above, Adelie and (to a lesser extent) Chinstrap are associated with lower mass, while Gentoo is strongly associated with higher mass.</p>
 </div>
@@ -1201,7 +1003,7 @@
 <p>Within each individual species, the correlation between body mass and bill depth is greater than <span class="math notranslate nohighlight">\(0.5\)</span>!
 This is an example of <strong>Simpson’s paradox</strong>. The reason for it can be seen from the pair plot above. Within each color, there is a strong positive association. But the relationship isn’t identical across species, and what dominates the combination of all three is the large gap between the Gentoo and the other species.</p>
 <p>Simpson’s paradox shows how important it us to understand the dataset before spewing out statistics about it. There are contexts where combining species of penguins makes sense, but in the case of body mass, we are really dealing with three separate distributions.</p>
-</div>
+<div style="max-width:608px"><div style="position:relative;padding-bottom:66.118421052632%"><iframe id="kaltura_player" src="https://cdnapisec.kaltura.com/p/2358381/sp/235838100/embedIframeJs/uiconf_id/43030021/partner_id/2358381?iframeembed=true&playerId=kaltura_player&entry_id=1_9zocsgvv&flashvars[streamerType]=auto&amp;flashvars[localizationCode]=en&amp;flashvars[leadWithHTML5]=true&amp;flashvars[sideBarContainer.plugin]=true&amp;flashvars[sideBarContainer.position]=left&amp;flashvars[sideBarContainer.clickToClose]=true&amp;flashvars[chapters.plugin]=true&amp;flashvars[chapters.layout]=vertical&amp;flashvars[chapters.thumbnailRotator]=false&amp;flashvars[streamSelector.plugin]=true&amp;flashvars[EmbedPlayer.SpinnerTarget]=videoHolder&amp;flashvars[dualScreen.plugin]=true&amp;flashvars[Kaltura.addCrossoriginToIframe]=true&amp;&wid=1_l4mb144s" width="608" height="402" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen *; encrypted-media *" sandbox="allow-forms allow-same-origin allow-scripts allow-top-navigation allow-pointer-lock allow-popups allow-modals allow-orientation-lock allow-popups-to-escape-sandbox allow-presentation allow-top-navigation-by-user-activation" frameborder="0" title="Kaltura Player" style="position:absolute;top:0;left:0;width:100%;height:100%"></iframe></div></div></div>
 </div>
 
     <script type="text/x-thebe-config">
@@ -1491,15 +1293,15 @@ This is an example of <strong>Simpson’s paradox</strong>. The reason for it ca
 <div class="section" id="spearman-coefficient">
 <h2>Spearman coefficient<a class="headerlink" href="#spearman-coefficient" title="Permalink to this headline">¶</a></h2>
 <p>The Spearman coefficient is one way to lessen the impact of outliers when measuring correlation. The idea is that the values are used only in their relationship to one another.</p>
-<p>Define <span class="math notranslate nohighlight">\(r_i\)</span> as the position of <span class="math notranslate nohighlight">\(x_i\)</span> in a sorted reordering of the sampled values of <span class="math notranslate nohighlight">\(X\)</span>. Similarly, let <span class="math notranslate nohighlight">\(s_i\)</span> be a position or <em>rank</em> series for the values of <span class="math notranslate nohighlight">\(Y\)</span>. Then the <strong>Spearman coefficient</strong> is defined as the Pearson coefficient of the variables <span class="math notranslate nohighlight">\(R\)</span> and <span class="math notranslate nohighlight">\(S\)</span>.</p>
+<p>Define <span class="math notranslate nohighlight">\(s_i\)</span> as the position of <span class="math notranslate nohighlight">\(x_i\)</span> in a sorted reordering of the sampled values of <span class="math notranslate nohighlight">\(X\)</span>. Similarly, let <span class="math notranslate nohighlight">\(t_i\)</span> be a position or <em>rank</em> series for the values of <span class="math notranslate nohighlight">\(Y\)</span>. Then the <strong>Spearman coefficient</strong> is defined as the Pearson coefficient of the variables <span class="math notranslate nohighlight">\(S\)</span> and <span class="math notranslate nohighlight">\(T\)</span>.</p>
 <p>For the example above, it’s trivial to produce the rank series by hand.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">21</span><span class="p">))</span>
-<span class="n">s</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-<span class="n">s</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">21</span><span class="p">))</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">t</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
 
-<span class="n">r</span><span class="o">.</span><span class="n">corr</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="n">t</span><span class="o">.</span><span class="n">corr</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1540,7 +1342,7 @@ This is an example of <strong>Simpson’s paradox</strong>. The reason for it ca
 </div>
 <div class="section" id="categorical-correlation">
 <h2>Categorical correlation<a class="headerlink" href="#categorical-correlation" title="Permalink to this headline">¶</a></h2>
-<p>An ordinal variable, such as days of the week, are often straightforward to quantify as consecutive integers. But a nominal variable poses a different challenge.</p>
+<p>An ordinal variable, such as the days of the week, is often straightforward to quantify as integers. But a nominal variable poses a different challenge.</p>
 <p>For example, grouped histograms suggest an association between body mass and species of penguin.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1555,178 +1357,22 @@ This is an example of <strong>Simpson’s paradox</strong>. The reason for it ca
 <p>How can we quantify the association? The first step is to convert the species column into dummy variables.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dum</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">penguins</span><span class="p">,</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;species&quot;</span><span class="p">])</span>
-<span class="n">dum</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;body_mass_g&quot;</span><span class="p">,</span><span class="s2">&quot;species_Adelie&quot;</span><span class="p">,</span><span class="s2">&quot;species_Chinstrap&quot;</span><span class="p">,</span><span class="s2">&quot;species_Gentoo&quot;</span><span class="p">]</span>
+<span class="n">dum</span><span class="p">[</span><span class="n">cols</span><span class="p">]</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="n">cn</span><span class="o">/</span><span class="mi">8</span><span class="n">w40979d27x0kv2wsnx7zgvm0000gp</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_10498</span><span class="o">/</span><span class="mf">2767667291.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;body_mass_g&quot;</span><span class="p">,</span><span class="s2">&quot;species_Adelie&quot;</span><span class="p">,</span><span class="s2">&quot;species_Chinstrap&quot;</span><span class="p">,</span><span class="s2">&quot;species_Gentoo&quot;</span><span class="p">]</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">dum</span><span class="p">[</span><span class="n">cols</span><span class="p">]</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>
 
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>island</th>
-      <th>bill_length_mm</th>
-      <th>bill_depth_mm</th>
-      <th>flipper_length_mm</th>
-      <th>body_mass_g</th>
-      <th>sex</th>
-      <th>species_Adelie</th>
-      <th>species_Chinstrap</th>
-      <th>species_Gentoo</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>Torgersen</td>
-      <td>39.1</td>
-      <td>18.7</td>
-      <td>181.0</td>
-      <td>3750.0</td>
-      <td>Male</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>Torgersen</td>
-      <td>39.5</td>
-      <td>17.4</td>
-      <td>186.0</td>
-      <td>3800.0</td>
-      <td>Female</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>Torgersen</td>
-      <td>40.3</td>
-      <td>18.0</td>
-      <td>195.0</td>
-      <td>3250.0</td>
-      <td>Female</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>Torgersen</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>Torgersen</td>
-      <td>36.7</td>
-      <td>19.3</td>
-      <td>193.0</td>
-      <td>3450.0</td>
-      <td>Female</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th>339</th>
-      <td>Biscoe</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>340</th>
-      <td>Biscoe</td>
-      <td>46.8</td>
-      <td>14.3</td>
-      <td>215.0</td>
-      <td>4850.0</td>
-      <td>Female</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>341</th>
-      <td>Biscoe</td>
-      <td>50.4</td>
-      <td>15.7</td>
-      <td>222.0</td>
-      <td>5750.0</td>
-      <td>Male</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>342</th>
-      <td>Biscoe</td>
-      <td>45.2</td>
-      <td>14.8</td>
-      <td>212.0</td>
-      <td>5200.0</td>
-      <td>Female</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>343</th>
-      <td>Biscoe</td>
-      <td>49.9</td>
-      <td>16.1</td>
-      <td>213.0</td>
-      <td>5400.0</td>
-      <td>Male</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-    </tr>
-  </tbody>
-</table>
-<p>344 rows × 9 columns</p>
-</div></div></div>
+<span class="ne">NameError</span>: name &#39;dum&#39; is not defined
+</pre></div>
+</div>
+</div>
 </div>
 <p>The original species column has been replaced by three binary indicator columns. Now we can look for correlations between them and the body mass:</p>
 <div class="cell docutils container">
@@ -1736,62 +1382,15 @@ This is an example of <strong>Simpson’s paradox</strong>. The reason for it ca
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="n">cn</span><span class="o">/</span><span class="mi">8</span><span class="n">w40979d27x0kv2wsnx7zgvm0000gp</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_10498</span><span class="o">/</span><span class="mf">1693838879.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">dum</span><span class="p">[[</span><span class="s2">&quot;body_mass_g&quot;</span><span class="p">,</span><span class="s2">&quot;species_Adelie&quot;</span><span class="p">,</span><span class="s2">&quot;species_Chinstrap&quot;</span><span class="p">,</span><span class="s2">&quot;species_Gentoo&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>
 
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>body_mass_g</th>
-      <th>species_Adelie</th>
-      <th>species_Chinstrap</th>
-      <th>species_Gentoo</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>body_mass_g</th>
-      <td>1.000000</td>
-      <td>-0.556385</td>
-      <td>-0.291561</td>
-      <td>0.818198</td>
-    </tr>
-    <tr>
-      <th>species_Adelie</th>
-      <td>-0.556385</td>
-      <td>1.000000</td>
-      <td>-0.441643</td>
-      <td>-0.667991</td>
-    </tr>
-    <tr>
-      <th>species_Chinstrap</th>
-      <td>-0.291561</td>
-      <td>-0.441643</td>
-      <td>1.000000</td>
-      <td>-0.372649</td>
-    </tr>
-    <tr>
-      <th>species_Gentoo</th>
-      <td>0.818198</td>
-      <td>-0.667991</td>
-      <td>-0.372649</td>
-      <td>1.000000</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
+<span class="ne">NameError</span>: name &#39;dum&#39; is not defined
+</pre></div>
+</div>
+</div>
 </div>
 <p>As you can see from the above, Adelie and (to a lesser extent) Chinstrap are associated with lower mass, while Gentoo is strongly associated with higher mass.</p>
 </div>
@@ -1998,7 +1597,7 @@ This is an example of <strong>Simpson’s paradox</strong>. The reason for it ca
 <p>Within each individual species, the correlation between body mass and bill depth is greater than <span class="math notranslate nohighlight">\(0.5\)</span>!
 This is an example of <strong>Simpson’s paradox</strong>. The reason for it can be seen from the pair plot above. Within each color, there is a strong positive association. But the relationship isn’t identical across species, and what dominates the combination of all three is the large gap between the Gentoo and the other species.</p>
 <p>Simpson’s paradox shows how important it us to understand the dataset before spewing out statistics about it. There are contexts where combining species of penguins makes sense, but in the case of body mass, we are really dealing with three separate distributions.</p>
-</div>
+<div style="max-width:608px"><div style="position:relative;padding-bottom:66.118421052632%"><iframe id="kaltura_player" src="https://cdnapisec.kaltura.com/p/2358381/sp/235838100/embedIframeJs/uiconf_id/43030021/partner_id/2358381?iframeembed=true&playerId=kaltura_player&entry_id=1_9zocsgvv&flashvars[streamerType]=auto&amp;flashvars[localizationCode]=en&amp;flashvars[leadWithHTML5]=true&amp;flashvars[sideBarContainer.plugin]=true&amp;flashvars[sideBarContainer.position]=left&amp;flashvars[sideBarContainer.clickToClose]=true&amp;flashvars[chapters.plugin]=true&amp;flashvars[chapters.layout]=vertical&amp;flashvars[chapters.thumbnailRotator]=false&amp;flashvars[streamSelector.plugin]=true&amp;flashvars[EmbedPlayer.SpinnerTarget]=videoHolder&amp;flashvars[dualScreen.plugin]=true&amp;flashvars[Kaltura.addCrossoriginToIframe]=true&amp;&wid=1_l4mb144s" width="608" height="402" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen *; encrypted-media *" sandbox="allow-forms allow-same-origin allow-scripts allow-top-navigation allow-pointer-lock allow-popups allow-modals allow-orientation-lock allow-popups-to-escape-sandbox allow-presentation allow-top-navigation-by-user-activation" frameborder="0" title="Kaltura Player" style="position:absolute;top:0;left:0;width:100%;height:100%"></iframe></div></div></div>
 </div>
 
     <script type="text/x-thebe-config">
@@ -2033,10 +1632,10 @@ This is an example of <strong>Simpson’s paradox</strong>. The reason for it ca
             <p class="prev-next-title"><span class="section-number">2.3. </span>Outliers</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="../supervised/overview.html" title="next page">
+    <a class='right-next' id="next-link" href="exercises.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">3. </span>Classification</p>
+        <p class="prev-next-title"><span class="section-number">2.5. </span>Exercises</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
