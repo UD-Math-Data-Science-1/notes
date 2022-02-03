@@ -29,8 +29,35 @@ For these exercises, you may of course use computer help to work on a problem, b
 
     $$-5,0,5,10,15,20$$
 
-5. Prove that two sample sets have a Pearson correlation coefficient equal to 1 if they have identical z-scores.
+5. Suppose that a population has values $x_1,x_2,\ldots,x_n$. Define the function 
 
-6. Suppose that two sample sets satisfy $y_i=-x_i$ for all $i$. Prove that the Pearson correlation coefficient between $x$ and $y$ equals $-1$.
+    $$
+    r_2(x) = \sum_{i=1}^n (x_i-x)^2.
+    $$
+
+    Show that $r_2$ has a global minimum at $x=\mu$, the population mean.
+
+6. Suppose that $n=2k+1$ and a population has values $x_1,x_2,\ldots,x_{n}$ in sorted order, so that the median is equal to $x_k$. Define the function 
+
+    $$
+    r_1(x) = \sum_{i=1}^n |x_i-x|.
+    $$
+
+    Show that $r_1$ has a global minimum at $x=x_k$ by way of the following steps. 
+    
+    **(a)** Explain why the derivative of $r_1$ is undefined at every $x_i$. Consequently, all of the $x_i$ are critical points of $r_1$. 
+    
+    **(b)** Determine $r_1'$ within each piece of the real axis between observation values, and explain why there cannot be any more critical points to consider. (Note: you can drop all of the absolute values when $x$ between the $x_i$, if you write out the expression in a certain way.)
+
+    **(c)** By appealing to the derivative, explain why it must be that
+
+    $$
+    r_1(x_1) \ge r_1(x_2) \ge \cdots \ge r_1(x_k) \le r_1(x_{k+1}) \le \cdots \le r_1(x_n).
+    $$
+
+
+7. Prove that two sample sets have a Pearson correlation coefficient equal to 1 if they have identical z-scores.
+
+8. Suppose that two sample sets satisfy $y_i=-x_i$ for all $i$. Prove that the Pearson correlation coefficient between $x$ and $y$ equals $-1$.
 
 
