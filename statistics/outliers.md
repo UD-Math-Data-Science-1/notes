@@ -26,6 +26,18 @@ import pandas as pd
 import seaborn as sns
 
 fmri = sns.load_dataset("fmri")
+fmri.head()
+```
+
+We want to focus on the *signal* column, splitting according to the *event*.
+
+```{code-cell}
+fmri.groupby("event")["signal"].describe()
+```
+
+Here is a box plot of the signal for these groups.
+
+```{code-cell}
 sns.catplot(data=fmri,x="event",y="signal",kind="box")
 ```
 
@@ -43,8 +55,6 @@ For normal distributions, values more than twice the standard deviation $\sigma$
 The following plot shows the outlier cutoffs for 2000 samples from a normal distribution, using the criteria for 2σ (red), 3σ (blue), and 1.5 IQR (black). 
 ```{code-cell}
 :tags: ["hide-input"]
-import seaborn as sns
-import pandas as pd
 import matplotlib.pyplot as plt
 from numpy.random import default_rng
 randn = default_rng(1).normal 
@@ -75,12 +85,10 @@ The values $1,2,3,4,5$ have a mean and median both equal to 3. If we change the 
 Let's use IQR to remove outliers from the fmri data set. We do this by creating a Boolean-valued series indicating which rows of the frame represent outliers within their group. 
 
 ```{code-cell} ipython3
-import numpy as np
 def isoutlier(x):
-    Q1 = x.quantile(.25)
-    Q3 = x.quantile(.75)
+    Q1,Q3 = x.quantile([.25,.75])
     I = Q3-Q1
-    return np.logical_or( x < Q1-1.5*I, x > Q3+1.5*I )
+    return (x < Q1-1.5*I) |  (x > Q3+1.5*I)
 
 outs = fmri.groupby("event")["signal"].transform(isoutlier)
 fmri[outs]["event"].value_counts()
@@ -110,4 +118,6 @@ print("\nmeans without outliers:")
 print(cleaned.groupby("event")["signal"].mean())
 ```
 
-For the "stim" case in particular, the mean value changes by almost 200%, including a sign change. (Relative to the standard deviation, it's closer to a 20% change.)  
+For the *stim* case in particular, the mean value changes by almost 200%, including a sign change. (Relative to the standard deviation, it's closer to a 20% change.)  
+
+<div style="max-width:608px"><div style="position:relative;padding-bottom:66.118421052632%"><iframe id="kaltura_player" src="https://cdnapisec.kaltura.com/p/2358381/sp/235838100/embedIframeJs/uiconf_id/43030021/partner_id/2358381?iframeembed=true&playerId=kaltura_player&entry_id=1_vpsvig7f&flashvars[streamerType]=auto&amp;flashvars[localizationCode]=en&amp;flashvars[leadWithHTML5]=true&amp;flashvars[sideBarContainer.plugin]=true&amp;flashvars[sideBarContainer.position]=left&amp;flashvars[sideBarContainer.clickToClose]=true&amp;flashvars[chapters.plugin]=true&amp;flashvars[chapters.layout]=vertical&amp;flashvars[chapters.thumbnailRotator]=false&amp;flashvars[streamSelector.plugin]=true&amp;flashvars[EmbedPlayer.SpinnerTarget]=videoHolder&amp;flashvars[dualScreen.plugin]=true&amp;flashvars[Kaltura.addCrossoriginToIframe]=true&amp;&wid=1_a1t3d8un" width="608" height="402" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen *; encrypted-media *" sandbox="allow-forms allow-same-origin allow-scripts allow-top-navigation allow-pointer-lock allow-popups allow-modals allow-orientation-lock allow-popups-to-escape-sandbox allow-presentation allow-top-navigation-by-user-activation" frameborder="0" title="Kaltura Player" style="position:absolute;top:0;left:0;width:100%;height:100%"></iframe></div></div>

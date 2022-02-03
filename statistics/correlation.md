@@ -108,16 +108,16 @@ Over half of the predictive value was lost.
 
 The Spearman coefficient is one way to lessen the impact of outliers when measuring correlation. The idea is that the values are used only in their relationship to one another. 
 
-Define $r_i$ as the position of $x_i$ in a sorted reordering of the sampled values of $X$. Similarly, let $s_i$ be a position or *rank* series for the values of $Y$. Then the **Spearman coefficient** is defined as the Pearson coefficient of the variables $R$ and $S$.
+Define $s_i$ as the position of $x_i$ in a sorted reordering of the sampled values of $X$. Similarly, let $t_i$ be a position or *rank* series for the values of $Y$. Then the **Spearman coefficient** is defined as the Pearson coefficient of the variables $S$ and $T$.
 
 For the example above, it's trivial to produce the rank series by hand.
 
 ```{code-cell}
-r = pd.Series(range(1,21))
-s = r.copy()
-s[:5] = [2,3,4,5,1]
+s = pd.Series(range(1,21))
+t = s.copy()
+t[:5] = [2,3,4,5,1]
 
-r.corr(s)
+t.corr(s)
 ```
 
 This value is still very close to perfect correlation. pandas has a method for doing this calculation automatically on the original series.
@@ -137,7 +137,7 @@ Since real data almost always features outlying or anomalous values, it's import
 
 ## Categorical correlation
 
-An ordinal variable, such as days of the week, are often straightforward to quantify as consecutive integers. But a nominal variable poses a different challenge. 
+An ordinal variable, such as the days of the week, is often straightforward to quantify as integers. But a nominal variable poses a different challenge. 
 
 For example, grouped histograms suggest an association between body mass and species of penguin.
 
@@ -148,8 +148,8 @@ sns.displot(data=penguins,x="body_mass_g",col="species");
 How can we quantify the association? The first step is to convert the species column into dummy variables.
 
 ```{code-cell}
-dum = pd.get_dummies(penguins,columns=["species"])
-dum
+cols = ["body_mass_g","species_Adelie","species_Chinstrap","species_Gentoo"]
+dum[cols].corr()
 ```
 
 The original species column has been replaced by three binary indicator columns. Now we can look for correlations between them and the body mass:
@@ -179,3 +179,4 @@ This is an example of **Simpson's paradox**. The reason for it can be seen from 
 
 Simpson's paradox shows how important it us to understand the dataset before spewing out statistics about it. There are contexts where combining species of penguins makes sense, but in the case of body mass, we are really dealing with three separate distributions.
 
+<div style="max-width:608px"><div style="position:relative;padding-bottom:66.118421052632%"><iframe id="kaltura_player" src="https://cdnapisec.kaltura.com/p/2358381/sp/235838100/embedIframeJs/uiconf_id/43030021/partner_id/2358381?iframeembed=true&playerId=kaltura_player&entry_id=1_9zocsgvv&flashvars[streamerType]=auto&amp;flashvars[localizationCode]=en&amp;flashvars[leadWithHTML5]=true&amp;flashvars[sideBarContainer.plugin]=true&amp;flashvars[sideBarContainer.position]=left&amp;flashvars[sideBarContainer.clickToClose]=true&amp;flashvars[chapters.plugin]=true&amp;flashvars[chapters.layout]=vertical&amp;flashvars[chapters.thumbnailRotator]=false&amp;flashvars[streamSelector.plugin]=true&amp;flashvars[EmbedPlayer.SpinnerTarget]=videoHolder&amp;flashvars[dualScreen.plugin]=true&amp;flashvars[Kaltura.addCrossoriginToIframe]=true&amp;&wid=1_l4mb144s" width="608" height="402" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen *; encrypted-media *" sandbox="allow-forms allow-same-origin allow-scripts allow-top-navigation allow-pointer-lock allow-popups allow-modals allow-orientation-lock allow-popups-to-escape-sandbox allow-presentation allow-top-navigation-by-user-activation" frameborder="0" title="Kaltura Player" style="position:absolute;top:0;left:0;width:100%;height:100%"></iframe></div></div>
