@@ -44,7 +44,7 @@ Informally, an array with one dimension may be referred to as a vector, but that
 def showthem(lines):
     for line in lines:
         print() 
-        print(line,"=")
+        print(line,"is")
         print(eval(line))
     return None
 ```
@@ -99,10 +99,26 @@ A `:` in one slice position means to keep everything in that dimension.
 showthem(["A[:2,:]","A[:,0]"])
 ```
 
-Here are some other common ways to build arrays.
+You can build arrays using list comprehensions.
+
+```{code-cell}
+np.array([ [j-i for j in range(6)] for i in range(4) ])
+```
+
+Here are some other common ways to construct arrays.
 
 ```{code-cell} ipython3
 showthem(["np.ones(5)","np.zeros((3,6))","np.repeat(np.pi,3)"])
+```
+
+You can also stack arrays vertically or horizontally to create new arrays.
+
+```{code-cell}
+np.hstack( (np.ones((2,2)),np.zeros((2,3))) )
+```
+
+```{code-cell}
+np.vstack( (range(5),range(5,0,-1)) )
 ```
 
 ## Reductions
