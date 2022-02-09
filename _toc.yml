@@ -24,6 +24,7 @@ chapters:
     - file: supervised/nearest-neighbors
     - file: supervised/svm
     - file: supervised/model-selection
+    - file: supervised/exercises
   - file: regression/overview
     sections:
     - file: regression/linear
@@ -41,3 +42,4 @@ chapters:
   #   - file: network/visualization
   #   - file: network/degree
   #   - file: network/centrality
+  - file: genindex
