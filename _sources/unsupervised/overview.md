@@ -1,4 +1,4 @@
-# Unsupervised learning
+# Clustering
 
 In supervised learning, the data samples are supplied with labels, and the goal of the learner is to generalize the examples to new values. In unsupervised learning, there are no labels. Instead, the goal is to discover structure that is intrinsically within the data itself. Common types of unsupervised algorithms are
 

@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>5. Unsupervised learning &#8212; Data Science 1</title>
+    <title>5. Clustering &#8212; Data Science 1</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet">
   <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -29,6 +29,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
     <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     
@@ -142,13 +143,13 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../statistics/split-apply-combine.html">
-     2.1. Split–apply–combine
+    <a class="reference internal" href="../statistics/summary.html">
+     2.1. Summary statistics
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../statistics/summary.html">
-     2.2. Summary statistics
+    <a class="reference internal" href="../statistics/split-apply-combine.html">
+     2.2. Split–apply–combine
     </a>
    </li>
    <li class="toctree-l2">
@@ -159,6 +160,11 @@
    <li class="toctree-l2">
     <a class="reference internal" href="../statistics/correlation.html">
      2.4. Correlation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../statistics/exercises.html">
+     2.5. Exercises
     </a>
    </li>
   </ul>
@@ -174,7 +180,7 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../supervised/scikit.html">
+    <a class="reference internal" href="../supervised/sklearn.html">
      3.1. Using scikit-learn
     </a>
    </li>
@@ -201,6 +207,11 @@
    <li class="toctree-l2">
     <a class="reference internal" href="../supervised/model-selection.html">
      3.6. Model selection
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../supervised/exercises.html">
+     3.7. Exercises
     </a>
    </li>
   </ul>
@@ -239,7 +250,7 @@
  </li>
  <li class="toctree-l1 current active has-children">
   <a class="current reference internal" href="#">
-   5. Unsupervised learning
+   5. Clustering
   </a>
   <input checked="" class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
   <label for="toctree-checkbox-5">
@@ -263,6 +274,11 @@
     </a>
    </li>
   </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../network/overview.html">
+   6. Networks
+  </a>
  </li>
 </ul>
 
@@ -335,7 +351,7 @@
 </div>
     <!-- Table of contents that is only displayed when printing the page -->
     <div id="jb-print-docs-body" class="onlyprint">
-        <h1>Unsupervised learning</h1>
+        <h1>Clustering</h1>
         <!-- Table of contents -->
         <div id="print-main-content" class="row">
             <div class="col-12 col-md-12 pl-md-5 pr-md-5">
@@ -345,8 +361,8 @@
             
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="unsupervised-learning">
-<h1><span class="section-number">5. </span>Unsupervised learning<a class="headerlink" href="#unsupervised-learning" title="Permalink to this headline">¶</a></h1>
+  <div class="tex2jax_ignore mathjax_ignore section" id="clustering">
+<h1><span class="section-number">5. </span>Clustering<a class="headerlink" href="#clustering" title="Permalink to this headline">¶</a></h1>
 <p>In supervised learning, the data samples are supplied with labels, and the goal of the learner is to generalize the examples to new values. In unsupervised learning, there are no labels. Instead, the goal is to discover structure that is intrinsically within the data itself. Common types of unsupervised algorithms are</p>
 <ul class="simple">
 <li><p><strong>Clustering</strong> Determine whether the samples roughly divide into a small number of classes.</p></li>
@@ -388,8 +404,8 @@
         
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="unsupervised-learning">
-<h1><span class="section-number">5. </span>Unsupervised learning<a class="headerlink" href="#unsupervised-learning" title="Permalink to this headline">¶</a></h1>
+  <div class="tex2jax_ignore mathjax_ignore section" id="clustering">
+<h1><span class="section-number">5. </span>Clustering<a class="headerlink" href="#clustering" title="Permalink to this headline">¶</a></h1>
 <p>In supervised learning, the data samples are supplied with labels, and the goal of the learner is to generalize the examples to new values. In unsupervised learning, there are no labels. Instead, the goal is to discover structure that is intrinsically within the data itself. Common types of unsupervised algorithms are</p>
 <ul class="simple">
 <li><p><strong>Clustering</strong> Determine whether the samples roughly divide into a small number of classes.</p></li>

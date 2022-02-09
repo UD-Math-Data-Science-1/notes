@@ -45,7 +45,7 @@
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>window.MathJax = {"tex": {"macros": {"float": ["\\mathbb{F}"], "real": ["\\mathbb{R}"], "complex": ["\\mathbb{C}"], "nat": ["\\mathbb{N}"], "integer": ["\\mathbb{Z}"], "bfa": "\\mathbf{a}", "bfe": "\\mathbf{e}", "bfx": "\\mathbf{x}", "bfX": "\\mathbf{X}", "bfw": "\\mathbf{w}", "bfy": "\\mathbf{y}", "bfz": "\\mathbf{z}", "bfzero": "\\boldsymbol{0}", "bfmu": "\\boldsymbol{\\mu}", "TP": "\\text{TP}", "TN": "\\text{TN}", "FP": "\\text{FP}", "FN": "\\text{FN}", "rmn": ["\\mathbb{R}^{#1 \\times #2}", 2], "dd": ["\\frac{d #1}{d #2}", 2], "pp": ["\\frac{\\partial #1}{\\partial #2}", 2], "norm": ["\\lVert #1 \\rVert", 1], "twonorm": ["\\norm{#1}_2", 1], "onenorm": ["\\norm{#1}_1", 1], "infnorm": ["\\norm{#1}_\\infty", 1], "innerprod": ["\\langle #1,#2 \\rangle", 2], "pr": ["^{(#1)}", 1], "diag": ["\\operatorname{diag}"], "sign": ["\\operatorname{sign}"], "ee": ["\\times 10^"], "floor": ["\\lfloor#1\\rfloor", 1], "argmin": ["\\operatorname{argmin}"], "Cov": ["\\operatorname{Cov}"], "logit": ["\\operatorname{logit}"]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script>window.MathJax = {"tex": {"macros": {"float": ["\\mathbb{F}"], "real": ["\\mathbb{R}"], "complex": ["\\mathbb{C}"], "nat": ["\\mathbb{N}"], "integer": ["\\mathbb{Z}"], "bfa": "\\mathbf{a}", "bfe": "\\mathbf{e}", "bfx": "\\mathbf{x}", "bfX": "\\mathbf{X}", "bfu": "\\mathbf{u}", "bfv": "\\mathbf{v}", "bfw": "\\mathbf{w}", "bfy": "\\mathbf{y}", "bfz": "\\mathbf{z}", "bfzero": "\\boldsymbol{0}", "bfmu": "\\boldsymbol{\\mu}", "TP": "\\text{TP}", "TN": "\\text{TN}", "FP": "\\text{FP}", "FN": "\\text{FN}", "rmn": ["\\mathbb{R}^{#1 \\times #2}", 2], "dd": ["\\frac{d #1}{d #2}", 2], "pp": ["\\frac{\\partial #1}{\\partial #2}", 2], "norm": ["\\lVert #1 \\rVert", 1], "twonorm": ["\\norm{#1}_2", 1], "onenorm": ["\\norm{#1}_1", 1], "infnorm": ["\\norm{#1}_\\infty", 1], "innerprod": ["\\langle #1,#2 \\rangle", 2], "pr": ["^{(#1)}", 1], "diag": ["\\operatorname{diag}"], "sign": ["\\operatorname{sign}"], "ee": ["\\times 10^"], "floor": ["\\lfloor#1\\rfloor", 1], "argmin": ["\\operatorname{argmin}"], "Cov": ["\\operatorname{Cov}"], "logit": ["\\operatorname{logit}"]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
     <script>
         const thebe_selector = ".thebe,.cell"
@@ -211,6 +211,11 @@
      3.6. Model selection
     </a>
    </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../supervised/exercises.html">
+     3.7. Exercises
+    </a>
+   </li>
   </ul>
  </li>
  <li class="toctree-l1 has-children">
@@ -247,7 +252,7 @@
  </li>
  <li class="toctree-l1 has-children">
   <a class="reference internal" href="../unsupervised/overview.html">
-   5. Unsupervised learning
+   5. Clustering
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
   <label for="toctree-checkbox-5">
@@ -271,6 +276,11 @@
     </a>
    </li>
   </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../network/overview.html">
+   6. Networks
+  </a>
  </li>
 </ul>
 
@@ -494,7 +504,7 @@
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">showthem</span><span class="p">(</span><span class="n">lines</span><span class="p">):</span>
     <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">()</span> 
-        <span class="nb">print</span><span class="p">(</span><span class="n">line</span><span class="p">,</span><span class="s2">&quot;=&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">line</span><span class="p">,</span><span class="s2">&quot;is&quot;</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="nb">eval</span><span class="p">(</span><span class="n">line</span><span class="p">))</span>
     <span class="k">return</span> <span class="kc">None</span>
 </pre></div>
@@ -509,10 +519,10 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>x[0] =
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>x[0] is
 1
 
-x[[0,1,2]] =
+x[[0,1,2]] is
 [1 2 3]
 </pre></div>
 </div>
@@ -525,7 +535,7 @@ x[[0,1,2]] =
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>x[:3] =
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>x[:3] is
 [1 2 3]
 </pre></div>
 </div>
@@ -539,10 +549,10 @@ x[[0,1,2]] =
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>x[-1] =
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>x[-1] is
 5
 
-x[-3:] =
+x[-3:] is
 [3 4 5]
 </pre></div>
 </div>
@@ -556,7 +566,7 @@ x[-3:] =
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>x[1:4] =
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>x[1:4] is
 [2 3 4]
 </pre></div>
 </div>
@@ -570,7 +580,7 @@ x[-3:] =
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>x[1:10] =
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>x[1:10] is
 [2 3 4 5]
 </pre></div>
 </div>
@@ -600,7 +610,7 @@ x[-3:] =
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>A[-2:,:2] =
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>A[-2:,:2] is
 [[3 4]
  [5 6]]
 </pre></div>
@@ -615,17 +625,33 @@ x[-3:] =
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>A[:2,:] =
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>A[:2,:] is
 [[1 2]
  [3 4]]
 
-A[:,0] =
+A[:,0] is
 [1 3 5]
 </pre></div>
 </div>
 </div>
 </div>
-<p>Here are some other common ways to build arrays.</p>
+<p>You can build arrays using list comprehensions.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span> <span class="p">[</span><span class="n">j</span><span class="o">-</span><span class="n">i</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">6</span><span class="p">)]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span> <span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 0,  1,  2,  3,  4,  5],
+       [-1,  0,  1,  2,  3,  4],
+       [-2, -1,  0,  1,  2,  3],
+       [-3, -2, -1,  0,  1,  2]])
+</pre></div>
+</div>
+</div>
+</div>
+<p>Here are some other common ways to construct arrays.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">showthem</span><span class="p">([</span><span class="s2">&quot;np.ones(5)&quot;</span><span class="p">,</span><span class="s2">&quot;np.zeros((3,6))&quot;</span><span class="p">,</span><span class="s2">&quot;np.repeat(np.pi,3)&quot;</span><span class="p">])</span>
@@ -633,16 +659,43 @@ A[:,0] =
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>np.ones(5) =
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>np.ones(5) is
 [1. 1. 1. 1. 1.]
 
-np.zeros((3,6)) =
+np.zeros((3,6)) is
 [[0. 0. 0. 0. 0. 0.]
  [0. 0. 0. 0. 0. 0.]
  [0. 0. 0. 0. 0. 0.]]
 
-np.repeat(np.pi,3) =
+np.repeat(np.pi,3) is
 [3.14159265 3.14159265 3.14159265]
+</pre></div>
+</div>
+</div>
+</div>
+<p>You can also stack arrays vertically or horizontally to create new arrays.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">(</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)),</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)))</span> <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[1., 1., 0., 0., 0.],
+       [1., 1., 0., 0., 0.]])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span> <span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">),</span><span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span> <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0, 1, 2, 3, 4],
+       [5, 4, 3, 2, 1]])
 </pre></div>
 </div>
 </div>
@@ -658,15 +711,15 @@ np.repeat(np.pi,3) =
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>A =
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>A is
 [[1 2]
  [3 4]
  [5 6]]
 
-np.sum(A,axis=0) =
+np.sum(A,axis=0) is
 [ 9 12]
 
-np.sum(A,axis=1) =
+np.sum(A,axis=1) is
 [ 3  7 11]
 </pre></div>
 </div>
@@ -680,7 +733,7 @@ np.sum(A,axis=1) =
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>np.sum(A) =
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>np.sum(A) is
 21
 </pre></div>
 </div>
@@ -700,22 +753,22 @@ np.sum(A,axis=1) =
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>x+x =
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>x+x is
 [ 2  4  6  8 10]
 
-x+y =
+x+y is
 </pre></div>
 </div>
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">ValueError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="n">cn</span><span class="o">/</span><span class="mi">8</span><span class="n">w40979d27x0kv2wsnx7zgvm0000gp</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_53242</span><span class="o">/</span><span class="mf">3262596443.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="n">cn</span><span class="o">/</span><span class="mi">8</span><span class="n">w40979d27x0kv2wsnx7zgvm0000gp</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_76854</span><span class="o">/</span><span class="mf">3262596443.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
 <span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">])</span>
 <span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">10</span><span class="p">,</span><span class="mi">20</span><span class="p">])</span>
 <span class="ne">----&gt; </span><span class="mi">3</span> <span class="n">showthem</span><span class="p">([</span><span class="s2">&quot;x+x&quot;</span><span class="p">,</span><span class="s2">&quot;x+y&quot;</span><span class="p">])</span>
 
-<span class="nn">/var/folders/cn/8w40979d27x0kv2wsnx7zgvm0000gp/T/ipykernel_53242/1104616966.py</span> in <span class="ni">showthem</span><span class="nt">(lines)</span>
+<span class="nn">/var/folders/cn/8w40979d27x0kv2wsnx7zgvm0000gp/T/ipykernel_76854/3224711756.py</span> in <span class="ni">showthem</span><span class="nt">(lines)</span>
 <span class="g g-Whitespace">      </span><span class="mi">3</span>         <span class="nb">print</span><span class="p">()</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span>         <span class="nb">print</span><span class="p">(</span><span class="n">line</span><span class="p">,</span><span class="s2">&quot;=&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span>         <span class="nb">print</span><span class="p">(</span><span class="n">line</span><span class="p">,</span><span class="s2">&quot;is&quot;</span><span class="p">)</span>
 <span class="ne">----&gt; </span><span class="mi">5</span>         <span class="nb">print</span><span class="p">(</span><span class="nb">eval</span><span class="p">(</span><span class="n">line</span><span class="p">))</span>
 <span class="g g-Whitespace">      </span><span class="mi">6</span>     <span class="k">return</span> <span class="kc">None</span>
 
@@ -734,10 +787,10 @@ x+y =
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>x+3 =
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>x+3 is
 [4 5 6 7 8]
 
-A-y =
+A-y is
 [[ -9 -18]
  [ -7 -16]
  [ -5 -14]]
@@ -753,7 +806,7 @@ A-y =
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>A-np.mean(A,axis=0) =
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>A-np.mean(A,axis=0) is
 [[-2. -2.]
  [ 0.  0.]
  [ 2.  2.]]
@@ -926,7 +979,7 @@ A-y =
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">showthem</span><span class="p">(</span><span class="n">lines</span><span class="p">):</span>
     <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">()</span> 
-        <span class="nb">print</span><span class="p">(</span><span class="n">line</span><span class="p">,</span><span class="s2">&quot;=&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">line</span><span class="p">,</span><span class="s2">&quot;is&quot;</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="nb">eval</span><span class="p">(</span><span class="n">line</span><span class="p">))</span>
     <span class="k">return</span> <span class="kc">None</span>
 </pre></div>
@@ -941,10 +994,10 @@ A-y =
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>x[0] =
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>x[0] is
 1
 
-x[[0,1,2]] =
+x[[0,1,2]] is
 [1 2 3]
 </pre></div>
 </div>
@@ -957,7 +1010,7 @@ x[[0,1,2]] =
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>x[:3] =
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>x[:3] is
 [1 2 3]
 </pre></div>
 </div>
@@ -971,10 +1024,10 @@ x[[0,1,2]] =
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>x[-1] =
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>x[-1] is
 5
 
-x[-3:] =
+x[-3:] is
 [3 4 5]
 </pre></div>
 </div>
@@ -988,7 +1041,7 @@ x[-3:] =
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>x[1:4] =
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>x[1:4] is
 [2 3 4]
 </pre></div>
 </div>
@@ -1002,7 +1055,7 @@ x[-3:] =
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>x[1:10] =
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>x[1:10] is
 [2 3 4 5]
 </pre></div>
 </div>
@@ -1032,7 +1085,7 @@ x[-3:] =
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>A[-2:,:2] =
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>A[-2:,:2] is
 [[3 4]
  [5 6]]
 </pre></div>
@@ -1047,17 +1100,33 @@ x[-3:] =
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>A[:2,:] =
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>A[:2,:] is
 [[1 2]
  [3 4]]
 
-A[:,0] =
+A[:,0] is
 [1 3 5]
 </pre></div>
 </div>
 </div>
 </div>
-<p>Here are some other common ways to build arrays.</p>
+<p>You can build arrays using list comprehensions.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span> <span class="p">[</span><span class="n">j</span><span class="o">-</span><span class="n">i</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">6</span><span class="p">)]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span> <span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 0,  1,  2,  3,  4,  5],
+       [-1,  0,  1,  2,  3,  4],
+       [-2, -1,  0,  1,  2,  3],
+       [-3, -2, -1,  0,  1,  2]])
+</pre></div>
+</div>
+</div>
+</div>
+<p>Here are some other common ways to construct arrays.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">showthem</span><span class="p">([</span><span class="s2">&quot;np.ones(5)&quot;</span><span class="p">,</span><span class="s2">&quot;np.zeros((3,6))&quot;</span><span class="p">,</span><span class="s2">&quot;np.repeat(np.pi,3)&quot;</span><span class="p">])</span>
@@ -1065,16 +1134,43 @@ A[:,0] =
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>np.ones(5) =
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>np.ones(5) is
 [1. 1. 1. 1. 1.]
 
-np.zeros((3,6)) =
+np.zeros((3,6)) is
 [[0. 0. 0. 0. 0. 0.]
  [0. 0. 0. 0. 0. 0.]
  [0. 0. 0. 0. 0. 0.]]
 
-np.repeat(np.pi,3) =
+np.repeat(np.pi,3) is
 [3.14159265 3.14159265 3.14159265]
+</pre></div>
+</div>
+</div>
+</div>
+<p>You can also stack arrays vertically or horizontally to create new arrays.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">(</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)),</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)))</span> <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[1., 1., 0., 0., 0.],
+       [1., 1., 0., 0., 0.]])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span> <span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">),</span><span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span> <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0, 1, 2, 3, 4],
+       [5, 4, 3, 2, 1]])
 </pre></div>
 </div>
 </div>
@@ -1090,15 +1186,15 @@ np.repeat(np.pi,3) =
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>A =
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>A is
 [[1 2]
  [3 4]
  [5 6]]
 
-np.sum(A,axis=0) =
+np.sum(A,axis=0) is
 [ 9 12]
 
-np.sum(A,axis=1) =
+np.sum(A,axis=1) is
 [ 3  7 11]
 </pre></div>
 </div>
@@ -1112,7 +1208,7 @@ np.sum(A,axis=1) =
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>np.sum(A) =
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>np.sum(A) is
 21
 </pre></div>
 </div>
@@ -1132,22 +1228,22 @@ np.sum(A,axis=1) =
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>x+x =
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>x+x is
 [ 2  4  6  8 10]
 
-x+y =
+x+y is
 </pre></div>
 </div>
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">ValueError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="n">cn</span><span class="o">/</span><span class="mi">8</span><span class="n">w40979d27x0kv2wsnx7zgvm0000gp</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_53242</span><span class="o">/</span><span class="mf">3262596443.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="n">cn</span><span class="o">/</span><span class="mi">8</span><span class="n">w40979d27x0kv2wsnx7zgvm0000gp</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_76854</span><span class="o">/</span><span class="mf">3262596443.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
 <span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">])</span>
 <span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">10</span><span class="p">,</span><span class="mi">20</span><span class="p">])</span>
 <span class="ne">----&gt; </span><span class="mi">3</span> <span class="n">showthem</span><span class="p">([</span><span class="s2">&quot;x+x&quot;</span><span class="p">,</span><span class="s2">&quot;x+y&quot;</span><span class="p">])</span>
 
-<span class="nn">/var/folders/cn/8w40979d27x0kv2wsnx7zgvm0000gp/T/ipykernel_53242/1104616966.py</span> in <span class="ni">showthem</span><span class="nt">(lines)</span>
+<span class="nn">/var/folders/cn/8w40979d27x0kv2wsnx7zgvm0000gp/T/ipykernel_76854/3224711756.py</span> in <span class="ni">showthem</span><span class="nt">(lines)</span>
 <span class="g g-Whitespace">      </span><span class="mi">3</span>         <span class="nb">print</span><span class="p">()</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span>         <span class="nb">print</span><span class="p">(</span><span class="n">line</span><span class="p">,</span><span class="s2">&quot;=&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span>         <span class="nb">print</span><span class="p">(</span><span class="n">line</span><span class="p">,</span><span class="s2">&quot;is&quot;</span><span class="p">)</span>
 <span class="ne">----&gt; </span><span class="mi">5</span>         <span class="nb">print</span><span class="p">(</span><span class="nb">eval</span><span class="p">(</span><span class="n">line</span><span class="p">))</span>
 <span class="g g-Whitespace">      </span><span class="mi">6</span>     <span class="k">return</span> <span class="kc">None</span>
 
@@ -1166,10 +1262,10 @@ x+y =
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>x+3 =
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>x+3 is
 [4 5 6 7 8]
 
-A-y =
+A-y is
 [[ -9 -18]
  [ -7 -16]
  [ -5 -14]]
@@ -1185,7 +1281,7 @@ A-y =
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>A-np.mean(A,axis=0) =
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>A-np.mean(A,axis=0) is
 [[-2. -2.]
  [ 0.  0.]
  [ 2.  2.]]

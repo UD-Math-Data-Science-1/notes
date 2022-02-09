@@ -29,6 +29,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
     <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     
@@ -44,7 +45,7 @@
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>window.MathJax = {"tex": {"macros": {"float": ["\\mathbb{F}"], "real": ["\\mathbb{R}"], "complex": ["\\mathbb{C}"], "nat": ["\\mathbb{N}"], "integer": ["\\mathbb{Z}"], "bfa": "\\mathbf{a}", "bfe": "\\mathbf{e}", "bfx": "\\mathbf{x}", "bfX": "\\mathbf{X}", "bfw": "\\mathbf{w}", "bfy": "\\mathbf{y}", "bfz": "\\mathbf{z}", "bfzero": "\\boldsymbol{0}", "bfmu": "\\boldsymbol{\\mu}", "TP": "\\text{TP}", "TN": "\\text{TN}", "FP": "\\text{FP}", "FN": "\\text{FN}", "rmn": ["\\mathbb{R}^{#1 \\times #2}", 2], "dd": ["\\frac{d #1}{d #2}", 2], "pp": ["\\frac{\\partial #1}{\\partial #2}", 2], "norm": ["\\lVert #1 \\rVert", 1], "twonorm": ["\\norm{#1}_2", 1], "onenorm": ["\\norm{#1}_1", 1], "infnorm": ["\\norm{#1}_\\infty", 1], "innerprod": ["\\langle #1,#2 \\rangle", 2], "pr": ["^{(#1)}", 1], "diag": ["\\operatorname{diag}"], "sign": ["\\operatorname{sign}"], "ee": ["\\times 10^"], "floor": ["\\lfloor#1\\rfloor", 1], "argmin": ["\\operatorname{argmin}"], "Cov": ["\\operatorname{Cov}"], "logit": ["\\operatorname{logit}"]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script>window.MathJax = {"tex": {"macros": {"float": ["\\mathbb{F}"], "real": ["\\mathbb{R}"], "complex": ["\\mathbb{C}"], "nat": ["\\mathbb{N}"], "integer": ["\\mathbb{Z}"], "bfa": "\\mathbf{a}", "bfe": "\\mathbf{e}", "bfx": "\\mathbf{x}", "bfX": "\\mathbf{X}", "bfu": "\\mathbf{u}", "bfv": "\\mathbf{v}", "bfw": "\\mathbf{w}", "bfy": "\\mathbf{y}", "bfz": "\\mathbf{z}", "bfzero": "\\boldsymbol{0}", "bfmu": "\\boldsymbol{\\mu}", "TP": "\\text{TP}", "TN": "\\text{TN}", "FP": "\\text{FP}", "FN": "\\text{FN}", "rmn": ["\\mathbb{R}^{#1 \\times #2}", 2], "dd": ["\\frac{d #1}{d #2}", 2], "pp": ["\\frac{\\partial #1}{\\partial #2}", 2], "norm": ["\\lVert #1 \\rVert", 1], "twonorm": ["\\norm{#1}_2", 1], "onenorm": ["\\norm{#1}_1", 1], "infnorm": ["\\norm{#1}_\\infty", 1], "innerprod": ["\\langle #1,#2 \\rangle", 2], "pr": ["^{(#1)}", 1], "diag": ["\\operatorname{diag}"], "sign": ["\\operatorname{sign}"], "ee": ["\\times 10^"], "floor": ["\\lfloor#1\\rfloor", 1], "argmin": ["\\operatorname{argmin}"], "Cov": ["\\operatorname{Cov}"], "logit": ["\\operatorname{logit}"]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
     <script>
         const thebe_selector = ".thebe,.cell"
@@ -55,7 +56,7 @@
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="4. Regression" href="../regression/overview.html" />
+    <link rel="next" title="3.7. Exercises" href="exercises.html" />
     <link rel="prev" title="3.5. Support vector machine" href="svm.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
@@ -144,13 +145,13 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../statistics/split-apply-combine.html">
-     2.1. Split–apply–combine
+    <a class="reference internal" href="../statistics/summary.html">
+     2.1. Summary statistics
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../statistics/summary.html">
-     2.2. Summary statistics
+    <a class="reference internal" href="../statistics/split-apply-combine.html">
+     2.2. Split–apply–combine
     </a>
    </li>
    <li class="toctree-l2">
@@ -161,6 +162,11 @@
    <li class="toctree-l2">
     <a class="reference internal" href="../statistics/correlation.html">
      2.4. Correlation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../statistics/exercises.html">
+     2.5. Exercises
     </a>
    </li>
   </ul>
@@ -176,7 +182,7 @@
   </label>
   <ul class="current">
    <li class="toctree-l2">
-    <a class="reference internal" href="scikit.html">
+    <a class="reference internal" href="sklearn.html">
      3.1. Using scikit-learn
     </a>
    </li>
@@ -203,6 +209,11 @@
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
      3.6. Model selection
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="exercises.html">
+     3.7. Exercises
     </a>
    </li>
   </ul>
@@ -241,7 +252,7 @@
  </li>
  <li class="toctree-l1 has-children">
   <a class="reference internal" href="../unsupervised/overview.html">
-   5. Unsupervised learning
+   5. Clustering
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
   <label for="toctree-checkbox-5">
@@ -265,6 +276,11 @@
     </a>
    </li>
   </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../network/overview.html">
+   6. Networks
+  </a>
  </li>
 </ul>
 
@@ -444,10 +460,12 @@
 <span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
 <span class="kn">from</span> <span class="nn">sklearn.utils</span> <span class="kn">import</span> <span class="n">shuffle</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
 
-<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;data.csv&quot;</span><span class="p">,</span><span class="n">delimiter</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
-<span class="n">n</span><span class="p">,</span><span class="n">d</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;labels.csv&quot;</span><span class="p">,</span><span class="n">delimiter</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
+<span class="n">loans</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;loan_clean.csv&quot;</span><span class="p">)</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">loans</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s2">&quot;percent_funded&quot;</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">loans</span><span class="p">[</span><span class="s2">&quot;percent_funded&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">95</span>
 <span class="n">X_tr</span><span class="p">,</span> <span class="n">X_te</span><span class="p">,</span> <span class="n">y_tr</span><span class="p">,</span> <span class="n">y_te</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
 
 <span class="n">n</span> <span class="o">=</span> <span class="mi">1000</span>             <span class="c1"># size of the training subset</span>
@@ -461,15 +479,42 @@
     <span class="n">err</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">knn</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_te</span><span class="p">,</span><span class="n">y_te</span><span class="p">))</span>   <span class="c1"># test error</span>
     <span class="n">kind</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="s2">&quot;train&quot;</span><span class="p">,</span><span class="s2">&quot;test&quot;</span><span class="p">])</span>
 
-<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="n">result</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;error&quot;</span><span class="p">:</span><span class="n">err</span><span class="p">,</span><span class="s2">&quot;kind&quot;</span><span class="p">:</span><span class="n">kind</span><span class="p">})</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">displot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">result</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;error&quot;</span><span class="p">,</span><span class="n">hue</span><span class="o">=</span><span class="s2">&quot;kind&quot;</span><span class="p">,</span><span class="n">bins</span><span class="o">=</span><span class="mi">24</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/model-selection_1_0.png" src="../_images/model-selection_1_0.png" />
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">TypeError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="n">cn</span><span class="o">/</span><span class="mi">8</span><span class="n">w40979d27x0kv2wsnx7zgvm0000gp</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_16272</span><span class="o">/</span><span class="mf">2095503089.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">     </span><span class="mi">16</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">200</span><span class="p">):</span>
+<span class="g g-Whitespace">     </span><span class="mi">17</span>     <span class="n">X_tr</span><span class="p">,</span><span class="n">y_tr</span> <span class="o">=</span> <span class="n">shuffle</span><span class="p">(</span><span class="n">X_tr</span><span class="p">,</span><span class="n">y_tr</span><span class="p">,</span><span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="ne">---&gt; </span><span class="mi">18</span>     <span class="n">XX</span><span class="p">,</span><span class="n">yy</span> <span class="o">=</span> <span class="n">X_tr</span><span class="p">[:</span><span class="n">n</span><span class="p">,:],</span><span class="n">y_tr</span><span class="p">[:</span><span class="n">n</span><span class="p">]</span>
+<span class="g g-Whitespace">     </span><span class="mi">19</span>     <span class="n">knn</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">XX</span><span class="p">,</span><span class="n">yy</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">20</span>     <span class="n">err</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">knn</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">XX</span><span class="p">,</span><span class="n">yy</span><span class="p">))</span>       <span class="c1"># training error</span>
+
+<span class="nn">~/anaconda3/lib/python3.8/site-packages/pandas/core/frame.py</span> in <span class="ni">__getitem__</span><span class="nt">(self, key)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3456</span>             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">nlevels</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">3457</span>                 <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_getitem_multilevel</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">3458</span>             <span class="n">indexer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">get_loc</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3459</span>             <span class="k">if</span> <span class="n">is_integer</span><span class="p">(</span><span class="n">indexer</span><span class="p">):</span>
+<span class="g g-Whitespace">   </span><span class="mi">3460</span>                 <span class="n">indexer</span> <span class="o">=</span> <span class="p">[</span><span class="n">indexer</span><span class="p">]</span>
+
+<span class="nn">~/anaconda3/lib/python3.8/site-packages/pandas/core/indexes/base.py</span> in <span class="ni">get_loc</span><span class="nt">(self, key, method, tolerance)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3359</span>             <span class="n">casted_key</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_maybe_cast_indexer</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3360</span>             <span class="k">try</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">3361</span>                 <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_engine</span><span class="o">.</span><span class="n">get_loc</span><span class="p">(</span><span class="n">casted_key</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3362</span>             <span class="k">except</span> <span class="ne">KeyError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">3363</span>                 <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">err</span>
+
+<span class="nn">~/anaconda3/lib/python3.8/site-packages/pandas/_libs/index.pyx</span> in <span class="ni">pandas._libs.index.IndexEngine.get_loc</span><span class="nt">()</span>
+
+<span class="nn">~/anaconda3/lib/python3.8/site-packages/pandas/_libs/index.pyx</span> in <span class="ni">pandas._libs.index.IndexEngine.get_loc</span><span class="nt">()</span>
+
+<span class="ne">TypeError</span>: &#39;(slice(None, 1000, None), slice(None, None, None))&#39; is an invalid key
+</pre></div>
+</div>
 </div>
 </div>
 <p>As promised, the training error (blue histogram) is always zero. But the training error (orange histogram) tells a very different story.</p>
@@ -481,7 +526,7 @@
 <span class="n">knn</span> <span class="o">=</span> <span class="n">neighbors</span><span class="o">.</span><span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">200</span><span class="p">):</span>
     <span class="n">X_tr</span><span class="p">,</span><span class="n">y_tr</span> <span class="o">=</span> <span class="n">shuffle</span><span class="p">(</span><span class="n">X_tr</span><span class="p">,</span><span class="n">y_tr</span><span class="p">,</span><span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-    <span class="n">XX</span><span class="p">,</span><span class="n">yy</span> <span class="o">=</span> <span class="n">X_tr</span><span class="p">[:</span><span class="n">n</span><span class="p">,:],</span><span class="n">y_tr</span><span class="p">[:</span><span class="n">n</span><span class="p">]</span>
+    <span class="n">XX</span><span class="p">,</span><span class="n">yy</span> <span class="o">=</span> <span class="n">X_tr</span><span class="o">.</span><span class="n">loc</span><span class="p">[:</span><span class="n">n</span><span class="p">,:],</span><span class="n">y_tr</span><span class="o">.</span><span class="n">loc</span><span class="p">[:</span><span class="n">n</span><span class="p">]</span>
     <span class="n">knn</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">XX</span><span class="p">,</span><span class="n">yy</span><span class="p">)</span> 
     <span class="n">err</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">knn</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">XX</span><span class="p">,</span><span class="n">yy</span><span class="p">))</span>       <span class="c1"># training error</span>
     <span class="n">err</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">knn</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_te</span><span class="p">,</span><span class="n">y_te</span><span class="p">))</span>   <span class="c1"># test error</span>
@@ -496,7 +541,7 @@
 <img alt="../_images/model-selection_3_0.png" src="../_images/model-selection_3_0.png" />
 </div>
 </div>
-<p>Now the training error is generally on par with the testing error, and the variance in the testing error is much smaller than before.</p>
+<p>Now the training error is more comparable to the testing error, and the variance in the testing error is much smaller than before.</p>
 </div>
 <div class="section" id="biasvariance-tradeoff">
 <h2>Bias–variance tradeoff<a class="headerlink" href="#biasvariance-tradeoff" title="Permalink to this headline">¶</a></h2>
@@ -590,29 +635,35 @@ E\bigl[ (f(x) - \hat{f}(x))^2 \bigr] &amp;= E\bigl[ (f(x) - \hat{y} + \hat{y} - 
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0.73858694 0.73881722 0.73710737 0.7329579  0.75110363 0.74341783]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0.74474474 0.74132437 0.73814402 0.73257658 0.74011068 0.73680555]
 </pre></div>
 </div>
 </div>
 </div>
 <p>The low variance across the folds is reassurance that they are representative subsets. Typically one would use the mean of these individual fold scores as the final metric.</p>
-<p>To wrap up, we will use cross-validation to perform an experiment complementary to the learning curve, where we hold the training set size constant while varying the depth of the tree.</p>
+<p>To wrap up, we will use cross-validation to perform an experiment complementary to the learning curve, sometimes called a <strong>validation curve</strong>. Here we hold the training set size constant while varying the depth of the tree.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="mi">20000</span>             <span class="c1"># size of the training subset</span>
 <span class="n">X_tr</span><span class="p">,</span><span class="n">y_tr</span> <span class="o">=</span> <span class="n">X_tr</span><span class="p">[:</span><span class="n">n</span><span class="p">,:],</span><span class="n">y_tr</span><span class="p">[:</span><span class="n">n</span><span class="p">]</span>
 <span class="n">depth</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">21</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">kind</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;train&quot;</span><span class="p">]</span><span class="o">*</span><span class="mi">6</span>
-<span class="n">kind</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="s2">&quot;test&quot;</span><span class="p">]</span><span class="o">*</span><span class="mi">6</span><span class="p">)</span>
-<span class="n">result</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
 <span class="n">kf</span> <span class="o">=</span> <span class="n">KFold</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span><span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">d_all</span><span class="p">,</span><span class="n">err</span><span class="p">,</span><span class="n">kind</span> <span class="o">=</span> <span class="p">[],[],[]</span>  <span class="c1"># for keeping results</span>
 <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">depth</span><span class="p">:</span>
     <span class="n">dt</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">DecisionTreeClassifier</span><span class="p">(</span><span class="n">max_depth</span><span class="o">=</span><span class="n">d</span><span class="p">)</span>
     <span class="n">cv</span> <span class="o">=</span> <span class="n">cross_validate</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span><span class="n">X_tr</span><span class="p">,</span><span class="n">y_tr</span><span class="p">,</span><span class="n">cv</span><span class="o">=</span><span class="n">kf</span><span class="p">,</span><span class="n">return_train_score</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">err</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="mi">1</span><span class="o">-</span><span class="n">cv</span><span class="p">[</span><span class="s2">&quot;train_score&quot;</span><span class="p">],</span><span class="mi">1</span><span class="o">-</span><span class="n">cv</span><span class="p">[</span><span class="s2">&quot;test_score&quot;</span><span class="p">]))</span>
-    <span class="n">keep</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;depth&quot;</span><span class="p">:</span><span class="n">d</span><span class="p">,</span> <span class="s2">&quot;error&quot;</span><span class="p">:</span><span class="n">err</span><span class="p">,</span> <span class="s2">&quot;kind&quot;</span><span class="p">:</span><span class="n">kind</span><span class="p">}</span> 
-    <span class="n">result</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">((</span><span class="n">result</span><span class="p">,</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">keep</span><span class="p">)),</span><span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
+    <span class="c1"># record training errors</span>
+    <span class="n">d_all</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">d</span><span class="p">]</span><span class="o">*</span><span class="n">kf</span><span class="o">.</span><span class="n">n_splits</span><span class="p">)</span>
+    <span class="n">kind</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="s2">&quot;train&quot;</span><span class="p">]</span><span class="o">*</span><span class="n">kf</span><span class="o">.</span><span class="n">n_splits</span><span class="p">)</span>
+    <span class="n">err</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">cv</span><span class="p">[</span><span class="s2">&quot;train_score&quot;</span><span class="p">])</span>
+
+    <span class="c1"># record test errors</span>
+    <span class="n">d_all</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">d</span><span class="p">]</span><span class="o">*</span><span class="n">kf</span><span class="o">.</span><span class="n">n_splits</span><span class="p">)</span>
+    <span class="n">kind</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="s2">&quot;test&quot;</span><span class="p">]</span><span class="o">*</span><span class="n">kf</span><span class="o">.</span><span class="n">n_splits</span><span class="p">)</span>
+    <span class="n">err</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">cv</span><span class="p">[</span><span class="s2">&quot;test_score&quot;</span><span class="p">])</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span> <span class="p">{</span><span class="s2">&quot;depth&quot;</span><span class="p">:</span><span class="n">d_all</span><span class="p">,</span><span class="s2">&quot;error&quot;</span><span class="p">:</span><span class="n">err</span><span class="p">,</span><span class="s2">&quot;kind&quot;</span><span class="p">:</span><span class="n">kind</span><span class="p">}</span> <span class="p">)</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">relplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">result</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;depth&quot;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s2">&quot;error&quot;</span><span class="p">,</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;line&quot;</span><span class="p">,</span><span class="n">ci</span><span class="o">=</span><span class="s2">&quot;sd&quot;</span><span class="p">,</span><span class="n">hue</span><span class="o">=</span><span class="s2">&quot;kind&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
@@ -621,7 +672,7 @@ E\bigl[ (f(x) - \hat{f}(x))^2 \bigr] &amp;= E\bigl[ (f(x) - \hat{y} + \hat{y} - 
 <img alt="../_images/model-selection_9_0.png" src="../_images/model-selection_9_0.png" />
 </div>
 </div>
-<p>A decision tree gets more resolving power as its depth increases, so it is no surprise that the training error decreases monotonically. However, while the test error initially decreases too, eventually it hits a minimum and starts to increase. Past this point, the additional power being given to the trees is used only for overfitting; it’s like shifting us back to the left end of the learning curve, where there is insufficient data to fully satisfy the model.</p>
+<p>A decision tree gets more resolving power as its depth increases, so it is no surprise that the training error decreases monotonically. However, while the test error initially decreases too, eventually it hits a minimum and starts to increase. Past this point, the additional power being given to the trees is used only for overfitting; it’s like shifting us back to the left end of the learning curve, where there is insufficient data to fully satisfy the model. Based on the validation curves, it would make sense to set the maximum depth to 11 for training a model that we want to use.</p>
 </div>
 </div>
 
@@ -673,10 +724,12 @@ E\bigl[ (f(x) - \hat{f}(x))^2 \bigr] &amp;= E\bigl[ (f(x) - \hat{y} + \hat{y} - 
 <span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
 <span class="kn">from</span> <span class="nn">sklearn.utils</span> <span class="kn">import</span> <span class="n">shuffle</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
 
-<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;data.csv&quot;</span><span class="p">,</span><span class="n">delimiter</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
-<span class="n">n</span><span class="p">,</span><span class="n">d</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;labels.csv&quot;</span><span class="p">,</span><span class="n">delimiter</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
+<span class="n">loans</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;loan_clean.csv&quot;</span><span class="p">)</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">loans</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s2">&quot;percent_funded&quot;</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">loans</span><span class="p">[</span><span class="s2">&quot;percent_funded&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">95</span>
 <span class="n">X_tr</span><span class="p">,</span> <span class="n">X_te</span><span class="p">,</span> <span class="n">y_tr</span><span class="p">,</span> <span class="n">y_te</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
 
 <span class="n">n</span> <span class="o">=</span> <span class="mi">1000</span>             <span class="c1"># size of the training subset</span>
@@ -690,15 +743,42 @@ E\bigl[ (f(x) - \hat{f}(x))^2 \bigr] &amp;= E\bigl[ (f(x) - \hat{y} + \hat{y} - 
     <span class="n">err</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">knn</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_te</span><span class="p">,</span><span class="n">y_te</span><span class="p">))</span>   <span class="c1"># test error</span>
     <span class="n">kind</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="s2">&quot;train&quot;</span><span class="p">,</span><span class="s2">&quot;test&quot;</span><span class="p">])</span>
 
-<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="n">result</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;error&quot;</span><span class="p">:</span><span class="n">err</span><span class="p">,</span><span class="s2">&quot;kind&quot;</span><span class="p">:</span><span class="n">kind</span><span class="p">})</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">displot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">result</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;error&quot;</span><span class="p">,</span><span class="n">hue</span><span class="o">=</span><span class="s2">&quot;kind&quot;</span><span class="p">,</span><span class="n">bins</span><span class="o">=</span><span class="mi">24</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/model-selection_1_0.png" src="../_images/model-selection_1_0.png" />
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">TypeError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="n">cn</span><span class="o">/</span><span class="mi">8</span><span class="n">w40979d27x0kv2wsnx7zgvm0000gp</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_16272</span><span class="o">/</span><span class="mf">2095503089.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">     </span><span class="mi">16</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">200</span><span class="p">):</span>
+<span class="g g-Whitespace">     </span><span class="mi">17</span>     <span class="n">X_tr</span><span class="p">,</span><span class="n">y_tr</span> <span class="o">=</span> <span class="n">shuffle</span><span class="p">(</span><span class="n">X_tr</span><span class="p">,</span><span class="n">y_tr</span><span class="p">,</span><span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="ne">---&gt; </span><span class="mi">18</span>     <span class="n">XX</span><span class="p">,</span><span class="n">yy</span> <span class="o">=</span> <span class="n">X_tr</span><span class="p">[:</span><span class="n">n</span><span class="p">,:],</span><span class="n">y_tr</span><span class="p">[:</span><span class="n">n</span><span class="p">]</span>
+<span class="g g-Whitespace">     </span><span class="mi">19</span>     <span class="n">knn</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">XX</span><span class="p">,</span><span class="n">yy</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">20</span>     <span class="n">err</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">knn</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">XX</span><span class="p">,</span><span class="n">yy</span><span class="p">))</span>       <span class="c1"># training error</span>
+
+<span class="nn">~/anaconda3/lib/python3.8/site-packages/pandas/core/frame.py</span> in <span class="ni">__getitem__</span><span class="nt">(self, key)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3456</span>             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">nlevels</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">3457</span>                 <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_getitem_multilevel</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">3458</span>             <span class="n">indexer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">get_loc</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3459</span>             <span class="k">if</span> <span class="n">is_integer</span><span class="p">(</span><span class="n">indexer</span><span class="p">):</span>
+<span class="g g-Whitespace">   </span><span class="mi">3460</span>                 <span class="n">indexer</span> <span class="o">=</span> <span class="p">[</span><span class="n">indexer</span><span class="p">]</span>
+
+<span class="nn">~/anaconda3/lib/python3.8/site-packages/pandas/core/indexes/base.py</span> in <span class="ni">get_loc</span><span class="nt">(self, key, method, tolerance)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3359</span>             <span class="n">casted_key</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_maybe_cast_indexer</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3360</span>             <span class="k">try</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">3361</span>                 <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_engine</span><span class="o">.</span><span class="n">get_loc</span><span class="p">(</span><span class="n">casted_key</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3362</span>             <span class="k">except</span> <span class="ne">KeyError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">3363</span>                 <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">err</span>
+
+<span class="nn">~/anaconda3/lib/python3.8/site-packages/pandas/_libs/index.pyx</span> in <span class="ni">pandas._libs.index.IndexEngine.get_loc</span><span class="nt">()</span>
+
+<span class="nn">~/anaconda3/lib/python3.8/site-packages/pandas/_libs/index.pyx</span> in <span class="ni">pandas._libs.index.IndexEngine.get_loc</span><span class="nt">()</span>
+
+<span class="ne">TypeError</span>: &#39;(slice(None, 1000, None), slice(None, None, None))&#39; is an invalid key
+</pre></div>
+</div>
 </div>
 </div>
 <p>As promised, the training error (blue histogram) is always zero. But the training error (orange histogram) tells a very different story.</p>
@@ -710,7 +790,7 @@ E\bigl[ (f(x) - \hat{f}(x))^2 \bigr] &amp;= E\bigl[ (f(x) - \hat{y} + \hat{y} - 
 <span class="n">knn</span> <span class="o">=</span> <span class="n">neighbors</span><span class="o">.</span><span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">200</span><span class="p">):</span>
     <span class="n">X_tr</span><span class="p">,</span><span class="n">y_tr</span> <span class="o">=</span> <span class="n">shuffle</span><span class="p">(</span><span class="n">X_tr</span><span class="p">,</span><span class="n">y_tr</span><span class="p">,</span><span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-    <span class="n">XX</span><span class="p">,</span><span class="n">yy</span> <span class="o">=</span> <span class="n">X_tr</span><span class="p">[:</span><span class="n">n</span><span class="p">,:],</span><span class="n">y_tr</span><span class="p">[:</span><span class="n">n</span><span class="p">]</span>
+    <span class="n">XX</span><span class="p">,</span><span class="n">yy</span> <span class="o">=</span> <span class="n">X_tr</span><span class="o">.</span><span class="n">loc</span><span class="p">[:</span><span class="n">n</span><span class="p">,:],</span><span class="n">y_tr</span><span class="o">.</span><span class="n">loc</span><span class="p">[:</span><span class="n">n</span><span class="p">]</span>
     <span class="n">knn</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">XX</span><span class="p">,</span><span class="n">yy</span><span class="p">)</span> 
     <span class="n">err</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">knn</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">XX</span><span class="p">,</span><span class="n">yy</span><span class="p">))</span>       <span class="c1"># training error</span>
     <span class="n">err</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">knn</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_te</span><span class="p">,</span><span class="n">y_te</span><span class="p">))</span>   <span class="c1"># test error</span>
@@ -725,7 +805,7 @@ E\bigl[ (f(x) - \hat{f}(x))^2 \bigr] &amp;= E\bigl[ (f(x) - \hat{y} + \hat{y} - 
 <img alt="../_images/model-selection_3_0.png" src="../_images/model-selection_3_0.png" />
 </div>
 </div>
-<p>Now the training error is generally on par with the testing error, and the variance in the testing error is much smaller than before.</p>
+<p>Now the training error is more comparable to the testing error, and the variance in the testing error is much smaller than before.</p>
 </div>
 <div class="section" id="biasvariance-tradeoff">
 <h2>Bias–variance tradeoff<a class="headerlink" href="#biasvariance-tradeoff" title="Permalink to this headline">¶</a></h2>
@@ -819,29 +899,35 @@ E\bigl[ (f(x) - \hat{f}(x))^2 \bigr] &amp;= E\bigl[ (f(x) - \hat{y} + \hat{y} - 
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0.73858694 0.73881722 0.73710737 0.7329579  0.75110363 0.74341783]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0.74474474 0.74132437 0.73814402 0.73257658 0.74011068 0.73680555]
 </pre></div>
 </div>
 </div>
 </div>
 <p>The low variance across the folds is reassurance that they are representative subsets. Typically one would use the mean of these individual fold scores as the final metric.</p>
-<p>To wrap up, we will use cross-validation to perform an experiment complementary to the learning curve, where we hold the training set size constant while varying the depth of the tree.</p>
+<p>To wrap up, we will use cross-validation to perform an experiment complementary to the learning curve, sometimes called a <strong>validation curve</strong>. Here we hold the training set size constant while varying the depth of the tree.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="mi">20000</span>             <span class="c1"># size of the training subset</span>
 <span class="n">X_tr</span><span class="p">,</span><span class="n">y_tr</span> <span class="o">=</span> <span class="n">X_tr</span><span class="p">[:</span><span class="n">n</span><span class="p">,:],</span><span class="n">y_tr</span><span class="p">[:</span><span class="n">n</span><span class="p">]</span>
 <span class="n">depth</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">21</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">kind</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;train&quot;</span><span class="p">]</span><span class="o">*</span><span class="mi">6</span>
-<span class="n">kind</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="s2">&quot;test&quot;</span><span class="p">]</span><span class="o">*</span><span class="mi">6</span><span class="p">)</span>
-<span class="n">result</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
 <span class="n">kf</span> <span class="o">=</span> <span class="n">KFold</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span><span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">d_all</span><span class="p">,</span><span class="n">err</span><span class="p">,</span><span class="n">kind</span> <span class="o">=</span> <span class="p">[],[],[]</span>  <span class="c1"># for keeping results</span>
 <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">depth</span><span class="p">:</span>
     <span class="n">dt</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">DecisionTreeClassifier</span><span class="p">(</span><span class="n">max_depth</span><span class="o">=</span><span class="n">d</span><span class="p">)</span>
     <span class="n">cv</span> <span class="o">=</span> <span class="n">cross_validate</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span><span class="n">X_tr</span><span class="p">,</span><span class="n">y_tr</span><span class="p">,</span><span class="n">cv</span><span class="o">=</span><span class="n">kf</span><span class="p">,</span><span class="n">return_train_score</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">err</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="mi">1</span><span class="o">-</span><span class="n">cv</span><span class="p">[</span><span class="s2">&quot;train_score&quot;</span><span class="p">],</span><span class="mi">1</span><span class="o">-</span><span class="n">cv</span><span class="p">[</span><span class="s2">&quot;test_score&quot;</span><span class="p">]))</span>
-    <span class="n">keep</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;depth&quot;</span><span class="p">:</span><span class="n">d</span><span class="p">,</span> <span class="s2">&quot;error&quot;</span><span class="p">:</span><span class="n">err</span><span class="p">,</span> <span class="s2">&quot;kind&quot;</span><span class="p">:</span><span class="n">kind</span><span class="p">}</span> 
-    <span class="n">result</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">((</span><span class="n">result</span><span class="p">,</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">keep</span><span class="p">)),</span><span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
+    <span class="c1"># record training errors</span>
+    <span class="n">d_all</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">d</span><span class="p">]</span><span class="o">*</span><span class="n">kf</span><span class="o">.</span><span class="n">n_splits</span><span class="p">)</span>
+    <span class="n">kind</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="s2">&quot;train&quot;</span><span class="p">]</span><span class="o">*</span><span class="n">kf</span><span class="o">.</span><span class="n">n_splits</span><span class="p">)</span>
+    <span class="n">err</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">cv</span><span class="p">[</span><span class="s2">&quot;train_score&quot;</span><span class="p">])</span>
+
+    <span class="c1"># record test errors</span>
+    <span class="n">d_all</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">d</span><span class="p">]</span><span class="o">*</span><span class="n">kf</span><span class="o">.</span><span class="n">n_splits</span><span class="p">)</span>
+    <span class="n">kind</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="s2">&quot;test&quot;</span><span class="p">]</span><span class="o">*</span><span class="n">kf</span><span class="o">.</span><span class="n">n_splits</span><span class="p">)</span>
+    <span class="n">err</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">cv</span><span class="p">[</span><span class="s2">&quot;test_score&quot;</span><span class="p">])</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span> <span class="p">{</span><span class="s2">&quot;depth&quot;</span><span class="p">:</span><span class="n">d_all</span><span class="p">,</span><span class="s2">&quot;error&quot;</span><span class="p">:</span><span class="n">err</span><span class="p">,</span><span class="s2">&quot;kind&quot;</span><span class="p">:</span><span class="n">kind</span><span class="p">}</span> <span class="p">)</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">relplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">result</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;depth&quot;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s2">&quot;error&quot;</span><span class="p">,</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;line&quot;</span><span class="p">,</span><span class="n">ci</span><span class="o">=</span><span class="s2">&quot;sd&quot;</span><span class="p">,</span><span class="n">hue</span><span class="o">=</span><span class="s2">&quot;kind&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
@@ -850,7 +936,7 @@ E\bigl[ (f(x) - \hat{f}(x))^2 \bigr] &amp;= E\bigl[ (f(x) - \hat{y} + \hat{y} - 
 <img alt="../_images/model-selection_9_0.png" src="../_images/model-selection_9_0.png" />
 </div>
 </div>
-<p>A decision tree gets more resolving power as its depth increases, so it is no surprise that the training error decreases monotonically. However, while the test error initially decreases too, eventually it hits a minimum and starts to increase. Past this point, the additional power being given to the trees is used only for overfitting; it’s like shifting us back to the left end of the learning curve, where there is insufficient data to fully satisfy the model.</p>
+<p>A decision tree gets more resolving power as its depth increases, so it is no surprise that the training error decreases monotonically. However, while the test error initially decreases too, eventually it hits a minimum and starts to increase. Past this point, the additional power being given to the trees is used only for overfitting; it’s like shifting us back to the left end of the learning curve, where there is insufficient data to fully satisfy the model. Based on the validation curves, it would make sense to set the maximum depth to 11 for training a model that we want to use.</p>
 </div>
 </div>
 
@@ -886,10 +972,10 @@ E\bigl[ (f(x) - \hat{f}(x))^2 \bigr] &amp;= E\bigl[ (f(x) - \hat{y} + \hat{y} - 
             <p class="prev-next-title"><span class="section-number">3.5. </span>Support vector machine</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="../regression/overview.html" title="next page">
+    <a class='right-next' id="next-link" href="exercises.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">4. </span>Regression</p>
+        <p class="prev-next-title"><span class="section-number">3.7. </span>Exercises</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

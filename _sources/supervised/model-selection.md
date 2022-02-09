@@ -4,7 +4,7 @@ jupytext:
     extension: .md
     format_name: myst
     format_version: 0.13
-    jupytext_version: 1.10.3
+    jupytext_version: 1.11.5
 kernelspec:
   display_name: 'Python 3.8.8 64-bit (''base'': conda)'
   language: python
@@ -32,10 +32,12 @@ from sklearn import neighbors,metrics
 from sklearn.model_selection import train_test_split
 from sklearn.utils import shuffle
 import numpy as np
+import pandas as pd
+import seaborn as sns
 
-X = np.loadtxt("data.csv",delimiter=",")
-n,d = X.shape
-y = np.loadtxt("labels.csv",delimiter=",")
+loans = pd.read_csv("loan_clean.csv")
+X = loans.drop("percent_funded",axis=1)
+y = loans["percent_funded"] > 95
 X_tr, X_te, y_tr, y_te = train_test_split(X,y,test_size=0.2)
 
 n = 1000             # size of the training subset
@@ -49,8 +51,6 @@ for i in range(200):
     err.append(1-knn.score(X_te,y_te))   # test error
     kind.extend(["train","test"])
 
-import seaborn as sns
-import pandas as pd
 result = pd.DataFrame({"error":err,"kind":kind})
 sns.displot(data=result,x="error",hue="kind",bins=24);
 ```
@@ -65,7 +65,7 @@ err,kind = [],[]     # track information for the results
 knn = neighbors.KNeighborsClassifier(n_neighbors=6)
 for i in range(200):
     X_tr,y_tr = shuffle(X_tr,y_tr,random_state=1)
-    XX,yy = X_tr[:n,:],y_tr[:n]
+    XX,yy = X_tr.loc[:n,:],y_tr.loc[:n]
     knn.fit(XX,yy) 
     err.append(1-knn.score(XX,yy))       # training error
     err.append(1-knn.score(X_te,y_te))   # test error
@@ -75,7 +75,7 @@ result = pd.DataFrame({"error":err,"kind":kind})
 sns.displot(data=result,x="error",hue="kind",bins=24);
 ```
 
-Now the training error is generally on par with the testing error, and the variance in the testing error is much smaller than before. 
+Now the training error is more comparable to the testing error, and the variance in the testing error is much smaller than before. 
 
 ## Bias–variance tradeoff
 
@@ -170,24 +170,30 @@ print(scores["test_score"])
 
 The low variance across the folds is reassurance that they are representative subsets. Typically one would use the mean of these individual fold scores as the final metric. 
 
-To wrap up, we will use cross-validation to perform an experiment complementary to the learning curve, where we hold the training set size constant while varying the depth of the tree. 
+To wrap up, we will use cross-validation to perform an experiment complementary to the learning curve, sometimes called a **validation curve**. Here we hold the training set size constant while varying the depth of the tree. 
 
 ```{code-cell}
 n = 20000             # size of the training subset
 X_tr,y_tr = X_tr[:n,:],y_tr[:n]
 depth = range(2,21,1)
-kind = ["train"]*6
-kind.extend(["test"]*6)
-result = pd.DataFrame()
 kf = KFold(n_splits=6,shuffle=True,random_state=0)
+d_all,err,kind = [],[],[]  # for keeping results
 for d in depth:
     dt = tree.DecisionTreeClassifier(max_depth=d)
     cv = cross_validate(dt,X_tr,y_tr,cv=kf,return_train_score=True)
-    err = np.hstack((1-cv["train_score"],1-cv["test_score"]))
-    keep = {"depth":d, "error":err, "kind":kind} 
-    result = pd.concat((result,pd.DataFrame(keep)),ignore_index=True)
 
+    # record training errors
+    d_all.extend([d]*kf.n_splits)
+    kind.extend(["train"]*kf.n_splits)
+    err.extend(1-cv["train_score"])
+
+    # record test errors
+    d_all.extend([d]*kf.n_splits)
+    kind.extend(["test"]*kf.n_splits)
+    err.extend(1-cv["test_score"])
+
+result = pd.DataFrame( {"depth":d_all,"error":err,"kind":kind} )
 sns.relplot(data=result,x="depth",y="error",kind="line",ci="sd",hue="kind");
 ```
 
-A decision tree gets more resolving power as its depth increases, so it is no surprise that the training error decreases monotonically. However, while the test error initially decreases too, eventually it hits a minimum and starts to increase. Past this point, the additional power being given to the trees is used only for overfitting; it's like shifting us back to the left end of the learning curve, where there is insufficient data to fully satisfy the model. 
+A decision tree gets more resolving power as its depth increases, so it is no surprise that the training error decreases monotonically. However, while the test error initially decreases too, eventually it hits a minimum and starts to increase. Past this point, the additional power being given to the trees is used only for overfitting; it's like shifting us back to the left end of the learning curve, where there is insufficient data to fully satisfy the model. Based on the validation curves, it would make sense to set the maximum depth to 11 for training a model that we want to use.

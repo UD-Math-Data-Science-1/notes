@@ -29,6 +29,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
     <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     
@@ -44,7 +45,7 @@
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>window.MathJax = {"tex": {"macros": {"float": ["\\mathbb{F}"], "real": ["\\mathbb{R}"], "complex": ["\\mathbb{C}"], "nat": ["\\mathbb{N}"], "integer": ["\\mathbb{Z}"], "bfa": "\\mathbf{a}", "bfe": "\\mathbf{e}", "bfx": "\\mathbf{x}", "bfX": "\\mathbf{X}", "bfw": "\\mathbf{w}", "bfy": "\\mathbf{y}", "bfz": "\\mathbf{z}", "bfzero": "\\boldsymbol{0}", "bfmu": "\\boldsymbol{\\mu}", "TP": "\\text{TP}", "TN": "\\text{TN}", "FP": "\\text{FP}", "FN": "\\text{FN}", "rmn": ["\\mathbb{R}^{#1 \\times #2}", 2], "dd": ["\\frac{d #1}{d #2}", 2], "pp": ["\\frac{\\partial #1}{\\partial #2}", 2], "norm": ["\\lVert #1 \\rVert", 1], "twonorm": ["\\norm{#1}_2", 1], "onenorm": ["\\norm{#1}_1", 1], "infnorm": ["\\norm{#1}_\\infty", 1], "innerprod": ["\\langle #1,#2 \\rangle", 2], "pr": ["^{(#1)}", 1], "diag": ["\\operatorname{diag}"], "sign": ["\\operatorname{sign}"], "ee": ["\\times 10^"], "floor": ["\\lfloor#1\\rfloor", 1], "argmin": ["\\operatorname{argmin}"], "Cov": ["\\operatorname{Cov}"], "logit": ["\\operatorname{logit}"]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script>window.MathJax = {"tex": {"macros": {"float": ["\\mathbb{F}"], "real": ["\\mathbb{R}"], "complex": ["\\mathbb{C}"], "nat": ["\\mathbb{N}"], "integer": ["\\mathbb{Z}"], "bfa": "\\mathbf{a}", "bfe": "\\mathbf{e}", "bfx": "\\mathbf{x}", "bfX": "\\mathbf{X}", "bfu": "\\mathbf{u}", "bfv": "\\mathbf{v}", "bfw": "\\mathbf{w}", "bfy": "\\mathbf{y}", "bfz": "\\mathbf{z}", "bfzero": "\\boldsymbol{0}", "bfmu": "\\boldsymbol{\\mu}", "TP": "\\text{TP}", "TN": "\\text{TN}", "FP": "\\text{FP}", "FN": "\\text{FN}", "rmn": ["\\mathbb{R}^{#1 \\times #2}", 2], "dd": ["\\frac{d #1}{d #2}", 2], "pp": ["\\frac{\\partial #1}{\\partial #2}", 2], "norm": ["\\lVert #1 \\rVert", 1], "twonorm": ["\\norm{#1}_2", 1], "onenorm": ["\\norm{#1}_1", 1], "infnorm": ["\\norm{#1}_\\infty", 1], "innerprod": ["\\langle #1,#2 \\rangle", 2], "pr": ["^{(#1)}", 1], "diag": ["\\operatorname{diag}"], "sign": ["\\operatorname{sign}"], "ee": ["\\times 10^"], "floor": ["\\lfloor#1\\rfloor", 1], "argmin": ["\\operatorname{argmin}"], "Cov": ["\\operatorname{Cov}"], "logit": ["\\operatorname{logit}"]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
     <script>
         const thebe_selector = ".thebe,.cell"
@@ -144,13 +145,13 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../statistics/split-apply-combine.html">
-     2.1. Split–apply–combine
+    <a class="reference internal" href="../statistics/summary.html">
+     2.1. Summary statistics
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../statistics/summary.html">
-     2.2. Summary statistics
+    <a class="reference internal" href="../statistics/split-apply-combine.html">
+     2.2. Split–apply–combine
     </a>
    </li>
    <li class="toctree-l2">
@@ -161,6 +162,11 @@
    <li class="toctree-l2">
     <a class="reference internal" href="../statistics/correlation.html">
      2.4. Correlation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../statistics/exercises.html">
+     2.5. Exercises
     </a>
    </li>
   </ul>
@@ -176,7 +182,7 @@
   </label>
   <ul class="current">
    <li class="toctree-l2">
-    <a class="reference internal" href="scikit.html">
+    <a class="reference internal" href="sklearn.html">
      3.1. Using scikit-learn
     </a>
    </li>
@@ -203,6 +209,11 @@
    <li class="toctree-l2">
     <a class="reference internal" href="model-selection.html">
      3.6. Model selection
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="exercises.html">
+     3.7. Exercises
     </a>
    </li>
   </ul>
@@ -241,7 +252,7 @@
  </li>
  <li class="toctree-l1 has-children">
   <a class="reference internal" href="../unsupervised/overview.html">
-   5. Unsupervised learning
+   5. Clustering
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
   <label for="toctree-checkbox-5">
@@ -265,6 +276,11 @@
     </a>
    </li>
   </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../network/overview.html">
+   6. Networks
+  </a>
  </li>
 </ul>
 
@@ -433,7 +449,7 @@
 \[
 w_1 x_1 + w_2 x_2 + b = 0,
 \]</div>
-<p>where <span class="math notranslate nohighlight">\(w_1,w_2,b\)</span> are constants.</p>
+<p>where <span class="math notranslate nohighlight">\(w_1,w_2,b\)</span> are constants. It is clear that <span class="math notranslate nohighlight">\(w_1 x_1 + w_2 x_2 + b &gt; 0\)</span> represents the half-plane on one side of the line, and <span class="math notranslate nohighlight">\(w_1 x_1 + w_2 x_2 + b &lt; 0\)</span> represents the other.</p>
 <p>Our next observation is that if the point <span class="math notranslate nohighlight">\((a_1,a_2)\)</span> is on the line, then any point of the form</p>
 <div class="math notranslate nohighlight">
 \[
@@ -443,48 +459,47 @@ x_1 = a_1 - tw_2, \quad x_2 = a_2 + tw_1
 <p>Now let us find the distance from any point <span class="math notranslate nohighlight">\((s_1,s_2)\)</span> to the line. The distance squared from this point to an arbitrary line point is</p>
 <div class="math notranslate nohighlight">
 \[
-d^2 = (s_1-a_1+tw_2)^2 + (s2-a_2-tw_1)^2.
+d^2 = (s_1-a_1+tw_2)^2 + (s_2-a_2-tw_1)^2.
 \]</div>
 <p>Using calculus to minimize <span class="math notranslate nohighlight">\(d^2\)</span> as a function of <span class="math notranslate nohighlight">\(t\)</span> eventually gives</p>
 <div class="math notranslate nohighlight">
 \[
 t_\text{min} = \frac{(s_2-a_2)w_1-(s_1-a_1)w_2}{w_1^2+w_2^2}.
 \]</div>
-<p>Note that <span class="math notranslate nohighlight">\(w_1^2+w_2^2=\norm{[w_1,w_2]}_2^2\)</span>. Substituting <span class="math notranslate nohighlight">\(t_\text{min}\)</span> into <span class="math notranslate nohighlight">\(d^2\)</span> and taking a square root gives</p>
+<p>Note that <span class="math notranslate nohighlight">\(w_1^2+w_2^2=\norm{\bfw}_2^2\)</span>. Substituting <span class="math notranslate nohighlight">\(t_\text{min}\)</span> into <span class="math notranslate nohighlight">\(d^2\)</span> and taking a square root gives the distance from <span class="math notranslate nohighlight">\((s_1,s_2)\)</span> to the line:</p>
 <div class="math notranslate nohighlight">
 \[
-d_\text{min} = \frac{|(s_1-a_1)w_1 + (s_2-a_2)w_2|}{\norm{\bfw}^2}
- = \frac{|(s_1w_1 + s_2w_2 + b|}{\norm{\bfw}_2}.
+d_\text{min} = \frac{|(s_1-a_1)w_1 + (s_2-a_2)w_2|}{\norm{\bfw}_2}
+ = \frac{|s_1w_1 + s_2w_2 + b|}{\norm{\bfw}_2}.
 \]</div>
-<p>It is clear that <span class="math notranslate nohighlight">\(w_1 s_1 + w_2 s_2 + b &gt; 0\)</span> represents the half-plane on one side of the line, and $<span class="math notranslate nohighlight">\(w_1 s_1 + w_2 s_2 + b &lt; 0\)</span> represents the other. Suppose we use <span class="math notranslate nohighlight">\(y_i=+1\)</span> for all the labels on one side, and <span class="math notranslate nohighlight">\(y_i=-1\)</span> for all the labels on the other side. Finally, the condition that the distance from the line to point <span class="math notranslate nohighlight">\((x_{i,1},x_{i,2})\)</span> be no smaller than the margin <span class="math notranslate nohighlight">\(M\)</span>, and that the point be on the correct side of the line, is</p>
-<div class="math notranslate nohighlight">
-\[
-y_i\left( \frac{ s_1w_1 + s_2w_2 + b }{\norm{\bfw}_2} \right) \ge M,
-\]</div>
-<p>which must hold true for all <span class="math notranslate nohighlight">\(i\)</span> as we maximize the margin <span class="math notranslate nohighlight">\(M\)</span>.</p>
-<p>This is a <em>constrained optimization</em> problem. The details of how it’s solved are interesting, but beyond us in this space.</p>
+<p>Suppose we use <span class="math notranslate nohighlight">\(y_i=+1\)</span> for all the labels on one side, and <span class="math notranslate nohighlight">\(y_i=-1\)</span> for all the labels on the other side. Finally, the condition that the distance from the line to point <span class="math notranslate nohighlight">\((x_{i,1},x_{i,2})\)</span> be no smaller than the margin <span class="math notranslate nohighlight">\(M\)</span>, and that the point be on the correct side of the line, is</p>
+<div class="math notranslate nohighlight" id="equation-eq-svm-constraints2d">
+<span class="eqno">(3.5.1)<a class="headerlink" href="#equation-eq-svm-constraints2d" title="Permalink to this equation">¶</a></span>\[y_i\left( \frac{ x_{i,1}w_1 + x_{i,2}w_2 + b }{\norm{\bfw}_2} \right) \ge M,\]</div>
+<p>which must hold true for all <span class="math notranslate nohighlight">\(i\)</span>.</p>
+<p>Recall that the goal is to separate the two sets of points by a line as robustly as possible. Hence we want to maximize the margin <span class="math notranslate nohighlight">\(M\)</span> while obeying the constraints implied by <a class="reference internal" href="#equation-eq-svm-constraints2d">(3.5.1)</a>. This is a <em>constrained optimization</em> problem. Algorithms for solving it are beyond our scope here.</p>
 <div class="section" id="higher-dimensions">
 <h2>Higher dimensions<a class="headerlink" href="#higher-dimensions" title="Permalink to this headline">¶</a></h2>
-<p>What happens in <span class="math notranslate nohighlight">\(d&gt;2\)</span> dimensions? Instead of a line, we have a <strong>hyperplane</strong> of dimension <span class="math notranslate nohighlight">\(d-1\)</span>. Its equation can be expressed as</p>
+<p>What happens in <span class="math notranslate nohighlight">\(d&gt;2\)</span> dimensions? Instead of a line, we have a <strong>plane</strong> (<span class="math notranslate nohighlight">\(d=3\)</span>) or <strong>hyperplane</strong> (<span class="math notranslate nohighlight">\(d&gt;3\)</span>) of dimension <span class="math notranslate nohighlight">\(d-1\)</span>. Its equation can be expressed as</p>
 <div class="math notranslate nohighlight">
 \[
 w_1 x_1 + w_2 x_2 + \cdots + w_d x_d + b = 0,
 \]</div>
-<p>for some constants <span class="math notranslate nohighlight">\(w_1,\ldots,w_d,b\)</span>. In fact, the vector <span class="math notranslate nohighlight">\(\bfw=[w_1,\ldots,w_d]\)</span> is said to be perpendicular or <strong>normal</strong> to the hyperplane.</p>
-<p>We have the important new notation</p>
+<p>for some constants <span class="math notranslate nohighlight">\(w_1,\ldots,w_d,b\)</span>. The vector <span class="math notranslate nohighlight">\(\bfw=[w_1,\ldots,w_d]\)</span> is said to be <strong>normal</strong> to the hyperplane. In 2D or 3D this is equivalent to being perpendicular to the plane.</p>
+<p>We have the important new operation</p>
 <div class="math notranslate nohighlight">
 \[
-\bfw^T\bfx = w_1 x_1 + w_2 x_2 + \cdots + w_d x_d 
+\bfw^T\bfx = w_1 x_1 + w_2 x_2 + \cdots + w_d x_d, 
 \]</div>
-<p>as the <strong>inner product</strong> between vectors <span class="math notranslate nohighlight">\(\bfx\)</span> and <span class="math notranslate nohighlight">\(\bfw\)</span>. It follows easily that</p>
+<p>the <strong>inner product</strong> between vectors <span class="math notranslate nohighlight">\(\bfx\)</span> and <span class="math notranslate nohighlight">\(\bfw\)</span>. (In 2D or 3D this is the same as the <em>dot product</em>.) It follows easily that</p>
 <div class="math notranslate nohighlight">
 \[
 \bfw^T\bfw = \norm{\bfw}_2^2,
 \]</div>
-<p>which is the important fact that makes the 2-norm special. One form of the constrained optimization problem (known as the <em>primal formulation</em>) is</p>
+<p>which is one fact that makes the 2-norm special.</p>
+<p>Above we saw that <span class="math notranslate nohighlight">\(\norm{\bfw}_2\)</span> is inversely related to the margin <span class="math notranslate nohighlight">\(M\)</span>. One form of the constrained optimization problem, known as the <em>primal formulation</em>, is</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-\text{minimize } &amp; \norm{\bfw}_2 \\ 
+\text{minimize } &amp; \norm{\bfw}_2, \\ 
 \text{subject to } &amp; y_i(\bfw^T \bfx_i + b) \ge 1,\, i = 1,\ldots,n.
 \end{split}\]</div>
 <p>Usually, though, the optimization is actually performed on an equivalent <em>dual formulation</em>, which finds the <span class="math notranslate nohighlight">\(d+1\)</span> support vectors and the margin rather than <span class="math notranslate nohighlight">\(\bfw\)</span> and <span class="math notranslate nohighlight">\(b\)</span> directly.</p>
@@ -493,7 +508,7 @@ w_1 x_1 + w_2 x_2 + \cdots + w_d x_d + b = 0,
 <h2>Advanced aspects<a class="headerlink" href="#advanced-aspects" title="Permalink to this headline">¶</a></h2>
 <p>There are other refinements too advanced for us to go into in detail here. Two stand out for making the algorithm practical for more than a trivial number of problems.</p>
 <p>One is the idea of allowing <em>slack</em>, which means that points are allowed to be on the wrong side of the dividing hyperplane, but they are punished by an amount proportional to their distance from it. The balance between maximizing margin and punishing miscreants is controlled by a hyperparameter that is usually called <span class="math notranslate nohighlight">\(C\)</span>, and the algorithm may be called <strong>C-SVM</strong>.</p>
-<p>The other important refinement is to upgrade the separating hyperplane to allow other kinds of surfaces. For reasons we won’t go into, this is called the <strong>kernel trick</strong>, and specifying the kernel is another option. The most common choices are <em>linear</em>, which is the original hyperplane, and <em>RBF</em>, which has its own hyperparameter <span class="math notranslate nohighlight">\(\gamma\)</span>.</p>
+<p>The other important refinement is to upgrade the separating hyperplane to allow other kinds of surfaces. For reasons we won’t go into, this is called the <strong>kernel trick</strong>, and specifying the kernel is another option. The most common choices are <em>linear</em>, which is the original hyperplane as described above, and <em>RBF</em>, which has its own hyperparameter <span class="math notranslate nohighlight">\(\gamma\)</span> and can produce arbitrary decision boundaries.</p>
 </div>
 <div class="section" id="usage-in-sklearn">
 <h2>Usage in sklearn<a class="headerlink" href="#usage-in-sklearn" title="Permalink to this headline">¶</a></h2>
@@ -621,7 +636,7 @@ test accuracy with standardization: 0.8417874396135265
 \[
 w_1 x_1 + w_2 x_2 + b = 0,
 \]</div>
-<p>where <span class="math notranslate nohighlight">\(w_1,w_2,b\)</span> are constants.</p>
+<p>where <span class="math notranslate nohighlight">\(w_1,w_2,b\)</span> are constants. It is clear that <span class="math notranslate nohighlight">\(w_1 x_1 + w_2 x_2 + b &gt; 0\)</span> represents the half-plane on one side of the line, and <span class="math notranslate nohighlight">\(w_1 x_1 + w_2 x_2 + b &lt; 0\)</span> represents the other.</p>
 <p>Our next observation is that if the point <span class="math notranslate nohighlight">\((a_1,a_2)\)</span> is on the line, then any point of the form</p>
 <div class="math notranslate nohighlight">
 \[
@@ -631,48 +646,47 @@ x_1 = a_1 - tw_2, \quad x_2 = a_2 + tw_1
 <p>Now let us find the distance from any point <span class="math notranslate nohighlight">\((s_1,s_2)\)</span> to the line. The distance squared from this point to an arbitrary line point is</p>
 <div class="math notranslate nohighlight">
 \[
-d^2 = (s_1-a_1+tw_2)^2 + (s2-a_2-tw_1)^2.
+d^2 = (s_1-a_1+tw_2)^2 + (s_2-a_2-tw_1)^2.
 \]</div>
 <p>Using calculus to minimize <span class="math notranslate nohighlight">\(d^2\)</span> as a function of <span class="math notranslate nohighlight">\(t\)</span> eventually gives</p>
 <div class="math notranslate nohighlight">
 \[
 t_\text{min} = \frac{(s_2-a_2)w_1-(s_1-a_1)w_2}{w_1^2+w_2^2}.
 \]</div>
-<p>Note that <span class="math notranslate nohighlight">\(w_1^2+w_2^2=\norm{[w_1,w_2]}_2^2\)</span>. Substituting <span class="math notranslate nohighlight">\(t_\text{min}\)</span> into <span class="math notranslate nohighlight">\(d^2\)</span> and taking a square root gives</p>
+<p>Note that <span class="math notranslate nohighlight">\(w_1^2+w_2^2=\norm{\bfw}_2^2\)</span>. Substituting <span class="math notranslate nohighlight">\(t_\text{min}\)</span> into <span class="math notranslate nohighlight">\(d^2\)</span> and taking a square root gives the distance from <span class="math notranslate nohighlight">\((s_1,s_2)\)</span> to the line:</p>
 <div class="math notranslate nohighlight">
 \[
-d_\text{min} = \frac{|(s_1-a_1)w_1 + (s_2-a_2)w_2|}{\norm{\bfw}^2}
- = \frac{|(s_1w_1 + s_2w_2 + b|}{\norm{\bfw}_2}.
+d_\text{min} = \frac{|(s_1-a_1)w_1 + (s_2-a_2)w_2|}{\norm{\bfw}_2}
+ = \frac{|s_1w_1 + s_2w_2 + b|}{\norm{\bfw}_2}.
 \]</div>
-<p>It is clear that <span class="math notranslate nohighlight">\(w_1 s_1 + w_2 s_2 + b &gt; 0\)</span> represents the half-plane on one side of the line, and $<span class="math notranslate nohighlight">\(w_1 s_1 + w_2 s_2 + b &lt; 0\)</span> represents the other. Suppose we use <span class="math notranslate nohighlight">\(y_i=+1\)</span> for all the labels on one side, and <span class="math notranslate nohighlight">\(y_i=-1\)</span> for all the labels on the other side. Finally, the condition that the distance from the line to point <span class="math notranslate nohighlight">\((x_{i,1},x_{i,2})\)</span> be no smaller than the margin <span class="math notranslate nohighlight">\(M\)</span>, and that the point be on the correct side of the line, is</p>
-<div class="math notranslate nohighlight">
-\[
-y_i\left( \frac{ s_1w_1 + s_2w_2 + b }{\norm{\bfw}_2} \right) \ge M,
-\]</div>
-<p>which must hold true for all <span class="math notranslate nohighlight">\(i\)</span> as we maximize the margin <span class="math notranslate nohighlight">\(M\)</span>.</p>
-<p>This is a <em>constrained optimization</em> problem. The details of how it’s solved are interesting, but beyond us in this space.</p>
+<p>Suppose we use <span class="math notranslate nohighlight">\(y_i=+1\)</span> for all the labels on one side, and <span class="math notranslate nohighlight">\(y_i=-1\)</span> for all the labels on the other side. Finally, the condition that the distance from the line to point <span class="math notranslate nohighlight">\((x_{i,1},x_{i,2})\)</span> be no smaller than the margin <span class="math notranslate nohighlight">\(M\)</span>, and that the point be on the correct side of the line, is</p>
+<div class="math notranslate nohighlight" id="equation-eq-svm-constraints2d">
+<span class="eqno">(3.5.1)<a class="headerlink" href="#equation-eq-svm-constraints2d" title="Permalink to this equation">¶</a></span>\[y_i\left( \frac{ x_{i,1}w_1 + x_{i,2}w_2 + b }{\norm{\bfw}_2} \right) \ge M,\]</div>
+<p>which must hold true for all <span class="math notranslate nohighlight">\(i\)</span>.</p>
+<p>Recall that the goal is to separate the two sets of points by a line as robustly as possible. Hence we want to maximize the margin <span class="math notranslate nohighlight">\(M\)</span> while obeying the constraints implied by <a class="reference internal" href="#equation-eq-svm-constraints2d">(3.5.1)</a>. This is a <em>constrained optimization</em> problem. Algorithms for solving it are beyond our scope here.</p>
 <div class="section" id="higher-dimensions">
 <h2>Higher dimensions<a class="headerlink" href="#higher-dimensions" title="Permalink to this headline">¶</a></h2>
-<p>What happens in <span class="math notranslate nohighlight">\(d&gt;2\)</span> dimensions? Instead of a line, we have a <strong>hyperplane</strong> of dimension <span class="math notranslate nohighlight">\(d-1\)</span>. Its equation can be expressed as</p>
+<p>What happens in <span class="math notranslate nohighlight">\(d&gt;2\)</span> dimensions? Instead of a line, we have a <strong>plane</strong> (<span class="math notranslate nohighlight">\(d=3\)</span>) or <strong>hyperplane</strong> (<span class="math notranslate nohighlight">\(d&gt;3\)</span>) of dimension <span class="math notranslate nohighlight">\(d-1\)</span>. Its equation can be expressed as</p>
 <div class="math notranslate nohighlight">
 \[
 w_1 x_1 + w_2 x_2 + \cdots + w_d x_d + b = 0,
 \]</div>
-<p>for some constants <span class="math notranslate nohighlight">\(w_1,\ldots,w_d,b\)</span>. In fact, the vector <span class="math notranslate nohighlight">\(\bfw=[w_1,\ldots,w_d]\)</span> is said to be perpendicular or <strong>normal</strong> to the hyperplane.</p>
-<p>We have the important new notation</p>
+<p>for some constants <span class="math notranslate nohighlight">\(w_1,\ldots,w_d,b\)</span>. The vector <span class="math notranslate nohighlight">\(\bfw=[w_1,\ldots,w_d]\)</span> is said to be <strong>normal</strong> to the hyperplane. In 2D or 3D this is equivalent to being perpendicular to the plane.</p>
+<p>We have the important new operation</p>
 <div class="math notranslate nohighlight">
 \[
-\bfw^T\bfx = w_1 x_1 + w_2 x_2 + \cdots + w_d x_d 
+\bfw^T\bfx = w_1 x_1 + w_2 x_2 + \cdots + w_d x_d, 
 \]</div>
-<p>as the <strong>inner product</strong> between vectors <span class="math notranslate nohighlight">\(\bfx\)</span> and <span class="math notranslate nohighlight">\(\bfw\)</span>. It follows easily that</p>
+<p>the <strong>inner product</strong> between vectors <span class="math notranslate nohighlight">\(\bfx\)</span> and <span class="math notranslate nohighlight">\(\bfw\)</span>. (In 2D or 3D this is the same as the <em>dot product</em>.) It follows easily that</p>
 <div class="math notranslate nohighlight">
 \[
 \bfw^T\bfw = \norm{\bfw}_2^2,
 \]</div>
-<p>which is the important fact that makes the 2-norm special. One form of the constrained optimization problem (known as the <em>primal formulation</em>) is</p>
+<p>which is one fact that makes the 2-norm special.</p>
+<p>Above we saw that <span class="math notranslate nohighlight">\(\norm{\bfw}_2\)</span> is inversely related to the margin <span class="math notranslate nohighlight">\(M\)</span>. One form of the constrained optimization problem, known as the <em>primal formulation</em>, is</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-\text{minimize } &amp; \norm{\bfw}_2 \\ 
+\text{minimize } &amp; \norm{\bfw}_2, \\ 
 \text{subject to } &amp; y_i(\bfw^T \bfx_i + b) \ge 1,\, i = 1,\ldots,n.
 \end{split}\]</div>
 <p>Usually, though, the optimization is actually performed on an equivalent <em>dual formulation</em>, which finds the <span class="math notranslate nohighlight">\(d+1\)</span> support vectors and the margin rather than <span class="math notranslate nohighlight">\(\bfw\)</span> and <span class="math notranslate nohighlight">\(b\)</span> directly.</p>
@@ -681,7 +695,7 @@ w_1 x_1 + w_2 x_2 + \cdots + w_d x_d + b = 0,
 <h2>Advanced aspects<a class="headerlink" href="#advanced-aspects" title="Permalink to this headline">¶</a></h2>
 <p>There are other refinements too advanced for us to go into in detail here. Two stand out for making the algorithm practical for more than a trivial number of problems.</p>
 <p>One is the idea of allowing <em>slack</em>, which means that points are allowed to be on the wrong side of the dividing hyperplane, but they are punished by an amount proportional to their distance from it. The balance between maximizing margin and punishing miscreants is controlled by a hyperparameter that is usually called <span class="math notranslate nohighlight">\(C\)</span>, and the algorithm may be called <strong>C-SVM</strong>.</p>
-<p>The other important refinement is to upgrade the separating hyperplane to allow other kinds of surfaces. For reasons we won’t go into, this is called the <strong>kernel trick</strong>, and specifying the kernel is another option. The most common choices are <em>linear</em>, which is the original hyperplane, and <em>RBF</em>, which has its own hyperparameter <span class="math notranslate nohighlight">\(\gamma\)</span>.</p>
+<p>The other important refinement is to upgrade the separating hyperplane to allow other kinds of surfaces. For reasons we won’t go into, this is called the <strong>kernel trick</strong>, and specifying the kernel is another option. The most common choices are <em>linear</em>, which is the original hyperplane as described above, and <em>RBF</em>, which has its own hyperparameter <span class="math notranslate nohighlight">\(\gamma\)</span> and can produce arbitrary decision boundaries.</p>
 </div>
 <div class="section" id="usage-in-sklearn">
 <h2>Usage in sklearn<a class="headerlink" href="#usage-in-sklearn" title="Permalink to this headline">¶</a></h2>

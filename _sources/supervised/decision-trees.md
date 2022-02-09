@@ -4,7 +4,7 @@ jupytext:
     extension: .md
     format_name: myst
     format_version: 0.13
-    jupytext_version: 1.10.3
+    jupytext_version: 1.11.5
 kernelspec:
   display_name: 'Python 3.8.8 64-bit (''base'': conda)'
   language: python
@@ -64,7 +64,7 @@ This value is 1/2 for $n=0$ and approaches zero as $n\to\infty$.
 
 ## Partitioning
 
-Now we can describe the partition process. If $j$ is a dimension (feature) number and $\theta$ is a numerical threshold, then the sample set can be partitioned into complementary sets $S_L$, in which $x_j \le \theta$, and $S_R$, in which $x_j > \theta$. Define the quality measure
+Now we can describe the partition process. If $j$ is a dimension (feature) number and $\theta$ is a numerical threshold, then the sample set can be partitioned into complementary sets $S_L$, in which $x_j \le \theta$, and $S_R$, in which $x_j > \theta$. Define the **total impurity** of the partition to be 
 
 $$
 Q(j,\theta) = \lvert S\rvert\, H(S) + \lvert T \rvert \, H(T).
@@ -75,13 +75,13 @@ Choose the $(j,\theta)$ that minimize $Q$, and then recursively partition $S$ an
 ::::{prf:example}
 :label: example-decision-trees-partition
 
-Suppose the 1D real samples $0,1,2,3$ have labels A,B,A,B. What is the optimal partition?
+Suppose the 1D real samples $x_i=i$ for $i=0,1,2,3$ have labels A,B,A,B. What is the optimal partition?
 
 :::{dropdown} Solution
 There are three ways to partition them.
 
-* $S=\{0\}$, $T=\{1,2,3\}$. We have $H(S)=0$ and $H(T)=(2/3)(1/3)+(1/3)(2/3)=4/9$. Hence the score for this partition is $(1)(0) + (3)(4/9) = 4/3$.
-* $S=\{0,1\}$, $T=\{2,3\}$. Then $H(S)=H(T)=2(1/2)(1/2)=1/2$, and the composite score is $(2)(1/2)+(2)(1/2)=2$. 
+* $S=\{0\}$, $T=\{1,2,3\}$. We have $H(S)=0$ and $H(T)=(2/3)(1/3)+(1/3)(2/3)=4/9$. Hence the total impurity for this partition is $(1)(0) + (3)(4/9) = 4/3$.
+* $S=\{0,1\}$, $T=\{2,3\}$. Then $H(S)=H(T)=2(1/2)(1/2)=1/2$, and the total impurity is $(2)(1/2)+(2)(1/2)=2$. 
 * $S=\{0,1,2\}$, $T=\{3\}$. This arrangement is the same as the first case with $A↔B$.
 
 The best partition threshold is $x\le 0$ (or $x\le 2$, which is equivalent).

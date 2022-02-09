@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>3. Classification &#8212; Data Science 1</title>
+    <title>3.7. Exercises &#8212; Data Science 1</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet">
   <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -56,8 +56,8 @@
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="3.1. Using scikit-learn" href="sklearn.html" />
-    <link rel="prev" title="2.5. Exercises" href="../statistics/exercises.html" />
+    <link rel="next" title="4. Regression" href="../regression/overview.html" />
+    <link rel="prev" title="3.6. Model selection" href="model-selection.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -172,7 +172,7 @@
   </ul>
  </li>
  <li class="toctree-l1 current active has-children">
-  <a class="current reference internal" href="#">
+  <a class="reference internal" href="overview.html">
    3. Classification
   </a>
   <input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
@@ -180,7 +180,7 @@
    <i class="fas fa-chevron-down">
    </i>
   </label>
-  <ul>
+  <ul class="current">
    <li class="toctree-l2">
     <a class="reference internal" href="sklearn.html">
      3.1. Using scikit-learn
@@ -211,8 +211,8 @@
      3.6. Model selection
     </a>
    </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="exercises.html">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
      3.7. Exercises
     </a>
    </li>
@@ -323,7 +323,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/supervised/overview.md"><button type="button"
+        <a class="dropdown-buttons" href="../_sources/supervised/exercises.md"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.md</button></a>
         <!-- Download PDF via print -->
@@ -353,7 +353,7 @@
 </div>
     <!-- Table of contents that is only displayed when printing the page -->
     <div id="jb-print-docs-body" class="onlyprint">
-        <h1>Classification</h1>
+        <h1>Exercises</h1>
         <!-- Table of contents -->
         <div id="print-main-content" class="row">
             <div class="col-12 col-md-12 pl-md-5 pr-md-5">
@@ -363,52 +363,36 @@
             
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="classification">
-<h1><span class="section-number">3. </span>Classification<a class="headerlink" href="#classification" title="Permalink to this headline">¶</a></h1>
-<p>Machine learning is the use of data to tune algorithms for making decisions or predictions. Unlike deduction based on reasoning from principles governing the application, machine learning is a “black box” that just adapts via training.</p>
-<p>We divide machine learning into three major forms:</p>
-<ul class="simple">
-<li><p><strong>Supervised learning</strong> The training data only examples that include the answer (or <strong>label</strong>) we expect to get. The goals are to find important effects and/or to predict labels for previously unseen examples.</p></li>
-<li><p><strong>Unsupervised learning</strong> The data is unlabeled, and the goal is to discover structure and relationships inherent to the data set.</p></li>
-<li><p><strong>Reinforcement learning</strong> The data is unlabeled, but there are known rules and goals that can be encouraged through penalties and rewards.</p></li>
-</ul>
-<p>We start with supervised learning, which can be subdivided into two major areas:</p>
-<ul class="simple">
-<li><p><strong>Classification</strong>, in which the algorithm is expected to choose from among a finite set of options.</p></li>
-<li><p><strong>Regression</strong>, in which the algorithm should predict the value of a quantitative variable.</p></li>
-</ul>
-<p>Most algorithms for one of these problems have counterparts in the other.</p>
-<!-- Regression methods can typically be used as classifiers, by thresholding or binning the result. For example, in a yes/no situation, a predictor of probability can be used to decide "yes" if its probability exceeds 50%. -->
-<p>The simplest type of classifier is a <strong>binary classifier</strong>, which must make a yes/no decision. We will use the labels <span class="math notranslate nohighlight">\(1\)</span> and <span class="math notranslate nohighlight">\(-1\)</span> to denote these outcomes.</p>
-<p>Each observation in the training set is supplied by a <strong>feature vector</strong> of length <span class="math notranslate nohighlight">\(d\)</span>. (Recall that a vector is a series indexed by integers. Mathematically the index starts at 1, but in Python it starts at zero.) The components of a feature vector are assumed to be real numbers. A set of <span class="math notranslate nohighlight">\(n\)</span> observations can be represented as a <strong>feature matrix</strong> <span class="math notranslate nohighlight">\(bfX\)</span> with <span class="math notranslate nohighlight">\(n\)</span> rows and <span class="math notranslate nohighlight">\(d\)</span> columns. Using subscripts to represent the index values, we can write</p>
+  <div class="tex2jax_ignore mathjax_ignore section" id="exercises">
+<h1><span class="section-number">3.7. </span>Exercises<a class="headerlink" href="#exercises" title="Permalink to this headline">¶</a></h1>
+<p>For these exercises, you may use computer help to work on a problem, but your answer should be self-contained without reference to computer output (unless stated otherwise).</p>
+<ol>
+<li><p>Here is a confusion matrix for a classifier of meme dankness.</p>
+<p><img alt="confusion matrix" src="../_images/dankness.png" /></p>
+<p>Calculate the <strong>(a)</strong> recall, <strong>(b)</strong> precision, <strong>(c)</strong> specificity, <strong>(d)</strong> accuracy, and <strong>(e)</strong> <span class="math notranslate nohighlight">\(F_1\)</span> score of the classifier.</p>
+</li>
+<li><p>Here is a confusion matrix for a classifier of ice cream flavors.</p>
+<p><img alt="confusion matrix" src="../_images/flavors.png" /></p>
+<p><strong>(a)</strong> Calculate the recall rate for chocolate.</p>
+<p><strong>(b)</strong> Find the precision for vanilla.</p>
+<p><strong>(c)</strong> Find the accuracy for strawberry.</p>
+</li>
+<li><p>Find the Gini impurity of a set of six elements, of which 1 is labelled A, 2 are labelled B, and 3 are labelled C.</p></li>
+<li><p>Given <span class="math notranslate nohighlight">\(x_i=i\)</span> for <span class="math notranslate nohighlight">\(i=0,\ldots,5\)</span>, with labels (from left to right) A,B,B,B,A,A, find an optimal partition threshold.</p></li>
+<li><p>Carefully sketch the set of all points in <span class="math notranslate nohighlight">\(\real^2\)</span> whose 1-norm distance from the origin equals 1. This is a <em>Manhattan unit circle</em>.</p></li>
+<li><p>Three points in the plane lie at the vertices of an equilateral triangle. Carefully sketch the decision boundaries of <span class="math notranslate nohighlight">\(k\)</span>-nearest neighbors with <span class="math notranslate nohighlight">\(k=1\)</span>, using the 2-norm.</p></li>
+<li><p>Define points on an ellipse by <span class="math notranslate nohighlight">\(x_k=a\cos(\theta_k)\)</span> and <span class="math notranslate nohighlight">\(y_k=b\sin(\theta_k)\)</span>, where <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span> are positive and <span class="math notranslate nohighlight">\(\theta_k=2k\pi/8\)</span> for <span class="math notranslate nohighlight">\(k=0,1,\ldots,7\)</span>. Show that if the <span class="math notranslate nohighlight">\(x_k\)</span> and <span class="math notranslate nohighlight">\(y_k\)</span> are standardized into z-scores, then the resulting points all lie on a circle centered at the origin. (Standardizing points into z-scores is sometimes called <em>sphereing</em> them.)</p></li>
+<li><p>Using the formulas from section 3.5, find the distance from the point <span class="math notranslate nohighlight">\((-1,2)\)</span> to the line <span class="math notranslate nohighlight">\(y=3x-4\)</span>. (First find <span class="math notranslate nohighlight">\(w_1\)</span>, <span class="math notranslate nohighlight">\(w_2\)</span>, and <span class="math notranslate nohighlight">\(b\)</span> for the line.)</p></li>
+<li><p>If <span class="math notranslate nohighlight">\(\bfu = [1,2,3]\)</span> and <span class="math notranslate nohighlight">\(\bfv=[4,5,-6]\)</span>, compute <span class="math notranslate nohighlight">\(\bfu^T \bfv\)</span>.</p></li>
+<li><p>If <span class="math notranslate nohighlight">\(\bfv\)</span> is a nonzero vector, then the <strong>projection</strong> of any vector <span class="math notranslate nohighlight">\(\bfu\)</span> onto <span class="math notranslate nohighlight">\(\bfv\)</span> is</p>
 <div class="math notranslate nohighlight">
-\[\begin{split}
-\bfX = \begin{bmatrix}
-X_{11} &amp; X_{12} &amp; \cdots &amp; X_{1d} \\
-X_{21} &amp; X_{22} &amp; \cdots &amp; X_{2d} \\
-\vdots &amp; \vdots &amp;&amp; \vdots \\ 
-X_{n1} &amp; X_{n2} &amp; \cdots &amp; X_{nd} 
-\end{bmatrix}.
-\end{split}\]</div>
-<p>Note that <em>the first index refers to the row number, and the second to the column number</em>. The rows may be referred to as instances, examples, samples, etc.</p>
-<p>We can also collect the associated training labels as the <strong>label vector</strong></p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-\bfy = \begin{bmatrix} 
-y_1 \\ y_2 \\ \vdots \\ y_n
-\end{bmatrix}
-\end{split}\]</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>In linear algebra, the default shape for a vector is as a single column. In Python, a vector doesn’t exactly have a row or column orientation, though when it matters, a row shape is usually preferred.</p>
-</div>
-<div class="proof example admonition" id="example-0">
-<p class="admonition-title"><span class="caption-number">Example 3.1 </span></p>
-<div class="example-content section" id="proof-content">
-<p>Suppose we want to train an algorithm to predict whether a basketball shot will score. For one shot, we might collect three coordinates to represent the launch point, three to represent the launch velocity, and three to represent the initial angular rotation (axis and magnitude). Thus each shot will require a feature vector of length 9.</p>
-</div>
-</div><div class="toctree-wrapper compound">
-</div>
+\[
+    \text{proj}_\bfv(\bfu) = \frac{\bfu^T\bfv}{\bfv^T\bfv}\, \bfv.
+    \]</div>
+<p>Show that the inner product between <span class="math notranslate nohighlight">\(\bfu\)</span> and <span class="math notranslate nohighlight">\(\bfu - \text{proj}_\bfv(\bfu)\)</span> is zero.</p>
+</li>
+<li><p>Find an equation for the plane normal to the vector <span class="math notranslate nohighlight">\([-1,2,3]\)</span> and passing through the point <span class="math notranslate nohighlight">\((1,0,2)\)</span>.</p></li>
+</ol>
 </div>
 
     <script type="text/x-thebe-config">
@@ -441,52 +425,36 @@ y_1 \\ y_2 \\ \vdots \\ y_n
         
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="classification">
-<h1><span class="section-number">3. </span>Classification<a class="headerlink" href="#classification" title="Permalink to this headline">¶</a></h1>
-<p>Machine learning is the use of data to tune algorithms for making decisions or predictions. Unlike deduction based on reasoning from principles governing the application, machine learning is a “black box” that just adapts via training.</p>
-<p>We divide machine learning into three major forms:</p>
-<ul class="simple">
-<li><p><strong>Supervised learning</strong> The training data only examples that include the answer (or <strong>label</strong>) we expect to get. The goals are to find important effects and/or to predict labels for previously unseen examples.</p></li>
-<li><p><strong>Unsupervised learning</strong> The data is unlabeled, and the goal is to discover structure and relationships inherent to the data set.</p></li>
-<li><p><strong>Reinforcement learning</strong> The data is unlabeled, but there are known rules and goals that can be encouraged through penalties and rewards.</p></li>
-</ul>
-<p>We start with supervised learning, which can be subdivided into two major areas:</p>
-<ul class="simple">
-<li><p><strong>Classification</strong>, in which the algorithm is expected to choose from among a finite set of options.</p></li>
-<li><p><strong>Regression</strong>, in which the algorithm should predict the value of a quantitative variable.</p></li>
-</ul>
-<p>Most algorithms for one of these problems have counterparts in the other.</p>
-<!-- Regression methods can typically be used as classifiers, by thresholding or binning the result. For example, in a yes/no situation, a predictor of probability can be used to decide "yes" if its probability exceeds 50%. -->
-<p>The simplest type of classifier is a <strong>binary classifier</strong>, which must make a yes/no decision. We will use the labels <span class="math notranslate nohighlight">\(1\)</span> and <span class="math notranslate nohighlight">\(-1\)</span> to denote these outcomes.</p>
-<p>Each observation in the training set is supplied by a <strong>feature vector</strong> of length <span class="math notranslate nohighlight">\(d\)</span>. (Recall that a vector is a series indexed by integers. Mathematically the index starts at 1, but in Python it starts at zero.) The components of a feature vector are assumed to be real numbers. A set of <span class="math notranslate nohighlight">\(n\)</span> observations can be represented as a <strong>feature matrix</strong> <span class="math notranslate nohighlight">\(bfX\)</span> with <span class="math notranslate nohighlight">\(n\)</span> rows and <span class="math notranslate nohighlight">\(d\)</span> columns. Using subscripts to represent the index values, we can write</p>
+  <div class="tex2jax_ignore mathjax_ignore section" id="exercises">
+<h1><span class="section-number">3.7. </span>Exercises<a class="headerlink" href="#exercises" title="Permalink to this headline">¶</a></h1>
+<p>For these exercises, you may use computer help to work on a problem, but your answer should be self-contained without reference to computer output (unless stated otherwise).</p>
+<ol>
+<li><p>Here is a confusion matrix for a classifier of meme dankness.</p>
+<p><img alt="confusion matrix" src="../_images/dankness.png" /></p>
+<p>Calculate the <strong>(a)</strong> recall, <strong>(b)</strong> precision, <strong>(c)</strong> specificity, <strong>(d)</strong> accuracy, and <strong>(e)</strong> <span class="math notranslate nohighlight">\(F_1\)</span> score of the classifier.</p>
+</li>
+<li><p>Here is a confusion matrix for a classifier of ice cream flavors.</p>
+<p><img alt="confusion matrix" src="../_images/flavors.png" /></p>
+<p><strong>(a)</strong> Calculate the recall rate for chocolate.</p>
+<p><strong>(b)</strong> Find the precision for vanilla.</p>
+<p><strong>(c)</strong> Find the accuracy for strawberry.</p>
+</li>
+<li><p>Find the Gini impurity of a set of six elements, of which 1 is labelled A, 2 are labelled B, and 3 are labelled C.</p></li>
+<li><p>Given <span class="math notranslate nohighlight">\(x_i=i\)</span> for <span class="math notranslate nohighlight">\(i=0,\ldots,5\)</span>, with labels (from left to right) A,B,B,B,A,A, find an optimal partition threshold.</p></li>
+<li><p>Carefully sketch the set of all points in <span class="math notranslate nohighlight">\(\real^2\)</span> whose 1-norm distance from the origin equals 1. This is a <em>Manhattan unit circle</em>.</p></li>
+<li><p>Three points in the plane lie at the vertices of an equilateral triangle. Carefully sketch the decision boundaries of <span class="math notranslate nohighlight">\(k\)</span>-nearest neighbors with <span class="math notranslate nohighlight">\(k=1\)</span>, using the 2-norm.</p></li>
+<li><p>Define points on an ellipse by <span class="math notranslate nohighlight">\(x_k=a\cos(\theta_k)\)</span> and <span class="math notranslate nohighlight">\(y_k=b\sin(\theta_k)\)</span>, where <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span> are positive and <span class="math notranslate nohighlight">\(\theta_k=2k\pi/8\)</span> for <span class="math notranslate nohighlight">\(k=0,1,\ldots,7\)</span>. Show that if the <span class="math notranslate nohighlight">\(x_k\)</span> and <span class="math notranslate nohighlight">\(y_k\)</span> are standardized into z-scores, then the resulting points all lie on a circle centered at the origin. (Standardizing points into z-scores is sometimes called <em>sphereing</em> them.)</p></li>
+<li><p>Using the formulas from section 3.5, find the distance from the point <span class="math notranslate nohighlight">\((-1,2)\)</span> to the line <span class="math notranslate nohighlight">\(y=3x-4\)</span>. (First find <span class="math notranslate nohighlight">\(w_1\)</span>, <span class="math notranslate nohighlight">\(w_2\)</span>, and <span class="math notranslate nohighlight">\(b\)</span> for the line.)</p></li>
+<li><p>If <span class="math notranslate nohighlight">\(\bfu = [1,2,3]\)</span> and <span class="math notranslate nohighlight">\(\bfv=[4,5,-6]\)</span>, compute <span class="math notranslate nohighlight">\(\bfu^T \bfv\)</span>.</p></li>
+<li><p>If <span class="math notranslate nohighlight">\(\bfv\)</span> is a nonzero vector, then the <strong>projection</strong> of any vector <span class="math notranslate nohighlight">\(\bfu\)</span> onto <span class="math notranslate nohighlight">\(\bfv\)</span> is</p>
 <div class="math notranslate nohighlight">
-\[\begin{split}
-\bfX = \begin{bmatrix}
-X_{11} &amp; X_{12} &amp; \cdots &amp; X_{1d} \\
-X_{21} &amp; X_{22} &amp; \cdots &amp; X_{2d} \\
-\vdots &amp; \vdots &amp;&amp; \vdots \\ 
-X_{n1} &amp; X_{n2} &amp; \cdots &amp; X_{nd} 
-\end{bmatrix}.
-\end{split}\]</div>
-<p>Note that <em>the first index refers to the row number, and the second to the column number</em>. The rows may be referred to as instances, examples, samples, etc.</p>
-<p>We can also collect the associated training labels as the <strong>label vector</strong></p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-\bfy = \begin{bmatrix} 
-y_1 \\ y_2 \\ \vdots \\ y_n
-\end{bmatrix}
-\end{split}\]</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>In linear algebra, the default shape for a vector is as a single column. In Python, a vector doesn’t exactly have a row or column orientation, though when it matters, a row shape is usually preferred.</p>
-</div>
-<div class="proof example admonition" id="example-0">
-<p class="admonition-title"><span class="caption-number">Example 3.1 </span></p>
-<div class="example-content section" id="proof-content">
-<p>Suppose we want to train an algorithm to predict whether a basketball shot will score. For one shot, we might collect three coordinates to represent the launch point, three to represent the launch velocity, and three to represent the initial angular rotation (axis and magnitude). Thus each shot will require a feature vector of length 9.</p>
-</div>
-</div><div class="toctree-wrapper compound">
-</div>
+\[
+    \text{proj}_\bfv(\bfu) = \frac{\bfu^T\bfv}{\bfv^T\bfv}\, \bfv.
+    \]</div>
+<p>Show that the inner product between <span class="math notranslate nohighlight">\(\bfu\)</span> and <span class="math notranslate nohighlight">\(\bfu - \text{proj}_\bfv(\bfu)\)</span> is zero.</p>
+</li>
+<li><p>Find an equation for the plane normal to the vector <span class="math notranslate nohighlight">\([-1,2,3]\)</span> and passing through the point <span class="math notranslate nohighlight">\((1,0,2)\)</span>.</p></li>
+</ol>
 </div>
 
     <script type="text/x-thebe-config">
@@ -514,17 +482,17 @@ y_1 \\ y_2 \\ \vdots \\ y_n
         
             <!-- Previous / next buttons -->
 <div class='prev-next-area'> 
-    <a class='left-prev' id="prev-link" href="../statistics/exercises.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="model-selection.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title"><span class="section-number">2.5. </span>Exercises</p>
+            <p class="prev-next-title"><span class="section-number">3.6. </span>Model selection</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="sklearn.html" title="next page">
+    <a class='right-next' id="next-link" href="../regression/overview.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">3.1. </span>Using scikit-learn</p>
+        <p class="prev-next-title"><span class="section-number">4. </span>Regression</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
