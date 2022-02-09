@@ -53,9 +53,11 @@ $$
 
 For normal distributions, values more than twice the standard deviation $\sigma$ from the mean might be declared to be outliers; this would exclude 5% of the values, on average. A less aggressive criterion is to allow a distance of $3\sigma$, which excludes only about 0.3% of the values. The IQR criterion above corresponds to about $2.7\sigma$ in the normal case.
 
-The following plot shows the outlier cutoffs for 2000 samples from a normal distribution, using the criteria for 2σ (red), 3σ (blue), and 1.5 IQR (black). 
+The following plot shows the outlier cutoffs for 2000 samples from a normal distribution, using the criteria for 2σ (red), 3σ (blue), and 1.5 IQR (black).
+
 ```{code-cell}
-:tags: ["hide-input"]
+:tags: [hide-input]
+
 import matplotlib.pyplot as plt
 from numpy.random import default_rng
 randn = default_rng(1).normal 
@@ -83,9 +85,9 @@ It is well known that the mean is more sensitive to outliers than the median is.
 The values $1,2,3,4,5$ have a mean and median both equal to 3. If we change the largest value to be a lot larger, say $1,2,3,4,1000$, then the mean changes to 202. But the median is still 3!
 ```
 
-Let's use IQR to remove outliers from the fmri data set. We do this by creating a Boolean-valued series indicating which rows of the frame represent outliers within their group. 
+Let's use IQR to remove outliers from the fmri data set. We do this by creating a Boolean-valued series indicating which rows of the frame represent outliers within their group.
 
-```{code-cell} ipython3
+```{code-cell}
 def isoutlier(x):
     Q1,Q3 = x.quantile([.25,.75])
     I = Q3-Q1
@@ -97,11 +99,11 @@ fmri[outs]["event"].value_counts()
 
 You can see above that there are 66 outliers. To negate the outlier indicator, we can use `~outs` as a row selector.
 
-```{code-cell} ipython3
+```{code-cell}
 cleaned = fmri[~outs]
 ```
 
-The median values are barely affected by the omission of the outliers. 
+The median values are barely affected by the omission of the outliers.
 
 ```{code-cell}
 print("medians with outliers:")

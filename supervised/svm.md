@@ -33,7 +33,7 @@ $$
 w_1 x_1 + w_2 x_2 + b = 0,
 $$
 
-where $w_1,w_2,b$ are constants. 
+where $w_1,w_2,b$ are constants. It is clear that $w_1 x_1 + w_2 x_2 + b > 0$ represents the half-plane on one side of the line, and $w_1 x_1 + w_2 x_2 + b < 0$ represents the other. 
 
 Our next observation is that if the point $(a_1,a_2)$ is on the line, then any point of the form
 
@@ -46,7 +46,7 @@ is also on the line. (Just substitute it in to see that it satisfies the equatio
 Now let us find the distance from any point $(s_1,s_2)$ to the line. The distance squared from this point to an arbitrary line point is 
 
 $$
-d^2 = (s_1-a_1+tw_2)^2 + (s2-a_2-tw_1)^2.
+d^2 = (s_1-a_1+tw_2)^2 + (s_2-a_2-tw_1)^2.
 $$
 
 Using calculus to minimize $d^2$ as a function of $t$ eventually gives
@@ -55,49 +55,52 @@ $$
 t_\text{min} = \frac{(s_2-a_2)w_1-(s_1-a_1)w_2}{w_1^2+w_2^2}.
 $$
 
-Note that $w_1^2+w_2^2=\norm{[w_1,w_2]}_2^2$. Substituting $t_\text{min}$ into $d^2$ and taking a square root gives
+Note that $w_1^2+w_2^2=\norm{\bfw}_2^2$. Substituting $t_\text{min}$ into $d^2$ and taking a square root gives the distance from $(s_1,s_2)$ to the line:
 
 $$
-d_\text{min} = \frac{|(s_1-a_1)w_1 + (s_2-a_2)w_2|}{\norm{\bfw}^2}
- = \frac{|(s_1w_1 + s_2w_2 + b|}{\norm{\bfw}_2}.
+d_\text{min} = \frac{|(s_1-a_1)w_1 + (s_2-a_2)w_2|}{\norm{\bfw}_2}
+ = \frac{|s_1w_1 + s_2w_2 + b|}{\norm{\bfw}_2}.
 $$
 
-It is clear that $w_1 s_1 + w_2 s_2 + b > 0$ represents the half-plane on one side of the line, and $$w_1 s_1 + w_2 s_2 + b < 0$ represents the other. Suppose we use $y_i=+1$ for all the labels on one side, and $y_i=-1$ for all the labels on the other side. Finally, the condition that the distance from the line to point $(x_{i,1},x_{i,2})$ be no smaller than the margin $M$, and that the point be on the correct side of the line, is 
+Suppose we use $y_i=+1$ for all the labels on one side, and $y_i=-1$ for all the labels on the other side. Finally, the condition that the distance from the line to point $(x_{i,1},x_{i,2})$ be no smaller than the margin $M$, and that the point be on the correct side of the line, is 
 
-$$
-y_i\left( \frac{ s_1w_1 + s_2w_2 + b }{\norm{\bfw}_2} \right) \ge M,
-$$
+```{math}
+:label: eq-svm-constraints2d
+y_i\left( \frac{ x_{i,1}w_1 + x_{i,2}w_2 + b }{\norm{\bfw}_2} \right) \ge M,
+```
 
-which must hold true for all $i$ as we maximize the margin $M$. 
+which must hold true for all $i$.
 
-This is a *constrained optimization* problem. The details of how it's solved are interesting, but beyond us in this space.
+Recall that the goal is to separate the two sets of points by a line as robustly as possible. Hence we want to maximize the margin $M$ while obeying the constraints implied by {eq}`eq-svm-constraints2d`. This is a *constrained optimization* problem. Algorithms for solving it are beyond our scope here.
 
 ## Higher dimensions
 
-What happens in $d>2$ dimensions? Instead of a line, we have a **hyperplane** of dimension $d-1$. Its equation can be expressed as
+What happens in $d>2$ dimensions? Instead of a line, we have a **plane** ($d=3$) or **hyperplane** ($d>3$) of dimension $d-1$. Its equation can be expressed as
 
 $$
 w_1 x_1 + w_2 x_2 + \cdots + w_d x_d + b = 0,
 $$
 
-for some constants $w_1,\ldots,w_d,b$. In fact, the vector $\bfw=[w_1,\ldots,w_d]$ is said to be perpendicular or **normal** to the hyperplane. 
+for some constants $w_1,\ldots,w_d,b$. The vector $\bfw=[w_1,\ldots,w_d]$ is said to be **normal** to the hyperplane. In 2D or 3D this is equivalent to being perpendicular to the plane.
 
-We have the important new notation
+We have the important new operation
 
 $$
-\bfw^T\bfx = w_1 x_1 + w_2 x_2 + \cdots + w_d x_d 
+\bfw^T\bfx = w_1 x_1 + w_2 x_2 + \cdots + w_d x_d, 
 $$
 
-as the **inner product** between vectors $\bfx$ and $\bfw$. It follows easily that
+the **inner product** between vectors $\bfx$ and $\bfw$. (In 2D or 3D this is the same as the *dot product*.) It follows easily that
 
 $$
 \bfw^T\bfw = \norm{\bfw}_2^2,
 $$
 
-which is the important fact that makes the 2-norm special. One form of the constrained optimization problem (known as the *primal formulation*) is
+which is one fact that makes the 2-norm special. 
+
+Above we saw that $\norm{\bfw}_2$ is inversely related to the margin $M$. One form of the constrained optimization problem, known as the *primal formulation*, is
 
 $$
-\text{minimize } & \norm{\bfw}_2 \\ 
+\text{minimize } & \norm{\bfw}_2, \\ 
 \text{subject to } & y_i(\bfw^T \bfx_i + b) \ge 1,\, i = 1,\ldots,n.
 $$
 
@@ -109,7 +112,7 @@ There are other refinements too advanced for us to go into in detail here. Two s
 
 One is the idea of allowing *slack*, which means that points are allowed to be on the wrong side of the dividing hyperplane, but they are punished by an amount proportional to their distance from it. The balance between maximizing margin and punishing miscreants is controlled by a hyperparameter that is usually called $C$, and the algorithm may be called **C-SVM**.
 
-The other important refinement is to upgrade the separating hyperplane to allow other kinds of surfaces. For reasons we won't go into, this is called the **kernel trick**, and specifying the kernel is another option. The most common choices are *linear*, which is the original hyperplane, and *RBF*, which has its own hyperparameter $\gamma$.
+The other important refinement is to upgrade the separating hyperplane to allow other kinds of surfaces. For reasons we won't go into, this is called the **kernel trick**, and specifying the kernel is another option. The most common choices are *linear*, which is the original hyperplane as described above, and *RBF*, which has its own hyperparameter $\gamma$ and can produce arbitrary decision boundaries.
 
 ## Usage in sklearn
 
