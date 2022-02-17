@@ -45,7 +45,7 @@ err,kind = [],[]     # track information for the results
 knn = neighbors.KNeighborsClassifier(n_neighbors=1)
 for i in range(200):
     X_tr,y_tr = shuffle(X_tr,y_tr,random_state=1)
-    XX,yy = X_tr[:n,:],y_tr[:n]
+    XX,yy = X_tr.loc[:n,:],y_tr.loc[:n]
     knn.fit(XX,yy) 
     err.append(1-knn.score(XX,yy))       # training error
     err.append(1-knn.score(X_te,y_te))   # test error

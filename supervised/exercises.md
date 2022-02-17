@@ -4,13 +4,21 @@ For these exercises, you may use computer help to work on a problem, but your an
 
 1. Here is a confusion matrix for a classifier of meme dankness. 
 
-    ![confusion matrix](dankness.png)
+    ```{image} dankness.png
+    :alt: confusion matrix
+    :width: 360px
+    :align: center
+    ```
 
-    Calculate the **(a)** recall, **(b)** precision, **(c)** specificity, **(d)** accuracy, and **(e)** $F_1$ score of the classifier.
+    Calculate the **(a)** recall, **(b)** precision, **(c)** specificity, **(d)** accuracy, and **(e)** *F*₁ score of the classifier.
 
 2. Here is a confusion matrix for a classifier of ice cream flavors. 
 
-    ![confusion matrix](flavors.png)
+    ```{image} flavors.png
+    :alt: confusion matrix
+    :width: 500px
+    :align: center
+    ```
     
     **(a)** Calculate the recall rate for chocolate.
 

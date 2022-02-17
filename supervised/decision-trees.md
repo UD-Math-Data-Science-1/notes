@@ -109,8 +109,8 @@ X = np.vstack((x1,x2))
 y = np.hstack(([1]*10,[2]*10))
 
 import seaborn as sns
-df = pd.DataFrame({"x1":X[:,0],"x2":X[:,1],"y":y})
-sns.scatterplot(data=df,x="x1",y="x2",hue="y");
+df = pd.DataFrame({"x₁":X[:,0],"x₂":X[:,1],"y":y})
+sns.scatterplot(data=df,x="x₁",y="x₂",hue="y");
 ```
 
 Now we create a decision tree for these samples.
@@ -120,18 +120,20 @@ from sklearn import tree
 t = tree.DecisionTreeClassifier(max_depth=3)
 t.fit(X,y)
 
-tree.plot_tree(t,feature_names=["x1","x2"]);
+from matplotlib.pyplot import figure
+figure(figsize=(18,11),dpi=160)
+tree.plot_tree(t,feature_names=["x₁","x₂"]);
 ```
 
 The root of the tree (at the top) shows that the best split was found at the vertical line $x_1=0.644$. To the right of that line is a Gini value of zero: 8 samples, all with label 2. Thus, any future prediction by this tree will immediately return label 2 if the first feature of the input exceeds 0.644. Otherwise, it moves to the left child node and tests whether the second feature is greater than $0.96$. This splits along a horizontal line, above which there is a single sample with label 2. And so on.
 
 Notice that the bottom right node has a nonzero Gini impurity. This node could be partitioned, but the classifier was constrained to stop at a depth of 3. If a prediction ends up here, then the classifier returns label 1, which is the most likely outcome.
 
-Because we can follow the decision tree's logic step by step, we say it is highly **interpretable**. The transparency of the prediction algorithm is an attractive aspect of decision trees. 
+Because we can follow the decision tree's logic step by step, we say it is highly **interpretable**. The transparency of the prediction algorithm is an attractive aspect of decision trees, although this advantage can weaken as the numbers of features and observations increase.
 
 ## Penguin data
 
-We return to the penguins. There is no need to standardize the columns for a decision tree, because each dimension is considered on it own.
+We return to the penguins. There is no need to standardize the columns for a decision tree, because each feature is considered on its own.
 
 ```{code-cell}
 import pandas as pd
@@ -141,30 +143,46 @@ X = pen[["bill_length_mm","bill_depth_mm","flipper_length_mm","body_mass_g"]]
 y = pen["species"]
 ```
 
-We again get some interesting information from a tree with limited depth.
+We get some interesting information from looking at the top levels of a decision tree trained on the full dataset.
 
 ```{code-cell}
-dt = tree.DecisionTreeClassifier(max_depth=2)
+dt = tree.DecisionTreeClassifier(max_depth=4)
 dt.fit(X,y)
 
-tree.plot_tree(dt);
+from matplotlib.pyplot import figure
+figure(figsize=(18,11),dpi=160)
+tree.plot_tree(dt,max_depth=2,feature_names=X.columns);
 ```
 
-The most determinative feature for identifying the species is the flipper length. If it exceeds 206.5 mm, then the penguin is rather likely to be a Gentoo, and a further measurement of the bill depth settles that matter. Etc. Even for this shallow tree, two of the nodes at the bottom have small Gini impurity.
+The most determinative feature for identifying the species is the flipper length. If it exceeds 206.5 mm, then the penguin is rather likely to be a Gentoo. 
 
-Next, we increase the depth and measure the performance. The resulting tree will be identical to the tree above for the first two levels, since the optimal decisions remain the same.
+We can measure the relative importance of each feature by comparing their total contributions to reducing the Gini index. This is known as **Gini importance**.  
+
+```{code-cell}
+pd.Series(dt.feature_importances_,index=X.columns)
+```
+
+Flipper length alone accounts for about half of the resolving power of the tree, followed in importance by the bill length. The other measurements apparently have little discriminative value.
+
+In order to assess the effectiveness of the tree, we use the train–test paradigm.
 
 ```{code-cell}
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix,classification_report
 
-X_tr, X_te, y_tr, y_te = train_test_split(X,y,test_size=0.2)
-dt = tree.DecisionTreeClassifier(max_depth=4)
-dt.fit(X,y)
+X_tr, X_te, y_tr, y_te = train_test_split(X,y,test_size=0.2,shuffle=True,random_state=0)
+dt.fit(X_tr,y_tr)
 
 yhat = dt.predict(X_te)
 print(confusion_matrix(y_te,yhat))
 print(classification_report(y_te,yhat))
+
+```
+
+The performance is quite good, although the Chinstrap case is hindered by the relatively low number of training examples:
+
+```{code-cell}
+y_tr.value_counts()
 ```
 
 ## Limitations
@@ -174,10 +192,10 @@ Decision trees depend sensitively on the sample locations. A tree trained on one
 Here we see mediocre performance on the loan application data.
 
 ```{code-cell}
-import numpy as np
-X = np.loadtxt("data.csv",delimiter=",")
-y = np.loadtxt("labels.csv",delimiter=",")
-X_tr, X_te, y_tr, y_te = train_test_split(X,y,test_size=0.2)
+loans = pd.read_csv("loan_clean.csv")
+X = loans.drop("percent_funded",axis=1)
+y = loans["percent_funded"] > 95
+X_tr, X_te, y_tr, y_te = train_test_split(X,y,test_size=0.2,shuffle=True,random_state=0)
 
 dt = tree.DecisionTreeClassifier(max_depth=5)
 dt.fit(X_tr,y_tr)
@@ -197,3 +215,4 @@ yhat = rf.predict(X_te)
 print(confusion_matrix(y_te,yhat))
 ```
 
+The details of random forests are beyond our scope.
