@@ -469,8 +469,7 @@ t_\text{min} = \frac{(s_2-a_2)w_1-(s_1-a_1)w_2}{w_1^2+w_2^2}.
 <p>Note that <span class="math notranslate nohighlight">\(w_1^2+w_2^2=\norm{\bfw}_2^2\)</span>. Substituting <span class="math notranslate nohighlight">\(t_\text{min}\)</span> into <span class="math notranslate nohighlight">\(d^2\)</span> and taking a square root gives the distance from <span class="math notranslate nohighlight">\((s_1,s_2)\)</span> to the line:</p>
 <div class="math notranslate nohighlight">
 \[
-d_\text{min} = \frac{|(s_1-a_1)w_1 + (s_2-a_2)w_2|}{\norm{\bfw}_2}
- = \frac{|s_1w_1 + s_2w_2 + b|}{\norm{\bfw}_2}.
+d_\text{min} = \frac{|(s_1-a_1)w_1 + (s_2-a_2)w_2|}{\twonorm{\bfw}} = \frac{|s_1w_1 + s_2w_2 + b|}{\twonorm{\bfw}}.
 \]</div>
 <p>Suppose we use <span class="math notranslate nohighlight">\(y_i=+1\)</span> for all the labels on one side, and <span class="math notranslate nohighlight">\(y_i=-1\)</span> for all the labels on the other side. Finally, the condition that the distance from the line to point <span class="math notranslate nohighlight">\((x_{i,1},x_{i,2})\)</span> be no smaller than the margin <span class="math notranslate nohighlight">\(M\)</span>, and that the point be on the correct side of the line, is</p>
 <div class="math notranslate nohighlight" id="equation-eq-svm-constraints2d">
@@ -493,13 +492,17 @@ w_1 x_1 + w_2 x_2 + \cdots + w_d x_d + b = 0,
 <p>the <strong>inner product</strong> between vectors <span class="math notranslate nohighlight">\(\bfx\)</span> and <span class="math notranslate nohighlight">\(\bfw\)</span>. (In 2D or 3D this is the same as the <em>dot product</em>.) It follows easily that</p>
 <div class="math notranslate nohighlight">
 \[
-\bfw^T\bfw = \norm{\bfw}_2^2,
+\bfw^T\bfw = \twonorm{\bfw}^2,
 \]</div>
-<p>which is one fact that makes the 2-norm special.</p>
-<p>Above we saw that <span class="math notranslate nohighlight">\(\norm{\bfw}_2\)</span> is inversely related to the margin <span class="math notranslate nohighlight">\(M\)</span>. One form of the constrained optimization problem, known as the <em>primal formulation</em>, is</p>
+<p>which is one fact that makes the 2-norm special. The (signed) distance from any point <span class="math notranslate nohighlight">\(\mathbf{s}=(s_1,\ldots,s_d)\)</span> to the hyperplane <span class="math notranslate nohighlight">\(\bfw^T\bfx+b=0\)</span> is</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{\bfw^T\mathbf{s}+b}{\twonorm{\bfw}}.
+\]</div>
+<p>Above we saw that <span class="math notranslate nohighlight">\(\twonorm{\bfw}\)</span> is inversely related to the margin <span class="math notranslate nohighlight">\(M\)</span>. One form of the constrained optimization problem, known as the <em>primal formulation</em>, is</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-\text{minimize } &amp; \norm{\bfw}_2, \\ 
+\text{minimize } &amp; \twonorm{\bfw}, \\ 
 \text{subject to } &amp; y_i(\bfw^T \bfx_i + b) \ge 1,\, i = 1,\ldots,n.
 \end{split}\]</div>
 <p>Usually, though, the optimization is actually performed on an equivalent <em>dual formulation</em>, which finds the <span class="math notranslate nohighlight">\(d+1\)</span> support vectors and the margin rather than <span class="math notranslate nohighlight">\(\bfw\)</span> and <span class="math notranslate nohighlight">\(b\)</span> directly.</p>
@@ -512,76 +515,182 @@ w_1 x_1 + w_2 x_2 + \cdots + w_d x_d + b = 0,
 </div>
 <div class="section" id="usage-in-sklearn">
 <h2>Usage in sklearn<a class="headerlink" href="#usage-in-sklearn" title="Permalink to this headline">¶</a></h2>
-<p>The SVM classifier in sklearn is called <code class="docutils literal notranslate"><span class="pre">SVC</span></code>. By default, it uses <span class="math notranslate nohighlight">\(C=1\)</span> and the RBF kernel.</p>
+<p>Let’s explore the usage of SVM with a dataset derived from images of breast tissue. The target classification is benign/malignant.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;data.csv&quot;</span><span class="p">,</span><span class="n">delimiter</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;labels.csv&quot;</span><span class="p">,</span><span class="n">delimiter</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_breast_cancer</span>
+<span class="n">cancer</span> <span class="o">=</span> <span class="n">load_breast_cancer</span><span class="p">(</span><span class="n">as_frame</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="s2">&quot;frame&quot;</span><span class="p">]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">cancer</span><span class="p">[</span><span class="s2">&quot;target&quot;</span><span class="p">]</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">cancer</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s2">&quot;target&quot;</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">y</span><span class="o">==</span><span class="mi">0</span><span class="p">),</span><span class="s2">&quot;malignant and&quot;</span><span class="p">,</span><span class="nb">sum</span><span class="p">(</span><span class="n">y</span><span class="o">==</span><span class="mi">1</span><span class="p">),</span><span class="s2">&quot;benign samples&quot;</span><span class="p">)</span>
 
-<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">svm</span>
 <span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
-<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">confusion_matrix</span>
-
-<span class="n">X_tr</span><span class="p">,</span> <span class="n">X_te</span><span class="p">,</span> <span class="n">y_tr</span><span class="p">,</span> <span class="n">y_te</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
-
-<span class="n">svc</span> <span class="o">=</span> <span class="n">svm</span><span class="o">.</span><span class="n">SVC</span><span class="p">()</span>
-<span class="n">svc</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_tr</span><span class="p">,</span><span class="n">y_tr</span><span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;train accuracy:&quot;</span><span class="p">,</span><span class="n">svc</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_tr</span><span class="p">,</span><span class="n">y_tr</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;test accuracy:&quot;</span><span class="p">,</span><span class="n">svc</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_te</span><span class="p">,</span><span class="n">y_te</span><span class="p">))</span>
+<span class="n">X_tr</span><span class="p">,</span> <span class="n">X_te</span><span class="p">,</span> <span class="n">y_tr</span><span class="p">,</span> <span class="n">y_te</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span><span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>train accuracy: 0.8173309178743962
-test accuracy: 0.8176328502415459
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>212 malignant and 357 benign samples
 </pre></div>
 </div>
 </div>
 </div>
-<p>The training accuracy essentially tells us how much slack was allowed; i.e., how frequently sample points end up on the wrong side of the decision boundary. If we increase <span class="math notranslate nohighlight">\(C\)</span>, we penalize the slack more and increase the training accuracy. (That might increase the test error as well, but we explore that relationship more in the next section.)</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">svm</span></code> module in sklearn defines <code class="docutils literal notranslate"><span class="pre">SVC</span></code> for classification. By default, it uses an RBF kernel, but here we require it to use the linear kernel (that is, a true hyperplane).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">svc</span> <span class="o">=</span> <span class="n">svm</span><span class="o">.</span><span class="n">SVC</span><span class="p">(</span><span class="n">C</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">SVC</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">confusion_matrix</span>
+
+<span class="n">svc</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">(</span><span class="n">C</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">,</span><span class="n">kernel</span><span class="o">=</span><span class="s2">&quot;linear&quot;</span><span class="p">)</span>
 <span class="n">svc</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_tr</span><span class="p">,</span><span class="n">y_tr</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;train accuracy with less slack:&quot;</span><span class="p">,</span><span class="n">svc</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_tr</span><span class="p">,</span><span class="n">y_tr</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;test accuracy with less slack:&quot;</span><span class="p">,</span><span class="n">svc</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_te</span><span class="p">,</span><span class="n">y_te</span><span class="p">))</span>
-
 <span class="n">yhat</span> <span class="o">=</span> <span class="n">svc</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_te</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;confusion matrix on test samples:&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_te</span><span class="p">,</span><span class="n">yhat</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>train accuracy with less slack: 0.8535628019323671
-test accuracy with less slack: 0.8502415458937198
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[677   0]
- [124  27]]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>confusion matrix on test samples:
+[[43  4]
+ [ 4 63]]
 </pre></div>
 </div>
 </div>
 </div>
-<p>SVM usually benefits from standardizing the features, so it’s a good idea to build that in.</p>
+<p>We can query the classifier for the normal vector <span class="math notranslate nohighlight">\(\bfw\)</span> and value <span class="math notranslate nohighlight">\(b\)</span> in the formulas above.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">w</span> <span class="o">=</span> <span class="n">svc</span><span class="o">.</span><span class="n">coef_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">svc</span><span class="o">.</span><span class="n">intercept_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;w:&quot;</span><span class="p">,</span><span class="n">w</span><span class="p">,</span><span class="s2">&quot; b:&quot;</span><span class="p">,</span><span class="n">b</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>w: [ 5.82619217e-04 -2.13013340e-02 -4.12867832e-02  1.57656939e-02
+ -5.48828263e-04 -1.59091519e-03 -2.09368375e-03 -9.00100557e-04
+ -1.03226711e-03 -2.12787362e-04 -2.56431770e-04  2.03568745e-04
+ -4.32566447e-03 -2.48916134e-02 -4.63598721e-05 -3.29377591e-04
+ -4.43987833e-04 -1.14833168e-04 -1.70521495e-04 -1.81038200e-05
+ -8.31282964e-04 -5.26592591e-02 -8.09719974e-02 -8.37083838e-03
+ -9.64118971e-04 -5.72275472e-03 -6.87661478e-03 -1.89605686e-03
+ -2.58824228e-03 -6.75992356e-04]  b: 12.106466901932757
+</pre></div>
+</div>
+</div>
+</div>
+<p>The sign of <span class="math notranslate nohighlight">\(\bfw^T\bfx + b\)</span> determines which side of the hyperplane a point <span class="math notranslate nohighlight">\(\bfx\)</span> lies on. For example, the predictions</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Xq</span> <span class="o">=</span> <span class="n">X_te</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">20</span><span class="p">:</span><span class="mi">25</span><span class="p">,:]</span>
+<span class="nb">print</span><span class="p">(</span> <span class="n">svc</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">Xq</span><span class="p">)</span> <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0 0 1 1 1]
+</pre></div>
+</div>
+</div>
+</div>
+<p>correspond to the signs of the following:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">dot</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="n">v</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">u</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">u</span><span class="p">)))</span>
+
+<span class="n">Xq</span> <span class="o">=</span> <span class="n">Xq</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+<span class="p">[</span><span class="n">dot</span><span class="p">(</span><span class="n">w</span><span class="p">,</span><span class="n">x</span><span class="p">)</span><span class="o">+</span><span class="n">b</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">Xq</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[-4.2043265555047835,
+ -1.043485242943314,
+ 2.3025906567250853,
+ 2.103896027747945,
+ 0.49147516161036897]
+</pre></div>
+</div>
+</div>
+</div>
+<p>The training accuracy reflects the amount of slack allowed. If it’s 100%, then every training observation lies on its proper side.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;train accuracy:&quot;</span><span class="p">,</span><span class="n">svc</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_tr</span><span class="p">,</span><span class="n">y_tr</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>train accuracy: 0.9582417582417583
+</pre></div>
+</div>
+</div>
+</div>
+<p>If we increase <span class="math notranslate nohighlight">\(C\)</span>, we penalize the slack more and increase the training accuracy. (That might or might not increase the test accuracy as well; we explore that relationship more in the next section.)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">svc</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">(</span><span class="n">C</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">kernel</span><span class="o">=</span><span class="s2">&quot;linear&quot;</span><span class="p">)</span>
+<span class="n">svc</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_tr</span><span class="p">,</span><span class="n">y_tr</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;train accuracy with less slack:&quot;</span><span class="p">,</span><span class="n">svc</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_tr</span><span class="p">,</span><span class="n">y_tr</span><span class="p">))</span>
+
+<span class="n">yhat</span> <span class="o">=</span> <span class="n">svc</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_te</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;confusion matrix with less slack:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_te</span><span class="p">,</span><span class="n">yhat</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>train accuracy with less slack: 0.9648351648351648
+confusion matrix with less slack:
+[[46  1]
+ [ 4 63]]
+</pre></div>
+</div>
+</div>
+</div>
+<p>In general, the RBF kernel might be much better than the linear one. But there are no guarantees that it will be so, and the best value for <span class="math notranslate nohighlight">\(C\)</span> might change.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">svc</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">(</span><span class="n">C</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">svc</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_tr</span><span class="p">,</span><span class="n">y_tr</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;train accuracy with RBF kernel:&quot;</span><span class="p">,</span><span class="n">svc</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_tr</span><span class="p">,</span><span class="n">y_tr</span><span class="p">))</span>
+
+<span class="n">yhat</span> <span class="o">=</span> <span class="n">svc</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_te</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;confusion matrix with RBF kernel:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_te</span><span class="p">,</span><span class="n">yhat</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>train accuracy with RBF kernel: 0.9406593406593406
+confusion matrix with RBF kernel:
+[[43  4]
+ [ 2 65]]
+</pre></div>
+</div>
+</div>
+</div>
+<p>An SVM usually benefits from standardizing the features.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">make_pipeline</span>
 <span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span>   
 
-<span class="n">svc</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">StandardScaler</span><span class="p">(),</span><span class="n">svm</span><span class="o">.</span><span class="n">SVC</span><span class="p">())</span>
+<span class="n">svc</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">StandardScaler</span><span class="p">(),</span><span class="n">SVC</span><span class="p">(</span><span class="n">C</span><span class="o">=</span><span class="mf">0.5</span><span class="p">))</span>
 <span class="n">svc</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_tr</span><span class="p">,</span><span class="n">y_tr</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;train accuracy with standardization:&quot;</span><span class="p">,</span><span class="n">svc</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_tr</span><span class="p">,</span><span class="n">y_tr</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;test accuracy with standardization:&quot;</span><span class="p">,</span><span class="n">svc</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_te</span><span class="p">,</span><span class="n">y_te</span><span class="p">))</span>
+<span class="n">yhat</span> <span class="o">=</span> <span class="n">svc</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_te</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;confusion matrix with RBF and standardization:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_te</span><span class="p">,</span><span class="n">yhat</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>train accuracy with standardization: 0.8457125603864735
-test accuracy with standardization: 0.8417874396135265
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>confusion matrix with RBF and standardization:
+[[44  3]
+ [ 0 67]]
 </pre></div>
 </div>
 </div>
@@ -656,8 +765,7 @@ t_\text{min} = \frac{(s_2-a_2)w_1-(s_1-a_1)w_2}{w_1^2+w_2^2}.
 <p>Note that <span class="math notranslate nohighlight">\(w_1^2+w_2^2=\norm{\bfw}_2^2\)</span>. Substituting <span class="math notranslate nohighlight">\(t_\text{min}\)</span> into <span class="math notranslate nohighlight">\(d^2\)</span> and taking a square root gives the distance from <span class="math notranslate nohighlight">\((s_1,s_2)\)</span> to the line:</p>
 <div class="math notranslate nohighlight">
 \[
-d_\text{min} = \frac{|(s_1-a_1)w_1 + (s_2-a_2)w_2|}{\norm{\bfw}_2}
- = \frac{|s_1w_1 + s_2w_2 + b|}{\norm{\bfw}_2}.
+d_\text{min} = \frac{|(s_1-a_1)w_1 + (s_2-a_2)w_2|}{\twonorm{\bfw}} = \frac{|s_1w_1 + s_2w_2 + b|}{\twonorm{\bfw}}.
 \]</div>
 <p>Suppose we use <span class="math notranslate nohighlight">\(y_i=+1\)</span> for all the labels on one side, and <span class="math notranslate nohighlight">\(y_i=-1\)</span> for all the labels on the other side. Finally, the condition that the distance from the line to point <span class="math notranslate nohighlight">\((x_{i,1},x_{i,2})\)</span> be no smaller than the margin <span class="math notranslate nohighlight">\(M\)</span>, and that the point be on the correct side of the line, is</p>
 <div class="math notranslate nohighlight" id="equation-eq-svm-constraints2d">
@@ -680,13 +788,17 @@ w_1 x_1 + w_2 x_2 + \cdots + w_d x_d + b = 0,
 <p>the <strong>inner product</strong> between vectors <span class="math notranslate nohighlight">\(\bfx\)</span> and <span class="math notranslate nohighlight">\(\bfw\)</span>. (In 2D or 3D this is the same as the <em>dot product</em>.) It follows easily that</p>
 <div class="math notranslate nohighlight">
 \[
-\bfw^T\bfw = \norm{\bfw}_2^2,
+\bfw^T\bfw = \twonorm{\bfw}^2,
 \]</div>
-<p>which is one fact that makes the 2-norm special.</p>
-<p>Above we saw that <span class="math notranslate nohighlight">\(\norm{\bfw}_2\)</span> is inversely related to the margin <span class="math notranslate nohighlight">\(M\)</span>. One form of the constrained optimization problem, known as the <em>primal formulation</em>, is</p>
+<p>which is one fact that makes the 2-norm special. The (signed) distance from any point <span class="math notranslate nohighlight">\(\mathbf{s}=(s_1,\ldots,s_d)\)</span> to the hyperplane <span class="math notranslate nohighlight">\(\bfw^T\bfx+b=0\)</span> is</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{\bfw^T\mathbf{s}+b}{\twonorm{\bfw}}.
+\]</div>
+<p>Above we saw that <span class="math notranslate nohighlight">\(\twonorm{\bfw}\)</span> is inversely related to the margin <span class="math notranslate nohighlight">\(M\)</span>. One form of the constrained optimization problem, known as the <em>primal formulation</em>, is</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-\text{minimize } &amp; \norm{\bfw}_2, \\ 
+\text{minimize } &amp; \twonorm{\bfw}, \\ 
 \text{subject to } &amp; y_i(\bfw^T \bfx_i + b) \ge 1,\, i = 1,\ldots,n.
 \end{split}\]</div>
 <p>Usually, though, the optimization is actually performed on an equivalent <em>dual formulation</em>, which finds the <span class="math notranslate nohighlight">\(d+1\)</span> support vectors and the margin rather than <span class="math notranslate nohighlight">\(\bfw\)</span> and <span class="math notranslate nohighlight">\(b\)</span> directly.</p>
@@ -699,76 +811,182 @@ w_1 x_1 + w_2 x_2 + \cdots + w_d x_d + b = 0,
 </div>
 <div class="section" id="usage-in-sklearn">
 <h2>Usage in sklearn<a class="headerlink" href="#usage-in-sklearn" title="Permalink to this headline">¶</a></h2>
-<p>The SVM classifier in sklearn is called <code class="docutils literal notranslate"><span class="pre">SVC</span></code>. By default, it uses <span class="math notranslate nohighlight">\(C=1\)</span> and the RBF kernel.</p>
+<p>Let’s explore the usage of SVM with a dataset derived from images of breast tissue. The target classification is benign/malignant.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;data.csv&quot;</span><span class="p">,</span><span class="n">delimiter</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;labels.csv&quot;</span><span class="p">,</span><span class="n">delimiter</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_breast_cancer</span>
+<span class="n">cancer</span> <span class="o">=</span> <span class="n">load_breast_cancer</span><span class="p">(</span><span class="n">as_frame</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="s2">&quot;frame&quot;</span><span class="p">]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">cancer</span><span class="p">[</span><span class="s2">&quot;target&quot;</span><span class="p">]</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">cancer</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s2">&quot;target&quot;</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">y</span><span class="o">==</span><span class="mi">0</span><span class="p">),</span><span class="s2">&quot;malignant and&quot;</span><span class="p">,</span><span class="nb">sum</span><span class="p">(</span><span class="n">y</span><span class="o">==</span><span class="mi">1</span><span class="p">),</span><span class="s2">&quot;benign samples&quot;</span><span class="p">)</span>
 
-<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">svm</span>
 <span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
-<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">confusion_matrix</span>
-
-<span class="n">X_tr</span><span class="p">,</span> <span class="n">X_te</span><span class="p">,</span> <span class="n">y_tr</span><span class="p">,</span> <span class="n">y_te</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
-
-<span class="n">svc</span> <span class="o">=</span> <span class="n">svm</span><span class="o">.</span><span class="n">SVC</span><span class="p">()</span>
-<span class="n">svc</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_tr</span><span class="p">,</span><span class="n">y_tr</span><span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;train accuracy:&quot;</span><span class="p">,</span><span class="n">svc</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_tr</span><span class="p">,</span><span class="n">y_tr</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;test accuracy:&quot;</span><span class="p">,</span><span class="n">svc</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_te</span><span class="p">,</span><span class="n">y_te</span><span class="p">))</span>
+<span class="n">X_tr</span><span class="p">,</span> <span class="n">X_te</span><span class="p">,</span> <span class="n">y_tr</span><span class="p">,</span> <span class="n">y_te</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span><span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>train accuracy: 0.8173309178743962
-test accuracy: 0.8176328502415459
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>212 malignant and 357 benign samples
 </pre></div>
 </div>
 </div>
 </div>
-<p>The training accuracy essentially tells us how much slack was allowed; i.e., how frequently sample points end up on the wrong side of the decision boundary. If we increase <span class="math notranslate nohighlight">\(C\)</span>, we penalize the slack more and increase the training accuracy. (That might increase the test error as well, but we explore that relationship more in the next section.)</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">svm</span></code> module in sklearn defines <code class="docutils literal notranslate"><span class="pre">SVC</span></code> for classification. By default, it uses an RBF kernel, but here we require it to use the linear kernel (that is, a true hyperplane).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">svc</span> <span class="o">=</span> <span class="n">svm</span><span class="o">.</span><span class="n">SVC</span><span class="p">(</span><span class="n">C</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">SVC</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">confusion_matrix</span>
+
+<span class="n">svc</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">(</span><span class="n">C</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">,</span><span class="n">kernel</span><span class="o">=</span><span class="s2">&quot;linear&quot;</span><span class="p">)</span>
 <span class="n">svc</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_tr</span><span class="p">,</span><span class="n">y_tr</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;train accuracy with less slack:&quot;</span><span class="p">,</span><span class="n">svc</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_tr</span><span class="p">,</span><span class="n">y_tr</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;test accuracy with less slack:&quot;</span><span class="p">,</span><span class="n">svc</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_te</span><span class="p">,</span><span class="n">y_te</span><span class="p">))</span>
-
 <span class="n">yhat</span> <span class="o">=</span> <span class="n">svc</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_te</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;confusion matrix on test samples:&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_te</span><span class="p">,</span><span class="n">yhat</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>train accuracy with less slack: 0.8535628019323671
-test accuracy with less slack: 0.8502415458937198
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[677   0]
- [124  27]]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>confusion matrix on test samples:
+[[43  4]
+ [ 4 63]]
 </pre></div>
 </div>
 </div>
 </div>
-<p>SVM usually benefits from standardizing the features, so it’s a good idea to build that in.</p>
+<p>We can query the classifier for the normal vector <span class="math notranslate nohighlight">\(\bfw\)</span> and value <span class="math notranslate nohighlight">\(b\)</span> in the formulas above.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">w</span> <span class="o">=</span> <span class="n">svc</span><span class="o">.</span><span class="n">coef_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">svc</span><span class="o">.</span><span class="n">intercept_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;w:&quot;</span><span class="p">,</span><span class="n">w</span><span class="p">,</span><span class="s2">&quot; b:&quot;</span><span class="p">,</span><span class="n">b</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>w: [ 5.82619217e-04 -2.13013340e-02 -4.12867832e-02  1.57656939e-02
+ -5.48828263e-04 -1.59091519e-03 -2.09368375e-03 -9.00100557e-04
+ -1.03226711e-03 -2.12787362e-04 -2.56431770e-04  2.03568745e-04
+ -4.32566447e-03 -2.48916134e-02 -4.63598721e-05 -3.29377591e-04
+ -4.43987833e-04 -1.14833168e-04 -1.70521495e-04 -1.81038200e-05
+ -8.31282964e-04 -5.26592591e-02 -8.09719974e-02 -8.37083838e-03
+ -9.64118971e-04 -5.72275472e-03 -6.87661478e-03 -1.89605686e-03
+ -2.58824228e-03 -6.75992356e-04]  b: 12.106466901932757
+</pre></div>
+</div>
+</div>
+</div>
+<p>The sign of <span class="math notranslate nohighlight">\(\bfw^T\bfx + b\)</span> determines which side of the hyperplane a point <span class="math notranslate nohighlight">\(\bfx\)</span> lies on. For example, the predictions</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Xq</span> <span class="o">=</span> <span class="n">X_te</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">20</span><span class="p">:</span><span class="mi">25</span><span class="p">,:]</span>
+<span class="nb">print</span><span class="p">(</span> <span class="n">svc</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">Xq</span><span class="p">)</span> <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0 0 1 1 1]
+</pre></div>
+</div>
+</div>
+</div>
+<p>correspond to the signs of the following:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">dot</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="n">v</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">u</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">u</span><span class="p">)))</span>
+
+<span class="n">Xq</span> <span class="o">=</span> <span class="n">Xq</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+<span class="p">[</span><span class="n">dot</span><span class="p">(</span><span class="n">w</span><span class="p">,</span><span class="n">x</span><span class="p">)</span><span class="o">+</span><span class="n">b</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">Xq</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[-4.2043265555047835,
+ -1.043485242943314,
+ 2.3025906567250853,
+ 2.103896027747945,
+ 0.49147516161036897]
+</pre></div>
+</div>
+</div>
+</div>
+<p>The training accuracy reflects the amount of slack allowed. If it’s 100%, then every training observation lies on its proper side.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;train accuracy:&quot;</span><span class="p">,</span><span class="n">svc</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_tr</span><span class="p">,</span><span class="n">y_tr</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>train accuracy: 0.9582417582417583
+</pre></div>
+</div>
+</div>
+</div>
+<p>If we increase <span class="math notranslate nohighlight">\(C\)</span>, we penalize the slack more and increase the training accuracy. (That might or might not increase the test accuracy as well; we explore that relationship more in the next section.)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">svc</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">(</span><span class="n">C</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">kernel</span><span class="o">=</span><span class="s2">&quot;linear&quot;</span><span class="p">)</span>
+<span class="n">svc</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_tr</span><span class="p">,</span><span class="n">y_tr</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;train accuracy with less slack:&quot;</span><span class="p">,</span><span class="n">svc</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_tr</span><span class="p">,</span><span class="n">y_tr</span><span class="p">))</span>
+
+<span class="n">yhat</span> <span class="o">=</span> <span class="n">svc</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_te</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;confusion matrix with less slack:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_te</span><span class="p">,</span><span class="n">yhat</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>train accuracy with less slack: 0.9648351648351648
+confusion matrix with less slack:
+[[46  1]
+ [ 4 63]]
+</pre></div>
+</div>
+</div>
+</div>
+<p>In general, the RBF kernel might be much better than the linear one. But there are no guarantees that it will be so, and the best value for <span class="math notranslate nohighlight">\(C\)</span> might change.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">svc</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">(</span><span class="n">C</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">svc</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_tr</span><span class="p">,</span><span class="n">y_tr</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;train accuracy with RBF kernel:&quot;</span><span class="p">,</span><span class="n">svc</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_tr</span><span class="p">,</span><span class="n">y_tr</span><span class="p">))</span>
+
+<span class="n">yhat</span> <span class="o">=</span> <span class="n">svc</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_te</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;confusion matrix with RBF kernel:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_te</span><span class="p">,</span><span class="n">yhat</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>train accuracy with RBF kernel: 0.9406593406593406
+confusion matrix with RBF kernel:
+[[43  4]
+ [ 2 65]]
+</pre></div>
+</div>
+</div>
+</div>
+<p>An SVM usually benefits from standardizing the features.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">make_pipeline</span>
 <span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span>   
 
-<span class="n">svc</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">StandardScaler</span><span class="p">(),</span><span class="n">svm</span><span class="o">.</span><span class="n">SVC</span><span class="p">())</span>
+<span class="n">svc</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">StandardScaler</span><span class="p">(),</span><span class="n">SVC</span><span class="p">(</span><span class="n">C</span><span class="o">=</span><span class="mf">0.5</span><span class="p">))</span>
 <span class="n">svc</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_tr</span><span class="p">,</span><span class="n">y_tr</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;train accuracy with standardization:&quot;</span><span class="p">,</span><span class="n">svc</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_tr</span><span class="p">,</span><span class="n">y_tr</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;test accuracy with standardization:&quot;</span><span class="p">,</span><span class="n">svc</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_te</span><span class="p">,</span><span class="n">y_te</span><span class="p">))</span>
+<span class="n">yhat</span> <span class="o">=</span> <span class="n">svc</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_te</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;confusion matrix with RBF and standardization:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_te</span><span class="p">,</span><span class="n">yhat</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>train accuracy with standardization: 0.8457125603864735
-test accuracy with standardization: 0.8417874396135265
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>confusion matrix with RBF and standardization:
+[[44  3]
+ [ 0 67]]
 </pre></div>
 </div>
 </div>

@@ -433,7 +433,7 @@
 </div>
 </div>
 </div>
-<p>Most of the loan applications were successful, as shown by the distribution of funding percentage.</p>
+<p>Most of the loan applications were successful, as shown by the distribution of funding percentage:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
@@ -489,7 +489,7 @@
 </div>
 </div>
 </div>
-<p>Therefore, an algorithm that simply “predicts” funding every loan would do even better than the trained classifier!</p>
+<p>Therefore, an algorithm that simply “predicts” funding every loan could do even better than the trained classifier!</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">metrics</span>
@@ -507,7 +507,7 @@
 <p>In context, then, our trained classifier is not impressive at all. We need a metric other than accuracy to detect that.</p>
 <div class="section" id="binary-classifiers">
 <h2>Binary classifiers<a class="headerlink" href="#binary-classifiers" title="Permalink to this headline">¶</a></h2>
-<p>Recall that a binary classifier is one that produces just two unique labels, which we call “yes” and “no” here. To fully understand the performance of a binary classifier, we have to account for four cases:</p>
+<p>A binary classifier is one that produces just two unique labels, which we call “yes” and “no” here. To fully understand the performance of a binary classifier, we have to account for four cases:</p>
 <ul class="simple">
 <li><p>True positives (TP): Predicts “yes”, actually is “yes”</p></li>
 <li><p>False positives (FP): Predicts “yes”, actually is “no”</p></li>
@@ -539,7 +539,7 @@
 <p>i.e., 94.8%. However, there are four other quantities defined by putting a “number correct” value in the numerator and the sum of a confusion matrix row or column in the denominator:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-\text{recall (aka sensitvity)} &amp;= \frac{\TP}{\TP + \FN} \\[2mm]
+\text{recall (aka sensitivity)} &amp;= \frac{\TP}{\TP + \FN} \\[2mm]
 \text{specificity} &amp;= \frac{\TN}{\TN + \FP} \\[2mm] 
 \text{precision} &amp;= \frac{\TP}{\TP + \FP} \\[2mm] 
 \text{negative predictive value (NPV)} &amp;= \frac{\TN}{\TN + \FN} \\ 
@@ -572,13 +572,29 @@ NPV = 37.9%
 </div>
 </div>
 <p>The high recall rate means that few who ought to get a loan will go away disappointed. However, the low specificity would be concerning to those doing the funding, because almost 85% of those who should be rejected will be funded as well.</p>
-<p>There are numerous ways to combine these measures into a single number other than standard accuracy. None is universally best, because different applications emphasize different aspects of performance. One of the most popular is the <strong><span class="math notranslate nohighlight">\(F_1\)</span> score</strong>, which is the harmonic mean of the precision and the recall:</p>
+<p>There are numerous ways to combine these measures into a single number other than standard accuracy. None is universally best, because different applications emphasize different aspects of performance. One of the most popular is the <strong><em>F</em>₁ score</strong>, which is the harmonic mean of the precision and the recall:</p>
 <div class="math notranslate nohighlight">
 \[
-\left[ \frac{1}{2} \left(\frac{\TP + \FN}{\TP} + \frac{\TP+\FP}{\TP} \right)  \right]^{-1} = \frac{2\TP}{2\TP+\FN+\FP}.
+F_1 = \left[ \frac{1}{2} \left(\frac{\TP + \FN}{\TP} + \frac{\TP+\FP}{\TP} \right)  \right]^{-1} = \frac{2\TP}{2\TP+\FN+\FP}.
 \]</div>
-<p>This score varies between zero (poor) and one (ideal).</p>
-<p>You may know the harmonic mean as the operation for wiring electrical resistors in parallel. If one of the quantities is much smaller than the other, their harmonic mean will be close to the small value. Thus, <span class="math notranslate nohighlight">\(F_1\)</span> score punishes a classifier if either recall or precision is poor.</p>
+<p>This score varies between zero (poor) and one (ideal). You may know the harmonic mean as the operation for wiring electrical resistors in parallel. If one of the quantities is much smaller than the other, their harmonic mean will be close to the small value. Thus, <em>F</em>₁ score punishes a classifier if either recall or precision is poor.</p>
+<p>In <code class="docutils literal notranslate"><span class="pre">sklearn.metrics</span></code> there are functions to compute all the above scores, except for NPV, without reference to the confusion matrix. You must put the ground truth labels before the predicted labels, and you should also specify which of the labels in the label vector corresponds to a “positive” result. Swapping the “positive” role also swaps recall with specificity, and precision with NPV.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;recall with True as positive:&quot;</span><span class="p">,</span><span class="n">metrics</span><span class="o">.</span><span class="n">recall_score</span><span class="p">(</span><span class="n">y_te</span><span class="p">,</span><span class="n">yhat</span><span class="p">,</span><span class="n">pos_label</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+
+<span class="c1"># Compute recall using False as the &quot;positive&quot; label</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;recall with False as positive:&quot;</span><span class="p">,</span><span class="n">metrics</span><span class="o">.</span><span class="n">recall_score</span><span class="p">(</span><span class="n">y_te</span><span class="p">,</span><span class="n">yhat</span><span class="p">,</span><span class="n">pos_label</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>recall with True as positive: 0.9874421678783873
+recall with False as positive: 0.15303430079155672
+</pre></div>
+</div>
+</div>
+</div>
 <p>Another composite score is <strong>balanced accuracy</strong>, which is the mean of recall and specificity. It also ranges from 0 to 1, with 1 meaning perfect accuracy.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -594,7 +610,7 @@ Balanced: 0.570238234334972
 </div>
 </div>
 </div>
-<p>The loan classifier trained above has excellent recall, respectable precision, and terrible specificity, resulting in a good <span class="math notranslate nohighlight">\(F_1\)</span> score and a low balanced accuracy score.</p>
+<p>The loan classifier trained above has excellent recall, respectable precision, and terrible specificity, resulting in a good <em>F</em>₁ score and a low balanced accuracy score.</p>
 <div class="proof example admonition" id="example-0">
 <p class="admonition-title"><span class="caption-number">Example 3.2.1 </span></p>
 <div class="example-content section" id="proof-content">
@@ -603,7 +619,7 @@ Balanced: 0.570238234334972
 \[
 \TP = k,\, \TN = 0,\, \FP = n-k,\, \FN = 0.
 \]</div>
-<p>Its <span class="math notranslate nohighlight">\(F_1\)</span> score is thus</p>
+<p>Its <em>F</em>₁ score is thus</p>
 <div class="math notranslate nohighlight">
 \[
 \frac{2\TP}{2\TP+\FN+\FP} = \frac{2k}{2k+n-k} = \frac{2k}{k+n},
@@ -613,16 +629,16 @@ Balanced: 0.570238234334972
 \[
 \frac{1}{2} \left(\frac{\TP}{\TP+\FN} + \frac{\TN}{\TN+\FP} \right)  = \frac{1}{2}.
 \]</div>
-<p>If the fraction of funded samples in the test set is <span class="math notranslate nohighlight">\(k/n=a\)</span>, then the <span class="math notranslate nohighlight">\(F_1\)</span> score is <span class="math notranslate nohighlight">\(a/(1+a)\)</span>, which increases smoothly from zero to one as <span class="math notranslate nohighlight">\(a\)</span> does. For the loan problem, <span class="math notranslate nohighlight">\(a=0.816\)</span> and the <span class="math notranslate nohighlight">\(F_1\)</span> of this lazy classifier is <span class="math notranslate nohighlight">\(0.449\)</span>.</p>
+<p>If the fraction of funded samples in the test set is <span class="math notranslate nohighlight">\(k/n=a\)</span>, then the <em>F</em>₁ score is <span class="math notranslate nohighlight">\(a/(1+a)\)</span>, which increases smoothly from zero to one as <span class="math notranslate nohighlight">\(a\)</span> does. For the loan problem, <span class="math notranslate nohighlight">\(a=0.816\)</span> and the <em>F</em>₁ of this lazy classifier is <span class="math notranslate nohighlight">\(0.449\)</span>.</p>
 </div>
 </div><!-- 
 print("F1:",metrics.cohen_kappa_score(y_te,yhat))
 print("F1:",metrics.matthews_corrcoef(y_te,yhat)) -->
-<p>The point is that each individual metric gives part of the picture, but it can be misleading depending on what behavior an application values most.</p>
+<p>The point is that each individual metric gives part of the picture, and selecting the right one depends on what traits the application values most.</p>
 </div>
 <div class="section" id="multiclass-classifiers">
 <h2>Multiclass classifiers<a class="headerlink" href="#multiclass-classifiers" title="Permalink to this headline">¶</a></h2>
-<p>When there are more than two unique possible labels, these measures can be extended using the <strong>one-vs-rest</strong> paradigm. For <span class="math notranslate nohighlight">\(K\)</span> unique labels, this paradigm poses <span class="math notranslate nohighlight">\(K\)</span> binary questions: “Is it in class 1, or not?”, “Is it in class 2, or not?”, etc. This produces <span class="math notranslate nohighlight">\(K\)</span> versions of metrics such as accuracy, recall, <span class="math notranslate nohighlight">\(F_1\)</span>-score, and so on, which can be averaged to give a single score. There are various ways to perform the averaging, depending on whether poorly represented classes are to be weighted more weakly than others. We won’t give the details.</p>
+<p>When there are more than two unique possible labels, these metrics can be applied using the <strong>one-vs-rest</strong> paradigm. For <span class="math notranslate nohighlight">\(K\)</span> unique labels, this paradigm poses <span class="math notranslate nohighlight">\(K\)</span> binary questions: “Is it in class 1, or not?”, “Is it in class 2, or not?”, etc. This produces <span class="math notranslate nohighlight">\(K\)</span> versions of metrics such as accuracy, recall, <em>F</em>₁ score, and so on, which can be averaged to give a single score. There are various ways to perform the averaging, depending on whether poorly represented classes are to be weighted more weakly than others. We won’t give the details.</p>
 <p>The confusion matrix also generalizes to <span class="math notranslate nohighlight">\(K\)</span> classes. It’s easiest to see how by an example. We will load a dataset on the characteristics of cars and use quantitative factors to predict the region of origin.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -647,7 +663,7 @@ print("F1:",metrics.matthews_corrcoef(y_te,yhat)) -->
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>392 samples, 5 features
 </pre></div>
 </div>
-<img alt="../_images/performance_19_1.png" src="../_images/performance_19_1.png" />
+<img alt="../_images/performance_21_1.png" src="../_images/performance_21_1.png" />
 </div>
 </div>
 <p>From the confusion matrix, we can see that, for example, out of 52 predictions of “usa” on the test set, there are 5 total false positives. Therefore, that precision is <span class="math notranslate nohighlight">\(47/52=90.4\)</span>%. We can get all the individual precision scores automatically.</p>
@@ -724,7 +740,7 @@ usa: 90.4%
 </div>
 </div>
 </div>
-<p>Most of the loan applications were successful, as shown by the distribution of funding percentage.</p>
+<p>Most of the loan applications were successful, as shown by the distribution of funding percentage:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
@@ -780,7 +796,7 @@ usa: 90.4%
 </div>
 </div>
 </div>
-<p>Therefore, an algorithm that simply “predicts” funding every loan would do even better than the trained classifier!</p>
+<p>Therefore, an algorithm that simply “predicts” funding every loan could do even better than the trained classifier!</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">metrics</span>
@@ -798,7 +814,7 @@ usa: 90.4%
 <p>In context, then, our trained classifier is not impressive at all. We need a metric other than accuracy to detect that.</p>
 <div class="section" id="binary-classifiers">
 <h2>Binary classifiers<a class="headerlink" href="#binary-classifiers" title="Permalink to this headline">¶</a></h2>
-<p>Recall that a binary classifier is one that produces just two unique labels, which we call “yes” and “no” here. To fully understand the performance of a binary classifier, we have to account for four cases:</p>
+<p>A binary classifier is one that produces just two unique labels, which we call “yes” and “no” here. To fully understand the performance of a binary classifier, we have to account for four cases:</p>
 <ul class="simple">
 <li><p>True positives (TP): Predicts “yes”, actually is “yes”</p></li>
 <li><p>False positives (FP): Predicts “yes”, actually is “no”</p></li>
@@ -830,7 +846,7 @@ usa: 90.4%
 <p>i.e., 94.8%. However, there are four other quantities defined by putting a “number correct” value in the numerator and the sum of a confusion matrix row or column in the denominator:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-\text{recall (aka sensitvity)} &amp;= \frac{\TP}{\TP + \FN} \\[2mm]
+\text{recall (aka sensitivity)} &amp;= \frac{\TP}{\TP + \FN} \\[2mm]
 \text{specificity} &amp;= \frac{\TN}{\TN + \FP} \\[2mm] 
 \text{precision} &amp;= \frac{\TP}{\TP + \FP} \\[2mm] 
 \text{negative predictive value (NPV)} &amp;= \frac{\TN}{\TN + \FN} \\ 
@@ -863,13 +879,29 @@ NPV = 37.9%
 </div>
 </div>
 <p>The high recall rate means that few who ought to get a loan will go away disappointed. However, the low specificity would be concerning to those doing the funding, because almost 85% of those who should be rejected will be funded as well.</p>
-<p>There are numerous ways to combine these measures into a single number other than standard accuracy. None is universally best, because different applications emphasize different aspects of performance. One of the most popular is the <strong><span class="math notranslate nohighlight">\(F_1\)</span> score</strong>, which is the harmonic mean of the precision and the recall:</p>
+<p>There are numerous ways to combine these measures into a single number other than standard accuracy. None is universally best, because different applications emphasize different aspects of performance. One of the most popular is the <strong><em>F</em>₁ score</strong>, which is the harmonic mean of the precision and the recall:</p>
 <div class="math notranslate nohighlight">
 \[
-\left[ \frac{1}{2} \left(\frac{\TP + \FN}{\TP} + \frac{\TP+\FP}{\TP} \right)  \right]^{-1} = \frac{2\TP}{2\TP+\FN+\FP}.
+F_1 = \left[ \frac{1}{2} \left(\frac{\TP + \FN}{\TP} + \frac{\TP+\FP}{\TP} \right)  \right]^{-1} = \frac{2\TP}{2\TP+\FN+\FP}.
 \]</div>
-<p>This score varies between zero (poor) and one (ideal).</p>
-<p>You may know the harmonic mean as the operation for wiring electrical resistors in parallel. If one of the quantities is much smaller than the other, their harmonic mean will be close to the small value. Thus, <span class="math notranslate nohighlight">\(F_1\)</span> score punishes a classifier if either recall or precision is poor.</p>
+<p>This score varies between zero (poor) and one (ideal). You may know the harmonic mean as the operation for wiring electrical resistors in parallel. If one of the quantities is much smaller than the other, their harmonic mean will be close to the small value. Thus, <em>F</em>₁ score punishes a classifier if either recall or precision is poor.</p>
+<p>In <code class="docutils literal notranslate"><span class="pre">sklearn.metrics</span></code> there are functions to compute all the above scores, except for NPV, without reference to the confusion matrix. You must put the ground truth labels before the predicted labels, and you should also specify which of the labels in the label vector corresponds to a “positive” result. Swapping the “positive” role also swaps recall with specificity, and precision with NPV.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;recall with True as positive:&quot;</span><span class="p">,</span><span class="n">metrics</span><span class="o">.</span><span class="n">recall_score</span><span class="p">(</span><span class="n">y_te</span><span class="p">,</span><span class="n">yhat</span><span class="p">,</span><span class="n">pos_label</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+
+<span class="c1"># Compute recall using False as the &quot;positive&quot; label</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;recall with False as positive:&quot;</span><span class="p">,</span><span class="n">metrics</span><span class="o">.</span><span class="n">recall_score</span><span class="p">(</span><span class="n">y_te</span><span class="p">,</span><span class="n">yhat</span><span class="p">,</span><span class="n">pos_label</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>recall with True as positive: 0.9874421678783873
+recall with False as positive: 0.15303430079155672
+</pre></div>
+</div>
+</div>
+</div>
 <p>Another composite score is <strong>balanced accuracy</strong>, which is the mean of recall and specificity. It also ranges from 0 to 1, with 1 meaning perfect accuracy.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -885,7 +917,7 @@ Balanced: 0.570238234334972
 </div>
 </div>
 </div>
-<p>The loan classifier trained above has excellent recall, respectable precision, and terrible specificity, resulting in a good <span class="math notranslate nohighlight">\(F_1\)</span> score and a low balanced accuracy score.</p>
+<p>The loan classifier trained above has excellent recall, respectable precision, and terrible specificity, resulting in a good <em>F</em>₁ score and a low balanced accuracy score.</p>
 <div class="proof example admonition" id="example-0">
 <p class="admonition-title"><span class="caption-number">Example 3.2.1 </span></p>
 <div class="example-content section" id="proof-content">
@@ -894,7 +926,7 @@ Balanced: 0.570238234334972
 \[
 \TP = k,\, \TN = 0,\, \FP = n-k,\, \FN = 0.
 \]</div>
-<p>Its <span class="math notranslate nohighlight">\(F_1\)</span> score is thus</p>
+<p>Its <em>F</em>₁ score is thus</p>
 <div class="math notranslate nohighlight">
 \[
 \frac{2\TP}{2\TP+\FN+\FP} = \frac{2k}{2k+n-k} = \frac{2k}{k+n},
@@ -904,16 +936,16 @@ Balanced: 0.570238234334972
 \[
 \frac{1}{2} \left(\frac{\TP}{\TP+\FN} + \frac{\TN}{\TN+\FP} \right)  = \frac{1}{2}.
 \]</div>
-<p>If the fraction of funded samples in the test set is <span class="math notranslate nohighlight">\(k/n=a\)</span>, then the <span class="math notranslate nohighlight">\(F_1\)</span> score is <span class="math notranslate nohighlight">\(a/(1+a)\)</span>, which increases smoothly from zero to one as <span class="math notranslate nohighlight">\(a\)</span> does. For the loan problem, <span class="math notranslate nohighlight">\(a=0.816\)</span> and the <span class="math notranslate nohighlight">\(F_1\)</span> of this lazy classifier is <span class="math notranslate nohighlight">\(0.449\)</span>.</p>
+<p>If the fraction of funded samples in the test set is <span class="math notranslate nohighlight">\(k/n=a\)</span>, then the <em>F</em>₁ score is <span class="math notranslate nohighlight">\(a/(1+a)\)</span>, which increases smoothly from zero to one as <span class="math notranslate nohighlight">\(a\)</span> does. For the loan problem, <span class="math notranslate nohighlight">\(a=0.816\)</span> and the <em>F</em>₁ of this lazy classifier is <span class="math notranslate nohighlight">\(0.449\)</span>.</p>
 </div>
 </div><!-- 
 print("F1:",metrics.cohen_kappa_score(y_te,yhat))
 print("F1:",metrics.matthews_corrcoef(y_te,yhat)) -->
-<p>The point is that each individual metric gives part of the picture, but it can be misleading depending on what behavior an application values most.</p>
+<p>The point is that each individual metric gives part of the picture, and selecting the right one depends on what traits the application values most.</p>
 </div>
 <div class="section" id="multiclass-classifiers">
 <h2>Multiclass classifiers<a class="headerlink" href="#multiclass-classifiers" title="Permalink to this headline">¶</a></h2>
-<p>When there are more than two unique possible labels, these measures can be extended using the <strong>one-vs-rest</strong> paradigm. For <span class="math notranslate nohighlight">\(K\)</span> unique labels, this paradigm poses <span class="math notranslate nohighlight">\(K\)</span> binary questions: “Is it in class 1, or not?”, “Is it in class 2, or not?”, etc. This produces <span class="math notranslate nohighlight">\(K\)</span> versions of metrics such as accuracy, recall, <span class="math notranslate nohighlight">\(F_1\)</span>-score, and so on, which can be averaged to give a single score. There are various ways to perform the averaging, depending on whether poorly represented classes are to be weighted more weakly than others. We won’t give the details.</p>
+<p>When there are more than two unique possible labels, these metrics can be applied using the <strong>one-vs-rest</strong> paradigm. For <span class="math notranslate nohighlight">\(K\)</span> unique labels, this paradigm poses <span class="math notranslate nohighlight">\(K\)</span> binary questions: “Is it in class 1, or not?”, “Is it in class 2, or not?”, etc. This produces <span class="math notranslate nohighlight">\(K\)</span> versions of metrics such as accuracy, recall, <em>F</em>₁ score, and so on, which can be averaged to give a single score. There are various ways to perform the averaging, depending on whether poorly represented classes are to be weighted more weakly than others. We won’t give the details.</p>
 <p>The confusion matrix also generalizes to <span class="math notranslate nohighlight">\(K\)</span> classes. It’s easiest to see how by an example. We will load a dataset on the characteristics of cars and use quantitative factors to predict the region of origin.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -938,7 +970,7 @@ print("F1:",metrics.matthews_corrcoef(y_te,yhat)) -->
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>392 samples, 5 features
 </pre></div>
 </div>
-<img alt="../_images/performance_19_1.png" src="../_images/performance_19_1.png" />
+<img alt="../_images/performance_21_1.png" src="../_images/performance_21_1.png" />
 </div>
 </div>
 <p>From the confusion matrix, we can see that, for example, out of 52 predictions of “usa” on the test set, there are 5 total false positives. Therefore, that precision is <span class="math notranslate nohighlight">\(47/52=90.4\)</span>%. We can get all the individual precision scores automatically.</p>

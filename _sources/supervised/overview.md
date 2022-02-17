@@ -17,8 +17,6 @@ Most algorithms for one of these problems have counterparts in the other.
 
 <!-- Regression methods can typically be used as classifiers, by thresholding or binning the result. For example, in a yes/no situation, a predictor of probability can be used to decide "yes" if its probability exceeds 50%. -->
 
-The simplest type of classifier is a **binary classifier**, which must make a yes/no decision. We will use the labels $1$ and $-1$ to denote these outcomes. 
-
 Each observation in the training set is supplied by a **feature vector** of length $d$. (Recall that a vector is a series indexed by integers. Mathematically the index starts at 1, but in Python it starts at zero.) The components of a feature vector are assumed to be real numbers. A set of $n$ observations can be represented as a **feature matrix** $bfX$ with $n$ rows and $d$ columns. Using subscripts to represent the index values, we can write
 
 $$

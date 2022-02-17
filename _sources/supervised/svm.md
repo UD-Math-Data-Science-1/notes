@@ -58,8 +58,7 @@ $$
 Note that $w_1^2+w_2^2=\norm{\bfw}_2^2$. Substituting $t_\text{min}$ into $d^2$ and taking a square root gives the distance from $(s_1,s_2)$ to the line:
 
 $$
-d_\text{min} = \frac{|(s_1-a_1)w_1 + (s_2-a_2)w_2|}{\norm{\bfw}_2}
- = \frac{|s_1w_1 + s_2w_2 + b|}{\norm{\bfw}_2}.
+d_\text{min} = \frac{|(s_1-a_1)w_1 + (s_2-a_2)w_2|}{\twonorm{\bfw}} = \frac{|s_1w_1 + s_2w_2 + b|}{\twonorm{\bfw}}.
 $$
 
 Suppose we use $y_i=+1$ for all the labels on one side, and $y_i=-1$ for all the labels on the other side. Finally, the condition that the distance from the line to point $(x_{i,1},x_{i,2})$ be no smaller than the margin $M$, and that the point be on the correct side of the line, is 
@@ -92,15 +91,19 @@ $$
 the **inner product** between vectors $\bfx$ and $\bfw$. (In 2D or 3D this is the same as the *dot product*.) It follows easily that
 
 $$
-\bfw^T\bfw = \norm{\bfw}_2^2,
+\bfw^T\bfw = \twonorm{\bfw}^2,
 $$
 
-which is one fact that makes the 2-norm special. 
-
-Above we saw that $\norm{\bfw}_2$ is inversely related to the margin $M$. One form of the constrained optimization problem, known as the *primal formulation*, is
+which is one fact that makes the 2-norm special. The (signed) distance from any point $\mathbf{s}=(s_1,\ldots,s_d)$ to the hyperplane $\bfw^T\bfx+b=0$ is 
 
 $$
-\text{minimize } & \norm{\bfw}_2, \\ 
+\frac{\bfw^T\mathbf{s}+b}{\twonorm{\bfw}}.
+$$
+
+Above we saw that $\twonorm{\bfw}$ is inversely related to the margin $M$. One form of the constrained optimization problem, known as the *primal formulation*, is
+
+$$
+\text{minimize } & \twonorm{\bfw}, \\ 
 \text{subject to } & y_i(\bfw^T \bfx_i + b) \ge 1,\, i = 1,\ldots,n.
 $$
 
@@ -116,49 +119,100 @@ The other important refinement is to upgrade the separating hyperplane to allow 
 
 ## Usage in sklearn
 
-The SVM classifier in sklearn is called `SVC`. By default, it uses $C=1$ and the RBF kernel.
+Let's explore the usage of SVM with a dataset derived from images of breast tissue. The target classification is benign/malignant.
 
 ```{code-cell}
-import numpy as np
-X = np.loadtxt("data.csv",delimiter=",")
-y = np.loadtxt("labels.csv",delimiter=",")
+from sklearn.datasets import load_breast_cancer
+cancer = load_breast_cancer(as_frame=True)["frame"]
+y = cancer["target"]
+X = cancer.drop("target",axis=1)
+print(sum(y==0),"malignant and",sum(y==1),"benign samples")
 
-from sklearn import svm
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import confusion_matrix
-
-X_tr, X_te, y_tr, y_te = train_test_split(X,y,test_size=0.2)
-
-svc = svm.SVC()
-svc.fit(X_tr,y_tr)
-
-print("train accuracy:",svc.score(X_tr,y_tr))
-print("test accuracy:",svc.score(X_te,y_te))
+X_tr, X_te, y_tr, y_te = train_test_split(X,y,test_size=0.2,shuffle=True,random_state=0)
 ```
 
-The training accuracy essentially tells us how much slack was allowed; i.e., how frequently sample points end up on the wrong side of the decision boundary. If we increase $C$, we penalize the slack more and increase the training accuracy. (That might increase the test error as well, but we explore that relationship more in the next section.)
+The `svm` module in sklearn defines `SVC` for classification. By default, it uses an RBF kernel, but here we require it to use the linear kernel (that is, a true hyperplane).
 
 ```{code-cell}
-svc = svm.SVC(C=100)
+from sklearn.svm import SVC
+from sklearn.metrics import confusion_matrix
+
+svc = SVC(C=1e-3,kernel="linear")
 svc.fit(X_tr,y_tr)
 
-print("train accuracy with less slack:",svc.score(X_tr,y_tr))
-print("test accuracy with less slack:",svc.score(X_te,y_te))
-
 yhat = svc.predict(X_te)
+print("confusion matrix on test samples:")
 print(confusion_matrix(y_te,yhat))
 ```
 
-SVM usually benefits from standardizing the features, so it's a good idea to build that in.
+We can query the classifier for the normal vector $\bfw$ and value $b$ in the formulas above. 
+
+```{code-cell}
+w = svc.coef_[0]
+b = svc.intercept_[0]
+print("w:",w," b:",b)
+```
+
+The sign of $\bfw^T\bfx + b$ determines which side of the hyperplane a point $\bfx$ lies on. For example, the predictions
+
+```{code-cell}
+Xq = X_te.iloc[20:25,:]
+print( svc.predict(Xq) )
+```
+
+correspond to the signs of the following:
+
+```{code-cell}
+def dot(u,v):
+    return sum(u[i]*v[i] for i in range(len(u)))
+
+Xq = Xq.to_numpy()
+[dot(w,x)+b for x in Xq]
+```
+
+The training accuracy reflects the amount of slack allowed. If it's 100%, then every training observation lies on its proper side. 
+
+```{code-cell}
+print("train accuracy:",svc.score(X_tr,y_tr))
+```
+
+If we increase $C$, we penalize the slack more and increase the training accuracy. (That might or might not increase the test accuracy as well; we explore that relationship more in the next section.)
+
+```{code-cell}
+svc = SVC(C=1,kernel="linear")
+svc.fit(X_tr,y_tr)
+print("train accuracy with less slack:",svc.score(X_tr,y_tr))
+
+yhat = svc.predict(X_te)
+print("confusion matrix with less slack:")
+print(confusion_matrix(y_te,yhat))
+```
+
+In general, the RBF kernel might be much better than the linear one. But there are no guarantees that it will be so, and the best value for $C$ might change.
+
+```{code-cell}
+svc = SVC(C=100)
+svc.fit(X_tr,y_tr)
+print("train accuracy with RBF kernel:",svc.score(X_tr,y_tr))
+
+yhat = svc.predict(X_te)
+print("confusion matrix with RBF kernel:")
+print(confusion_matrix(y_te,yhat))
+
+```
+
+An SVM usually benefits from standardizing the features.
 
 ```{code-cell}
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler   
 
-svc = make_pipeline(StandardScaler(),svm.SVC())
+svc = make_pipeline(StandardScaler(),SVC(C=0.5))
 svc.fit(X_tr,y_tr)
 
-print("train accuracy with standardization:",svc.score(X_tr,y_tr))
-print("test accuracy with standardization:",svc.score(X_te,y_te))
+yhat = svc.predict(X_te)
+print("confusion matrix with RBF and standardization:")
+print(confusion_matrix(y_te,yhat))
 ```
 

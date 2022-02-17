@@ -557,9 +557,7 @@ there are 64 features and 1797 samples
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>accuracy score is 98.2%
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>knn score is 98.2%
+knn score is 98.2%
 </pre></div>
 </div>
 </div>
@@ -585,8 +583,8 @@ there are 64 features and 1797 samples
 <p>Now we train on the training data…</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">neighbors</span> <span class="k">as</span> <span class="n">nbr</span>
-<span class="n">knn</span> <span class="o">=</span> <span class="n">nbr</span><span class="o">.</span><span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">KNeighborsClassifier</span>
+<span class="n">knn</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
 <span class="n">knn</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_tr</span><span class="p">,</span><span class="n">y_tr</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1056,7 +1054,7 @@ there are 64 features and 1797 samples
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">features</span> <span class="o">=</span> <span class="p">[</span> <span class="s2">&quot;loan_amnt&quot;</span><span class="p">,</span><span class="s2">&quot;rate&quot;</span><span class="p">,</span><span class="s2">&quot;installment&quot;</span><span class="p">,</span><span class="s2">&quot;annual_inc&quot;</span><span class="p">,</span><span class="s2">&quot;dti&quot;</span><span class="p">,</span><span class="s2">&quot;delinq_2yrs&quot;</span><span class="p">,</span><span class="s2">&quot;delinq_amnt&quot;</span><span class="p">]</span>
 <span class="n">loans</span> <span class="o">=</span> <span class="n">loans</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="n">features</span><span class="o">+</span><span class="n">target</span><span class="p">]</span>
-<span class="n">loans</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="n">loans</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -1074,10 +1072,10 @@ dtype: int64
 </div>
 </div>
 </div>
-<p>Finally, we’ll output this cleaned data frame to its own CSV file.</p>
+<p>Finally, we’ll output this cleaned data frame to its own CSV file. The index row is an ID number that is meaningless to classification, so we will exclude it from the new file.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">loans</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;loan_clean.csv&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">loans</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;loan_clean.csv&quot;</span><span class="p">,</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1242,9 +1240,7 @@ there are 64 features and 1797 samples
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>accuracy score is 98.2%
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>knn score is 98.2%
+knn score is 98.2%
 </pre></div>
 </div>
 </div>
@@ -1270,8 +1266,8 @@ there are 64 features and 1797 samples
 <p>Now we train on the training data…</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">neighbors</span> <span class="k">as</span> <span class="n">nbr</span>
-<span class="n">knn</span> <span class="o">=</span> <span class="n">nbr</span><span class="o">.</span><span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">KNeighborsClassifier</span>
+<span class="n">knn</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
 <span class="n">knn</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_tr</span><span class="p">,</span><span class="n">y_tr</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1741,7 +1737,7 @@ there are 64 features and 1797 samples
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">features</span> <span class="o">=</span> <span class="p">[</span> <span class="s2">&quot;loan_amnt&quot;</span><span class="p">,</span><span class="s2">&quot;rate&quot;</span><span class="p">,</span><span class="s2">&quot;installment&quot;</span><span class="p">,</span><span class="s2">&quot;annual_inc&quot;</span><span class="p">,</span><span class="s2">&quot;dti&quot;</span><span class="p">,</span><span class="s2">&quot;delinq_2yrs&quot;</span><span class="p">,</span><span class="s2">&quot;delinq_amnt&quot;</span><span class="p">]</span>
 <span class="n">loans</span> <span class="o">=</span> <span class="n">loans</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="n">features</span><span class="o">+</span><span class="n">target</span><span class="p">]</span>
-<span class="n">loans</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="n">loans</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -1759,10 +1755,10 @@ dtype: int64
 </div>
 </div>
 </div>
-<p>Finally, we’ll output this cleaned data frame to its own CSV file.</p>
+<p>Finally, we’ll output this cleaned data frame to its own CSV file. The index row is an ID number that is meaningless to classification, so we will exclude it from the new file.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">loans</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;loan_clean.csv&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">loans</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;loan_clean.csv&quot;</span><span class="p">,</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>

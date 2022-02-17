@@ -100,8 +100,8 @@ print(len(y_tr),"training cases and",len(y_te),"test cases")
 Now we train on the training data...
 
 ```{code-cell}
-from sklearn import neighbors as nbr
-knn = nbr.KNeighborsClassifier(n_neighbors=20)
+from sklearn.neighbors import KNeighborsClassifier
+knn = KNeighborsClassifier(n_neighbors=20)
 knn.fit(X_tr,y_tr)
 ```
 
@@ -188,11 +188,11 @@ We will only use a small subset of the numerical columns as features. Let's veri
 ```{code-cell}
 features = [ "loan_amnt","rate","installment","annual_inc","dti","delinq_2yrs","delinq_amnt"]
 loans = loans.loc[:,features+target]
-loans.isna().sum()
+loans.isnull().sum()
 ```
 
 
-Finally, we'll output this cleaned data frame to its own CSV file.
+Finally, we'll output this cleaned data frame to its own CSV file. The index row is an ID number that is meaningless to classification, so we will exclude it from the new file.
 ```{code-cell}
-loans.to_csv("loan_clean.csv")
+loans.to_csv("loan_clean.csv",index=False)
 ```

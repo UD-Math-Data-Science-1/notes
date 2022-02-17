@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Proof Index &#8212; Data Science 1</title>
+    <title>Introduction to notebooks &#8212; Data Science 1</title>
     
   <link href="_static/css/theme.css" rel="stylesheet">
   <link href="_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -44,22 +44,22 @@
     <script src="_static/copybutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script>
+        const thebe_selector = ".thebe,.cell"
+        const thebe_selector_input = "pre,.cell_input div.highlight"
+        const thebe_selector_output = ".output,.cell_output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="shortcut icon" href="_static/favicon.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
 
     <!-- Google Analytics -->
     
-
-    <script>
-      DOCUMENTATION_OPTIONS.COLLAPSE_INDEX = true;
-    </script>
-
-
   </head>
   <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
     
@@ -311,6 +311,23 @@
             </button>
             
             
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/notebooks.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
             <!-- Source interaction buttons -->
 
             <!-- Full screen (wrap in <a> to have style consistency -->
@@ -327,111 +344,116 @@
         <!-- Table of contents -->
         <div class="d-none d-md-block col-md-2 bd-toc show noprint">
             
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#code">
+   Code
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#text">
+   Text
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#saving-work">
+   Saving work
+  </a>
+ </li>
+</ul>
+
+            </nav>
         </div>
     </div>
 </div>
     <!-- Table of contents that is only displayed when printing the page -->
     <div id="jb-print-docs-body" class="onlyprint">
-        <h1></h1>
+        <h1>Introduction to notebooks</h1>
         <!-- Table of contents -->
         <div id="print-main-content" class="row">
             <div class="col-12 col-md-12 pl-md-5 pr-md-5">
             <div id="jb-print-toc">
                 
+                <div>
+                    <h2> Contents </h2>
+                </div>
+                <nav aria-label="Page">
+                    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#code">
+   Code
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#text">
+   Text
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#saving-work">
+   Saving work
+  </a>
+ </li>
+</ul>
+
+                </nav>
             </div>
             
               <div>
                 
+  <div class="tex2jax_ignore mathjax_ignore section" id="introduction-to-notebooks">
+<h1>Introduction to notebooks<a class="headerlink" href="#introduction-to-notebooks" title="Permalink to this headline">¶</a></h1>
+<p>A <strong>Jupyter notebook</strong> is a file that holds text, code, math, and the results of computations, including graphics. You can edit the notebook in a browser. Code is executed on demand by a <em>kernel</em> running a session of Python or other interactive language environment.</p>
+<p>A notebook is divided into <em>cells</em>. Each cell may hold text/math or code, but not both. You can switch the type of a cell by menus or shortcuts. You can also move them up and down, etc.</p>
+<div class="section" id="code">
+<h2>Code<a class="headerlink" href="#code" title="Permalink to this headline">¶</a></h2>
+<p>When a code cell is executed (play button or C-Enter), it may have associated output that appears beneath it. The executed cells are numbered consecutively.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Unlike a program or script, the execution order of notebook cells, which is shown by their numbering, is independent of the top-to-bottom ordering of the cells.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>If you want to execute all cells from top to bottom, you can select “Run all cells” from a menu. When you do that, the current variable and function definitions are not cleared before execution. To do that, you have to restart the kernel first. Restarting and then running all cells is the only way to experience the notebook like someone who is opening it for the first time.</p>
+</div>
+</div>
+<div class="section" id="text">
+<h2>Text<a class="headerlink" href="#text" title="Permalink to this headline">¶</a></h2>
+<p>Text is expressed using <em>Markdown</em> for words and <em>LaTeX</em> for math. When such a cell is “executed,” it is rendered. It does not affect the kernel in any way.</p>
+<p>Markdown is easy. Help on Markdown syntax is found under Help/Markdown. A blank line starts a new paragraph.</p>
+<p>Entering math via LaTeX is more complicated. To put math within a line of text, enclose it in dollar signs. To make a displayed equation, use double dollar signs. You can use <code class="docutils literal notranslate"><span class="pre">_</span></code> for subscripts and <code class="docutils literal notranslate"><span class="pre">^</span></code> for superscripts. If more than one character is to be sub or super, put them inside curly braces. You make a fraction using <code class="docutils literal notranslate"><span class="pre">\frac{numer}{denom}</span></code>. There are sums and integrals using <code class="docutils literal notranslate"><span class="pre">\sum</span></code> and <code class="docutils literal notranslate"><span class="pre">\int</span></code>. Enter common functions like <code class="docutils literal notranslate"><span class="pre">\sin</span></code> and <code class="docutils literal notranslate"><span class="pre">\cos</span></code>. A Greek letter also starts with a backslash, e.g., <code class="docutils literal notranslate"><span class="pre">\theta</span></code>.</p>
+<p>That should be enough for most things.</p>
+</div>
+<div class="section" id="saving-work">
+<h2>Saving work<a class="headerlink" href="#saving-work" title="Permalink to this headline">¶</a></h2>
+<p>Every few minutes, a notebook automatically creates a <em>checkpoint</em>. This is a temporary autosave state that allows you to recover from mistakes during the session. If you want to save the notebook state permanently, choose File/Save.</p>
+<p>Under the File menu, you can choose “Save and export” to get different static snapshots of the notebook. HTML is fine for screens (although many people won’t know how to view it). If you want to save as PDF, the “PDF” option might require installing additional software. Try “Webpdf” instead. If that also doesn’t work for some reason, select File/Print and then save as PDF from the print dialog.</p>
+</div>
+</div>
 
-   <h1>Proof Index</h1>
-
-   <div class="modindex-jumpbox">
-   <a href="#cap-definition-0"><strong>definition-0</strong></a> | 
-   <a href="#cap-example-0"><strong>example-0</strong></a> | 
-   <a href="#cap-example-1"><strong>example-1</strong></a> | 
-   <a href="#cap-example-2"><strong>example-2</strong></a> | 
-   <a href="#cap-example-3"><strong>example-3</strong></a> | 
-   <a href="#cap-example-data-types-dummy"><strong>example-data-types-dummy</strong></a> | 
-   <a href="#cap-example-decision-trees-gini"><strong>example-decision-trees-gini</strong></a> | 
-   <a href="#cap-example-decision-trees-partition"><strong>example-decision-trees-partition</strong></a> | 
-   <a href="#cap-example-summary-sample"><strong>example-summary-sample</strong></a>
-   </div>
-
-   <table class="indextable modindextable">
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-definition-0"><td></td><td>
-       <strong>definition-0</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="supervised/nearest-neighbors.html#definition-0"><code class="xref">definition-0</code></a> <em>(supervised/nearest-neighbors)</em></td><td>
-       <em>definition</em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-example-0"><td></td><td>
-       <strong>example-0</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="supervised/performance.html#example-0"><code class="xref">example-0</code></a> <em>(supervised/performance)</em></td><td>
-       <em>example</em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-example-1"><td></td><td>
-       <strong>example-1</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="statistics/summary.html#example-1"><code class="xref">example-1</code></a> <em>(statistics/summary)</em></td><td>
-       <em>example</em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-example-2"><td></td><td>
-       <strong>example-2</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="statistics/summary.html#example-2"><code class="xref">example-2</code></a> <em>(statistics/summary)</em></td><td>
-       <em>example</em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-example-3"><td></td><td>
-       <strong>example-3</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="representation/data-types.html#example-3"><code class="xref">example-3</code></a> <em>(representation/data-types)</em></td><td>
-       <em>example</em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-example-data-types-dummy"><td></td><td>
-       <strong>example-data-types-dummy</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="representation/data-types.html#example-data-types-dummy"><code class="xref">example-data-types-dummy</code></a> <em>(representation/data-types)</em></td><td>
-       <em>example</em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-example-decision-trees-gini"><td></td><td>
-       <strong>example-decision-trees-gini</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="supervised/decision-trees.html#example-decision-trees-gini"><code class="xref">example-decision-trees-gini</code></a> <em>(supervised/decision-trees)</em></td><td>
-       <em>example</em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-example-decision-trees-partition"><td></td><td>
-       <strong>example-decision-trees-partition</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="supervised/decision-trees.html#example-decision-trees-partition"><code class="xref">example-decision-trees-partition</code></a> <em>(supervised/decision-trees)</em></td><td>
-       <em>example</em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-example-summary-sample"><td></td><td>
-       <strong>example-summary-sample</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="statistics/summary.html#example-summary-sample"><code class="xref">example-summary-sample</code></a> <em>(statistics/summary)</em></td><td>
-       <em>example</em></td></tr>
-   </table>
-
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "UD-Math-Data-Science-1/notes",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
 
               </div>
               
@@ -443,96 +465,55 @@
         
               <div>
                 
+  <div class="tex2jax_ignore mathjax_ignore section" id="introduction-to-notebooks">
+<h1>Introduction to notebooks<a class="headerlink" href="#introduction-to-notebooks" title="Permalink to this headline">¶</a></h1>
+<p>A <strong>Jupyter notebook</strong> is a file that holds text, code, math, and the results of computations, including graphics. You can edit the notebook in a browser. Code is executed on demand by a <em>kernel</em> running a session of Python or other interactive language environment.</p>
+<p>A notebook is divided into <em>cells</em>. Each cell may hold text/math or code, but not both. You can switch the type of a cell by menus or shortcuts. You can also move them up and down, etc.</p>
+<div class="section" id="code">
+<h2>Code<a class="headerlink" href="#code" title="Permalink to this headline">¶</a></h2>
+<p>When a code cell is executed (play button or C-Enter), it may have associated output that appears beneath it. The executed cells are numbered consecutively.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Unlike a program or script, the execution order of notebook cells, which is shown by their numbering, is independent of the top-to-bottom ordering of the cells.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>If you want to execute all cells from top to bottom, you can select “Run all cells” from a menu. When you do that, the current variable and function definitions are not cleared before execution. To do that, you have to restart the kernel first. Restarting and then running all cells is the only way to experience the notebook like someone who is opening it for the first time.</p>
+</div>
+</div>
+<div class="section" id="text">
+<h2>Text<a class="headerlink" href="#text" title="Permalink to this headline">¶</a></h2>
+<p>Text is expressed using <em>Markdown</em> for words and <em>LaTeX</em> for math. When such a cell is “executed,” it is rendered. It does not affect the kernel in any way.</p>
+<p>Markdown is easy. Help on Markdown syntax is found under Help/Markdown. A blank line starts a new paragraph.</p>
+<p>Entering math via LaTeX is more complicated. To put math within a line of text, enclose it in dollar signs. To make a displayed equation, use double dollar signs. You can use <code class="docutils literal notranslate"><span class="pre">_</span></code> for subscripts and <code class="docutils literal notranslate"><span class="pre">^</span></code> for superscripts. If more than one character is to be sub or super, put them inside curly braces. You make a fraction using <code class="docutils literal notranslate"><span class="pre">\frac{numer}{denom}</span></code>. There are sums and integrals using <code class="docutils literal notranslate"><span class="pre">\sum</span></code> and <code class="docutils literal notranslate"><span class="pre">\int</span></code>. Enter common functions like <code class="docutils literal notranslate"><span class="pre">\sin</span></code> and <code class="docutils literal notranslate"><span class="pre">\cos</span></code>. A Greek letter also starts with a backslash, e.g., <code class="docutils literal notranslate"><span class="pre">\theta</span></code>.</p>
+<p>That should be enough for most things.</p>
+</div>
+<div class="section" id="saving-work">
+<h2>Saving work<a class="headerlink" href="#saving-work" title="Permalink to this headline">¶</a></h2>
+<p>Every few minutes, a notebook automatically creates a <em>checkpoint</em>. This is a temporary autosave state that allows you to recover from mistakes during the session. If you want to save the notebook state permanently, choose File/Save.</p>
+<p>Under the File menu, you can choose “Save and export” to get different static snapshots of the notebook. HTML is fine for screens (although many people won’t know how to view it). If you want to save as PDF, the “PDF” option might require installing additional software. Try “Webpdf” instead. If that also doesn’t work for some reason, select File/Print and then save as PDF from the print dialog.</p>
+</div>
+</div>
 
-   <h1>Proof Index</h1>
-
-   <div class="modindex-jumpbox">
-   <a href="#cap-definition-0"><strong>definition-0</strong></a> | 
-   <a href="#cap-example-0"><strong>example-0</strong></a> | 
-   <a href="#cap-example-1"><strong>example-1</strong></a> | 
-   <a href="#cap-example-2"><strong>example-2</strong></a> | 
-   <a href="#cap-example-3"><strong>example-3</strong></a> | 
-   <a href="#cap-example-data-types-dummy"><strong>example-data-types-dummy</strong></a> | 
-   <a href="#cap-example-decision-trees-gini"><strong>example-decision-trees-gini</strong></a> | 
-   <a href="#cap-example-decision-trees-partition"><strong>example-decision-trees-partition</strong></a> | 
-   <a href="#cap-example-summary-sample"><strong>example-summary-sample</strong></a>
-   </div>
-
-   <table class="indextable modindextable">
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-definition-0"><td></td><td>
-       <strong>definition-0</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="supervised/nearest-neighbors.html#definition-0"><code class="xref">definition-0</code></a> <em>(supervised/nearest-neighbors)</em></td><td>
-       <em>definition</em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-example-0"><td></td><td>
-       <strong>example-0</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="supervised/performance.html#example-0"><code class="xref">example-0</code></a> <em>(supervised/performance)</em></td><td>
-       <em>example</em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-example-1"><td></td><td>
-       <strong>example-1</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="statistics/summary.html#example-1"><code class="xref">example-1</code></a> <em>(statistics/summary)</em></td><td>
-       <em>example</em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-example-2"><td></td><td>
-       <strong>example-2</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="statistics/summary.html#example-2"><code class="xref">example-2</code></a> <em>(statistics/summary)</em></td><td>
-       <em>example</em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-example-3"><td></td><td>
-       <strong>example-3</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="representation/data-types.html#example-3"><code class="xref">example-3</code></a> <em>(representation/data-types)</em></td><td>
-       <em>example</em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-example-data-types-dummy"><td></td><td>
-       <strong>example-data-types-dummy</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="representation/data-types.html#example-data-types-dummy"><code class="xref">example-data-types-dummy</code></a> <em>(representation/data-types)</em></td><td>
-       <em>example</em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-example-decision-trees-gini"><td></td><td>
-       <strong>example-decision-trees-gini</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="supervised/decision-trees.html#example-decision-trees-gini"><code class="xref">example-decision-trees-gini</code></a> <em>(supervised/decision-trees)</em></td><td>
-       <em>example</em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-example-decision-trees-partition"><td></td><td>
-       <strong>example-decision-trees-partition</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="supervised/decision-trees.html#example-decision-trees-partition"><code class="xref">example-decision-trees-partition</code></a> <em>(supervised/decision-trees)</em></td><td>
-       <em>example</em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-example-summary-sample"><td></td><td>
-       <strong>example-summary-sample</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="statistics/summary.html#example-summary-sample"><code class="xref">example-summary-sample</code></a> <em>(statistics/summary)</em></td><td>
-       <em>example</em></td></tr>
-   </table>
-
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "UD-Math-Data-Science-1/notes",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
 
               </div>
               
