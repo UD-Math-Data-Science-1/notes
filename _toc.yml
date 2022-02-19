@@ -16,26 +16,26 @@ chapters:
     - file: statistics/outliers
     - file: statistics/correlation
     - file: statistics/exercises
-  - file: supervised/overview
+  - file: classification/overview
     sections:
-    - file: supervised/sklearn
-    - file: supervised/performance
-    - file: supervised/decision-trees
-    - file: supervised/nearest-neighbors
-    - file: supervised/svm
-    - file: supervised/model-selection
-    - file: supervised/exercises
+    - file: classification/sklearn
+    - file: classification/performance
+    - file: classification/decision-trees
+    - file: classification/nearest-neighbors
+    - file: classification/svm
+    - file: classification/model-selection
+    - file: classification/exercises
   - file: regression/overview
     sections:
     - file: regression/linear
     - file: regression/multilinear
     - file: regression/regularization
     - file: regression/logistic
-  - file: unsupervised/overview
+  - file: clustering/overview
     sections:
-    - file: unsupervised/preliminaries
-    - file: unsupervised/k-means
-    - file: unsupervised/hierarchical
+    - file: clustering/preliminaries
+    - file: clustering/k-means
+    - file: clustering/hierarchical
   - file: network/overview
   #   sections:
   #   - file: network/graphs
