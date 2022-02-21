@@ -23,7 +23,7 @@
 
     
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=84ace793992934648b4de8eed757e5a2" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
@@ -43,7 +43,7 @@
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script src="../_static/sphinx-book-theme.9d8b4a8b9bb19db25eeaddc40d639ba2.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>window.MathJax = {"tex": {"macros": {"float": ["\\mathbb{F}"], "real": ["\\mathbb{R}"], "complex": ["\\mathbb{C}"], "nat": ["\\mathbb{N}"], "integer": ["\\mathbb{Z}"], "bfa": "\\mathbf{a}", "bfe": "\\mathbf{e}", "bfx": "\\mathbf{x}", "bfX": "\\mathbf{X}", "bfu": "\\mathbf{u}", "bfv": "\\mathbf{v}", "bfw": "\\mathbf{w}", "bfy": "\\mathbf{y}", "bfz": "\\mathbf{z}", "bfzero": "\\boldsymbol{0}", "bfmu": "\\boldsymbol{\\mu}", "TP": "\\text{TP}", "TN": "\\text{TN}", "FP": "\\text{FP}", "FN": "\\text{FN}", "rmn": ["\\mathbb{R}^{#1 \\times #2}", 2], "dd": ["\\frac{d #1}{d #2}", 2], "pp": ["\\frac{\\partial #1}{\\partial #2}", 2], "norm": ["\\lVert #1 \\rVert", 1], "twonorm": ["\\norm{#1}_2", 1], "onenorm": ["\\norm{#1}_1", 1], "infnorm": ["\\norm{#1}_\\infty", 1], "innerprod": ["\\langle #1,#2 \\rangle", 2], "pr": ["^{(#1)}", 1], "diag": ["\\operatorname{diag}"], "sign": ["\\operatorname{sign}"], "ee": ["\\times 10^"], "floor": ["\\lfloor#1\\rfloor", 1], "argmin": ["\\operatorname{argmin}"], "Cov": ["\\operatorname{Cov}"], "logit": ["\\operatorname{logit}"]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
@@ -74,7 +74,12 @@
     <div class="container-xl">
       <div class="row">
           
-<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<div class="col-12 col-md-3 bd-sidebar site-navigation " id="site-navigation">
     
         <div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../index.html">
@@ -172,7 +177,7 @@
   </ul>
  </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../supervised/overview.html">
+  <a class="reference internal" href="../classification/overview.html">
    3. Classification
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
@@ -182,37 +187,37 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../supervised/sklearn.html">
+    <a class="reference internal" href="../classification/sklearn.html">
      3.1. Using scikit-learn
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../supervised/performance.html">
+    <a class="reference internal" href="../classification/performance.html">
      3.2. Classifier performance
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../supervised/decision-trees.html">
+    <a class="reference internal" href="../classification/decision-trees.html">
      3.3. Decision trees
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../supervised/nearest-neighbors.html">
+    <a class="reference internal" href="../classification/nearest-neighbors.html">
      3.4. Nearest neighbors
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../supervised/svm.html">
+    <a class="reference internal" href="../classification/svm.html">
      3.5. Support vector machine
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../supervised/model-selection.html">
+    <a class="reference internal" href="../classification/model-selection.html">
      3.6. Model selection
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../supervised/exercises.html">
+    <a class="reference internal" href="../classification/exercises.html">
      3.7. Exercises
     </a>
    </li>
@@ -251,7 +256,7 @@
   </ul>
  </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../unsupervised/overview.html">
+  <a class="reference internal" href="../clustering/overview.html">
    5. Clustering
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
@@ -261,17 +266,17 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../unsupervised/preliminaries.html">
+    <a class="reference internal" href="../clustering/preliminaries.html">
      5.1. Preliminaries
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../unsupervised/k-means.html">
+    <a class="reference internal" href="../clustering/k-means.html">
      5.2. k-means
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../unsupervised/hierarchical.html">
+    <a class="reference internal" href="../clustering/hierarchical.html">
      5.3. Hierarchical
     </a>
    </li>
@@ -298,22 +303,22 @@
 
 
           
+<!-- This is an invisible pixel that we watch to see if we've scrolled. -->
+<div class="sbt-scroll-pixel-helper"></div>
 <main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
     
     <div class="topbar container-xl fixed-top">
     <div class="topbar-contents row">
         <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
         <div class="col pl-md-4 topbar-main">
-            
-            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
-                <i class="fas fa-bars"></i>
-                <i class="fas fa-arrow-left"></i>
-                <i class="fas fa-arrow-up"></i>
-            </button>
-            
+            <div class="topbar-left">
+                
+                <label class="nav-toggle-button" for="__navigation">
+                    <div class="visually-hidden">Toggle navigation</div>
+                    <i class="fas fa-bars"></i>
+                </label>
+                
+            </div>
             
 <div class="dropdown-buttons-trigger">
     <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
@@ -391,19 +396,20 @@
         </div>
     </div>
 </div>
-    <!-- Table of contents that is only displayed when printing the page -->
-    <div id="jb-print-docs-body" class="onlyprint">
-        <h1>Types of data</h1>
-        <!-- Table of contents -->
-        <div id="print-main-content" class="row">
-            <div class="col-12 col-md-12 pl-md-5 pr-md-5">
-            <div id="jb-print-toc">
-                
-                <div>
-                    <h2> Contents </h2>
-                </div>
-                <nav aria-label="Page">
-                    <ul class="visible nav section-nav flex-column">
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Types of data</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#single-values">
    Single values
@@ -438,7 +444,9 @@
  </li>
 </ul>
 
-                </nav>
+                        </nav>
+                    </div>
+                </div>
             </div>
             
               <div>
@@ -562,135 +570,8 @@
 
               </div>
               
-            </div>
-        </div>
-    </div>
-    <div id="main-content" class="row noprint">
-        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
-        
-              <div>
-                
-  <div class="tex2jax_ignore mathjax_ignore section" id="types-of-data">
-<h1><span class="section-number">1.1. </span>Types of data<a class="headerlink" href="#types-of-data" title="Permalink to this headline">¶</a></h1>
-<p>Each source of data we want to work with has to be expressed mathematically, and ultimately, in digital form.</p>
-<div class="section" id="single-values">
-<h2>Single values<a class="headerlink" href="#single-values" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="quantitative">
-<h3>Quantitative<a class="headerlink" href="#quantitative" title="Permalink to this headline">¶</a></h3>
-<p>A <strong>quantitative</strong> value is one that is numerical and supports meaningful comparison and arithmetic operations. Quantitative data is further divided into <strong>continuous</strong> and <strong>discrete</strong> types. The difference is the same as between real numbers and integers.</p>
-<div class="proof example admonition" id="example-0">
-<p class="admonition-title"><span class="caption-number">Example 1.1.1 </span></p>
-<div class="example-content section" id="proof-content">
-<p>Some continuous quantitative data sources:</p>
-<ul class="simple">
-<li><p>Temperature at noon at a given airport</p></li>
-<li><p>Your height</p></li>
-<li><p>Voltage across the terminals of a battery</p></li>
-</ul>
-<p>Examples of discrete quantitative data:</p>
-<ul class="simple">
-<li><p>The number of shoes you own</p></li>
-<li><p>Number of people at a restaurant table</p></li>
-<li><p>Score on an exam</p></li>
-</ul>
-<p>In each case, it makes sense, for example, to order different values and compute averages of them. (Note that averages of discrete quantities are continuous, though.)</p>
-<p>Sometimes there may be room for interpretation or context. For example, the retail price of a gallon of milk might be regarded as discrete data, since it technically represents a whole number of pennies. But in finance, transactions are regularly computed to much higher precision, so it may make more sense to interpret prices as continuous values.</p>
-</div>
-</div><div class="proof example admonition" id="example-1">
-<p class="admonition-title"><span class="caption-number">Example 1.1.2 </span></p>
-<div class="example-content section" id="proof-content">
-<p>Not all numerical values represent truly quantitative data. ZIP codes (postal codes) in the U.S. are 5-digit numbers, and while there is some pattern to how they are assigned, there is no meaningful interpretation of, say, ordering them or averaging them.</p>
-</div>
-</div><div class="proof example admonition" id="example-2">
-<p class="admonition-title"><span class="caption-number">Example 1.1.3 </span></p>
-<div class="example-content section" id="proof-content">
-<p>A particular quantitative type is a <strong>timestamp</strong>. As the name implies, it represents a moment in time. Conceptually timestamps are continuous, although in most applications we might be concerned with a resolution of days, for instance, and consider them to be discrete. Timestamps can be surprisingly tricky to work with, as they must account for time zones and different conventions for their textual representation around the world; arithmetic between timestamps may be further complicated by the varying number of days in the months and the presence of leap years. One approach to these complications is to convert all timestamps to <em>Unix time</em>, which is the number of seconds since January 1, 1970.</p>
-</div>
-</div><p>Mathematically, the real and integer number sets are infinite, but that is not possible in a computer. Integers are represented exactly within some range that is determined by how many binary bits are dedicated. The computational analog of real numbers are <strong>floating-point numbers</strong>, or more simply, <strong>floats</strong>. These are bounded in range as well as discretized. The details are complicated, but essentially, the floating-point numbers have about 16 significant digits if 64 bits are used, which is almost always far more precision than real data offers.</p>
-<p>There are two additional quasi-numerical values to be aware of as well. The value <code class="docutils literal notranslate"><span class="pre">Inf</span></code> stands for infinity. It’s greater than every finite number, <code class="docutils literal notranslate"><span class="pre">Inf+1</span></code> is equal to <code class="docutils literal notranslate"><span class="pre">Inf</span></code>, and so on. However, in calculus, <code class="docutils literal notranslate"><span class="pre">Inf-Inf</span></code> is considered an indeterminate value and gives the result <code class="docutils literal notranslate"><span class="pre">NaN</span></code>, which stands for <em>Not a Number</em>.</p>
-</div>
-<div class="section" id="qualitative">
-<h3>Qualitative<a class="headerlink" href="#qualitative" title="Permalink to this headline">¶</a></h3>
-<p>A <strong>qualitative</strong> value is one that is not quantitative. One important subtype is <strong>categorical</strong> data, in which the values are drawn from a finite, discrete set. This set further bifurcates into <strong>ordinal</strong> data, which support meaningful ordering comparisons, and <strong>nominal</strong> data, which is unordered.</p>
-<div class="proof example admonition" id="example-3">
-<p class="admonition-title"><span class="caption-number">Example 1.1.4 </span></p>
-<div class="example-content section" id="proof-content">
-<p>Examples of ordinal categorical data:</p>
-<ul class="simple">
-<li><p>Seat class on a commercial airplane (e.g., economy, business, first)</p></li>
-<li><p>Letters of the alphabet</p></li>
-</ul>
-<p>Nominal categorical data:</p>
-<ul class="simple">
-<li><p>Yes/No responses</p></li>
-<li><p>Marital status</p></li>
-<li><p>Make of a car</p></li>
-</ul>
-<p>There are nuanced cases. For instance, letter grades are themselves ordinal categorical data. However, schools convert them to discrete quantitative data and then compute a continuous quantitative GPA.</p>
-</div>
-</div><p>Besides categorical data, there are <strong>text fields</strong>, images, videos—just about anything, in principle.</p>
-</div>
-</div>
-<div class="section" id="collections-of-values">
-<h2>Collections of values<a class="headerlink" href="#collections-of-values" title="Permalink to this headline">¶</a></h2>
-<p>In many real-world situations, it makes sense to consider an ensemble of values as a single unit. For example, wind velocity requires three continuous values, corresponding to directions along coordinate axes. If we label these axes as <strong>x</strong>, <strong>y</strong>, and <strong>z</strong>, then we could describe the velocity as a <strong>series</strong> of three values that are <strong>indexed</strong> by the set <span class="math notranslate nohighlight">\(\{\bfx,\bfy,\bfz\}\)</span>.</p>
-<p>Index sets tend to be categorical or discrete data. For instance, you could have a series of light wavelengths indexed by color names. When the index set consists of timestamps, we have a <strong>time series</strong>. When the index set consists of consecutive integers, we describe the series as a <strong>vector</strong> or a <strong>one-dimensional array</strong>. If the indices are pairs of integers taken from consecutive sets, we have a <strong>matrix</strong> or a <strong>two-dimensional array</strong>.</p>
-<p>A <strong>data frame</strong> is a collection of series that share the same index set. The individual series are called <strong>columns</strong> of the data frame, and the values of all the columns at a single index value form a <strong>row</strong>.</p>
-</div>
-<div class="section" id="dummy-one-hot-encoding">
-<h2>Dummy/one-hot encoding<a class="headerlink" href="#dummy-one-hot-encoding" title="Permalink to this headline">¶</a></h2>
-<p>One way to convert nominal data to a quantifiable form is through <strong>dummy variables</strong>, also called <strong>one-hot encoding</strong>. A category that has <span class="math notranslate nohighlight">\(m\)</span> unique options <span class="math notranslate nohighlight">\(c_1,\ldots,c_m\)</span> can be replaced by <span class="math notranslate nohighlight">\(m-1\)</span> binary variables <span class="math notranslate nohighlight">\(x_i\)</span>. The value <span class="math notranslate nohighlight">\(c_1\)</span> corresponds to <span class="math notranslate nohighlight">\(x_1=1\)</span>, <span class="math notranslate nohighlight">\(x_2=\cdots=x_{m-1}=0\)</span>. The value <span class="math notranslate nohighlight">\(c_2\)</span> is translated into <span class="math notranslate nohighlight">\(x_2=1\)</span>, <span class="math notranslate nohighlight">\(x_1=x_3=\cdots=0\)</span>, and so on. The value <span class="math notranslate nohighlight">\(c_m\)</span> means that all the <span class="math notranslate nohighlight">\(x_i\)</span> are zero.</p>
-<div class="proof example admonition" id="example-data-types-dummy">
-<p class="admonition-title"><span class="caption-number">Example 1.1.5 </span></p>
-<div class="example-content section" id="proof-content">
-<p>Suppose that the <em>stooge</em> variable can take the values <code class="docutils literal notranslate"><span class="pre">Moe</span></code>, <code class="docutils literal notranslate"><span class="pre">Larry</span></code>, <code class="docutils literal notranslate"><span class="pre">Curly</span></code>, or <code class="docutils literal notranslate"><span class="pre">Shemp</span></code>. Then the vector</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">Curly</span><span class="p">,</span><span class="n">Moe</span><span class="p">,</span><span class="n">Curly</span><span class="p">,</span><span class="n">Shemp</span><span class="p">]</span>
-</pre></div>
-</div>
-<p>would be replaced by the array</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="p">]</span>
-</pre></div>
-</div>
-<p>(Note: Nobody likes Larry.)</p>
-</div>
-</div></div>
-<div class="section" id="missing-values">
-<h2>Missing values<a class="headerlink" href="#missing-values" title="Permalink to this headline">¶</a></h2>
-<p>In real data sets, we often must cope with data series that have missing values. This is a common source of mistakes and confusion, especially because there is no universal practice. Sometimes zero is used to represent a missing number. It’s also common to use an impossible value, such as <span class="math notranslate nohighlight">\(-999\)</span> to represent weight, to signify missing data.</p>
-<p>While a few computer languages have a dedicated “missing” value defined, in most cases (including Python) it’s common to use <code class="docutils literal notranslate"><span class="pre">NaN</span></code> to represent a missing value, even when the rest of the data in the series are not expressed as float numbers. It’s useful to know the following.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>By definition, every operation that involves a <code class="docutils literal notranslate"><span class="pre">NaN</span></code> value results in a <code class="docutils literal notranslate"><span class="pre">NaN</span></code>.</p>
-</div>
-<p>Notoriously, one consequence of this behavior is that <code class="docutils literal notranslate"><span class="pre">NaN==NaN</span></code> is <code class="docutils literal notranslate"><span class="pre">NaN</span></code>, not “true!” When you get unexpected or inexplicable behavior, it’s worth determining whether you have been unknowingly operating with <code class="docutils literal notranslate"><span class="pre">NaN</span></code>s.</p>
-<p>The process of detecting and dealing with missing or impossible values is part of <strong>data cleaning</strong>. (Other data cleaning tasks include dealing with incorrectly formatted input and removing duplicates.) Sometimes, the missing values are simply dropped from the data; in other cases, they are replaced with average or other representative values through a process called <strong>imputation</strong>.</p>
-</div>
-</div>
-
-    <script type="text/x-thebe-config">
-    {
-        requestKernel: true,
-        binderOptions: {
-            repo: "UD-Math-Data-Science-1/notes",
-            ref: "main",
-        },
-        codeMirrorConfig: {
-            theme: "abcdef",
-            mode: "python"
-        },
-        kernelOptions: {
-            kernelName: "python3",
-            path: "./representation"
-        },
-        predefinedOutput: true
-    }
-    </script>
-    <script>kernelName = 'python3'</script>
-
-              </div>
-              
-        
-            <!-- Previous / next buttons -->
+            
+                <!-- Previous / next buttons -->
 <div class='prev-next-area'> 
     <a class='left-prev' id="prev-link" href="overview.html" title="previous page">
         <i class="fas fa-angle-left"></i>
@@ -707,7 +588,7 @@
     <i class="fas fa-angle-right"></i>
     </a>
 </div>
-        
+            
         </div>
     </div>
     <footer class="footer">

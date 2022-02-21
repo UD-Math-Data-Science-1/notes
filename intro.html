@@ -23,7 +23,7 @@
 
     
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-book-theme.css?digest=84ace793992934648b4de8eed757e5a2" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
@@ -43,7 +43,7 @@
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script src="_static/sphinx-book-theme.9d8b4a8b9bb19db25eeaddc40d639ba2.js"></script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
     <script>
         const thebe_selector = ".thebe,.cell"
@@ -71,7 +71,12 @@
     <div class="container-xl">
       <div class="row">
           
-<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<div class="col-12 col-md-3 bd-sidebar site-navigation " id="site-navigation">
     
         <div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="index.html">
@@ -295,22 +300,22 @@
 
 
           
+<!-- This is an invisible pixel that we watch to see if we've scrolled. -->
+<div class="sbt-scroll-pixel-helper"></div>
 <main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
     
     <div class="topbar container-xl fixed-top">
     <div class="topbar-contents row">
         <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
         <div class="col pl-md-4 topbar-main">
-            
-            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
-                <i class="fas fa-bars"></i>
-                <i class="fas fa-arrow-left"></i>
-                <i class="fas fa-arrow-up"></i>
-            </button>
-            
+            <div class="topbar-left">
+                
+                <label class="nav-toggle-button" for="__navigation">
+                    <div class="visually-hidden">Toggle navigation</div>
+                    <i class="fas fa-bars"></i>
+                </label>
+                
+            </div>
             
 <div class="dropdown-buttons-trigger">
     <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
@@ -393,19 +398,20 @@
         </div>
     </div>
 </div>
-    <!-- Table of contents that is only displayed when printing the page -->
-    <div id="jb-print-docs-body" class="onlyprint">
-        <h1>Data Science 1 @ UD Math</h1>
-        <!-- Table of contents -->
-        <div id="print-main-content" class="row">
-            <div class="col-12 col-md-12 pl-md-5 pr-md-5">
-            <div id="jb-print-toc">
-                
-                <div>
-                    <h2> Contents </h2>
-                </div>
-                <nav aria-label="Page">
-                    <ul class="visible nav section-nav flex-column">
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Data Science 1 @ UD Math</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#useful-guides">
    Useful guides
@@ -445,7 +451,9 @@
  </li>
 </ul>
 
-                </nav>
+                        </nav>
+                    </div>
+                </div>
             </div>
             
               <div>
@@ -563,129 +571,8 @@
 
               </div>
               
-            </div>
-        </div>
-    </div>
-    <div id="main-content" class="row noprint">
-        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
-        
-              <div>
-                
-  <div class="tex2jax_ignore mathjax_ignore section" id="data-science-1-ud-math">
-<h1>Data Science 1 &#64; UD Math<a class="headerlink" href="#data-science-1-ud-math" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="useful-guides">
-<h2>Useful guides<a class="headerlink" href="#useful-guides" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li><p><a class="reference external" href="https://pandas.pydata.org/docs/user_guide/index.html">pandas user guide</a>, <a class="reference external" href="https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf">pandas cheat sheet</a>, <a class="reference external" href="https://www.webpages.uidaho.edu/~stevel/504/pandas%20dataframe%20notes.pdf">pandas long summary</a></p></li>
-<li><p><a class="reference external" href="https://seaborn.pydata.org/tutorial.html">seaborn tutorial</a>, <a class="reference external" href="https://storage.googleapis.com/kaggle-forum-message-attachments/724698/14798/seaborn.JPG">seaborn cheat sheet</a></p></li>
-<li><p><a class="reference external" href="https://scikit-learn.org/stable/user_guide.html">scikit-learn user guide</a>, <a class="reference external" href="http://datacamp-community-prod.s3.amazonaws.com/eb807da5-dce5-4b97-a54d-74e89f14266b">sklearn cheat sheet</a></p></li>
-<li><p><a class="reference external" href="http://datacamp-community-prod.s3.amazonaws.com/ba1fe95a-8b70-4d2f-95b0-bc954e9071b0">numpy cheat sheet</a></p></li>
-</ul>
-</div>
-<div class="section" id="data-sources">
-<h2>Data sources<a class="headerlink" href="#data-sources" title="Permalink to this headline">¶</a></h2>
-<p>Here are places around the web with data available for download.</p>
-<ul class="simple">
-<li><p><a class="reference external" href="https://datacatalog.worldbank.org/home">World Bank</a> Focuses on economic and development data.</p></li>
-<li><p><a class="reference external" href="https://www.who.int/gho/database/en/">World Health Organization</a> Information on health and disease.</p></li>
-<li><p><a class="reference external" href="https://registry.opendata.aws/">Registry of Open Data on AWS</a> Access to datasets used by governments and researchers that happen to be stored on Amazon’s servers. Skewed toward large sets, and a bit of a grab-bag.</p></li>
-<li><p><a class="reference external" href="https://data.fivethirtyeight.com/">Five Thirty-Eight</a> Data used to support the site’s journalism, mainly in politics and sports.</p></li>
-<li><p><a class="reference external" href="https://data.census.gov/cedsci/">U.S. Census Bureau</a> Tons of demographic data about the U.S.</p></li>
-<li><p><a class="reference external" href="https://www.data.gov/">Data.gov</a> Home for all open U.S. government data.</p></li>
-<li><p><a class="reference external" href="https://data.delaware.gov">Delaware Open Data</a> Publicly available data from the state government.</p></li>
-<li><p><a class="reference external" href="https://open.unicef.org">UNICEF Portal</a> Worldwide data about child welfare.</p></li>
-<li><p><a class="reference external" href="https://www.kaggle.com/datasets">Kaggle</a> Long-time host of data science competitions.</p></li>
-<li><p><a class="reference external" href="https://archive.ics.uci.edu/ml/index.php">UCI Machine Learning Repository</a> Long-standing site for datasets that have been used extensively in machine learning research.</p></li>
-<li><p><a class="reference external" href="https://www.openml.org/search?type=data&amp;from=300&amp;q=qualities.NumberOfClasses%3A%3E2">Open ML</a> Sort of abandoned years ago, but lots of eclectic datasets remain.</p></li>
-<li><p><a class="reference external" href="https://www.imdb.com/interfaces/">IMDB Datasets</a> Information about movies and TVs. (Big files!)</p></li>
-</ul>
-</div>
-<div class="section" id="glossary">
-<h2>Glossary<a class="headerlink" href="#glossary" title="Permalink to this headline">¶</a></h2>
-<p>A much more exhaustive glossary can be found <a class="reference external" href="https://www.analyticsvidhya.com/glossary-of-common-statistics-and-machine-learning-terms/">here</a>.</p>
-<div class="section" id="git">
-<h3>Git<a class="headerlink" href="#git" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li><p><strong>Git</strong> Protocol for maintaining the entire file history of a project, including all versions and author attributions.</p></li>
-<li><p><strong>repository</strong> Collection of files needed to record the history of a git project.</p></li>
-<li><p><a class="reference external" href="https://github.com"><strong>GitHub</strong></a> Website that hosts git repositories created by private users, along with tools to help inspect and manage them.</p></li>
-<li><p><strong>commit</strong> Collection of particular changes to the repository made by an individual and given a message.</p></li>
-<li><p><strong>stage</strong> Temporary designation of locally modified files to be added to the next commit.</p></li>
-<li><p><strong>merge</strong> Automatic union of non-conflicting commits from different sources.</p></li>
-<li><p><strong>conflict</strong> Disagreement between repository versions that requires human intervention to resolve.</p></li>
-<li><p><strong>push</strong> Sending one or more commits from a local repository to a remote repository.</p></li>
-<li><p><strong>pull</strong> Receiving and merging all commits from a remote repository that are unknown to the local repository.</p></li>
-</ul>
-</div>
-<div class="section" id="notebooks">
-<h3>Notebooks<a class="headerlink" href="#notebooks" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li><p><strong>notebook</strong> Self-contained collection of text, math, code, output, and graphics.</p></li>
-<li><p><strong>kernel</strong> Back-end that executes code from and returns output to the notebook.</p></li>
-<li><p><strong>cell</strong> Atomic unit of a notebook that contains one or more lines of text or code.</p></li>
-<li><p><strong>Markdown</strong> Simplified syntax to put boldface, italics, and other formatting within text.</p></li>
-<li><p><strong>TeX/LaTeX</strong> Language used to express mathematical notation within a notebook.</p></li>
-<li><p><strong>Jupyter</strong> Popular format and system for interactive editing, execution, and export of notebooks.</p></li>
-<li><p><strong>Jupyter Lab</strong> Layer over Jupyter notebook functionality to help manage notebooks and extensions.</p></li>
-</ul>
-</div>
-<div class="section" id="python">
-<h3>Python<a class="headerlink" href="#python" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li><p><strong>package</strong> (or wheel) Collection of Python files distributed in a portable way to provide extra functionality.</p></li>
-<li><p><strong>numpy</strong> Package of essential tools for numerical computation.</p></li>
-<li><p><strong>scipy</strong> Package of tools useful in scientific and engineering computation.</p></li>
-<li><p><strong>database</strong> Structured collection of data, usually with a formal interface for interaction with the data.</p></li>
-<li><p><strong>data frame</strong> Tabular representation of a data set analogous to a spreadsheet, in which columns are observable quantities and rows are different observations of the quantities.</p></li>
-<li><p><a class="reference external" href="https://pandas.pydata.org/docs/user_guide/index.html"><strong>pandas</strong></a> Package for working with data frames.</p></li>
-<li><p><strong>matplotlib</strong> Package providing plot capabilities, modeled on MATLAB.</p></li>
-<li><p><a class="reference external" href="https://seaborn.pydata.org/tutorial.html"><strong>seaborn</strong></a> Package built on matplotlib and providing commands to simplify creating plots from data frames.</p></li>
-<li><p><strong>scikit-learn</strong> Package that provides capabilities for machine learning using a variety of methods.</p></li>
-<li><p><strong>tensorflow</strong>, <strong>keras</strong>, <strong>pytorch</strong> Best-known packages for machine learning using neural networks.</p></li>
-<li><p><strong>Anaconda</strong> Bundle of Python, most of the popular Python packages, Jupyter, and other useful tools, all within an optional point-and-click interface.</p></li>
-</ul>
-</div>
-<div class="section" id="editors-ides">
-<h3>Editors/IDEs<a class="headerlink" href="#editors-ides" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li><p><strong>Jupyter</strong> Popular format and system for interactive editing, execution, and export of notebooks.</p></li>
-<li><p><strong>Jupyter Lab</strong> Layer over Jupyter notebook functionality to help manage notebooks and extensions.</p></li>
-<li><p><strong>PyCharm</strong> Feature-rich freemium development environment for Python, geared toward large, complex projects.</p></li>
-<li><p><strong>VS Code</strong> Free all-purpose editor with many extensions for working closely with git, Github, Jupyter, and Python.</p></li>
-<li><p><strong>Spyder</strong> Free development environment that somewhat resembles MATLAB.</p></li>
-<li><p><strong>Thonny</strong> Bare-bones development environment intended to prioritize beginners.</p></li>
-<li><p><strong>Google Colab</strong> Free cloud-based service for jumping into Jupyter notebooks without installing any software locally.</p></li>
-</ul>
-</div>
-</div>
-<div class="toctree-wrapper compound">
-</div>
-</div>
-
-    <script type="text/x-thebe-config">
-    {
-        requestKernel: true,
-        binderOptions: {
-            repo: "UD-Math-Data-Science-1/notes",
-            ref: "main",
-        },
-        codeMirrorConfig: {
-            theme: "abcdef",
-            mode: "python"
-        },
-        kernelOptions: {
-            kernelName: "python3",
-            path: "./."
-        },
-        predefinedOutput: true
-    }
-    </script>
-    <script>kernelName = 'python3'</script>
-
-              </div>
-              
-        
-            <!-- Previous / next buttons -->
+            
+                <!-- Previous / next buttons -->
 <div class='prev-next-area'>
     <a class='right-next' id="next-link" href="representation/overview.html" title="next page">
     <div class="prev-next-info">
@@ -695,7 +582,7 @@
     <i class="fas fa-angle-right"></i>
     </a>
 </div>
-        
+            
         </div>
     </div>
     <footer class="footer">

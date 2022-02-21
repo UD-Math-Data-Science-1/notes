@@ -23,7 +23,7 @@
 
     
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=84ace793992934648b4de8eed757e5a2" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
@@ -43,7 +43,7 @@
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script src="../_static/sphinx-book-theme.9d8b4a8b9bb19db25eeaddc40d639ba2.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>window.MathJax = {"tex": {"macros": {"float": ["\\mathbb{F}"], "real": ["\\mathbb{R}"], "complex": ["\\mathbb{C}"], "nat": ["\\mathbb{N}"], "integer": ["\\mathbb{Z}"], "bfa": "\\mathbf{a}", "bfe": "\\mathbf{e}", "bfx": "\\mathbf{x}", "bfX": "\\mathbf{X}", "bfu": "\\mathbf{u}", "bfv": "\\mathbf{v}", "bfw": "\\mathbf{w}", "bfy": "\\mathbf{y}", "bfz": "\\mathbf{z}", "bfzero": "\\boldsymbol{0}", "bfmu": "\\boldsymbol{\\mu}", "TP": "\\text{TP}", "TN": "\\text{TN}", "FP": "\\text{FP}", "FN": "\\text{FN}", "rmn": ["\\mathbb{R}^{#1 \\times #2}", 2], "dd": ["\\frac{d #1}{d #2}", 2], "pp": ["\\frac{\\partial #1}{\\partial #2}", 2], "norm": ["\\lVert #1 \\rVert", 1], "twonorm": ["\\norm{#1}_2", 1], "onenorm": ["\\norm{#1}_1", 1], "infnorm": ["\\norm{#1}_\\infty", 1], "innerprod": ["\\langle #1,#2 \\rangle", 2], "pr": ["^{(#1)}", 1], "diag": ["\\operatorname{diag}"], "sign": ["\\operatorname{sign}"], "ee": ["\\times 10^"], "floor": ["\\lfloor#1\\rfloor", 1], "argmin": ["\\operatorname{argmin}"], "Cov": ["\\operatorname{Cov}"], "logit": ["\\operatorname{logit}"]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
@@ -74,7 +74,12 @@
     <div class="container-xl">
       <div class="row">
           
-<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<div class="col-12 col-md-3 bd-sidebar site-navigation " id="site-navigation">
     
         <div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../index.html">
@@ -298,22 +303,22 @@
 
 
           
+<!-- This is an invisible pixel that we watch to see if we've scrolled. -->
+<div class="sbt-scroll-pixel-helper"></div>
 <main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
     
     <div class="topbar container-xl fixed-top">
     <div class="topbar-contents row">
         <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
         <div class="col pl-md-4 topbar-main">
-            
-            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
-                <i class="fas fa-bars"></i>
-                <i class="fas fa-arrow-left"></i>
-                <i class="fas fa-arrow-up"></i>
-            </button>
-            
+            <div class="topbar-left">
+                
+                <label class="nav-toggle-button" for="__navigation">
+                    <div class="visually-hidden">Toggle navigation</div>
+                    <i class="fas fa-bars"></i>
+                </label>
+                
+            </div>
             
 <div class="dropdown-buttons-trigger">
     <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
@@ -356,6 +361,7 @@
                 data-placement="left"><img class="binder-button-logo"
                     src="../_static/images/logo_binder.svg"
                     alt="Interact on binder">Binder</button></a>
+        
         
         
         
@@ -416,19 +422,20 @@
         </div>
     </div>
 </div>
-    <!-- Table of contents that is only displayed when printing the page -->
-    <div id="jb-print-docs-body" class="onlyprint">
-        <h1>Preliminaries</h1>
-        <!-- Table of contents -->
-        <div id="print-main-content" class="row">
-            <div class="col-12 col-md-12 pl-md-5 pr-md-5">
-            <div id="jb-print-toc">
-                
-                <div>
-                    <h2> Contents </h2>
-                </div>
-                <nav aria-label="Page">
-                    <ul class="visible nav section-nav flex-column">
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Preliminaries</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#similarity-and-distance">
    Similarity and distance
@@ -465,7 +472,9 @@
  </li>
 </ul>
 
-                </nav>
+                        </nav>
+                    </div>
+                </div>
             </div>
             
               <div>
@@ -690,236 +699,8 @@ Name: sil, dtype: float64
 
               </div>
               
-            </div>
-        </div>
-    </div>
-    <div id="main-content" class="row noprint">
-        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
-        
-              <div>
-                
-  <div class="tex2jax_ignore mathjax_ignore section" id="preliminaries">
-<h1><span class="section-number">5.1. </span>Preliminaries<a class="headerlink" href="#preliminaries" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="similarity-and-distance">
-<h2>Similarity and distance<a class="headerlink" href="#similarity-and-distance" title="Permalink to this headline">¶</a></h2>
-<p>Given an <span class="math notranslate nohighlight">\(n\times d\)</span> feature matrix, we want to define disjoint subsets of the <span class="math notranslate nohighlight">\(\bfx_i\)</span> such that the samples within a cluster are more similar to one another than they are to members of other clusters.</p>
-<p>The first decision we have to make is how to measure <em>similarity</em>. Mostly we consider similarity to be inversely related to distance, which we can measure using a vector norm, and will describe clustering methods in terms of pairwise distances.</p>
-<p>We already have the 2-norm (Euclidean) and 1-norm (Manhattan) distances defined. Another important norm, especially in text processing, is <em>cosine distance</em>. Vector geometry shows that for vectors <span class="math notranslate nohighlight">\(\mathbf{u}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{v}\)</span> in <span class="math notranslate nohighlight">\(\real^d\)</span>, the angle <span class="math notranslate nohighlight">\(\theta\)</span> between the vectors satisfies</p>
-<div class="math notranslate nohighlight">
-\[
-\cos(\theta) = \frac{\mathbf{u}^T\mathbf{v}}{\twonorm{\mathbf{u}} \, \twonorm{\mathbf{v}}}.
-\]</div>
-<p>The <strong>cosine distance</strong> between <span class="math notranslate nohighlight">\(\mathbf{u}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{v}\)</span> is <span class="math notranslate nohighlight">\(\tfrac{1}{2}[1-\cos(\theta)]\)</span>. This is zero when <span class="math notranslate nohighlight">\(\theta=0\)</span> and has max value 1 at <span class="math notranslate nohighlight">\(\theta=\pi\)</span>. This metric is sensitive only to the relative directions of the vectors, not their geometric lengths. However, it does not meet all the requirements of a norm, such as the triangle inequality.</p>
-<p>Clustering algorithms are concerned only with the similarities/distances between pairs of samples. As a result, many can be given the <span class="math notranslate nohighlight">\(n\times n\)</span> <strong>distance matrix</strong> <span class="math notranslate nohighlight">\(\mathbf{D}\)</span>, defined by</p>
-<div class="math notranslate nohighlight">
-\[
-D_{ij} = \text{dist}(\bfx_i,\bfx_j), 
-\]</div>
-<p>instead of the feature matrix. Note that <span class="math notranslate nohighlight">\(D_{ii}=0\)</span> and <span class="math notranslate nohighlight">\(D_{ji}=D_{ij}\)</span>.</p>
-<div class="section" id="toy-example">
-<h3>Toy example<a class="headerlink" href="#toy-example" title="Permalink to this headline">¶</a></h3>
-<p>Suppose we have sample points lying near the corners of a cube in 3D. This lets us compute an 8×8 distance matrix.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">pairwise_distances</span>
-<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-
-<span class="n">X</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="p">[</span><span class="o">-</span><span class="mf">1.01</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mf">.98</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mf">1.02</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">],[</span><span class="o">-</span><span class="mf">.98</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mf">.99</span><span class="p">],[</span><span class="mf">1.01</span><span class="p">,</span><span class="mf">1.01</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> 
-    <span class="p">[</span><span class="o">-</span><span class="mf">1.01</span><span class="p">,</span><span class="o">-</span><span class="mf">1.01</span><span class="p">,</span><span class="mf">.99</span><span class="p">],[</span><span class="mf">1.02</span><span class="p">,</span><span class="o">-</span><span class="mf">1.02</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="o">-</span><span class="mf">.99</span><span class="p">,</span><span class="mf">.98</span><span class="p">,</span><span class="mf">.99</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mf">.98</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> 
-<span class="p">]</span>
-
-<span class="n">D2</span> <span class="o">=</span> <span class="n">pairwise_distances</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">metric</span><span class="o">=</span><span class="s2">&quot;euclidean&quot;</span><span class="p">)</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">D2</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:&gt;
-</pre></div>
-</div>
-<img alt="../_images/preliminaries_1_1.png" src="../_images/preliminaries_1_1.png" />
-</div>
-</div>
-<p>Note the symmetry. Changing to a different norm is trivial.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">D1</span> <span class="o">=</span> <span class="n">pairwise_distances</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">metric</span><span class="o">=</span><span class="s2">&quot;manhattan&quot;</span><span class="p">)</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">D1</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:&gt;
-</pre></div>
-</div>
-<img alt="../_images/preliminaries_3_1.png" src="../_images/preliminaries_3_1.png" />
-</div>
-</div>
-</div>
-</div>
-<div class="section" id="performance-metrics">
-<h2>Performance metrics<a class="headerlink" href="#performance-metrics" title="Permalink to this headline">¶</a></h2>
-<p>If a trusted or ground truth clustering is available, then we can compare it to a different clustering result. Let’s say that two sample points in a clustering are <em>buddies</em> if they are in the same cluster, and <em>strangers</em> otherwise.</p>
-<div class="section" id="adjusted-rand-index">
-<h3>(Adjusted) Rand index<a class="headerlink" href="#adjusted-rand-index" title="Permalink to this headline">¶</a></h3>
-<p>Let <span class="math notranslate nohighlight">\(b\)</span> be the number of pairs that are buddies in both clusterings, and let <span class="math notranslate nohighlight">\(s\)</span> be the number of pairs that are strangers in both clusterings. Noting that there are <span class="math notranslate nohighlight">\(\binom{n}{2}\)</span> distinct pairs of <span class="math notranslate nohighlight">\(n\)</span> sample points, we define the <strong>Rand index</strong> by</p>
-<div class="math notranslate nohighlight">
-\[
-\text{RI} = \frac{b+s}{\binom{n}{2}}.
-\]</div>
-<p>While the Rand index is not hard to understand, it’s not normalized to any obvious scale. The <strong>adjusted Rand index</strong> is</p>
-<div class="math notranslate nohighlight">
-\[
-\text{ARI} = \frac{\text{RI} - E[\text{RI}]}{\text{max}(\text{RI})-E[\text{RI}]},
-\]</div>
-<p>where the mean and max operations are taken over all possible clusterings. (These values can be worked out by probabilistic reasoning.) Hence an ARI of 0 indicates no better agreement than a random clustering, and an ARI of 1 is maximum agreement.</p>
-</div>
-<div class="section" id="silhouette-coefficient">
-<h3>Silhouette coefficient<a class="headerlink" href="#silhouette-coefficient" title="Permalink to this headline">¶</a></h3>
-<p>If no reference clustering (i.e., ground truth) is available, then we can use a different measurement to assess the intrinsic quality. Suppose <span class="math notranslate nohighlight">\(\bfx_i\)</span> is a sample point. Let <span class="math notranslate nohighlight">\(\bar{b}\)</span> be the mean distance between <span class="math notranslate nohighlight">\(\bfx_i\)</span> and its buddies, and let <span class="math notranslate nohighlight">\(\bar{r}\)</span> be the mean distance between <span class="math notranslate nohighlight">\(\bfx_i\)</span> and the members of the nearest cluster of strangers. Then the <strong>silhouette coefficient</strong> or silhouette score of <span class="math notranslate nohighlight">\(\bfx_i\)</span> is</p>
-<div class="math notranslate nohighlight">
-\[
-S_i = \frac{\bar{r}-\bar{b}}{\max\{\bar{r},\bar{b}\}}.
-\]</div>
-<p>This value is between <span class="math notranslate nohighlight">\(-1\)</span> (bad) and <span class="math notranslate nohighlight">\(1\)</span> (good). Finally, the silhouette score of a cluster is the mean of the <span class="math notranslate nohighlight">\(S_i\)</span> over the samples in that cluster.</p>
-</div>
-<div class="section" id="id1">
-<h3>Toy example<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
-<p>We will create an artificial data set with two features and three predefined clusters.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_blobs</span>
-<span class="n">X</span><span class="p">,</span><span class="n">y</span> <span class="o">=</span> <span class="n">make_blobs</span><span class="p">(</span>
-    <span class="n">n_samples</span><span class="o">=</span><span class="p">[</span><span class="mi">40</span><span class="p">,</span><span class="mi">30</span><span class="p">,</span><span class="mi">30</span><span class="p">],</span>
-    <span class="n">centers</span><span class="o">=</span><span class="p">[[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],[</span><span class="mi">3</span><span class="p">,</span><span class="mf">1.5</span><span class="p">],[</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="p">]],</span>
-    <span class="n">cluster_std</span><span class="o">=</span><span class="p">[</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">0.9</span><span class="p">,</span><span class="mf">1.5</span><span class="p">],</span>
-    <span class="n">random_state</span> <span class="o">=</span> <span class="mi">19716</span>
-    <span class="p">)</span>
-
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="n">blobs</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;x1&quot;</span><span class="p">:</span><span class="n">X</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span><span class="s2">&quot;x2&quot;</span><span class="p">:</span><span class="n">X</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span><span class="s2">&quot;class&quot;</span><span class="p">:</span><span class="n">y</span><span class="p">})</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">relplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">blobs</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;x1&quot;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s2">&quot;x2&quot;</span><span class="p">,</span><span class="n">hue</span><span class="o">=</span><span class="s2">&quot;class&quot;</span><span class="p">);</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/preliminaries_5_0.png" src="../_images/preliminaries_5_0.png" />
-</div>
-</div>
-<p>As you can see above, class 2 is more dispersed than the other clusters, and, given the overlaps, a person might label a few points differently.</p>
-<p>We will add a column to the data frame that records the silhouette score for each point.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">silhouette_samples</span>
-<span class="n">blobs</span><span class="p">[</span><span class="s2">&quot;sil&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">silhouette_samples</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">relplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">blobs</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;x1&quot;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s2">&quot;x2&quot;</span><span class="p">,</span><span class="n">hue</span><span class="o">=</span><span class="s2">&quot;class&quot;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="s2">&quot;sil&quot;</span><span class="p">);</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/preliminaries_7_0.png" src="../_images/preliminaries_7_0.png" />
-</div>
-</div>
-<p>In this plot, the size of the dot shows its silhouette coefficient. Those points which don’t belong comfortably with their cluster have negative scores and the smallest dots. We can find the average score in each cluster through a grouped mean:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">blobs</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;class&quot;</span><span class="p">)[</span><span class="s2">&quot;sil&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>class
-0    0.812718
-1    0.551222
-2    0.223225
-Name: sil, dtype: float64
-</pre></div>
-</div>
-</div>
-</div>
-<p>These values are ordered as we would expect.</p>
-<p>Now let’s create another clustering based on the quadrants of the plane.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">quad</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">y</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span> <span class="k">return</span> <span class="mi">1</span>
-        <span class="k">else</span><span class="p">:</span> <span class="k">return</span> <span class="mi">4</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">y</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span> <span class="k">return</span> <span class="mi">2</span>
-        <span class="k">else</span><span class="p">:</span> <span class="k">return</span> <span class="mi">3</span>
-
-<span class="n">blobs</span><span class="p">[</span><span class="s2">&quot;quadrant&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">quad</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span> <span class="k">for</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">blobs</span><span class="o">.</span><span class="n">x1</span><span class="p">,</span><span class="n">blobs</span><span class="o">.</span><span class="n">x2</span><span class="p">)]</span>
-<span class="n">blobs</span><span class="p">[</span><span class="s2">&quot;sil&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">silhouette_samples</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">blobs</span><span class="p">[</span><span class="s2">&quot;quadrant&quot;</span><span class="p">])</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">relplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">blobs</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;x1&quot;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s2">&quot;x2&quot;</span><span class="p">,</span><span class="n">hue</span><span class="o">=</span><span class="s2">&quot;quadrant&quot;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="s2">&quot;sil&quot;</span><span class="p">);</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/preliminaries_11_0.png" src="../_images/preliminaries_11_0.png" />
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">blobs</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;quadrant&quot;</span><span class="p">)[</span><span class="s2">&quot;sil&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>quadrant
-1    0.578120
-2    0.808252
-3    0.409983
-4    0.043896
-Name: sil, dtype: float64
-</pre></div>
-</div>
-</div>
-</div>
-<p>Even though the original clustering had three classes, and there are four quadrants, we can still compare them by adjusted Rand index.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">adjusted_rand_score</span>
-<span class="n">adjusted_rand_score</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">blobs</span><span class="p">[</span><span class="s2">&quot;quadrant&quot;</span><span class="p">])</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.8784845217926999
-</pre></div>
-</div>
-</div>
-</div>
-<p>Not surprisingly, they are seen as fairly similar.</p>
-</div>
-</div>
-</div>
-
-    <script type="text/x-thebe-config">
-    {
-        requestKernel: true,
-        binderOptions: {
-            repo: "UD-Math-Data-Science-1/notes",
-            ref: "main",
-        },
-        codeMirrorConfig: {
-            theme: "abcdef",
-            mode: "python"
-        },
-        kernelOptions: {
-            kernelName: "python3",
-            path: "./clustering"
-        },
-        predefinedOutput: true
-    }
-    </script>
-    <script>kernelName = 'python3'</script>
-
-              </div>
-              
-        
-            <!-- Previous / next buttons -->
+            
+                <!-- Previous / next buttons -->
 <div class='prev-next-area'> 
     <a class='left-prev' id="prev-link" href="overview.html" title="previous page">
         <i class="fas fa-angle-left"></i>
@@ -936,7 +717,7 @@ Name: sil, dtype: float64
     <i class="fas fa-angle-right"></i>
     </a>
 </div>
-        
+            
         </div>
     </div>
     <footer class="footer">

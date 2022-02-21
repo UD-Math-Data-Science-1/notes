@@ -23,7 +23,7 @@
 
     
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=84ace793992934648b4de8eed757e5a2" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
@@ -43,7 +43,7 @@
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script src="../_static/sphinx-book-theme.9d8b4a8b9bb19db25eeaddc40d639ba2.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>window.MathJax = {"tex": {"macros": {"float": ["\\mathbb{F}"], "real": ["\\mathbb{R}"], "complex": ["\\mathbb{C}"], "nat": ["\\mathbb{N}"], "integer": ["\\mathbb{Z}"], "bfa": "\\mathbf{a}", "bfe": "\\mathbf{e}", "bfx": "\\mathbf{x}", "bfX": "\\mathbf{X}", "bfu": "\\mathbf{u}", "bfv": "\\mathbf{v}", "bfw": "\\mathbf{w}", "bfy": "\\mathbf{y}", "bfz": "\\mathbf{z}", "bfzero": "\\boldsymbol{0}", "bfmu": "\\boldsymbol{\\mu}", "TP": "\\text{TP}", "TN": "\\text{TN}", "FP": "\\text{FP}", "FN": "\\text{FN}", "rmn": ["\\mathbb{R}^{#1 \\times #2}", 2], "dd": ["\\frac{d #1}{d #2}", 2], "pp": ["\\frac{\\partial #1}{\\partial #2}", 2], "norm": ["\\lVert #1 \\rVert", 1], "twonorm": ["\\norm{#1}_2", 1], "onenorm": ["\\norm{#1}_1", 1], "infnorm": ["\\norm{#1}_\\infty", 1], "innerprod": ["\\langle #1,#2 \\rangle", 2], "pr": ["^{(#1)}", 1], "diag": ["\\operatorname{diag}"], "sign": ["\\operatorname{sign}"], "ee": ["\\times 10^"], "floor": ["\\lfloor#1\\rfloor", 1], "argmin": ["\\operatorname{argmin}"], "Cov": ["\\operatorname{Cov}"], "logit": ["\\operatorname{logit}"]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
@@ -74,7 +74,12 @@
     <div class="container-xl">
       <div class="row">
           
-<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<div class="col-12 col-md-3 bd-sidebar site-navigation " id="site-navigation">
     
         <div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../index.html">
@@ -172,7 +177,7 @@
   </ul>
  </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../supervised/overview.html">
+  <a class="reference internal" href="../classification/overview.html">
    3. Classification
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
@@ -182,37 +187,37 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../supervised/sklearn.html">
+    <a class="reference internal" href="../classification/sklearn.html">
      3.1. Using scikit-learn
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../supervised/performance.html">
+    <a class="reference internal" href="../classification/performance.html">
      3.2. Classifier performance
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../supervised/decision-trees.html">
+    <a class="reference internal" href="../classification/decision-trees.html">
      3.3. Decision trees
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../supervised/nearest-neighbors.html">
+    <a class="reference internal" href="../classification/nearest-neighbors.html">
      3.4. Nearest neighbors
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../supervised/svm.html">
+    <a class="reference internal" href="../classification/svm.html">
      3.5. Support vector machine
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../supervised/model-selection.html">
+    <a class="reference internal" href="../classification/model-selection.html">
      3.6. Model selection
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../supervised/exercises.html">
+    <a class="reference internal" href="../classification/exercises.html">
      3.7. Exercises
     </a>
    </li>
@@ -251,7 +256,7 @@
   </ul>
  </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../unsupervised/overview.html">
+  <a class="reference internal" href="../clustering/overview.html">
    5. Clustering
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
@@ -261,17 +266,17 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../unsupervised/preliminaries.html">
+    <a class="reference internal" href="../clustering/preliminaries.html">
      5.1. Preliminaries
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../unsupervised/k-means.html">
+    <a class="reference internal" href="../clustering/k-means.html">
      5.2. k-means
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../unsupervised/hierarchical.html">
+    <a class="reference internal" href="../clustering/hierarchical.html">
      5.3. Hierarchical
     </a>
    </li>
@@ -298,22 +303,22 @@
 
 
           
+<!-- This is an invisible pixel that we watch to see if we've scrolled. -->
+<div class="sbt-scroll-pixel-helper"></div>
 <main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
     
     <div class="topbar container-xl fixed-top">
     <div class="topbar-contents row">
         <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
         <div class="col pl-md-4 topbar-main">
-            
-            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
-                <i class="fas fa-bars"></i>
-                <i class="fas fa-arrow-left"></i>
-                <i class="fas fa-arrow-up"></i>
-            </button>
-            
+            <div class="topbar-left">
+                
+                <label class="nav-toggle-button" for="__navigation">
+                    <div class="visually-hidden">Toggle navigation</div>
+                    <i class="fas fa-bars"></i>
+                </label>
+                
+            </div>
             
 <div class="dropdown-buttons-trigger">
     <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
@@ -359,6 +364,7 @@
         
         
         
+        
         <button type="button" class="btn btn-secondary topbarbtn"
             onclick="initThebeSBT()" title="Launch Thebe" data-toggle="tooltip" data-placement="left"><i
                 class="fas fa-play"></i><span style="margin-left: .4em;">Live Code</span></button>
@@ -392,19 +398,20 @@
         </div>
     </div>
 </div>
-    <!-- Table of contents that is only displayed when printing the page -->
-    <div id="jb-print-docs-body" class="onlyprint">
-        <h1>Multilinear and polynomial regression</h1>
-        <!-- Table of contents -->
-        <div id="print-main-content" class="row">
-            <div class="col-12 col-md-12 pl-md-5 pr-md-5">
-            <div id="jb-print-toc">
-                
-                <div>
-                    <h2> Contents </h2>
-                </div>
-                <nav aria-label="Page">
-                    <ul class="visible nav section-nav flex-column">
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Multilinear and polynomial regression</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#polynomial-regression">
    Polynomial regression
@@ -417,7 +424,9 @@
  </li>
 </ul>
 
-                </nav>
+                        </nav>
+                    </div>
+                </div>
             </div>
             
               <div>
@@ -429,7 +438,7 @@
 \[
 y \approx f(\bfx) = w_1 x_1 + w_2x_2 + \cdots w_d x_d + b.
 \]</div>
-<p>Observe that we can drop the intercept term <span class="math notranslate nohighlight">\(b\)</span> from the discussion, because we could always define an additional constant predictor variable <span class="math notranslate nohighlight">\(x_{d+1}=1\)</span> and get the same effect. So</p>
+<p>We can drop the intercept term <span class="math notranslate nohighlight">\(b\)</span> from the discussion, because we could always define an additional constant predictor variable <span class="math notranslate nohighlight">\(x_{d+1}=1\)</span> and get the same effect. So</p>
 <div class="math notranslate nohighlight">
 \[
 y \approx f(\bfx) = w_1 x_1 + w_2x_2 + \cdots w_d x_d = \bfw^T\bfx = \bfx^T\bfw,
@@ -450,7 +459,7 @@ L(\bfw) = \sum_{i=1}^n (f(\bfx_i)-y_i)^2 = \sum_{i=1}^n (\bfx_i^T\bfw- y_i)^2.
 \[
 L(\bfw) = \twonorm{\bfX \bfw- \bfy}^2.
 \]</div>
-<p>As in the univariate case, minimizing the loss boils down to solving a linear system of equations for <span class="math notranslate nohighlight">\(\bfw\)</span>.</p>
+<p>As in the univariate case, minimizing the loss boils down to solving a linear system of equations, known as the <em>normal equations</em>, for <span class="math notranslate nohighlight">\(\bfw\)</span>.</p>
 <div class="section" id="polynomial-regression">
 <h2>Polynomial regression<a class="headerlink" href="#polynomial-regression" title="Permalink to this headline">¶</a></h2>
 <p>An important special case of multilinear regression is when there is initially a single predictor variable <span class="math notranslate nohighlight">\(t\)</span>, and then we define</p>
@@ -667,26 +676,26 @@ y \approx w_1 + w_2 t + \cdots + w_d t^{d-1},
 <img alt="../_images/multilinear_5_0.png" src="../_images/multilinear_5_0.png" />
 </div>
 </div>
-<p>In order to produce the cubic fit in sklearn, we use the <code class="docutils literal notranslate"><span class="pre">PolynomialFeatures</span></code> preprocessor in a pipeline. If the original horsepower predictor variable is <span class="math notranslate nohighlight">\(t\)</span>, then the preprocessor will create columns for <span class="math notranslate nohighlight">\(1\)</span>, <span class="math notranslate nohighlight">\(t\)</span>, <span class="math notranslate nohighlight">\(t^2\)</span>, and <span class="math notranslate nohighlight">\(t^3\)</span>. (Since the constant feature is added in, we don’t need to fit the intercept with the linear regressor.)</p>
+<p>In order to produce the cubic fit in sklearn, we use the <code class="docutils literal notranslate"><span class="pre">PolynomialFeatures</span></code> preprocessor in a pipeline. If the original horsepower predictor variable is <span class="math notranslate nohighlight">\(t\)</span>, then the preprocessor will create features for <span class="math notranslate nohighlight">\(1\)</span>, <span class="math notranslate nohighlight">\(t\)</span>, <span class="math notranslate nohighlight">\(t^2\)</span>, and <span class="math notranslate nohighlight">\(t^3\)</span>. (Since the constant feature is added in, we don’t need to fit the intercept with the linear regressor.)</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LinearRegression</span>
 <span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">PolynomialFeatures</span>
 <span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">make_pipeline</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
-<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">cars</span><span class="p">[</span><span class="s2">&quot;horsepower&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">cars</span><span class="p">[[</span><span class="s2">&quot;horsepower&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
 <span class="n">y</span> <span class="o">=</span> <span class="n">cars</span><span class="p">[</span><span class="s2">&quot;mpg&quot;</span><span class="p">]</span>
 <span class="n">lm</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">(</span><span class="n">fit_intercept</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="n">cubic</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">PolynomialFeatures</span><span class="p">(</span><span class="n">degree</span><span class="o">=</span><span class="mi">3</span><span class="p">),</span><span class="n">lm</span><span class="p">)</span>
 <span class="n">cubic</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;prediction at hp=100:&quot;</span><span class="p">,</span><span class="n">cubic</span><span class="o">.</span><span class="n">predict</span><span class="p">([[</span><span class="mi">200</span><span class="p">]]))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;prediction at hp=200:&quot;</span><span class="p">,</span><span class="n">cubic</span><span class="o">.</span><span class="n">predict</span><span class="p">([[</span><span class="mi">200</span><span class="p">]]))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>prediction at hp=100: [12.90220247]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>prediction at hp=200: [12.90220247]
 </pre></div>
 </div>
 </div>
@@ -747,7 +756,8 @@ MSE for degree 10: 55.26202163126627
 <img alt="../_images/multilinear_13_0.png" src="../_images/multilinear_13_0.png" />
 </div>
 </div>
-<p>Now suppose that we keep more of the original data columns and pursue a multilinear fit. We chain it with a <code class="docutils literal notranslate"><span class="pre">StandardScaler</span></code> so that all columns have equal mean and scale.</p>
+<p>In the above plot, note the widening of the confidence intervals near the ends of the domain, indicating increased variance in the predictions.</p>
+<p>Next, we keep more of the original data features and pursue a multilinear fit. We chain it with a <code class="docutils literal notranslate"><span class="pre">StandardScaler</span></code> so that all columns have equal mean and scale.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span>
@@ -769,17 +779,19 @@ MSE for degree 10: 55.26202163126627
 </div>
 </div>
 </div>
-<p>The fit here is actually a little worse than the low-degree fits on horsepower alone. However, by comparing the coefficients of the individual features, some interesting information emerges:</p>
+<p>The fit here is actually a little worse than the low-degree fits based on horsepower alone. However, by comparing the coefficients of the individual features, some interesting information emerges:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">pipe</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">coef_</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">pipe</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">coef_</span><span class="p">,</span><span class="n">index</span><span class="o">=</span><span class="n">X</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[-1.58758437  0.19119276 -0.59459762 -4.77122231]
-Index([&#39;horsepower&#39;, &#39;displacement&#39;, &#39;cylinders&#39;, &#39;weight&#39;], dtype=&#39;object&#39;)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>horsepower     -1.587584
+displacement    0.191193
+cylinders      -0.594598
+weight         -4.771222
+dtype: float64
 </pre></div>
 </div>
 </div>
@@ -826,420 +838,8 @@ Index([&#39;horsepower&#39;, &#39;displacement&#39;, &#39;cylinders&#39;, &#39;w
 
               </div>
               
-            </div>
-        </div>
-    </div>
-    <div id="main-content" class="row noprint">
-        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
-        
-              <div>
-                
-  <div class="tex2jax_ignore mathjax_ignore section" id="multilinear-and-polynomial-regression">
-<h1><span class="section-number">4.2. </span>Multilinear and polynomial regression<a class="headerlink" href="#multilinear-and-polynomial-regression" title="Permalink to this headline">¶</a></h1>
-<p>We can extend linear regression to <span class="math notranslate nohighlight">\(d\)</span> predictor variables <span class="math notranslate nohighlight">\(x_1,\ldots,x_d\)</span>:</p>
-<div class="math notranslate nohighlight">
-\[
-y \approx f(\bfx) = w_1 x_1 + w_2x_2 + \cdots w_d x_d + b.
-\]</div>
-<p>Observe that we can drop the intercept term <span class="math notranslate nohighlight">\(b\)</span> from the discussion, because we could always define an additional constant predictor variable <span class="math notranslate nohighlight">\(x_{d+1}=1\)</span> and get the same effect. So</p>
-<div class="math notranslate nohighlight">
-\[
-y \approx f(\bfx) = w_1 x_1 + w_2x_2 + \cdots w_d x_d = \bfw^T\bfx = \bfx^T\bfw,
-\]</div>
-<p>where we have introduced inner product notation. This is called <strong>multilinear regression</strong>, although it could also be called just <em>linear regression</em> in many contexts.</p>
-<p>To create the least squares loss function, we use <span class="math notranslate nohighlight">\(\bfx_i\)</span> to denote the <span class="math notranslate nohighlight">\(i\)</span>th row of the <span class="math notranslate nohighlight">\(n\times d\)</span> feature matrix <span class="math notranslate nohighlight">\(\bfX\)</span>. Then</p>
-<div class="math notranslate nohighlight">
-\[
-L(\bfw) = \sum_{i=1}^n (f(\bfx_i)-y_i)^2 = \sum_{i=1}^n (\bfx_i^T\bfw- y_i)^2.
-\]</div>
-<p>Introducing the shorthand notation (standard linear algebra)</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-\bfX \bfw = \begin{bmatrix} \bfx_1^T\bfw \\ \bfx_2^T\bfw \\ \vdots \\ \bfx_n^T\bfw \end{bmatrix},
-\end{split}\]</div>
-<p>we now get the compact expression</p>
-<div class="math notranslate nohighlight">
-\[
-L(\bfw) = \twonorm{\bfX \bfw- \bfy}^2.
-\]</div>
-<p>As in the univariate case, minimizing the loss boils down to solving a linear system of equations for <span class="math notranslate nohighlight">\(\bfw\)</span>.</p>
-<div class="section" id="polynomial-regression">
-<h2>Polynomial regression<a class="headerlink" href="#polynomial-regression" title="Permalink to this headline">¶</a></h2>
-<p>An important special case of multilinear regression is when there is initially a single predictor variable <span class="math notranslate nohighlight">\(t\)</span>, and then we define</p>
-<div class="math notranslate nohighlight">
-\[
-x_1 = t^0, \, x_2 = t^1, \ldots, x_d = t^{d-1}.
-\]</div>
-<p>This makes the regressive approximation into</p>
-<div class="math notranslate nohighlight">
-\[
-y \approx w_1 + w_2 t + \cdots + w_d t^{d-1},
-\]</div>
-<p>which is a polynomial of degree <span class="math notranslate nohighlight">\(d-1\)</span>.</p>
-</div>
-<div class="section" id="case-study-fuel-efficiency">
-<h2>Case study: Fuel efficiency<a class="headerlink" href="#case-study-fuel-efficiency" title="Permalink to this headline">¶</a></h2>
-<p>We return to the data set regarding the fuel efficiency of cars.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="n">cars</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">load_dataset</span><span class="p">(</span><span class="s2">&quot;mpg&quot;</span><span class="p">)</span>
-<span class="n">cars</span> <span class="o">=</span> <span class="n">cars</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
-<span class="n">cars</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>mpg</th>
-      <th>cylinders</th>
-      <th>displacement</th>
-      <th>horsepower</th>
-      <th>weight</th>
-      <th>acceleration</th>
-      <th>model_year</th>
-      <th>origin</th>
-      <th>name</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>18.0</td>
-      <td>8</td>
-      <td>307.0</td>
-      <td>130.0</td>
-      <td>3504</td>
-      <td>12.0</td>
-      <td>70</td>
-      <td>usa</td>
-      <td>chevrolet chevelle malibu</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>15.0</td>
-      <td>8</td>
-      <td>350.0</td>
-      <td>165.0</td>
-      <td>3693</td>
-      <td>11.5</td>
-      <td>70</td>
-      <td>usa</td>
-      <td>buick skylark 320</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>18.0</td>
-      <td>8</td>
-      <td>318.0</td>
-      <td>150.0</td>
-      <td>3436</td>
-      <td>11.0</td>
-      <td>70</td>
-      <td>usa</td>
-      <td>plymouth satellite</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>16.0</td>
-      <td>8</td>
-      <td>304.0</td>
-      <td>150.0</td>
-      <td>3433</td>
-      <td>12.0</td>
-      <td>70</td>
-      <td>usa</td>
-      <td>amc rebel sst</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>17.0</td>
-      <td>8</td>
-      <td>302.0</td>
-      <td>140.0</td>
-      <td>3449</td>
-      <td>10.5</td>
-      <td>70</td>
-      <td>usa</td>
-      <td>ford torino</td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th>393</th>
-      <td>27.0</td>
-      <td>4</td>
-      <td>140.0</td>
-      <td>86.0</td>
-      <td>2790</td>
-      <td>15.6</td>
-      <td>82</td>
-      <td>usa</td>
-      <td>ford mustang gl</td>
-    </tr>
-    <tr>
-      <th>394</th>
-      <td>44.0</td>
-      <td>4</td>
-      <td>97.0</td>
-      <td>52.0</td>
-      <td>2130</td>
-      <td>24.6</td>
-      <td>82</td>
-      <td>europe</td>
-      <td>vw pickup</td>
-    </tr>
-    <tr>
-      <th>395</th>
-      <td>32.0</td>
-      <td>4</td>
-      <td>135.0</td>
-      <td>84.0</td>
-      <td>2295</td>
-      <td>11.6</td>
-      <td>82</td>
-      <td>usa</td>
-      <td>dodge rampage</td>
-    </tr>
-    <tr>
-      <th>396</th>
-      <td>28.0</td>
-      <td>4</td>
-      <td>120.0</td>
-      <td>79.0</td>
-      <td>2625</td>
-      <td>18.6</td>
-      <td>82</td>
-      <td>usa</td>
-      <td>ford ranger</td>
-    </tr>
-    <tr>
-      <th>397</th>
-      <td>31.0</td>
-      <td>4</td>
-      <td>119.0</td>
-      <td>82.0</td>
-      <td>2720</td>
-      <td>19.4</td>
-      <td>82</td>
-      <td>usa</td>
-      <td>chevy s-10</td>
-    </tr>
-  </tbody>
-</table>
-<p>392 rows × 9 columns</p>
-</div></div></div>
-</div>
-<p>As we would expect, horsepower and miles per gallon are negatively correlated. However, the relationship is not well captured by a straight line.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">lmplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">cars</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;horsepower&quot;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s2">&quot;mpg&quot;</span><span class="p">);</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/multilinear_3_0.png" src="../_images/multilinear_3_0.png" />
-</div>
-</div>
-<p>A cubic polynomial produces a much more plausible fit, especially on the right half of the plot.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">lmplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">cars</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;horsepower&quot;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s2">&quot;mpg&quot;</span><span class="p">,</span><span class="n">order</span><span class="o">=</span><span class="mi">3</span><span class="p">);</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/multilinear_5_0.png" src="../_images/multilinear_5_0.png" />
-</div>
-</div>
-<p>In order to produce the cubic fit in sklearn, we use the <code class="docutils literal notranslate"><span class="pre">PolynomialFeatures</span></code> preprocessor in a pipeline. If the original horsepower predictor variable is <span class="math notranslate nohighlight">\(t\)</span>, then the preprocessor will create columns for <span class="math notranslate nohighlight">\(1\)</span>, <span class="math notranslate nohighlight">\(t\)</span>, <span class="math notranslate nohighlight">\(t^2\)</span>, and <span class="math notranslate nohighlight">\(t^3\)</span>. (Since the constant feature is added in, we don’t need to fit the intercept with the linear regressor.)</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LinearRegression</span>
-<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">PolynomialFeatures</span>
-<span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">make_pipeline</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-
-<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">cars</span><span class="p">[</span><span class="s2">&quot;horsepower&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">cars</span><span class="p">[</span><span class="s2">&quot;mpg&quot;</span><span class="p">]</span>
-<span class="n">lm</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">(</span><span class="n">fit_intercept</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="n">cubic</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">PolynomialFeatures</span><span class="p">(</span><span class="n">degree</span><span class="o">=</span><span class="mi">3</span><span class="p">),</span><span class="n">lm</span><span class="p">)</span>
-<span class="n">cubic</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;prediction at hp=100:&quot;</span><span class="p">,</span><span class="n">cubic</span><span class="o">.</span><span class="n">predict</span><span class="p">([[</span><span class="mi">200</span><span class="p">]]))</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>prediction at hp=100: [12.90220247]
-</pre></div>
-</div>
-</div>
-</div>
-<p>The prediction above is consistent with the earlier figure.</p>
-<p>We can get the coefficients of the cubic polynomial from the trained regressor:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cubic</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">coef_</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([ 6.06847849e+01, -5.68850128e-01,  2.07901126e-03, -2.14662591e-06])
-</pre></div>
-</div>
-</div>
-</div>
-<p>The coefficients go in order of increasing degree.</p>
-<p>If a cubic polynomial can fit better than a line, it’s plausible that increasing the degree more will lead to even better fits. In fact, the training error can only go down, because a lower-degree polynomial case is a subset of a higher-degree case.</p>
-<p>To explore the effect of degree, we split into train and test sets.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
-<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_squared_error</span>
-
-<span class="n">X_tr</span><span class="p">,</span><span class="n">X_te</span><span class="p">,</span><span class="n">y_tr</span><span class="p">,</span><span class="n">y_te</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span><span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-
-<span class="k">for</span> <span class="n">deg</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">11</span><span class="p">):</span>
-    <span class="n">poly</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">PolynomialFeatures</span><span class="p">(</span><span class="n">degree</span><span class="o">=</span><span class="n">deg</span><span class="p">),</span><span class="n">lm</span><span class="p">)</span>
-    <span class="n">poly</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_tr</span><span class="p">,</span><span class="n">y_tr</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;MSE for degree </span><span class="si">{</span><span class="n">deg</span><span class="si">}</span><span class="s2">:&quot;</span><span class="p">,</span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_te</span><span class="p">,</span><span class="n">poly</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_te</span><span class="p">)))</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>MSE for degree 2: 16.01289461666269
-MSE for degree 3: 15.91065108266518
-MSE for degree 4: 15.819253166542012
-MSE for degree 5: 15.652641443045992
-MSE for degree 6: 15.63718971782021
-MSE for degree 7: 15.592852998494399
-MSE for degree 8: 18.17787140355864
-MSE for degree 9: 28.51037146178334
-MSE for degree 10: 55.26202163126627
-</pre></div>
-</div>
-</div>
-</div>
-<p>The results above are a classic example of overfitting and the bias–variance tradeoff. A plot of the degree-10 fit shows that the polynomial becomes more oscillatory:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">lmplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">cars</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;horsepower&quot;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s2">&quot;mpg&quot;</span><span class="p">,</span><span class="n">order</span><span class="o">=</span><span class="mi">10</span><span class="p">);</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/multilinear_13_0.png" src="../_images/multilinear_13_0.png" />
-</div>
-</div>
-<p>Now suppose that we keep more of the original data columns and pursue a multilinear fit. We chain it with a <code class="docutils literal notranslate"><span class="pre">StandardScaler</span></code> so that all columns have equal mean and scale.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span>
-
-<span class="n">X</span> <span class="o">=</span> <span class="n">cars</span><span class="p">[[</span><span class="s2">&quot;horsepower&quot;</span><span class="p">,</span><span class="s2">&quot;displacement&quot;</span><span class="p">,</span><span class="s2">&quot;cylinders&quot;</span><span class="p">,</span><span class="s2">&quot;weight&quot;</span><span class="p">]]</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">cars</span><span class="p">[</span><span class="s2">&quot;mpg&quot;</span><span class="p">]</span>
-<span class="n">X_tr</span><span class="p">,</span><span class="n">X_te</span><span class="p">,</span><span class="n">y_tr</span><span class="p">,</span><span class="n">y_te</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span><span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-
-<span class="n">lm</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">(</span><span class="n">fit_intercept</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">pipe</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">StandardScaler</span><span class="p">(),</span><span class="n">lm</span><span class="p">)</span>
-<span class="n">pipe</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_tr</span><span class="p">,</span><span class="n">y_tr</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;MSE for multilinear:&quot;</span><span class="p">,</span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_te</span><span class="p">,</span><span class="n">pipe</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_te</span><span class="p">)))</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>MSE for multilinear: 18.623882663743327
-</pre></div>
-</div>
-</div>
-</div>
-<p>The fit here is actually a little worse than the low-degree fits on horsepower alone. However, by comparing the coefficients of the individual features, some interesting information emerges:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">pipe</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">coef_</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[-1.58758437  0.19119276 -0.59459762 -4.77122231]
-Index([&#39;horsepower&#39;, &#39;displacement&#39;, &#39;cylinders&#39;, &#39;weight&#39;], dtype=&#39;object&#39;)
-</pre></div>
-</div>
-</div>
-</div>
-<p>We now have a hypothesis that weight is the most significant negative factor for MPG, and by a wide margin.</p>
-<p>Finally, we can combine the use of multiple features and higher degree.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pipe</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">StandardScaler</span><span class="p">(),</span><span class="n">PolynomialFeatures</span><span class="p">(</span><span class="n">degree</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span><span class="n">lm</span><span class="p">)</span>
-<span class="n">pipe</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_tr</span><span class="p">,</span><span class="n">y_tr</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;MSE for multilinear:&quot;</span><span class="p">,</span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_te</span><span class="p">,</span><span class="n">pipe</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_te</span><span class="p">)))</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>MSE for multilinear: 14.794088067764827
-</pre></div>
-</div>
-</div>
-</div>
-<p>This is our best regression fit so far.</p>
-</div>
-</div>
-
-    <script type="text/x-thebe-config">
-    {
-        requestKernel: true,
-        binderOptions: {
-            repo: "UD-Math-Data-Science-1/notes",
-            ref: "main",
-        },
-        codeMirrorConfig: {
-            theme: "abcdef",
-            mode: "python"
-        },
-        kernelOptions: {
-            kernelName: "python3",
-            path: "./regression"
-        },
-        predefinedOutput: true
-    }
-    </script>
-    <script>kernelName = 'python3'</script>
-
-              </div>
-              
-        
-            <!-- Previous / next buttons -->
+            
+                <!-- Previous / next buttons -->
 <div class='prev-next-area'> 
     <a class='left-prev' id="prev-link" href="linear.html" title="previous page">
         <i class="fas fa-angle-left"></i>
@@ -1256,7 +856,7 @@ Index([&#39;horsepower&#39;, &#39;displacement&#39;, &#39;cylinders&#39;, &#39;w
     <i class="fas fa-angle-right"></i>
     </a>
 </div>
-        
+            
         </div>
     </div>
     <footer class="footer">

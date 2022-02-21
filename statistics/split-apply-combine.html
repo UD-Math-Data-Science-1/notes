@@ -23,7 +23,7 @@
 
     
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=84ace793992934648b4de8eed757e5a2" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
@@ -43,7 +43,7 @@
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script src="../_static/sphinx-book-theme.9d8b4a8b9bb19db25eeaddc40d639ba2.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>window.MathJax = {"tex": {"macros": {"float": ["\\mathbb{F}"], "real": ["\\mathbb{R}"], "complex": ["\\mathbb{C}"], "nat": ["\\mathbb{N}"], "integer": ["\\mathbb{Z}"], "bfa": "\\mathbf{a}", "bfe": "\\mathbf{e}", "bfx": "\\mathbf{x}", "bfX": "\\mathbf{X}", "bfu": "\\mathbf{u}", "bfv": "\\mathbf{v}", "bfw": "\\mathbf{w}", "bfy": "\\mathbf{y}", "bfz": "\\mathbf{z}", "bfzero": "\\boldsymbol{0}", "bfmu": "\\boldsymbol{\\mu}", "TP": "\\text{TP}", "TN": "\\text{TN}", "FP": "\\text{FP}", "FN": "\\text{FN}", "rmn": ["\\mathbb{R}^{#1 \\times #2}", 2], "dd": ["\\frac{d #1}{d #2}", 2], "pp": ["\\frac{\\partial #1}{\\partial #2}", 2], "norm": ["\\lVert #1 \\rVert", 1], "twonorm": ["\\norm{#1}_2", 1], "onenorm": ["\\norm{#1}_1", 1], "infnorm": ["\\norm{#1}_\\infty", 1], "innerprod": ["\\langle #1,#2 \\rangle", 2], "pr": ["^{(#1)}", 1], "diag": ["\\operatorname{diag}"], "sign": ["\\operatorname{sign}"], "ee": ["\\times 10^"], "floor": ["\\lfloor#1\\rfloor", 1], "argmin": ["\\operatorname{argmin}"], "Cov": ["\\operatorname{Cov}"], "logit": ["\\operatorname{logit}"]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
@@ -74,7 +74,12 @@
     <div class="container-xl">
       <div class="row">
           
-<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<div class="col-12 col-md-3 bd-sidebar site-navigation " id="site-navigation">
     
         <div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../index.html">
@@ -172,7 +177,7 @@
   </ul>
  </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../supervised/overview.html">
+  <a class="reference internal" href="../classification/overview.html">
    3. Classification
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
@@ -182,37 +187,37 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../supervised/sklearn.html">
+    <a class="reference internal" href="../classification/sklearn.html">
      3.1. Using scikit-learn
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../supervised/performance.html">
+    <a class="reference internal" href="../classification/performance.html">
      3.2. Classifier performance
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../supervised/decision-trees.html">
+    <a class="reference internal" href="../classification/decision-trees.html">
      3.3. Decision trees
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../supervised/nearest-neighbors.html">
+    <a class="reference internal" href="../classification/nearest-neighbors.html">
      3.4. Nearest neighbors
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../supervised/svm.html">
+    <a class="reference internal" href="../classification/svm.html">
      3.5. Support vector machine
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../supervised/model-selection.html">
+    <a class="reference internal" href="../classification/model-selection.html">
      3.6. Model selection
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../supervised/exercises.html">
+    <a class="reference internal" href="../classification/exercises.html">
      3.7. Exercises
     </a>
    </li>
@@ -251,7 +256,7 @@
   </ul>
  </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../unsupervised/overview.html">
+  <a class="reference internal" href="../clustering/overview.html">
    5. Clustering
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
@@ -261,17 +266,17 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../unsupervised/preliminaries.html">
+    <a class="reference internal" href="../clustering/preliminaries.html">
      5.1. Preliminaries
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../unsupervised/k-means.html">
+    <a class="reference internal" href="../clustering/k-means.html">
      5.2. k-means
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../unsupervised/hierarchical.html">
+    <a class="reference internal" href="../clustering/hierarchical.html">
      5.3. Hierarchical
     </a>
    </li>
@@ -298,22 +303,22 @@
 
 
           
+<!-- This is an invisible pixel that we watch to see if we've scrolled. -->
+<div class="sbt-scroll-pixel-helper"></div>
 <main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
     
     <div class="topbar container-xl fixed-top">
     <div class="topbar-contents row">
         <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
         <div class="col pl-md-4 topbar-main">
-            
-            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
-                <i class="fas fa-bars"></i>
-                <i class="fas fa-arrow-left"></i>
-                <i class="fas fa-arrow-up"></i>
-            </button>
-            
+            <div class="topbar-left">
+                
+                <label class="nav-toggle-button" for="__navigation">
+                    <div class="visually-hidden">Toggle navigation</div>
+                    <i class="fas fa-bars"></i>
+                </label>
+                
+            </div>
             
 <div class="dropdown-buttons-trigger">
     <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
@@ -356,6 +361,7 @@
                 data-placement="left"><img class="binder-button-logo"
                     src="../_static/images/logo_binder.svg"
                     alt="Interact on binder">Binder</button></a>
+        
         
         
         
@@ -414,19 +420,20 @@
         </div>
     </div>
 </div>
-    <!-- Table of contents that is only displayed when printing the page -->
-    <div id="jb-print-docs-body" class="onlyprint">
-        <h1>Split–apply–combine</h1>
-        <!-- Table of contents -->
-        <div id="print-main-content" class="row">
-            <div class="col-12 col-md-12 pl-md-5 pr-md-5">
-            <div id="jb-print-toc">
-                
-                <div>
-                    <h2> Contents </h2>
-                </div>
-                <nav aria-label="Page">
-                    <ul class="visible nav section-nav flex-column">
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Split–apply–combine</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#split">
    Split
@@ -461,7 +468,9 @@
  </li>
 </ul>
 
-                </nav>
+                        </nav>
+                    </div>
+                </div>
             </div>
             
               <div>
@@ -1734,1284 +1743,8 @@ dtype: int64
 
               </div>
               
-            </div>
-        </div>
-    </div>
-    <div id="main-content" class="row noprint">
-        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
-        
-              <div>
-                
-  <div class="tex2jax_ignore mathjax_ignore section" id="splitapplycombine">
-<h1><span class="section-number">2.2. </span>Split–apply–combine<a class="headerlink" href="#splitapplycombine" title="Permalink to this headline">¶</a></h1>
-<p>One of the most important workflows in data analysis is called <strong>split–apply–combine</strong>:</p>
-<ol class="simple">
-<li><p>Split the data into groups based on a criterion (e.g., species, marital status).</p></li>
-<li><p>Apply operations to the data within each group.</p></li>
-<li><p>Combine the results from the groups.</p></li>
-</ol>
-<p>Of these, the <em>apply</em> step is usually the most complex.</p>
-<div class="section" id="split">
-<h2>Split<a class="headerlink" href="#split" title="Permalink to this headline">¶</a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">groupby</span></code> method for a data frame splits the frame into groups based on categorical values in a designated column. For illustrations, we will load a dataset supplied with seaborn.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-
-<span class="n">penguins</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">load_dataset</span><span class="p">(</span><span class="s2">&quot;penguins&quot;</span><span class="p">)</span>
-<span class="n">penguins</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>species</th>
-      <th>island</th>
-      <th>bill_length_mm</th>
-      <th>bill_depth_mm</th>
-      <th>flipper_length_mm</th>
-      <th>body_mass_g</th>
-      <th>sex</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>Adelie</td>
-      <td>Torgersen</td>
-      <td>39.1</td>
-      <td>18.7</td>
-      <td>181.0</td>
-      <td>3750.0</td>
-      <td>Male</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>Adelie</td>
-      <td>Torgersen</td>
-      <td>39.5</td>
-      <td>17.4</td>
-      <td>186.0</td>
-      <td>3800.0</td>
-      <td>Female</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>Adelie</td>
-      <td>Torgersen</td>
-      <td>40.3</td>
-      <td>18.0</td>
-      <td>195.0</td>
-      <td>3250.0</td>
-      <td>Female</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>Adelie</td>
-      <td>Torgersen</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>Adelie</td>
-      <td>Torgersen</td>
-      <td>36.7</td>
-      <td>19.3</td>
-      <td>193.0</td>
-      <td>3450.0</td>
-      <td>Female</td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th>339</th>
-      <td>Gentoo</td>
-      <td>Biscoe</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>340</th>
-      <td>Gentoo</td>
-      <td>Biscoe</td>
-      <td>46.8</td>
-      <td>14.3</td>
-      <td>215.0</td>
-      <td>4850.0</td>
-      <td>Female</td>
-    </tr>
-    <tr>
-      <th>341</th>
-      <td>Gentoo</td>
-      <td>Biscoe</td>
-      <td>50.4</td>
-      <td>15.7</td>
-      <td>222.0</td>
-      <td>5750.0</td>
-      <td>Male</td>
-    </tr>
-    <tr>
-      <th>342</th>
-      <td>Gentoo</td>
-      <td>Biscoe</td>
-      <td>45.2</td>
-      <td>14.8</td>
-      <td>212.0</td>
-      <td>5200.0</td>
-      <td>Female</td>
-    </tr>
-    <tr>
-      <th>343</th>
-      <td>Gentoo</td>
-      <td>Biscoe</td>
-      <td>49.9</td>
-      <td>16.1</td>
-      <td>213.0</td>
-      <td>5400.0</td>
-      <td>Male</td>
-    </tr>
-  </tbody>
-</table>
-<p>344 rows × 7 columns</p>
-</div></div></div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">by_species</span> <span class="o">=</span> <span class="n">penguins</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;species&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>Nothing is actually done yet to the data frame. It’s just set up for applying operations to each group.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">name</span><span class="p">,</span><span class="n">group</span> <span class="ow">in</span> <span class="n">by_species</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">group</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="mi">3</span><span class="p">,:</span><span class="mi">4</span><span class="p">])</span>
-    <span class="nb">print</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Adelie
-  species     island  bill_length_mm  bill_depth_mm
-0  Adelie  Torgersen            39.1           18.7
-1  Adelie  Torgersen            39.5           17.4
-2  Adelie  Torgersen            40.3           18.0
-
-Chinstrap
-       species island  bill_length_mm  bill_depth_mm
-152  Chinstrap  Dream            46.5           17.9
-153  Chinstrap  Dream            50.0           19.5
-154  Chinstrap  Dream            51.3           19.2
-
-Gentoo
-    species  island  bill_length_mm  bill_depth_mm
-220  Gentoo  Biscoe            46.1           13.2
-221  Gentoo  Biscoe            50.0           16.3
-222  Gentoo  Biscoe            48.7           14.1
-</pre></div>
-</div>
-</div>
-</div>
-<p>A common operation is to “bin” the values of a continuous variable into intervals. You can group by bins using <code class="docutils literal notranslate"><span class="pre">cut</span></code>.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cuts</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">cut</span><span class="p">(</span><span class="n">penguins</span><span class="p">[</span><span class="s2">&quot;bill_length_mm&quot;</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">30</span><span class="p">,</span><span class="mi">40</span><span class="p">,</span><span class="mi">50</span><span class="p">,</span><span class="mi">100</span><span class="p">])</span>
-<span class="n">by_length</span> <span class="o">=</span> <span class="n">penguins</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">cuts</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">name</span><span class="p">,</span><span class="n">group</span> <span class="ow">in</span> <span class="n">by_length</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">group</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="mi">3</span><span class="p">,:</span><span class="mi">4</span><span class="p">])</span>
-    <span class="nb">print</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(0, 30]
-Empty DataFrame
-Columns: [species, island, bill_length_mm, bill_depth_mm]
-Index: []
-
-(30, 40]
-  species     island  bill_length_mm  bill_depth_mm
-0  Adelie  Torgersen            39.1           18.7
-1  Adelie  Torgersen            39.5           17.4
-4  Adelie  Torgersen            36.7           19.3
-
-(40, 50]
-   species     island  bill_length_mm  bill_depth_mm
-2   Adelie  Torgersen            40.3           18.0
-9   Adelie  Torgersen            42.0           20.2
-12  Adelie  Torgersen            41.1           17.6
-
-(50, 100]
-       species island  bill_length_mm  bill_depth_mm
-154  Chinstrap  Dream            51.3           19.2
-156  Chinstrap  Dream            52.7           19.8
-159  Chinstrap  Dream            51.3           18.2
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="section" id="apply">
-<h2>Apply<a class="headerlink" href="#apply" title="Permalink to this headline">¶</a></h2>
-<p>The most complex step is applying operations to each group of data. There are three types of operations:</p>
-<ul class="simple">
-<li><p><strong>Aggregation</strong> refers to summarizing data by a single value, such as a sum or mean, or by a few values, such as value counts or quintiles.</p></li>
-<li><p><strong>Transformation</strong> refers to application of a mathematical operation to every data value, resulting in data indexed the same way as the original. For example, quantitative data might be transformed to lie in the interval <span class="math notranslate nohighlight">\([0,1]\)</span>.</p></li>
-<li><p><strong>Filtration</strong> refers to inclusion/removal of a group based on a criterion, such as rejection of a group with too few members.</p></li>
-</ul>
-<div class="section" id="aggregation">
-<h3>Aggregation<a class="headerlink" href="#aggregation" title="Permalink to this headline">¶</a></h3>
-<p>Many common operations are defined for aggregation.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">by_length</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>bill_length_mm</th>
-      <th>bill_depth_mm</th>
-      <th>flipper_length_mm</th>
-      <th>body_mass_g</th>
-    </tr>
-    <tr>
-      <th>bill_length_mm</th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>(0, 30]</th>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-    </tr>
-    <tr>
-      <th>(30, 40]</th>
-      <td>3729.4</td>
-      <td>1811.3</td>
-      <td>18828.0</td>
-      <td>355800.0</td>
-    </tr>
-    <tr>
-      <th>(40, 50]</th>
-      <td>8593.8</td>
-      <td>3129.3</td>
-      <td>38979.0</td>
-      <td>843100.0</td>
-    </tr>
-    <tr>
-      <th>(50, 100]</th>
-      <td>2698.1</td>
-      <td>925.1</td>
-      <td>10906.0</td>
-      <td>238100.0</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">by_length</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>species</th>
-      <th>island</th>
-      <th>bill_length_mm</th>
-      <th>bill_depth_mm</th>
-      <th>flipper_length_mm</th>
-      <th>body_mass_g</th>
-      <th>sex</th>
-    </tr>
-    <tr>
-      <th>bill_length_mm</th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>(0, 30]</th>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>(30, 40]</th>
-      <td>100</td>
-      <td>100</td>
-      <td>100</td>
-      <td>100</td>
-      <td>100</td>
-      <td>100</td>
-      <td>96</td>
-    </tr>
-    <tr>
-      <th>(40, 50]</th>
-      <td>190</td>
-      <td>190</td>
-      <td>190</td>
-      <td>190</td>
-      <td>190</td>
-      <td>190</td>
-      <td>185</td>
-    </tr>
-    <tr>
-      <th>(50, 100]</th>
-      <td>52</td>
-      <td>52</td>
-      <td>52</td>
-      <td>52</td>
-      <td>52</td>
-      <td>52</td>
-      <td>52</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
-</div>
-<p>Note that after grouping has been done, you can refer to subsets of values within the group in the usual way.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">by_species</span><span class="p">[</span><span class="s2">&quot;island&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>species    island   
-Adelie     Dream         56
-           Torgersen     52
-           Biscoe        44
-Chinstrap  Dream         68
-Gentoo     Biscoe       124
-Name: island, dtype: int64
-</pre></div>
-</div>
-</div>
-</div>
-<p>Statistical summaries can also be computed by group.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">by_species</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>bill_length_mm</th>
-      <th>bill_depth_mm</th>
-      <th>flipper_length_mm</th>
-      <th>body_mass_g</th>
-    </tr>
-    <tr>
-      <th>species</th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>Adelie</th>
-      <td>38.791391</td>
-      <td>18.346358</td>
-      <td>189.953642</td>
-      <td>3700.662252</td>
-    </tr>
-    <tr>
-      <th>Chinstrap</th>
-      <td>48.833824</td>
-      <td>18.420588</td>
-      <td>195.823529</td>
-      <td>3733.088235</td>
-    </tr>
-    <tr>
-      <th>Gentoo</th>
-      <td>47.504878</td>
-      <td>14.982114</td>
-      <td>217.186992</td>
-      <td>5076.016260</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">by_species</span><span class="p">[</span><span class="s2">&quot;body_mass_g&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>count</th>
-      <th>mean</th>
-      <th>std</th>
-      <th>min</th>
-      <th>25%</th>
-      <th>50%</th>
-      <th>75%</th>
-      <th>max</th>
-    </tr>
-    <tr>
-      <th>species</th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>Adelie</th>
-      <td>151.0</td>
-      <td>3700.662252</td>
-      <td>458.566126</td>
-      <td>2850.0</td>
-      <td>3350.0</td>
-      <td>3700.0</td>
-      <td>4000.0</td>
-      <td>4775.0</td>
-    </tr>
-    <tr>
-      <th>Chinstrap</th>
-      <td>68.0</td>
-      <td>3733.088235</td>
-      <td>384.335081</td>
-      <td>2700.0</td>
-      <td>3487.5</td>
-      <td>3700.0</td>
-      <td>3950.0</td>
-      <td>4800.0</td>
-    </tr>
-    <tr>
-      <th>Gentoo</th>
-      <td>123.0</td>
-      <td>5076.016260</td>
-      <td>504.116237</td>
-      <td>3950.0</td>
-      <td>4700.0</td>
-      <td>5000.0</td>
-      <td>5500.0</td>
-      <td>6300.0</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
-</div>
-<p>A list of the most common predefined aggregation functions is given in <a class="reference internal" href="#table-aggregators"><span class="std std-numref">Table 2.2.1</span></a>. These functions ignore <code class="docutils literal notranslate"><span class="pre">NaN</span></code> (missing) values.</p>
-<table class="table" id="table-aggregators">
-<caption><span class="caption-number">Table 2.2.1 </span><span class="caption-text">Aggregation functions</span><a class="headerlink" href="#table-aggregators" title="Permalink to this table">¶</a></caption>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">mean</span></code></p></td>
-<td><p>Mean of group values</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">sum</span></code></p></td>
-<td><p>Sum of group values</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">count</span></code></p></td>
-<td><p>Count of group values</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">std</span></code>, <code class="docutils literal notranslate"><span class="pre">var</span></code></p></td>
-<td><p>Standard deviation or variance within groups</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">describe</span></code></p></td>
-<td><p>Descriptive statistics</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">first</span></code>, <code class="docutils literal notranslate"><span class="pre">last</span></code></p></td>
-<td><p>First or last of group values</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">min</span></code>, <code class="docutils literal notranslate"><span class="pre">max</span></code></p></td>
-<td><p>Min or max within groups</p></td>
-</tr>
-</tbody>
-</table>
-<p>If you want a more exotic operation, you can call <code class="docutils literal notranslate"><span class="pre">agg</span></code> with your own function.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">iqr</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-    <span class="n">q1</span><span class="p">,</span><span class="n">q3</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">quantile</span><span class="p">([</span><span class="mf">.25</span><span class="p">,</span><span class="mf">.75</span><span class="p">])</span>
-    <span class="k">return</span> <span class="n">q3</span><span class="o">-</span><span class="n">q1</span>
-
-<span class="n">by_length</span><span class="p">[</span><span class="s2">&quot;bill_length_mm&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">iqr</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>bill_length_mm
-(0, 30]        NaN
-(30, 40]     2.800
-(40, 50]     4.875
-(50, 100]    1.625
-Name: bill_length_mm, dtype: float64
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="section" id="transformation">
-<h3>Transformation<a class="headerlink" href="#transformation" title="Permalink to this headline">¶</a></h3>
-<p>In the simplest case, a transformation applies a function to each element of a column, producing a result of the same length that can be indexed the same way. For example, we can standardize to z-scores within each group separately, rather than based on the global mean and std.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">standardize</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-    <span class="k">return</span> <span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span><span class="o">/</span><span class="n">x</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
-
-<span class="n">penguins</span><span class="p">[</span><span class="s2">&quot;group_z&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">by_species</span><span class="p">[</span><span class="s2">&quot;bill_length_mm&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">standardize</span><span class="p">)</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">displot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">penguins</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;group_z&quot;</span><span class="p">,</span><span class="n">col</span><span class="o">=</span><span class="s2">&quot;species&quot;</span><span class="p">);</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/split-apply-combine_21_0.png" src="../_images/split-apply-combine_21_0.png" />
-</div>
-</div>
-<p>If we standardize instead by the global statistics, then the group distributions won’t be standardized.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">penguins</span><span class="p">[</span><span class="s2">&quot;global_z&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">standardize</span><span class="p">(</span><span class="n">penguins</span><span class="p">[</span><span class="s2">&quot;bill_length_mm&quot;</span><span class="p">])</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">displot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">penguins</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;global_z&quot;</span><span class="p">,</span><span class="n">col</span><span class="o">=</span><span class="s2">&quot;species&quot;</span><span class="p">);</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/split-apply-combine_23_0.png" src="../_images/split-apply-combine_23_0.png" />
-</div>
-</div>
-</div>
-<div class="section" id="filtering">
-<h3>Filtering<a class="headerlink" href="#filtering" title="Permalink to this headline">¶</a></h3>
-<p>To apply a filter, provide a function that operates on a column and returns either <code class="docutils literal notranslate"><span class="pre">True</span></code>, meaning to keep the column, or <code class="docutils literal notranslate"><span class="pre">False</span></code>, meaning to reject it. For example, suppose we want to group penguins by body mass.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cuts</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">cut</span><span class="p">(</span><span class="n">penguins</span><span class="p">[</span><span class="s2">&quot;body_mass_g&quot;</span><span class="p">],</span><span class="nb">range</span><span class="p">(</span><span class="mi">2000</span><span class="p">,</span><span class="mi">7000</span><span class="p">,</span><span class="mi">500</span><span class="p">))</span>
-<span class="n">by_mass</span> <span class="o">=</span> <span class="n">penguins</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">cuts</span><span class="p">)</span>
-<span class="n">by_mass</span><span class="p">[</span><span class="s2">&quot;species&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>body_mass_g
-(2000, 2500]     0
-(2500, 3000]    11
-(3000, 3500]    67
-(3500, 4000]    92
-(4000, 4500]    57
-(4500, 5000]    54
-(5000, 5500]    33
-(5500, 6000]    26
-(6000, 6500]     2
-Name: species, dtype: int64
-</pre></div>
-</div>
-</div>
-</div>
-<p>If we want to drop the penguins that fall into groups having fewer than 30 penguins, we use <code class="docutils literal notranslate"><span class="pre">filter</span></code>.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mass_30</span> <span class="o">=</span> <span class="n">by_mass</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">29</span><span class="p">)</span>
-<span class="n">mass_30</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>species</th>
-      <th>island</th>
-      <th>bill_length_mm</th>
-      <th>bill_depth_mm</th>
-      <th>flipper_length_mm</th>
-      <th>body_mass_g</th>
-      <th>sex</th>
-      <th>group_z</th>
-      <th>global_z</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>Adelie</td>
-      <td>Torgersen</td>
-      <td>39.1</td>
-      <td>18.7</td>
-      <td>181.0</td>
-      <td>3750.0</td>
-      <td>Male</td>
-      <td>0.115870</td>
-      <td>-0.883205</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>Adelie</td>
-      <td>Torgersen</td>
-      <td>39.5</td>
-      <td>17.4</td>
-      <td>186.0</td>
-      <td>3800.0</td>
-      <td>Female</td>
-      <td>0.266054</td>
-      <td>-0.809939</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>Adelie</td>
-      <td>Torgersen</td>
-      <td>40.3</td>
-      <td>18.0</td>
-      <td>195.0</td>
-      <td>3250.0</td>
-      <td>Female</td>
-      <td>0.566421</td>
-      <td>-0.663408</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>Adelie</td>
-      <td>Torgersen</td>
-      <td>36.7</td>
-      <td>19.3</td>
-      <td>193.0</td>
-      <td>3450.0</td>
-      <td>Female</td>
-      <td>-0.785232</td>
-      <td>-1.322799</td>
-    </tr>
-    <tr>
-      <th>5</th>
-      <td>Adelie</td>
-      <td>Torgersen</td>
-      <td>39.3</td>
-      <td>20.6</td>
-      <td>190.0</td>
-      <td>3650.0</td>
-      <td>Male</td>
-      <td>0.190962</td>
-      <td>-0.846572</td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th>336</th>
-      <td>Gentoo</td>
-      <td>Biscoe</td>
-      <td>44.5</td>
-      <td>15.7</td>
-      <td>217.0</td>
-      <td>4875.0</td>
-      <td>NaN</td>
-      <td>-0.975022</td>
-      <td>0.105882</td>
-    </tr>
-    <tr>
-      <th>338</th>
-      <td>Gentoo</td>
-      <td>Biscoe</td>
-      <td>47.2</td>
-      <td>13.7</td>
-      <td>214.0</td>
-      <td>4925.0</td>
-      <td>Female</td>
-      <td>-0.098927</td>
-      <td>0.600425</td>
-    </tr>
-    <tr>
-      <th>340</th>
-      <td>Gentoo</td>
-      <td>Biscoe</td>
-      <td>46.8</td>
-      <td>14.3</td>
-      <td>215.0</td>
-      <td>4850.0</td>
-      <td>Female</td>
-      <td>-0.228719</td>
-      <td>0.527159</td>
-    </tr>
-    <tr>
-      <th>342</th>
-      <td>Gentoo</td>
-      <td>Biscoe</td>
-      <td>45.2</td>
-      <td>14.8</td>
-      <td>212.0</td>
-      <td>5200.0</td>
-      <td>Female</td>
-      <td>-0.747886</td>
-      <td>0.234097</td>
-    </tr>
-    <tr>
-      <th>343</th>
-      <td>Gentoo</td>
-      <td>Biscoe</td>
-      <td>49.9</td>
-      <td>16.1</td>
-      <td>213.0</td>
-      <td>5400.0</td>
-      <td>Male</td>
-      <td>0.777168</td>
-      <td>1.094968</td>
-    </tr>
-  </tbody>
-</table>
-<p>303 rows × 9 columns</p>
-</div></div></div>
-</div>
-<p>Notice that the result has been merged (ungrouped) back into a single frame. We can regroup the result, however.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cuts</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">cut</span><span class="p">(</span><span class="n">mass_30</span><span class="p">[</span><span class="s2">&quot;body_mass_g&quot;</span><span class="p">],</span><span class="nb">range</span><span class="p">(</span><span class="mi">2000</span><span class="p">,</span><span class="mi">7000</span><span class="p">,</span><span class="mi">500</span><span class="p">))</span>
-<span class="n">mass_30</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">cuts</span><span class="p">)[</span><span class="s2">&quot;species&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>body_mass_g
-(2000, 2500]     0
-(2500, 3000]     0
-(3000, 3500]    67
-(3500, 4000]    92
-(4000, 4500]    57
-(4500, 5000]    54
-(5000, 5500]    33
-(5500, 6000]     0
-(6000, 6500]     0
-Name: species, dtype: int64
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="section" id="combine">
-<h2>Combine<a class="headerlink" href="#combine" title="Permalink to this headline">¶</a></h2>
-<p>Pandas assembles the results of an application into a series or data frame, depending on the context. Sometimes, you might want to store those values in the original data frame, as shown above with group standardization.</p>
-<p>It’s common to form chains of operations that can be written separately or in one line. For example, consider the task of <strong>imputation</strong>, which is the replacement of missing values by a standard value such as the mean or median. In the penguin dataset, there are two rows with missing numerical values:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bills</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;bill_length_mm&quot;</span><span class="p">,</span><span class="s2">&quot;bill_depth_mm&quot;</span><span class="p">]</span>
-<span class="n">penguins</span><span class="p">[</span><span class="n">bills</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>bill_length_mm    2
-bill_depth_mm     2
-dtype: int64
-</pre></div>
-</div>
-</div>
-</div>
-<p>Given variations between species, we probably want to compute values aggregated by species.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">by_species</span> <span class="o">=</span> <span class="n">penguins</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;species&quot;</span><span class="p">)</span>
-<span class="n">by_species</span><span class="p">[</span><span class="n">bills</span><span class="p">]</span><span class="o">.</span><span class="n">median</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>bill_length_mm</th>
-      <th>bill_depth_mm</th>
-    </tr>
-    <tr>
-      <th>species</th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>Adelie</th>
-      <td>38.80</td>
-      <td>18.40</td>
-    </tr>
-    <tr>
-      <th>Chinstrap</th>
-      <td>49.55</td>
-      <td>18.45</td>
-    </tr>
-    <tr>
-      <th>Gentoo</th>
-      <td>47.30</td>
-      <td>15.00</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
-</div>
-<p>In order to operate columnwise, we apply a custom transformation function using the <code class="docutils literal notranslate"><span class="pre">fillna</span></code> method to replace missing values.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">impute</span><span class="p">(</span><span class="n">col</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">col</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">col</span><span class="o">.</span><span class="n">median</span><span class="p">())</span>
-
-<span class="n">replaced</span> <span class="o">=</span> <span class="n">by_species</span><span class="p">[</span><span class="n">bills</span><span class="p">]</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">impute</span><span class="p">)</span>
-<span class="n">replaced</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>bill_length_mm</th>
-      <th>bill_depth_mm</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>39.1</td>
-      <td>18.7</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>39.5</td>
-      <td>17.4</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>40.3</td>
-      <td>18.0</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>38.8</td>
-      <td>18.4</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>36.7</td>
-      <td>19.3</td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th>339</th>
-      <td>47.3</td>
-      <td>15.0</td>
-    </tr>
-    <tr>
-      <th>340</th>
-      <td>46.8</td>
-      <td>14.3</td>
-    </tr>
-    <tr>
-      <th>341</th>
-      <td>50.4</td>
-      <td>15.7</td>
-    </tr>
-    <tr>
-      <th>342</th>
-      <td>45.2</td>
-      <td>14.8</td>
-    </tr>
-    <tr>
-      <th>343</th>
-      <td>49.9</td>
-      <td>16.1</td>
-    </tr>
-  </tbody>
-</table>
-<p>344 rows × 2 columns</p>
-</div></div></div>
-</div>
-<p>Replacement has happened in the row with index 3, for example. Finally, we can overwrite the columns of the original data frame, if we don’t care to know in the future which values were imputed. All of the necessary steps can be compressed into one chain:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">penguins</span><span class="p">[</span><span class="n">bills</span><span class="p">]</span> <span class="o">=</span> <span class="n">penguins</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;species&quot;</span><span class="p">)[</span><span class="n">bills</span><span class="p">]</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">median</span><span class="p">()))</span>
-<span class="n">penguins</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>species</th>
-      <th>island</th>
-      <th>bill_length_mm</th>
-      <th>bill_depth_mm</th>
-      <th>flipper_length_mm</th>
-      <th>body_mass_g</th>
-      <th>sex</th>
-      <th>group_z</th>
-      <th>global_z</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>Adelie</td>
-      <td>Torgersen</td>
-      <td>39.1</td>
-      <td>18.7</td>
-      <td>181.0</td>
-      <td>3750.0</td>
-      <td>Male</td>
-      <td>0.115870</td>
-      <td>-0.883205</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>Adelie</td>
-      <td>Torgersen</td>
-      <td>39.5</td>
-      <td>17.4</td>
-      <td>186.0</td>
-      <td>3800.0</td>
-      <td>Female</td>
-      <td>0.266054</td>
-      <td>-0.809939</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>Adelie</td>
-      <td>Torgersen</td>
-      <td>40.3</td>
-      <td>18.0</td>
-      <td>195.0</td>
-      <td>3250.0</td>
-      <td>Female</td>
-      <td>0.566421</td>
-      <td>-0.663408</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>Adelie</td>
-      <td>Torgersen</td>
-      <td>38.8</td>
-      <td>18.4</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>Adelie</td>
-      <td>Torgersen</td>
-      <td>36.7</td>
-      <td>19.3</td>
-      <td>193.0</td>
-      <td>3450.0</td>
-      <td>Female</td>
-      <td>-0.785232</td>
-      <td>-1.322799</td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th>339</th>
-      <td>Gentoo</td>
-      <td>Biscoe</td>
-      <td>47.3</td>
-      <td>15.0</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>340</th>
-      <td>Gentoo</td>
-      <td>Biscoe</td>
-      <td>46.8</td>
-      <td>14.3</td>
-      <td>215.0</td>
-      <td>4850.0</td>
-      <td>Female</td>
-      <td>-0.228719</td>
-      <td>0.527159</td>
-    </tr>
-    <tr>
-      <th>341</th>
-      <td>Gentoo</td>
-      <td>Biscoe</td>
-      <td>50.4</td>
-      <td>15.7</td>
-      <td>222.0</td>
-      <td>5750.0</td>
-      <td>Male</td>
-      <td>0.939408</td>
-      <td>1.186550</td>
-    </tr>
-    <tr>
-      <th>342</th>
-      <td>Gentoo</td>
-      <td>Biscoe</td>
-      <td>45.2</td>
-      <td>14.8</td>
-      <td>212.0</td>
-      <td>5200.0</td>
-      <td>Female</td>
-      <td>-0.747886</td>
-      <td>0.234097</td>
-    </tr>
-    <tr>
-      <th>343</th>
-      <td>Gentoo</td>
-      <td>Biscoe</td>
-      <td>49.9</td>
-      <td>16.1</td>
-      <td>213.0</td>
-      <td>5400.0</td>
-      <td>Male</td>
-      <td>0.777168</td>
-      <td>1.094968</td>
-    </tr>
-  </tbody>
-</table>
-<p>344 rows × 9 columns</p>
-</div></div></div>
-</div>
-<div style="max-width:608px"><div style="position:relative;padding-bottom:66.118421052632%"><iframe id="kaltura_player" src="https://cdnapisec.kaltura.com/p/2358381/sp/235838100/embedIframeJs/uiconf_id/43030021/partner_id/2358381?iframeembed=true&playerId=kaltura_player&entry_id=1_j14xt0g5&flashvars[streamerType]=auto&amp;flashvars[localizationCode]=en&amp;flashvars[leadWithHTML5]=true&amp;flashvars[sideBarContainer.plugin]=true&amp;flashvars[sideBarContainer.position]=left&amp;flashvars[sideBarContainer.clickToClose]=true&amp;flashvars[chapters.plugin]=true&amp;flashvars[chapters.layout]=vertical&amp;flashvars[chapters.thumbnailRotator]=false&amp;flashvars[streamSelector.plugin]=true&amp;flashvars[EmbedPlayer.SpinnerTarget]=videoHolder&amp;flashvars[dualScreen.plugin]=true&amp;flashvars[Kaltura.addCrossoriginToIframe]=true&amp;&wid=1_062xwo3h" width="608" height="402" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen *; encrypted-media *" sandbox="allow-forms allow-same-origin allow-scripts allow-top-navigation allow-pointer-lock allow-popups allow-modals allow-orientation-lock allow-popups-to-escape-sandbox allow-presentation allow-top-navigation-by-user-activation" frameborder="0" title="Kaltura Player" style="position:absolute;top:0;left:0;width:100%;height:100%"></iframe></div></div></div>
-</div>
-
-    <script type="text/x-thebe-config">
-    {
-        requestKernel: true,
-        binderOptions: {
-            repo: "UD-Math-Data-Science-1/notes",
-            ref: "main",
-        },
-        codeMirrorConfig: {
-            theme: "abcdef",
-            mode: "python"
-        },
-        kernelOptions: {
-            kernelName: "python3",
-            path: "./statistics"
-        },
-        predefinedOutput: true
-    }
-    </script>
-    <script>kernelName = 'python3'</script>
-
-              </div>
-              
-        
-            <!-- Previous / next buttons -->
+            
+                <!-- Previous / next buttons -->
 <div class='prev-next-area'> 
     <a class='left-prev' id="prev-link" href="summary.html" title="previous page">
         <i class="fas fa-angle-left"></i>
@@ -3028,7 +1761,7 @@ dtype: int64
     <i class="fas fa-angle-right"></i>
     </a>
 </div>
-        
+            
         </div>
     </div>
     <footer class="footer">
