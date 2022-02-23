@@ -2,9 +2,9 @@
 
 For these exercises, you may of course use computer help to work on a problem, but your answer should be self-contained without reference to computer output (unless stated otherwise).
 
-1. For $n>2$, Let $x_i=0$ for $i=1,\ldots,n-1$, and $x_n=M$. Find the **(a)** mean, **(b)** median, **(c)** variance $s_{n-1}^2$, and **(d)** z-scores of the samples in terms of $M$ and $n$.
+1. For $n>2$, let $x_i=0$ for $i=1,\ldots,n-1$, and $x_n=M$. Find the **(a)** sample mean, **(b)** sample median, **(c)** corrected sample variance $s_{n-1}^2$, and **(d)** sample z-scores of the $x_i$ in terms of $M$ and $n$.
 
-2. Suppose any samples $x_1,\ldots,x_n$ have z-scores $z_1,\ldots,z_n$. 
+2. Suppose the samples $x_1,\ldots,x_n$ have z-scores $z_1,\ldots,z_n$. 
 
     **(a)** Show that $\displaystyle \sum_{i=1}^n z_i = 0.$
 
@@ -47,7 +47,7 @@ For these exercises, you may of course use computer help to work on a problem, b
     
     **(a)** Explain why the derivative of $r_1$ is undefined at every $x_i$. Consequently, all of the $x_i$ are critical points of $r_1$. 
     
-    **(b)** Determine $r_1'$ within each piece of the real axis between observation values, and explain why there cannot be any more critical points to consider. (Note: you can drop all of the absolute values when $x$ between the $x_i$, if you write out the expression in a certain way.)
+    **(b)** Determine $r_1'$ within each piece of the real axis between observation values, and explain why there cannot be any additional critical points to consider. (Note: you can drop all of the absolute values when $x$ between the $x_i$, if you write out the expression appropriately.)
 
     **(c)** By appealing to the derivative, explain why it must be that
 
