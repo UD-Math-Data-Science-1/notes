@@ -132,7 +132,7 @@ from sklearn.model_selection import train_test_split
 X_tr, X_te, y_tr, y_te = train_test_split(X,y,test_size=0.2,shuffle=True,random_state=0)
 ```
 
-The `svm` module in sklearn defines `SVC` for classification. By default, it uses an RBF kernel, but here we require it to use the linear kernel (that is, a true hyperplane).
+The `svm` module in sklearn defines `SVC` for classification. By default, it uses an RBF kernel, but here we require it to use the linear kernel (that is, a true hyperplane as the decision boundary).
 
 ```{code-cell}
 from sklearn.svm import SVC
