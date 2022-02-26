@@ -2,6 +2,7 @@
 title: Data Science 1
 author: Tobin A. Driscoll
 logo: logo.png
+copyright: "2022"
 
 exclude_patterns: 
   - etc/*.ipynb
@@ -34,6 +35,7 @@ execute:
 
 html:
   favicon: favicon.ico
+  extra_footer: "<img alt='UD logo' src='_static/UDlogo-small.png'>"
   # google_analytics_id: UA-172898555-1
 
 sphinx:
