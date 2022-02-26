@@ -19,7 +19,7 @@ $$
 y \approx f(\bfx) = w_1 x_1 + w_2x_2 + \cdots w_d x_d + b.
 $$
 
-Observe that we can drop the intercept term $b$ from the discussion, because we could always define an additional constant predictor variable $x_{d+1}=1$ and get the same effect. So
+We can drop the intercept term $b$ from the discussion, because we could always define an additional constant predictor variable $x_{d+1}=1$ and get the same effect. So
 
 $$
 y \approx f(\bfx) = w_1 x_1 + w_2x_2 + \cdots w_d x_d = \bfw^T\bfx = \bfx^T\bfw,
@@ -45,7 +45,7 @@ $$
 L(\bfw) = \twonorm{\bfX \bfw- \bfy}^2.
 $$
 
-As in the univariate case, minimizing the loss boils down to solving a linear system of equations for $\bfw$.
+As in the univariate case, minimizing the loss boils down to solving a linear system of equations, known as the *normal equations*, for $\bfw$.
 
 ## Polynomial regression
 
@@ -86,21 +86,21 @@ A cubic polynomial produces a much more plausible fit, especially on the right h
 sns.lmplot(data=cars,x="horsepower",y="mpg",order=3);
 ```
 
-In order to produce the cubic fit in sklearn, we use the `PolynomialFeatures` preprocessor in a pipeline. If the original horsepower predictor variable is $t$, then the preprocessor will create columns for $1$, $t$, $t^2$, and $t^3$. (Since the constant feature is added in, we don't need to fit the intercept with the linear regressor.)
+In order to produce the cubic fit in sklearn, we use the `PolynomialFeatures` preprocessor in a pipeline. If the original horsepower predictor variable is $t$, then the preprocessor will create features for $1$, $t$, $t^2$, and $t^3$. (Since the constant feature is added in, we don't need to fit the intercept with the linear regressor.)
 
 ```{code-cell} ipython3
 from sklearn.linear_model import LinearRegression
 from sklearn.preprocessing import PolynomialFeatures
 from sklearn.pipeline import make_pipeline
-import numpy as np
+import pandas as pd
 
-X = np.array(cars["horsepower"]).reshape(-1,1)
+X = cars[["horsepower"]].to_numpy()
 y = cars["mpg"]
 lm = LinearRegression(fit_intercept=False)
 cubic = make_pipeline(PolynomialFeatures(degree=3),lm)
 cubic.fit(X,y)
 
-print("prediction at hp=100:",cubic.predict([[200]]))
+print("prediction at hp=200:",cubic.predict([[200]]))
 ```
 
 The prediction above is consistent with the earlier figure. 
@@ -135,7 +135,9 @@ The results above are a classic example of overfitting and the bias–variance t
 sns.lmplot(data=cars,x="horsepower",y="mpg",order=10);
 ```
 
-Now suppose that we keep more of the original data columns and pursue a multilinear fit. We chain it with a `StandardScaler` so that all columns have equal mean and scale.
+In the above plot, note the widening of the confidence intervals near the ends of the domain, indicating increased variance in the predictions. 
+
+Next, we keep more of the original data features and pursue a multilinear fit. We chain it with a `StandardScaler` so that all columns have equal mean and scale.
 
 ```{code-cell} ipython3
 from sklearn.preprocessing import StandardScaler
@@ -150,11 +152,10 @@ pipe.fit(X_tr,y_tr)
 print(f"MSE for multilinear:",mean_squared_error(y_te,pipe.predict(X_te)))
 ```
 
-The fit here is actually a little worse than the low-degree fits on horsepower alone. However, by comparing the coefficients of the individual features, some interesting information emerges:
+The fit here is actually a little worse than the low-degree fits based on horsepower alone. However, by comparing the coefficients of the individual features, some interesting information emerges:
 
 ```{code-cell} ipython3
-print(pipe[1].coef_)
-print(X.columns)
+pd.Series(pipe[1].coef_,index=X.columns)
 ```
 
 We now have a hypothesis that weight is the most significant negative factor for MPG, and by a wide margin.

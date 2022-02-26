@@ -37,7 +37,7 @@ You certainly know about the **mean** of values $x_1,\ldots,x_n$:
 \mu = \frac{1}{n}\sum_{i=1}^n x_i.
 ```
 
-The "std" row of the summary table is a measurement of spread. First define the **variance** $\sigma^2$ as 
+The *std* row of the summary table is a measurement of spread. First define the **variance** $\sigma^2$ as 
 
 ```{math}
 :label: eq-statistics-var
@@ -115,7 +115,11 @@ As you can see from the formulas, the sample variance is always too large as an 
 Sources are not always clear about this terminology. Some use *sample variance* to mean $s_{n-1}^2$, not $s_n^2$, and many even omit the subscripts. You always have to check each source.
 ```
 
-For standard deviation, *neither* $s_n$ *nor* $s_{n-1}$ is an unbiased estimator of $\sigma$. There is no simple correction that works for all distributions. Unfortunately, `std` in numpy returns $s_n$, while `std` in pandas returns $s_{n-1}$.
+For standard deviation, *neither* $s_n$ *nor* $s_{n-1}$ is an unbiased estimator of $\sigma$. There is no simple correction that works for all distributions. Our practice is to use $s_{n-1}$, which is what `std` computes in pandas. (Unfortunately, `std` in numpy returns $s_n$.) Thus, for instance, a **sample z-score** for $x_i$ is 
+
+$$
+z_i = \frac{x_i-\bar{x}}{s_{n-1}}.
+$$
 
 ## Median and quantiles
 
