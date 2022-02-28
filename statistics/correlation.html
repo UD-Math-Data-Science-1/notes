@@ -23,7 +23,7 @@
 
     
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=84ace793992934648b4de8eed757e5a2" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
@@ -39,13 +39,16 @@
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../_static/sphinx-book-theme.9d8b4a8b9bb19db25eeaddc40d639ba2.js"></script>
-    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
     <script>window.MathJax = {"tex": {"macros": {"float": ["\\mathbb{F}"], "real": ["\\mathbb{R}"], "complex": ["\\mathbb{C}"], "nat": ["\\mathbb{N}"], "integer": ["\\mathbb{Z}"], "bfa": "\\mathbf{a}", "bfe": "\\mathbf{e}", "bfx": "\\mathbf{x}", "bfX": "\\mathbf{X}", "bfu": "\\mathbf{u}", "bfv": "\\mathbf{v}", "bfw": "\\mathbf{w}", "bfy": "\\mathbf{y}", "bfz": "\\mathbf{z}", "bfzero": "\\boldsymbol{0}", "bfmu": "\\boldsymbol{\\mu}", "TP": "\\text{TP}", "TN": "\\text{TN}", "FP": "\\text{FP}", "FN": "\\text{FN}", "rmn": ["\\mathbb{R}^{#1 \\times #2}", 2], "dd": ["\\frac{d #1}{d #2}", 2], "pp": ["\\frac{\\partial #1}{\\partial #2}", 2], "norm": ["\\lVert #1 \\rVert", 1], "twonorm": ["\\norm{#1}_2", 1], "onenorm": ["\\norm{#1}_1", 1], "infnorm": ["\\norm{#1}_\\infty", 1], "innerprod": ["\\langle #1,#2 \\rangle", 2], "pr": ["^{(#1)}", 1], "diag": ["\\operatorname{diag}"], "sign": ["\\operatorname{sign}"], "ee": ["\\times 10^"], "floor": ["\\lfloor#1\\rfloor", 1], "argmin": ["\\operatorname{argmin}"], "Cov": ["\\operatorname{Cov}"], "logit": ["\\operatorname{logit}"]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
     <script>
         const thebe_selector = ".thebe,.cell"
@@ -74,12 +77,7 @@
     <div class="container-xl">
       <div class="row">
           
-<!-- Checkboxes to toggle the left sidebar -->
-<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
-<label class="overlay" for="__navigation">
-    <div class="visually-hidden">Toggle navigation sidebar</div>
-</label>
-<div class="col-12 col-md-3 bd-sidebar site-navigation " id="site-navigation">
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
     
         <div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../index.html">
@@ -282,10 +280,27 @@
    </li>
   </ul>
  </li>
- <li class="toctree-l1">
+ <li class="toctree-l1 has-children">
   <a class="reference internal" href="../network/overview.html">
    6. Networks
   </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+  <label for="toctree-checkbox-6">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../network/networkx.html">
+     6.1. Basics of NetworkX
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../network/degree.html">
+     6.2. Degree and distance
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 
@@ -303,22 +318,22 @@
 
 
           
-<!-- This is an invisible pixel that we watch to see if we've scrolled. -->
-<div class="sbt-scroll-pixel-helper"></div>
 <main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
     
     <div class="topbar container-xl fixed-top">
     <div class="topbar-contents row">
         <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
         <div class="col pl-md-4 topbar-main">
-            <div class="topbar-left">
-                
-                <label class="nav-toggle-button" for="__navigation">
-                    <div class="visually-hidden">Toggle navigation</div>
-                    <i class="fas fa-bars"></i>
-                </label>
-                
-            </div>
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
             
 <div class="dropdown-buttons-trigger">
     <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
@@ -361,7 +376,6 @@
                 data-placement="left"><img class="binder-button-logo"
                     src="../_static/images/logo_binder.svg"
                     alt="Interact on binder">Binder</button></a>
-        
         
         
         
@@ -468,7 +482,7 @@
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="n">penguins</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">load_dataset</span><span class="p">(</span><span class="s2">&quot;penguins&quot;</span><span class="p">)</span>
+<span class="n">penguins</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">load_dataset</span><span class="p">(</span><span class="s2">&quot;penguins&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
 <span class="n">penguins</span>
 </pre></div>
 </div>
@@ -533,16 +547,6 @@
       <td>Female</td>
     </tr>
     <tr>
-      <th>3</th>
-      <td>Adelie</td>
-      <td>Torgersen</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
       <th>4</th>
       <td>Adelie</td>
       <td>Torgersen</td>
@@ -551,6 +555,16 @@
       <td>193.0</td>
       <td>3450.0</td>
       <td>Female</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Adelie</td>
+      <td>Torgersen</td>
+      <td>39.3</td>
+      <td>20.6</td>
+      <td>190.0</td>
+      <td>3650.0</td>
+      <td>Male</td>
     </tr>
     <tr>
       <th>...</th>
@@ -563,14 +577,14 @@
       <td>...</td>
     </tr>
     <tr>
-      <th>339</th>
+      <th>338</th>
       <td>Gentoo</td>
       <td>Biscoe</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
+      <td>47.2</td>
+      <td>13.7</td>
+      <td>214.0</td>
+      <td>4925.0</td>
+      <td>Female</td>
     </tr>
     <tr>
       <th>340</th>
@@ -614,7 +628,7 @@
     </tr>
   </tbody>
 </table>
-<p>344 rows × 7 columns</p>
+<p>333 rows × 7 columns</p>
 </div></div></div>
 </div>
 <p>There are often observations that we believe to be linked, either because one influences the other, or both are influenced by some other factor. That is, we say the quantities are <strong>correlated</strong>. This can become apparent using <code class="docutils literal notranslate"><span class="pre">pairplot</span></code> in seaborn.</p>
@@ -678,7 +692,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>9824.416062149508
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>9852.191649480803
 </pre></div>
 </div>
 </div>
@@ -691,7 +705,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.8712017673060113
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.872978898565361
 </pre></div>
 </div>
 </div>
@@ -782,40 +796,280 @@
 <p>How can we quantify the association? The first step is to convert the species column into dummy variables.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dum</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">penguins</span><span class="p">)</span>
+<span class="n">dum</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>bill_length_mm</th>
+      <th>bill_depth_mm</th>
+      <th>flipper_length_mm</th>
+      <th>body_mass_g</th>
+      <th>species_Adelie</th>
+      <th>species_Chinstrap</th>
+      <th>species_Gentoo</th>
+      <th>island_Biscoe</th>
+      <th>island_Dream</th>
+      <th>island_Torgersen</th>
+      <th>sex_Female</th>
+      <th>sex_Male</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>39.1</td>
+      <td>18.7</td>
+      <td>181.0</td>
+      <td>3750.0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>39.5</td>
+      <td>17.4</td>
+      <td>186.0</td>
+      <td>3800.0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>40.3</td>
+      <td>18.0</td>
+      <td>195.0</td>
+      <td>3250.0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>36.7</td>
+      <td>19.3</td>
+      <td>193.0</td>
+      <td>3450.0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>39.3</td>
+      <td>20.6</td>
+      <td>190.0</td>
+      <td>3650.0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>338</th>
+      <td>47.2</td>
+      <td>13.7</td>
+      <td>214.0</td>
+      <td>4925.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>340</th>
+      <td>46.8</td>
+      <td>14.3</td>
+      <td>215.0</td>
+      <td>4850.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>341</th>
+      <td>50.4</td>
+      <td>15.7</td>
+      <td>222.0</td>
+      <td>5750.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>342</th>
+      <td>45.2</td>
+      <td>14.8</td>
+      <td>212.0</td>
+      <td>5200.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>343</th>
+      <td>49.9</td>
+      <td>16.1</td>
+      <td>213.0</td>
+      <td>5400.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+<p>333 rows × 12 columns</p>
+</div></div></div>
+</div>
+<p>The original species column has been replaced by three binary indicator columns. Now we can look for correlations between them and the body mass:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;body_mass_g&quot;</span><span class="p">,</span><span class="s2">&quot;species_Adelie&quot;</span><span class="p">,</span><span class="s2">&quot;species_Chinstrap&quot;</span><span class="p">,</span><span class="s2">&quot;species_Gentoo&quot;</span><span class="p">]</span>
 <span class="n">dum</span><span class="p">[</span><span class="n">cols</span><span class="p">]</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="n">cn</span><span class="o">/</span><span class="mi">8</span><span class="n">w40979d27x0kv2wsnx7zgvm0000gp</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_10498</span><span class="o">/</span><span class="mf">2767667291.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;body_mass_g&quot;</span><span class="p">,</span><span class="s2">&quot;species_Adelie&quot;</span><span class="p">,</span><span class="s2">&quot;species_Chinstrap&quot;</span><span class="p">,</span><span class="s2">&quot;species_Gentoo&quot;</span><span class="p">]</span>
-<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">dum</span><span class="p">[</span><span class="n">cols</span><span class="p">]</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
 
-<span class="ne">NameError</span>: name &#39;dum&#39; is not defined
-</pre></div>
-</div>
-</div>
-</div>
-<p>The original species column has been replaced by three binary indicator columns. Now we can look for correlations between them and the body mass:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dum</span><span class="p">[[</span><span class="s2">&quot;body_mass_g&quot;</span><span class="p">,</span><span class="s2">&quot;species_Adelie&quot;</span><span class="p">,</span><span class="s2">&quot;species_Chinstrap&quot;</span><span class="p">,</span><span class="s2">&quot;species_Gentoo&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="n">cn</span><span class="o">/</span><span class="mi">8</span><span class="n">w40979d27x0kv2wsnx7zgvm0000gp</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_10498</span><span class="o">/</span><span class="mf">1693838879.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">dum</span><span class="p">[[</span><span class="s2">&quot;body_mass_g&quot;</span><span class="p">,</span><span class="s2">&quot;species_Adelie&quot;</span><span class="p">,</span><span class="s2">&quot;species_Chinstrap&quot;</span><span class="p">,</span><span class="s2">&quot;species_Gentoo&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
 
-<span class="ne">NameError</span>: name &#39;dum&#39; is not defined
-</pre></div>
-</div>
-</div>
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>body_mass_g</th>
+      <th>species_Adelie</th>
+      <th>species_Chinstrap</th>
+      <th>species_Gentoo</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>body_mass_g</th>
+      <td>1.000000</td>
+      <td>-0.550479</td>
+      <td>-0.298622</td>
+      <td>0.821178</td>
+    </tr>
+    <tr>
+      <th>species_Adelie</th>
+      <td>-0.550479</td>
+      <td>1.000000</td>
+      <td>-0.447597</td>
+      <td>-0.658904</td>
+    </tr>
+    <tr>
+      <th>species_Chinstrap</th>
+      <td>-0.298622</td>
+      <td>-0.447597</td>
+      <td>1.000000</td>
+      <td>-0.377744</td>
+    </tr>
+    <tr>
+      <th>species_Gentoo</th>
+      <td>0.821178</td>
+      <td>-0.658904</td>
+      <td>-0.377744</td>
+      <td>1.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 <p>As you can see from the above, Adelie and (to a lesser extent) Chinstrap are associated with lower mass, while Gentoo is strongly associated with higher mass.</p>
 </div>
@@ -857,29 +1111,29 @@
     <tr>
       <th>bill_length_mm</th>
       <td>1.000000</td>
-      <td>-0.235053</td>
-      <td>0.656181</td>
-      <td>0.595110</td>
+      <td>-0.228626</td>
+      <td>0.653096</td>
+      <td>0.589451</td>
     </tr>
     <tr>
       <th>bill_depth_mm</th>
-      <td>-0.235053</td>
+      <td>-0.228626</td>
       <td>1.000000</td>
-      <td>-0.583851</td>
-      <td>-0.471916</td>
+      <td>-0.577792</td>
+      <td>-0.472016</td>
     </tr>
     <tr>
       <th>flipper_length_mm</th>
-      <td>0.656181</td>
-      <td>-0.583851</td>
+      <td>0.653096</td>
+      <td>-0.577792</td>
       <td>1.000000</td>
-      <td>0.871202</td>
+      <td>0.872979</td>
     </tr>
     <tr>
       <th>body_mass_g</th>
-      <td>0.595110</td>
-      <td>-0.471916</td>
-      <td>0.871202</td>
+      <td>0.589451</td>
+      <td>-0.472016</td>
+      <td>0.872979</td>
       <td>1.000000</td>
     </tr>
   </tbody>
@@ -932,29 +1186,29 @@
       <th rowspan="4" valign="top">Adelie</th>
       <th>bill_length_mm</th>
       <td>1.000000</td>
-      <td>0.391492</td>
-      <td>0.325785</td>
-      <td>0.548866</td>
+      <td>0.385813</td>
+      <td>0.332274</td>
+      <td>0.544276</td>
     </tr>
     <tr>
       <th>bill_depth_mm</th>
-      <td>0.391492</td>
+      <td>0.385813</td>
       <td>1.000000</td>
-      <td>0.307620</td>
-      <td>0.576138</td>
+      <td>0.310897</td>
+      <td>0.580156</td>
     </tr>
     <tr>
       <th>flipper_length_mm</th>
-      <td>0.325785</td>
-      <td>0.307620</td>
+      <td>0.332274</td>
+      <td>0.310897</td>
       <td>1.000000</td>
-      <td>0.468202</td>
+      <td>0.464854</td>
     </tr>
     <tr>
       <th>body_mass_g</th>
-      <td>0.548866</td>
-      <td>0.576138</td>
-      <td>0.468202</td>
+      <td>0.544276</td>
+      <td>0.580156</td>
+      <td>0.464854</td>
       <td>1.000000</td>
     </tr>
     <tr>
@@ -990,29 +1244,29 @@
       <th rowspan="4" valign="top">Gentoo</th>
       <th>bill_length_mm</th>
       <td>1.000000</td>
-      <td>0.643384</td>
-      <td>0.661162</td>
-      <td>0.669166</td>
+      <td>0.654023</td>
+      <td>0.664205</td>
+      <td>0.666730</td>
     </tr>
     <tr>
       <th>bill_depth_mm</th>
-      <td>0.643384</td>
+      <td>0.654023</td>
       <td>1.000000</td>
-      <td>0.706563</td>
-      <td>0.719085</td>
+      <td>0.710642</td>
+      <td>0.722967</td>
     </tr>
     <tr>
       <th>flipper_length_mm</th>
-      <td>0.661162</td>
-      <td>0.706563</td>
+      <td>0.664205</td>
+      <td>0.710642</td>
       <td>1.000000</td>
-      <td>0.702667</td>
+      <td>0.711305</td>
     </tr>
     <tr>
       <th>body_mass_g</th>
-      <td>0.669166</td>
-      <td>0.719085</td>
-      <td>0.702667</td>
+      <td>0.666730</td>
+      <td>0.722967</td>
+      <td>0.711305</td>
       <td>1.000000</td>
     </tr>
   </tbody>

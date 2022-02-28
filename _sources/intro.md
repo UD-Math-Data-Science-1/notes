@@ -23,6 +23,7 @@ Here are places around the web with data available for download.
 * [UCI Machine Learning Repository](https://archive.ics.uci.edu/ml/index.php) Long-standing site for datasets that have been used extensively in machine learning research.
 * [Open ML](https://www.openml.org/search?type=data&from=300&q=qualities.NumberOfClasses%3A%3E2) Sort of abandoned years ago, but lots of eclectic datasets remain.
 * [IMDB Datasets](https://www.imdb.com/interfaces/) Information about movies and TVs. (Big files!)
+* [Stanford Network Analysis Project](https://snap.stanford.edu/index.html) Datasets presented as networks.
 
 ## Glossary
 

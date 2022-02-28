@@ -17,7 +17,7 @@ For illustrations, let us load a data set about penguins.
 ```{code-cell} ipython3
 import pandas as pd
 import seaborn as sns
-penguins = sns.load_dataset("penguins")
+penguins = sns.load_dataset("penguins").dropna()
 penguins
 ```
 
@@ -148,14 +148,15 @@ sns.displot(data=penguins,x="body_mass_g",col="species");
 How can we quantify the association? The first step is to convert the species column into dummy variables.
 
 ```{code-cell}
-cols = ["body_mass_g","species_Adelie","species_Chinstrap","species_Gentoo"]
-dum[cols].corr()
+dum = pd.get_dummies(penguins)
+dum
 ```
 
 The original species column has been replaced by three binary indicator columns. Now we can look for correlations between them and the body mass:
 
 ```{code-cell}
-dum[["body_mass_g","species_Adelie","species_Chinstrap","species_Gentoo"]].corr()
+cols = ["body_mass_g","species_Adelie","species_Chinstrap","species_Gentoo"]
+dum[cols].corr()
 ```
 
 As you can see from the above, Adelie and (to a lesser extent) Chinstrap are associated with lower mass, while Gentoo is strongly associated with higher mass.
