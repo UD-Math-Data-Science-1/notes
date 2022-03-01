@@ -25,18 +25,19 @@ $$
 \norm{\bfzero} &= 0,  \\ 
 \norm{\bfx} &> 0 \text{ if $\bfx$ is a nonzero vector}, \\ 
 \norm{c\bfx} &= |c| \, \norm{x} \text{ for any real number $c$}, \\ 
-\norm{\bfx + \bfy } &\le \bfx + \bfy.
+\norm{\bfx + \bfy } &\le \norm{\bfx} + \norm{\bfy} 
 $$
 ```
 
 The last inequality above is called the **triangle inequality**. It turns out that these four characteristics are all we expect from a function that behaves like a distance. 
 
-We will encounter two different norms:
+On the number line (i.e., $\real^1$), the distance between two values is just the absolute value of their difference, $|x-y|$. In $\real^d$, the distance between two vectors is the norm of their difference, $\norm{ \bfx - \bfy }$. 
+
+We will 0encounter two different norms:
 
 * The 2-norm, $\twonorm{\bfx} = \bigl(x_1^2 + x_2^2 + \cdots + x_d^2\bigr)^{1/2}.$
 * The 1-norm, $\onenorm{\bfx} = |x_1| + |x_2| + \cdots + |x_d|.$
 
-On the number line (i.e., $\real^1$), the distance between two values is just the absolute value of their difference, $|x-y|$. In $\real^d$, the distance between two vectors is the norm of their difference, $\norm{ \bfx - \bfy }$. 
 
 The 2-norm is also called the *Euclidean norm*. It generalizes ordinary geometric distance in $\real^2$ and $\real^3$ and is usually considered the default. The 1-norm is sometimes called the *Manhattan norm*, because in $\real^2$ it represents the total number of east/west and north/south moves needed between points on a grid.
 
@@ -74,8 +75,8 @@ y = penguins["species"]
 Scikit-learn plays nicely with pandas, so we don't have to translate the data into new structures. 
 
 ```{code-cell}
-from sklearn import neighbors
-knn = neighbors.KNeighborsClassifier(n_neighbors=5)
+from sklearn.neighbors import KNeighborsClassifier
+knn = KNeighborsClassifier(n_neighbors=5)
 knn.fit(X,y)
 ```
 
@@ -123,25 +124,6 @@ print(confusion_matrix(y_te,yhat))
 print(classification_report(y_te,yhat))
 ```
 
-
-<!-- To assess performance, let's apply 10-fold cross-validation to KNN learners with varying $k$.
-```{code-cell}
-from sklearn.model_selection import cross_val_score,KFold
-
-K = range(1,10)
-score_mean,score_std = [],[]
-kf = KFold(n_splits=10,shuffle=True,random_state=1)
-for k in K:
-    knn = neighbors.KNeighborsClassifier(n_neighbors=k)
-    scores = cross_val_score(knn,X,y,cv=kf)
-    score_mean.append(scores.mean())
-    score_std.append(scores.std())
-
-pd.DataFrame({"k":K,"accuracy mean":score_mean,"accuracy std":score_std})
-```
-
-There is no improvement here over $k=1$, in which each query just adopts the species of the nearest data vector. -->
-
 The default norm in the KNN learner is the 2-norm. To use the 1-norm instead, add `metric="manhattan"` to the classifier construction call.
 
 ## Standardization
@@ -183,7 +165,7 @@ from sklearn.preprocessing import StandardScaler   # converts to z-scores
 
 X_tr, X_te, y_tr, y_te = train_test_split(X,y,test_size=0.2)
 
-knn = neighbors.KNeighborsClassifier(n_neighbors=5)
+knn = KNeighborsClassifier(n_neighbors=5)
 pipe = make_pipeline(StandardScaler(),knn)
 
 pipe.fit(X_tr,y_tr)
