@@ -23,6 +23,7 @@ chapters:
     - file: classification/decision-trees
     - file: classification/nearest-neighbors
     - file: classification/svm
+    - file: classification/overfitting
     - file: classification/model-selection
     - file: classification/exercises
   - file: regression/overview
@@ -37,8 +38,8 @@ chapters:
     - file: clustering/k-means
     - file: clustering/hierarchical
   - file: network/overview
-  #   sections:
-  #   - file: network/graphs
-  #   - file: network/visualization
+    sections:
+    - file: network/networkx
+    - file: network/degree
   #   - file: network/degree
   #   - file: network/centrality
