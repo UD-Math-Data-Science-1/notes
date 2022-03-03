@@ -23,7 +23,7 @@
 
     
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=84ace793992934648b4de8eed757e5a2" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
@@ -39,16 +39,13 @@
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
-    <script>let toggleHintShow = 'Click to show';</script>
-    <script>let toggleHintHide = 'Click to hide';</script>
-    <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script src="../_static/sphinx-book-theme.9d8b4a8b9bb19db25eeaddc40d639ba2.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>window.MathJax = {"tex": {"macros": {"float": ["\\mathbb{F}"], "real": ["\\mathbb{R}"], "complex": ["\\mathbb{C}"], "nat": ["\\mathbb{N}"], "integer": ["\\mathbb{Z}"], "bfa": "\\mathbf{a}", "bfe": "\\mathbf{e}", "bfx": "\\mathbf{x}", "bfX": "\\mathbf{X}", "bfu": "\\mathbf{u}", "bfv": "\\mathbf{v}", "bfw": "\\mathbf{w}", "bfy": "\\mathbf{y}", "bfz": "\\mathbf{z}", "bfzero": "\\boldsymbol{0}", "bfmu": "\\boldsymbol{\\mu}", "TP": "\\text{TP}", "TN": "\\text{TN}", "FP": "\\text{FP}", "FN": "\\text{FN}", "rmn": ["\\mathbb{R}^{#1 \\times #2}", 2], "dd": ["\\frac{d #1}{d #2}", 2], "pp": ["\\frac{\\partial #1}{\\partial #2}", 2], "norm": ["\\lVert #1 \\rVert", 1], "twonorm": ["\\norm{#1}_2", 1], "onenorm": ["\\norm{#1}_1", 1], "infnorm": ["\\norm{#1}_\\infty", 1], "innerprod": ["\\langle #1,#2 \\rangle", 2], "pr": ["^{(#1)}", 1], "diag": ["\\operatorname{diag}"], "sign": ["\\operatorname{sign}"], "ee": ["\\times 10^"], "floor": ["\\lfloor#1\\rfloor", 1], "argmin": ["\\operatorname{argmin}"], "Cov": ["\\operatorname{Cov}"], "logit": ["\\operatorname{logit}"]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
     <script>
         const thebe_selector = ".thebe,.cell"
@@ -77,7 +74,12 @@
     <div class="container-xl">
       <div class="row">
           
-<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<div class="col-12 col-md-3 bd-sidebar site-navigation " id="site-navigation">
     
         <div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../index.html">
@@ -210,13 +212,18 @@
     </a>
    </li>
    <li class="toctree-l2">
+    <a class="reference internal" href="overfitting.html">
+     3.6. Overfitting
+    </a>
+   </li>
+   <li class="toctree-l2">
     <a class="reference internal" href="model-selection.html">
-     3.6. Model selection
+     3.7. Model selection
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="exercises.html">
-     3.7. Exercises
+     3.8. Exercises
     </a>
    </li>
   </ul>
@@ -247,8 +254,13 @@
     </a>
    </li>
    <li class="toctree-l2">
+    <a class="reference internal" href="../regression/other.html">
+     4.4. Repurposed classifiers
+    </a>
+   </li>
+   <li class="toctree-l2">
     <a class="reference internal" href="../regression/logistic.html">
-     4.4. Logistic regression
+     4.5. Logistic regression
     </a>
    </li>
   </ul>
@@ -318,22 +330,22 @@
 
 
           
+<!-- This is an invisible pixel that we watch to see if we've scrolled. -->
+<div class="sbt-scroll-pixel-helper"></div>
 <main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
     
     <div class="topbar container-xl fixed-top">
     <div class="topbar-contents row">
         <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
         <div class="col pl-md-4 topbar-main">
-            
-            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
-                <i class="fas fa-bars"></i>
-                <i class="fas fa-arrow-left"></i>
-                <i class="fas fa-arrow-up"></i>
-            </button>
-            
+            <div class="topbar-left">
+                
+                <label class="nav-toggle-button" for="__navigation">
+                    <div class="visually-hidden">Toggle navigation</div>
+                    <i class="fas fa-bars"></i>
+                </label>
+                
+            </div>
             
 <div class="dropdown-buttons-trigger">
     <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
@@ -376,6 +388,7 @@
                 data-placement="left"><img class="binder-button-logo"
                     src="../_static/images/logo_binder.svg"
                     alt="Interact on binder">Binder</button></a>
+        
         
         
         
@@ -490,16 +503,16 @@
 \norm{\bfzero} &amp;= 0,  \\ 
 \norm{\bfx} &amp;&gt; 0 \text{ if $\bfx$ is a nonzero vector}, \\ 
 \norm{c\bfx} &amp;= |c| \, \norm{x} \text{ for any real number $c$}, \\ 
-\norm{\bfx + \bfy } &amp;\le \bfx + \bfy.
+\norm{\bfx + \bfy } &amp;\le \norm{\bfx} + \norm{\bfy} 
 \end{split}\]</div>
 </div>
 </div><p>The last inequality above is called the <strong>triangle inequality</strong>. It turns out that these four characteristics are all we expect from a function that behaves like a distance.</p>
-<p>We will encounter two different norms:</p>
+<p>On the number line (i.e., <span class="math notranslate nohighlight">\(\real^1\)</span>), the distance between two values is just the absolute value of their difference, <span class="math notranslate nohighlight">\(|x-y|\)</span>. In <span class="math notranslate nohighlight">\(\real^d\)</span>, the distance between two vectors is the norm of their difference, <span class="math notranslate nohighlight">\(\norm{ \bfx - \bfy }\)</span>.</p>
+<p>We will 0encounter two different norms:</p>
 <ul class="simple">
 <li><p>The 2-norm, <span class="math notranslate nohighlight">\(\twonorm{\bfx} = \bigl(x_1^2 + x_2^2 + \cdots + x_d^2\bigr)^{1/2}.\)</span></p></li>
 <li><p>The 1-norm, <span class="math notranslate nohighlight">\(\onenorm{\bfx} = |x_1| + |x_2| + \cdots + |x_d|.\)</span></p></li>
 </ul>
-<p>On the number line (i.e., <span class="math notranslate nohighlight">\(\real^1\)</span>), the distance between two values is just the absolute value of their difference, <span class="math notranslate nohighlight">\(|x-y|\)</span>. In <span class="math notranslate nohighlight">\(\real^d\)</span>, the distance between two vectors is the norm of their difference, <span class="math notranslate nohighlight">\(\norm{ \bfx - \bfy }\)</span>.</p>
 <p>The 2-norm is also called the <em>Euclidean norm</em>. It generalizes ordinary geometric distance in <span class="math notranslate nohighlight">\(\real^2\)</span> and <span class="math notranslate nohighlight">\(\real^3\)</span> and is usually considered the default. The 1-norm is sometimes called the <em>Manhattan norm</em>, because in <span class="math notranslate nohighlight">\(\real^2\)</span> it represents the total number of east/west and north/south moves needed between points on a grid.</p>
 </div>
 <div class="section" id="algorithm">
@@ -678,8 +691,8 @@
 <p>Scikit-learn plays nicely with pandas, so we don’t have to translate the data into new structures.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">neighbors</span>
-<span class="n">knn</span> <span class="o">=</span> <span class="n">neighbors</span><span class="o">.</span><span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">KNeighborsClassifier</span>
+<span class="n">knn</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
 <span class="n">knn</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -773,39 +786,22 @@ Data:
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[25  4  1]
- [11  5  0]
- [ 2  0 19]]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[24  0  1]
+ [ 8  4  1]
+ [ 3  0 26]]
               precision    recall  f1-score   support
 
-      Adelie       0.66      0.83      0.74        30
-   Chinstrap       0.56      0.31      0.40        16
-      Gentoo       0.95      0.90      0.93        21
+      Adelie       0.69      0.96      0.80        25
+   Chinstrap       1.00      0.31      0.47        13
+      Gentoo       0.93      0.90      0.91        29
 
-    accuracy                           0.73        67
-   macro avg       0.72      0.68      0.69        67
-weighted avg       0.73      0.73      0.72        67
+    accuracy                           0.81        67
+   macro avg       0.87      0.72      0.73        67
+weighted avg       0.85      0.81      0.78        67
 </pre></div>
 </div>
 </div>
 </div>
-<!-- To assess performance, let's apply 10-fold cross-validation to KNN learners with varying $k$.
-```{code-cell}
-from sklearn.model_selection import cross_val_score,KFold
-
-K = range(1,10)
-score_mean,score_std = [],[]
-kf = KFold(n_splits=10,shuffle=True,random_state=1)
-for k in K:
-    knn = neighbors.KNeighborsClassifier(n_neighbors=k)
-    scores = cross_val_score(knn,X,y,cv=kf)
-    score_mean.append(scores.mean())
-    score_std.append(scores.std())
-
-pd.DataFrame({"k":K,"accuracy mean":score_mean,"accuracy std":score_std})
-```
-
-There is no improvement here over $k=1$, in which each query just adopts the species of the nearest data vector. -->
 <p>The default norm in the KNN learner is the 2-norm. To use the 1-norm instead, add <code class="docutils literal notranslate"><span class="pre">metric=&quot;manhattan&quot;</span></code> to the classifier construction call.</p>
 </div>
 <div class="section" id="standardization">
@@ -848,18 +844,18 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[30  0  0]
- [ 1 14  0]
- [ 0  0 22]]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[31  1  0]
+ [ 0 14  0]
+ [ 0  0 21]]
               precision    recall  f1-score   support
 
-      Adelie       0.97      1.00      0.98        30
-   Chinstrap       1.00      0.93      0.97        15
-      Gentoo       1.00      1.00      1.00        22
+      Adelie       1.00      0.97      0.98        32
+   Chinstrap       0.93      1.00      0.97        14
+      Gentoo       1.00      1.00      1.00        21
 
     accuracy                           0.99        67
-   macro avg       0.99      0.98      0.98        67
-weighted avg       0.99      0.99      0.98        67
+   macro avg       0.98      0.99      0.98        67
+weighted avg       0.99      0.99      0.99        67
 </pre></div>
 </div>
 </div>
@@ -877,7 +873,7 @@ weighted avg       0.99      0.99      0.98        67
 
 <span class="n">X_tr</span><span class="p">,</span> <span class="n">X_te</span><span class="p">,</span> <span class="n">y_tr</span><span class="p">,</span> <span class="n">y_te</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
 
-<span class="n">knn</span> <span class="o">=</span> <span class="n">neighbors</span><span class="o">.</span><span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">knn</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
 <span class="n">pipe</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">StandardScaler</span><span class="p">(),</span><span class="n">knn</span><span class="p">)</span>
 
 <span class="n">pipe</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_tr</span><span class="p">,</span><span class="n">y_tr</span><span class="p">)</span>
@@ -886,7 +882,7 @@ weighted avg       0.99      0.99      0.98        67
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.0
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.9850746268656716
 </pre></div>
 </div>
 </div>
@@ -900,13 +896,13 @@ weighted avg       0.99      0.99      0.98        67
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[  44.1018797    17.10150376  201.11278195 4196.14661654]
-[3.04095077e+01 3.77383233e+00 1.98408333e+02 6.64855922e+05]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[  43.91015038   17.19097744  200.69548872 4201.22180451]
+[2.98367015e+01 3.89021935e+00 2.00971183e+02 6.56208564e+05]
 </pre></div>
 </div>
 </div>
 </div>
-</div>
+<div style="max-width:608px"><div style="position:relative;padding-bottom:66.118421052632%"><iframe id="kaltura_player" src="https://cdnapisec.kaltura.com/p/2358381/sp/235838100/embedIframeJs/uiconf_id/43030021/partner_id/2358381?iframeembed=true&playerId=kaltura_player&entry_id=1_wghs045x&flashvars[streamerType]=auto&amp;flashvars[localizationCode]=en&amp;flashvars[leadWithHTML5]=true&amp;flashvars[sideBarContainer.plugin]=true&amp;flashvars[sideBarContainer.position]=left&amp;flashvars[sideBarContainer.clickToClose]=true&amp;flashvars[chapters.plugin]=true&amp;flashvars[chapters.layout]=vertical&amp;flashvars[chapters.thumbnailRotator]=false&amp;flashvars[streamSelector.plugin]=true&amp;flashvars[EmbedPlayer.SpinnerTarget]=videoHolder&amp;flashvars[dualScreen.plugin]=true&amp;flashvars[Kaltura.addCrossoriginToIframe]=true&amp;&wid=1_vm7jak75" width="608" height="402" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen *; encrypted-media *" sandbox="allow-forms allow-same-origin allow-scripts allow-top-navigation allow-pointer-lock allow-popups allow-modals allow-orientation-lock allow-popups-to-escape-sandbox allow-presentation allow-top-navigation-by-user-activation" frameborder="0" title="Kaltura Player" style="position:absolute;top:0;left:0;width:100%;height:100%"></iframe></div></div></div>
 </div>
 
     <script type="text/x-thebe-config">
