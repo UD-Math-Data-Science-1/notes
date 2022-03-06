@@ -2,7 +2,7 @@
 
 For these exercises, you may of course use computer help to work on a problem, but your answer should be self-contained without reference to computer output (unless stated otherwise).
 
-1. For $n>2$, let $x_i=0$ for $i=1,\ldots,n-1$, and $x_n=M$. Find the **(a)** sample mean, **(b)** sample median, **(c)** corrected sample variance $s_{n-1}^2$, and **(d)** sample z-scores of the $x_i$ in terms of $M$ and $n$.
+1. For $n>2$, let $x_i=0$ for $i=1,\ldots,n-1$, and $x_n=M>0$. Find the **(a)** sample mean, **(b)** sample median, **(c)** corrected sample variance $s_{n-1}^2$, and **(d)** sample z-scores of the $x_i$ in terms of $M$ and $n$.
 
 2. Suppose the samples $x_1,\ldots,x_n$ have z-scores $z_1,\ldots,z_n$. 
 
@@ -43,20 +43,20 @@ For these exercises, you may of course use computer help to work on a problem, b
     r_1(x) = \sum_{i=1}^n |x_i-x|.
     $$
 
-    Show that $r_1$ has a global minimum at $x=x_k$ by way of the following steps. 
+    (This function is the *total absolute deviation* of $x$ from the population.) Show that $r_1$ has a global minimum at $x=x_k$ by way of the following steps. 
     
     **(a)** Explain why the derivative of $r_1$ is undefined at every $x_i$. Consequently, all of the $x_i$ are critical points of $r_1$. 
     
-    **(b)** Determine $r_1'$ within each piece of the real axis between observation values, and explain why there cannot be any additional critical points to consider. (Note: you can drop all of the absolute values when $x$ between the $x_i$, if you write out the expression appropriately.)
+    **(b)** Determine $r_1'$ within each piece of the real axis between the $x_i$, and explain why there cannot be any additional critical points to consider. (Note: you can replace the absolute values with a piecewise definition of $r_1$, where the formula for the pieces changes as you cross over each $x_i$.) 
 
-    **(c)** By appealing to the derivative, explain why it must be that
+    **(c)** By appealing to the derivative values between the $x_i$, explain why it must be that
 
     $$
-    r_1(x_1) \ge r_1(x_2) \ge \cdots \ge r_1(x_k) \le r_1(x_{k+1}) \le \cdots \le r_1(x_n).
+    r_1(x_1) > r_1(x_2) > \cdots > r_1(x_k) < r_1(x_{k+1}) < \cdots < r_1(x_n).
     $$
 
 
-7. Prove that two sample sets have a Pearson correlation coefficient equal to 1 if they have identical z-scores.
+7. Prove that two sample sets have a Pearson correlation coefficient equal to 1 if they have identical z-scores. (Hint: See Exercise 2.)
 
 8. Suppose that two sample sets satisfy $y_i=-x_i$ for all $i$. Prove that the Pearson correlation coefficient between $x$ and $y$ equals $-1$.
 
