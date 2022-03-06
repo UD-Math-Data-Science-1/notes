@@ -69,8 +69,8 @@ diabetes
 First, we look at basic linear regression on all 10 predictive features in the data.
 
 ```{code-cell}
-X = diabetes.iloc[:,:-1]
-y = diabetes.iloc[:,-1]
+X = diabetes.drop("target",axis=1)
+y = diabetes["target"]
 
 from sklearn.model_selection import train_test_split
 
@@ -118,20 +118,11 @@ idx = idx[::-1]                       # reverse
 X.columns[idx]
 ```
 
-Finally, we will use cross-validation to compare basic regression with all factors, versus using just the top 5 factors:
+Now we can repeat the linear regression, but using only the top 5 features:
 
 ```{code-cell}
-from sklearn.model_selection import cross_val_score,KFold
-
-kf = KFold(n_splits=8,shuffle=True,random_state=10)
-
-scores = cross_val_score(lm,X,y,cv=kf)
-print("scores with all predictors:")
-print(f"mean = {scores.mean():.5f}, std = {scores.std():.4f}")
-
-scores = cross_val_score(lm,X.iloc[:,idx[:5]],y,cv=kf)
-print("scores with top 5 predictors:")
-print(f"mean = {scores.mean():.5f}, std = {scores.std():.4f}")
+lm.fit(X_tr.iloc[:,idx[:5]],y_tr)
+print("linear model score using 5 features:",lm.score(X_te.iloc[:,idx[:5]],y_te))
 ```
 
-When fewer factors are used, we see some reduction in variance, and the mean testing score actually goes up a bit as well.
+Sometimes, less really is more!

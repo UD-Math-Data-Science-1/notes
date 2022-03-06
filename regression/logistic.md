@@ -13,7 +13,7 @@ kernelspec:
 
 # Logistic regression
 
-Logistic regression is, somewhat paradoxically, most often used for classification rather than a regression problem. In the case of **binary logistic regression**, the labels of each instance is either 0 or 1, but the regressor predicts a real number between zero and one. This value is typically interpreted as the probability of observing a 1, and then a threshold is chosen to quantize the output to 0 or 1.
+Logistic regression is, somewhat paradoxically, often used for binary classification. We assume that the value of each training example is either 0 or 1, and the regressor predicts a real number between zero and one. This value is typically interpreted as the probability of observing a 1. If classification is the goal, a threshold is chosen to binarize the output to 0 or 1. However, the original probabilistic information might be valuable as a way to quantify confidence in the predictions.
 
 ## Logistic and logit functions
 
@@ -37,7 +37,7 @@ $$
 
 In keeping with interpreting $p$ as probability, $\logit(p)$ is the **log-odds ratio**. For instance, if $p=2/3$, then the odds ratio is $(2/3)/(1/3)=2$ (i.e., 2:1 odds), and $\logit(2/3)=\ln(2)$. 
 
-Logistic regression is the approximation
+The starting point of logistic regression is the approximation
 
 $$
 \logit(p) \approx \bfx^T\bfw,
