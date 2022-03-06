@@ -10,64 +10,19 @@ kernelspec:
   language: python
   name: python3
 ---
-# Preliminaries
 
-## Similarity and distance
-
-Given an $n\times d$ feature matrix, we want to define disjoint subsets of the $\bfx_i$ such that the samples within a cluster are more similar to one another than they are to members of other clusters.
-
-The first decision we have to make is how to measure *similarity*. Mostly we consider similarity to be inversely related to distance, which we can measure using a vector norm, and will describe clustering methods in terms of pairwise distances. 
-
-We already have the 2-norm (Euclidean) and 1-norm (Manhattan) distances defined. Another important norm, especially in text processing, is *cosine distance*. Vector geometry shows that for vectors $\mathbf{u}$ and $\mathbf{v}$ in $\real^d$, the angle $\theta$ between the vectors satisfies
-
-$$
-\cos(\theta) = \frac{\mathbf{u}^T\mathbf{v}}{\twonorm{\mathbf{u}} \, \twonorm{\mathbf{v}}}.
-$$
-
-The **cosine distance** between $\mathbf{u}$ and $\mathbf{v}$ is $\tfrac{1}{2}[1-\cos(\theta)]$. This is zero when $\theta=0$ and has max value 1 at $\theta=\pi$. This metric is sensitive only to the relative directions of the vectors, not their geometric lengths. However, it does not meet all the requirements of a norm, such as the triangle inequality.
-
-Clustering algorithms are concerned only with the similarities/distances between pairs of samples. As a result, many can be given the $n\times n$ **distance matrix** $\mathbf{D}$, defined by
-
-$$
-D_{ij} = \text{dist}(\bfx_i,\bfx_j), 
-$$
-
-instead of the feature matrix. Note that $D_{ii}=0$ and $D_{ji}=D_{ij}$.
-
-### Toy example
-
-Suppose we have sample points lying near the corners of a cube in 3D. This lets us compute an 8×8 distance matrix.
-
-```{code-cell}
-from sklearn.metrics import pairwise_distances
-import seaborn as sns
-
-X = [
-    [-1.01,-1,-.98],[1,-1.02,-1],[-.98,1,-.99],[1.01,1.01,-1], 
-    [-1.01,-1.01,.99],[1.02,-1.02,1],[-.99,.98,.99],[1,.98,1], 
-]
-
-D2 = pairwise_distances(X,metric="euclidean")
-sns.heatmap(D2)
-```
-
-Note the symmetry. Changing to a different norm is trivial.
-
-```{code-cell}
-D1 = pairwise_distances(X,metric="manhattan")
-sns.heatmap(D1)
-```
-
-## Performance metrics
+# Clustering performance
 
 If a trusted or ground truth clustering is available, then we can compare it to a different clustering result. Let's say that two sample points in a clustering are *buddies* if they are in the same cluster, and *strangers* otherwise. 
 
-### (Adjusted) Rand index
+## (Adjusted) Rand index
 Let $b$ be the number of pairs that are buddies in both clusterings, and let $s$ be the number of pairs that are strangers in both clusterings. Noting that there are $\binom{n}{2}$ distinct pairs of $n$ sample points, we define the **Rand index** by
 
 $$
 \text{RI} = \frac{b+s}{\binom{n}{2}}.
 $$
+
+One good feature of the Rand index is that there is no need to find a correspondence between the clusters in the two clusterings. In fact, the clusterings need not even have the same number of clusters.
 
 While the Rand index is not hard to understand, it's not normalized to any obvious scale. The **adjusted Rand index** is
 
@@ -75,9 +30,9 @@ $$
 \text{ARI} = \frac{\text{RI} - E[\text{RI}]}{\text{max}(\text{RI})-E[\text{RI}]},
 $$
 
-where the mean and max operations are taken over all possible clusterings. (These values can be worked out by probabilistic reasoning.) Hence an ARI of 0 indicates no better agreement than a random clustering, and an ARI of 1 is maximum agreement. 
+where the mean and max operations are taken over all possible clusterings. (These values can be worked out by combinatorics.) Hence an ARI of 0 indicates no better agreement than a random clustering, and an ARI of 1 is complete agreement. 
 
-### Silhouette coefficient
+## Silhouette coefficient
 
 If no reference clustering (i.e., ground truth) is available, then we can use a different measurement to assess the intrinsic quality. Suppose $\bfx_i$ is a sample point. Let $\bar{b}$ be the mean distance between $\bfx_i$ and its buddies, and let $\bar{r}$ be the mean distance between $\bfx_i$ and the members of the nearest cluster of strangers. Then the **silhouette coefficient** or silhouette score of $\bfx_i$ is 
 
@@ -87,7 +42,7 @@ $$
 
 This value is between $-1$ (bad) and $1$ (good). Finally, the silhouette score of a cluster is the mean of the $S_i$ over the samples in that cluster.
 
-### Toy example
+## Toy example
 
 We will create an artificial data set with two features and three predefined clusters.
 
@@ -101,6 +56,7 @@ X,y = make_blobs(
     )
 
 import pandas as pd
+import seaborn as sns
 blobs = pd.DataFrame({"x1":X[:,0],"x2":X[:,1],"class":y})
 sns.relplot(data=blobs,x="x1",y="x2",hue="class");
 ```
@@ -152,3 +108,64 @@ adjusted_rand_score(y,blobs["quadrant"])
 
 Not surprisingly, they are seen as fairly similar.
 
+## Digits
+
+sklearn has a well-known dataset that contains labeled handwritten digits. Let's extract the examples for just the numerals 4, 5, and 6.
+
+```{code-cell}
+from sklearn import datasets
+digits = datasets.load_digits(as_frame=True)["frame"]
+X = digits.drop("target",axis=1)
+y = digits.target
+keep = (y==4) | (y==5) | (y==6)
+X = X[keep]
+y = y[keep]
+print(y.value_counts())
+```
+
+We can visualize the raw data. Here are some of the 6s.
+
+```{code-cell}
+import matplotlib.pyplot as plt
+import numpy as np
+
+def plot_digits(X):
+    fig, axes = plt.subplots(4,4)
+    for i in range(4):
+        for j in range(4):
+            row = j + 4*i
+            A = np.reshape(np.array(X.iloc[row,:]),(8,8))
+            sns.heatmap(A,ax=axes[i,j],square=True,cmap="gray",cbar=False)
+            axes[i,j].axis(False)
+    return None
+
+plot_digits(X[y==6])
+```
+
+Since the examples are labeled, we can treat this as a classification problem and use kNN to "cluster" them.
+
+```{code-cell}
+from sklearn.neighbors import KNeighborsClassifier
+knn = KNeighborsClassifier(n_neighbors=10)
+knn.fit(X,y)
+labels = knn.predict(X)
+```
+
+We already have ways to measure classifiers, but adjusted Rand index is now available as well.
+
+```{code-cell}
+adjusted_rand_score(y,labels)
+```
+
+As you can see above, this is an easy classification problem. But a clustering method won't be able to learn from the ground truth labels. In order to set expectations, we should see how well the differently labeled examples cluster. Here is how the silhouette scores are distributed.
+
+```{code-cell}
+from sklearn.metrics import silhouette_samples
+X["sil"] = silhouette_samples(X,y)
+X["label"] = y.astype("category")
+sns.catplot(data=X,x="label",y="sil",kind="violin");
+```
+
+The scores are mostly positive, which indicates some degree of clustering. The 6s in particular are fairly well-clustered. There are, however, some examples with negative clustering scores, indicating cases that might get assigned to different clusters than the labels suggest.
+
+It's useful to keep in mind that while classification just requires us to separate different classes of examples, clustering is more demanding: examples in a cluster need to be more like each other, or the "average" cluster member, than they are like members of other clusters. We should expect that edge cases, even within the training data, will look ambiguous, and there is no ground truth to help draw the boundaries.

@@ -76,6 +76,8 @@ sphinx:
           "pr" : ["^{(#1)}",1]
           "diag": ["\\operatorname{diag}"]
           "sign": ["\\operatorname{sign}"]
+          "dist": ["\\operatorname{dist}"]
+          "simil": ["\\operatorname{sim}"]
           "ee": ["\\times 10^"]
           "floor": ["\\lfloor#1\\rfloor",1]
           "argmin": ["\\operatorname{argmin}"]

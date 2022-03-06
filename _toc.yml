@@ -31,10 +31,12 @@ chapters:
     - file: regression/linear
     - file: regression/multilinear
     - file: regression/regularization
+    - file: regression/other
     - file: regression/logistic
   - file: clustering/overview
     sections:
-    - file: clustering/preliminaries
+    - file: clustering/similarity
+    - file: clustering/performance
     - file: clustering/k-means
     - file: clustering/hierarchical
   - file: network/overview
