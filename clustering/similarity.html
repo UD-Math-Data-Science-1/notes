@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>5.4. Hierarchical &#8212; Data Science 1</title>
+    <title>5.1. Similarity and distance &#8212; Data Science 1</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet">
   <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -56,8 +56,8 @@
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="6. Networks" href="../network/overview.html" />
-    <link rel="prev" title="5.3. k-means" href="k-means.html" />
+    <link rel="next" title="5.2. Clustering performance" href="performance.html" />
+    <link rel="prev" title="5. Clustering" href="overview.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -275,8 +275,8 @@
    </i>
   </label>
   <ul class="current">
-   <li class="toctree-l2">
-    <a class="reference internal" href="similarity.html">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
      5.1. Similarity and distance
     </a>
    </li>
@@ -290,8 +290,8 @@
      5.3. k-means
     </a>
    </li>
-   <li class="toctree-l2 current active">
-    <a class="current reference internal" href="#">
+   <li class="toctree-l2">
+    <a class="reference internal" href="hierarchical.html">
      5.4. Hierarchical
     </a>
    </li>
@@ -359,11 +359,11 @@
     <div class="dropdown-buttons">
         <!-- ipynb file if we had a myst markdown file -->
         <a class="dropdown-buttons"
-            href="../_sources/clustering/hierarchical.ipynb"><button type="button"
+            href="../_sources/clustering/similarity.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download notebook file" data-toggle="tooltip"
                 data-placement="left">.ipynb</button></a>
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/clustering/hierarchical.md"><button type="button"
+        <a class="dropdown-buttons" href="../_sources/clustering/similarity.md"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.md</button></a>
         <!-- Download PDF via print -->
@@ -388,7 +388,7 @@
         aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
     <div class="dropdown-buttons">
         
-        <a class="binder-button" href="https://mybinder.org/v2/gh/UD-Math-Data-Science-1/notes/main?urlpath=tree/clustering/hierarchical.md"><button type="button"
+        <a class="binder-button" href="https://mybinder.org/v2/gh/UD-Math-Data-Science-1/notes/main?urlpath=tree/clustering/similarity.md"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
                 data-placement="left"><img class="binder-button-logo"
                     src="../_static/images/logo_binder.svg"
@@ -415,13 +415,25 @@
             <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#toy-example">
-   Toy example
+  <a class="reference internal nav-link" href="#probability-distributions">
+   Probability distributions
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#case-study-penguins">
-   Case study: Penguins
+  <a class="reference internal nav-link" href="#distance-matrix">
+   Distance matrix
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#toy-example">
+     Toy example
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#distance-in-high-dimensions">
+   Distance in high dimensions
   </a>
  </li>
 </ul>
@@ -434,7 +446,7 @@
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Hierarchical</h1>
+                <h1>Similarity and distance</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -445,13 +457,25 @@
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#toy-example">
-   Toy example
+  <a class="reference internal nav-link" href="#probability-distributions">
+   Probability distributions
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#case-study-penguins">
-   Case study: Penguins
+  <a class="reference internal nav-link" href="#distance-matrix">
+   Distance matrix
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#toy-example">
+     Toy example
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#distance-in-high-dimensions">
+   Distance in high dimensions
   </a>
  </li>
 </ul>
@@ -463,147 +487,123 @@
             
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="hierarchical">
-<h1><span class="section-number">5.4. </span>Hierarchical<a class="headerlink" href="#hierarchical" title="Permalink to this headline">¶</a></h1>
-<p>The idea behind hierarchical clustering is to organize all the sample points into a tree structure called a <strong>dendrogram</strong>. At the root of the tree is the entire sample set, while each leaf of the tree is a single sample vector. Groups of similar samples are connected as nearby relatives in the tree, with less-similar groups located as more distant relatives.</p>
-<p>Dendrograms can be found by starting with the root and recursively splitting, or by starting at the leaves and recursively merging. We will describe the latter approach, known as <strong>agglomerative clustering</strong>.</p>
-<p>The algorithm begins with <span class="math notranslate nohighlight">\(n\)</span> singleton clusters, i.e., <span class="math notranslate nohighlight">\(C_i=\{\bfx_i\}\)</span>. Then, the similarity or distance between each pair of clusters is determined. The pair with the minimum distance is merged, and the process repeats.</p>
-<p>Common ways to define the distance between two clusters <span class="math notranslate nohighlight">\(C_i\)</span> and <span class="math notranslate nohighlight">\(C_j\)</span> are:</p>
-<ul class="simple">
-<li><p><strong>Ward linkage</strong>: increase in inertia by merging them</p></li>
-<li><p><strong>single linkage</strong> or <em>minimum linkage</em>: <span class="math notranslate nohighlight">\(\displaystyle \min_{\bfx\in C_i,\,\bfy\in C_j} \{ \norm{\bfx-\bfy } \}\)</span></p></li>
-<li><p><strong>complete linkage</strong> or <em>maximum linkage</em>: <span class="math notranslate nohighlight">\(\displaystyle \max_{\bfx\in C_i,\,\bfy\in C_j} \{ \norm{\bfx-\bfy} \}\)</span></p></li>
-<li><p><strong>average linkage</strong>: <span class="math notranslate nohighlight">\(\displaystyle \frac{1}{|C_i|\,|C_j|} \sum_{\bfx\in C_i,\,\bfy\in C_j} \norm{ \bfx-\bfy }\)</span></p></li>
-</ul>
-<p>Absent any other considerations, Ward linkage is probably the most reliable (and is the sklearn default).</p>
+  <div class="tex2jax_ignore mathjax_ignore section" id="similarity-and-distance">
+<h1><span class="section-number">5.1. </span>Similarity and distance<a class="headerlink" href="#similarity-and-distance" title="Permalink to this headline">¶</a></h1>
+<p>Given an <span class="math notranslate nohighlight">\(n\times d\)</span> feature matrix, we want to define disjoint subsets of the <span class="math notranslate nohighlight">\(\bfx_i\)</span> such that the samples within a cluster are more similar to one another than they are to members of other clusters.</p>
+<p>The first decision we have to make is how to measure <em>similarity</em>. When a distance metric is available, we consider similarity to be inversely related to distance. For example, if we have defined a distance function between pairs of vectors as <span class="math notranslate nohighlight">\(\dist(\bfx,\bfy)\)</span>, then we could define similarity as</p>
+<div class="math notranslate nohighlight">
+\[
+\simil(\bfx,\bfy) = \exp \left[ - \frac{\dist(\bfx,\bfy)^2}{2\sigma^2}  \right].
+\]</div>
+<p>A distance of zero implies a similarity of 1, while the similarity tends to zero as distance increases. The scaling parameter <span class="math notranslate nohighlight">\(\sigma\)</span> controls the rate of drop; for instance, when the distance is <span class="math notranslate nohighlight">\(\sigma\)</span>, the similarity is <span class="math notranslate nohighlight">\(e^{-1/2}\approx 0.6\)</span>. To create a distance metric from a similarity measure, we could invert the functional relationship above, provided that similarity is scaled to lie between 0 and 1.</p>
+<p>We already have the distance metric</p>
+<div class="math notranslate nohighlight">
+\[
+\dist(\bfx,\bfy) = \norm{\bfx-\bfy}
+\]</div>
+<p>for any vector norm. It satisfies the three properties</p>
+<ol class="simple">
+<li><p><span class="math notranslate nohighlight">\(\dist(\bfx,\bfy)=0\)</span> if and only if <span class="math notranslate nohighlight">\(\bfx=\bfy\)</span>,</p></li>
+<li><p><span class="math notranslate nohighlight">\(\dist(\bfx,\bfy) = \dist(\bfy,\bfx)\)</span>, and</p></li>
+<li><p><span class="math notranslate nohighlight">\(\dist(\bfx,\bfy) \le \dist(\bfx,\bfz) + \dist(\bfz,\bfy)\)</span>.</p></li>
+</ol>
+<p>These are considered the essential axioms of a distance metric. From them, you can also deduce that the distance function is always nonnegative.</p>
+<p>The term <em>distance metric</em> isn’t always used carefully to mean a function satisfying the three axioms, however, and a distance function derived from a similarity function may violate them.</p>
+<p>One other proper distance metric is <strong>angular distance</strong>. Generalizing from 2D and 3D vector geometry, we define the angle <span class="math notranslate nohighlight">\(\theta\)</span> between vectors <span class="math notranslate nohighlight">\(\bfu\)</span> and <span class="math notranslate nohighlight">\(\bfv\)</span> in <span class="math notranslate nohighlight">\(\real^d\)</span> by</p>
+<div class="math notranslate nohighlight">
+\[
+\cos(\theta) = \frac{\mathbf{u}^T\mathbf{v}}{\twonorm{\mathbf{u}} \, \twonorm{\mathbf{v}}}.
+\]</div>
+<p>Then the quantity <span class="math notranslate nohighlight">\(\theta/\pi\)</span> is a distance metric. Because arccos is a relatively expensive computational operation, though, it’s more common to use <strong>cosine similarity</strong>, defined as <span class="math notranslate nohighlight">\(\cos(\theta)\)</span>, and the related <strong>cosine distance</strong> <span class="math notranslate nohighlight">\(\tfrac{1}{2}[1-\cos(\theta)]\)</span>, even though the latter does not satisfy the triangle inequality.</p>
+<p>Categorical variables can be included in distance measures. An ordinal variable is easily converted to equally spaced numerical values, which then may get a standard treatment. Nominal features are often compared using <strong>Hamming distance</strong>, which is just the total number of features that have different values in the two vectors.</p>
+<div class="section" id="probability-distributions">
+<h2>Probability distributions<a class="headerlink" href="#probability-distributions" title="Permalink to this headline">¶</a></h2>
+<p>A <strong>discrete probability distribution</strong> is a vector <span class="math notranslate nohighlight">\(\bfx\)</span> whose components are nonnegative and satisfying <span class="math notranslate nohighlight">\(\onenorm{\bfx}=1\)</span>. Such a vector can be interpreted as frequencies or probabilities of observing different classes. One information-theoretic distance metric for probability distributions is <strong>information radius</strong>, defined as</p>
+<div class="math notranslate nohighlight">
+\[
+\operatorname{IR}(\bfu,\bfu) = \frac{1}{2} \left[ \operatorname{KL}(\bfu,\bfz) + \operatorname{KL}(\bfv,\bfz) \right],
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\bfz=(\bfu+\bfv)/2\)</span> and KL is the <em>Kullback–Leibler diveregence</em></p>
+<div class="math notranslate nohighlight">
+\[
+\operatorname{KL}(\bfx,\bfy) = \sum_{i=1}^d x_i \log\left( \frac{x_i}{y_i} \right).
+\]</div>
+<p>Typically one uses a base-2 logarithm, in which case IR ranges between 0 and 1. Note that where <span class="math notranslate nohighlight">\(0\cdot \log(0)\)</span> is encountered in the KL definition, it equals zero, in accordance with its limiting value from calculus.</p>
+<div class="proof example admonition" id="example-similarity-IR">
+<p class="admonition-title"><span class="caption-number">Example 5.1.1 </span></p>
+<div class="example-content section" id="proof-content">
+<!-- Let $\bfu=[1,0]$ and $\bfv=[0,1]$. Then $\bfz=(\bfu+\bfv)/2=[\tfrac{1}{2},\tfrac{1}{2}]$, and
+
+$$
+\operatorname{KL}(\bfu,\bfz)  &= 1\cdot \log \left( \frac{1}{1/2} \right) + 0 \cdot \log \left( \frac{0}{1/2} \right) = 1,
+\operatorname{KL}(\bfv,\bfz)  &= 0 \cdot \log \left( \frac{0}{1/2} \right) + 1 \cdot \log \left( \frac{1}{1/2} \right) = 1,
+\operatorname{IR}(\bfu,\bfu)  &= \frac{1}{2} \left[ 1 + 1 \right] = 1. 
+$$
+
+Not surprisingly, these distribution vectors are as far apart as you can get.  -->
+<p>Let <span class="math notranslate nohighlight">\(\bfu=\frac{1}{4}[1,3]\)</span> and <span class="math notranslate nohighlight">\(\bfv=\frac{1}{4}[3,1]\)</span>. Then <span class="math notranslate nohighlight">\(\bfz=(\bfu+\bfv)/2=[\tfrac{1}{2},\tfrac{1}{2}]\)</span>, and</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\operatorname{KL}(\bfu,\bfz)  &amp;= \tfrac{1}{4} \cdot \log \left( \frac{1/4}{1/2} \right) + \tfrac{3}{4} \cdot \log \left( \frac{3/4}{1/2} \right) \\ &amp;= \tfrac{1}{4} \cdot \log \left( \frac{1}{2} \right) + \tfrac{3}{4} \cdot \log \left( \frac{3}{2} \right) = -\tfrac{1}{4} + \tfrac{3}{4} (\log(3)-1),\\
+\operatorname{KL}(\bfv,\bfz)  &amp;= \tfrac{3}{4} (\log(3)-1) -\tfrac{1}{4},\\
+\operatorname{IR}(\bfu,\bfu)  &amp;= \tfrac{3}{4} (\log(3)-1) -\tfrac{1}{4} \approx 0.1887.
+\end{split}\]</div>
+</div>
+</div></div>
+<div class="section" id="distance-matrix">
+<h2>Distance matrix<a class="headerlink" href="#distance-matrix" title="Permalink to this headline">¶</a></h2>
+<p>Given the feature vectors <span class="math notranslate nohighlight">\(\bfx_1,\ldots,\bfx_n\)</span>, the pairwise distances between them can be summarized by the <span class="math notranslate nohighlight">\(n\times n\)</span> <strong>distance matrix</strong></p>
+<div class="math notranslate nohighlight">
+\[
+D_{ij} = \text{dist}(\bfx_i,\bfx_j).
+\]</div>
+<p>Note that <span class="math notranslate nohighlight">\(D_{ii}=0\)</span> and <span class="math notranslate nohighlight">\(D_{ji}=D_{ij}\)</span>. Many clustering algorithms allow supplying <span class="math notranslate nohighlight">\(\mathbf{D}\)</span> in lieu of the feature vectors. One can similarly define a <em>similarity matrix</em> using the Gaussian kernel. An advantage of similarity is that small values can be rounded down to zero. This has little effect on the results, but can create big gains in execution time and memory.</p>
 <div class="section" id="toy-example">
-<h2>Toy example<a class="headerlink" href="#toy-example" title="Permalink to this headline">¶</a></h2>
-<p>Let’s use 5 sample points in the plane.</p>
+<h3>Toy example<a class="headerlink" href="#toy-example" title="Permalink to this headline">¶</a></h3>
+<p>Suppose we have sample points lying near the corners of a cube in 3D. This lets us compute an 8×8 distance matrix.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">pairwise_distances</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
 
-<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">],[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]])</span>
+<span class="n">X</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">[</span><span class="o">-</span><span class="mf">1.01</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mf">.98</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mf">1.02</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">],[</span><span class="o">-</span><span class="mf">.98</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mf">.99</span><span class="p">],[</span><span class="mf">1.01</span><span class="p">,</span><span class="mf">1.01</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> 
+    <span class="p">[</span><span class="o">-</span><span class="mf">1.01</span><span class="p">,</span><span class="o">-</span><span class="mf">1.01</span><span class="p">,</span><span class="mf">.99</span><span class="p">],[</span><span class="mf">1.02</span><span class="p">,</span><span class="o">-</span><span class="mf">1.02</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="o">-</span><span class="mf">.99</span><span class="p">,</span><span class="mf">.98</span><span class="p">,</span><span class="mf">.99</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mf">.98</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> 
+<span class="p">]</span>
+
 <span class="n">D2</span> <span class="o">=</span> <span class="n">pairwise_distances</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">metric</span><span class="o">=</span><span class="s2">&quot;euclidean&quot;</span><span class="p">)</span>
-<span class="n">D2</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">D2</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.        , 3.        , 3.16227766, 3.60555128, 1.41421356],
-       [3.        , 0.        , 1.        , 3.16227766, 2.23606798],
-       [3.16227766, 1.        , 0.        , 2.23606798, 2.        ],
-       [3.60555128, 3.16227766, 2.23606798, 0.        , 2.23606798],
-       [1.41421356, 2.23606798, 2.        , 2.23606798, 0.        ]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:&gt;
 </pre></div>
 </div>
+<img alt="../_images/similarity_1_1.png" src="../_images/similarity_1_1.png" />
 </div>
 </div>
-<p>The minimum value in the lower triangle of the distance matrix is in row 2, column 1 (starting index at 0). So our first merge results in the set <span class="math notranslate nohighlight">\(C_1=\{\bfx_1,\bfx_2\}\)</span>. If we use single linkage, then the linkages between this set and the other sample points are</p>
+<p>Note the symmetry. Changing to a different norm is trivial.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">numpy.linalg</span> <span class="kn">import</span> <span class="n">norm</span>
-<span class="n">C1</span> <span class="o">=</span> <span class="n">X</span><span class="p">[[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]]</span>
-<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">X</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">]]:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">norm</span><span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="n">y</span><span class="p">)</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">C1</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">D1</span> <span class="o">=</span> <span class="n">pairwise_distances</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">metric</span><span class="o">=</span><span class="s2">&quot;manhattan&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">D1</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3.0
-2.23606797749979
-2.0
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:&gt;
 </pre></div>
 </div>
-</div>
-</div>
-<p>Comparing these to the pairwise point distances already calculated, the minimum value is 1.414, between points 0 and 4. So we now have clusters <span class="math notranslate nohighlight">\(C_1\)</span>, <span class="math notranslate nohighlight">\(C_2=\{bfx_0,\bfx_4\}\)</span>, <span class="math notranslate nohighlight">\(\{x_3\}\)</span>, and three pairwise linkages to compare, etc. The entire dendrogram can be visualized with seaborn:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">clustermap</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">col_cluster</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">dendrogram_ratio</span><span class="o">=</span><span class="p">(</span><span class="mf">.75</span><span class="p">,</span><span class="mf">.15</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.matrix.ClusterGrid at 0x7fd2405d36a0&gt;
-</pre></div>
-</div>
-<img alt="../_images/hierarchical_5_1.png" src="../_images/hierarchical_5_1.png" />
-</div>
-</div>
-<p>The horizontal position in the dendrogram above indicates the linkage strength. Working from right to left, we see the creation of <span class="math notranslate nohighlight">\(C_1\)</span> first, then <span class="math notranslate nohighlight">\(C_2\)</span>. These are merged into a single set before finally being merged with <span class="math notranslate nohighlight">\(\bfx_3\)</span>. (Note that the rows are reordered according to the values on the far right.)</p>
-<p>In effect, we get an entire family of clusterings, by stopping at any linkage value we want. If we chose to stop at value 1.5, for instance, we would have the three clusters we derived above. Or, if we predetermine that we want <span class="math notranslate nohighlight">\(k\)</span> clusters, we can stop after <span class="math notranslate nohighlight">\(n-k\)</span> merges.</p>
-</div>
-<div class="section" id="case-study-penguins">
-<h2>Case study: Penguins<a class="headerlink" href="#case-study-penguins" title="Permalink to this headline">¶</a></h2>
-<p>Haven’t found one yet where it works well.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="n">penguins</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">load_dataset</span><span class="p">(</span><span class="s2">&quot;penguins&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
-<span class="n">X</span> <span class="o">=</span> <span class="n">penguins</span><span class="p">[[</span><span class="s2">&quot;bill_length_mm&quot;</span><span class="p">,</span><span class="s2">&quot;bill_depth_mm&quot;</span><span class="p">,</span><span class="s2">&quot;flipper_length_mm&quot;</span><span class="p">,</span><span class="s2">&quot;body_mass_g&quot;</span><span class="p">]]</span>
-</pre></div>
+<img alt="../_images/similarity_3_1.png" src="../_images/similarity_3_1.png" />
 </div>
 </div>
 </div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.cluster</span> <span class="kn">import</span> <span class="n">AgglomerativeClustering</span>
-<span class="n">agg</span> <span class="o">=</span> <span class="n">AgglomerativeClustering</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span><span class="n">linkage</span><span class="o">=</span><span class="s2">&quot;single&quot;</span><span class="p">)</span>
-<span class="n">agg</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-<span class="n">penguins</span><span class="p">[</span><span class="s2">&quot;agg&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">agg</span><span class="o">.</span><span class="n">labels_</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;single linkage:&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">penguins</span><span class="p">[</span><span class="s2">&quot;agg&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">())</span>
-</pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>single linkage:
-0    331
-2      1
-1      1
-Name: agg, dtype: int64
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">agg</span> <span class="o">=</span> <span class="n">AgglomerativeClustering</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span><span class="n">linkage</span><span class="o">=</span><span class="s2">&quot;ward&quot;</span><span class="p">)</span>
-<span class="n">agg</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-<span class="n">penguins</span><span class="p">[</span><span class="s2">&quot;agg&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">agg</span><span class="o">.</span><span class="n">labels_</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Ward linkage:&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">penguins</span><span class="p">[</span><span class="s2">&quot;agg&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">())</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Ward linkage:
-1    138
-0    112
-2     83
-Name: agg, dtype: int64
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">adjusted_rand_score</span>
-<span class="n">adjusted_rand_score</span><span class="p">(</span><span class="n">penguins</span><span class="p">[</span><span class="s2">&quot;species&quot;</span><span class="p">],</span><span class="n">agg</span><span class="o">.</span><span class="n">labels_</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.4000457098789099
-</pre></div>
-</div>
-</div>
-</div>
+<div class="section" id="distance-in-high-dimensions">
+<h2>Distance in high dimensions<a class="headerlink" href="#distance-in-high-dimensions" title="Permalink to this headline">¶</a></h2>
+<p>High-dimensional space <a class="reference external" href="https://homes.cs.washington.edu/~pedrod/papers/cacm12.pdf">does not conform to some intuitions</a> formed by our experiences in 2D and 3D. For example, consider the unit hyperball <span class="math notranslate nohighlight">\(\twonorm{\bfx}\le 1\)</span> in <span class="math notranslate nohighlight">\(d\)</span> dimensions. We’ll take it as given that scaling a <span class="math notranslate nohighlight">\(d\)</span>-dimensional object by a number <span class="math notranslate nohighlight">\(r\)</span> will scale the volume by <span class="math notranslate nohighlight">\(r^d\)</span>. Then for any <span class="math notranslate nohighlight">\(r&lt;1\)</span>, the fraction of the unit hyperball’s volume lying <em>outside</em> the smaller hyperball of fixed radius <span class="math notranslate nohighlight">\(r\)</span> is <span class="math notranslate nohighlight">\(1-r^d\)</span>, which approaches <span class="math notranslate nohighlight">\(1\)</span> as <span class="math notranslate nohighlight">\(d\to \infty\)</span>. That is, if we choose points randomly within a hyperball, almost all of them will be near the outer boundary.</p>
+<p>There are other, similar mathematical results demonstrating the unexpectedness of distances in high-dimensional space. These go under the colorful name <em>curse of dimensionality</em>, and the advice given in response to them is sometimes stated as, “Don’t use distance metrics in high-dimensional space.” But that advice is easy to overstate. The curse is mainly about <em>randomly</em> chosen points, and it is correct that dimensions full of random, noisy, or irrelevant features will make many learning algorithms less effective. But if features carry useful information, adding them usually makes matters better, not worse.</p>
 </div>
 </div>
 
@@ -632,17 +632,17 @@ Name: agg, dtype: int64
             
                 <!-- Previous / next buttons -->
 <div class='prev-next-area'> 
-    <a class='left-prev' id="prev-link" href="k-means.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="overview.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title"><span class="section-number">5.3. </span>k-means</p>
+            <p class="prev-next-title"><span class="section-number">5. </span>Clustering</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="../network/overview.html" title="next page">
+    <a class='right-next' id="next-link" href="performance.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">6. </span>Networks</p>
+        <p class="prev-next-title"><span class="section-number">5.2. </span>Clustering performance</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

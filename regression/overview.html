@@ -44,6 +44,8 @@
     <script src="../_static/copybutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/sphinx-book-theme.9d8b4a8b9bb19db25eeaddc40d639ba2.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>window.MathJax = {"tex": {"macros": {"float": ["\\mathbb{F}"], "real": ["\\mathbb{R}"], "complex": ["\\mathbb{C}"], "nat": ["\\mathbb{N}"], "integer": ["\\mathbb{Z}"], "bfa": "\\mathbf{a}", "bfe": "\\mathbf{e}", "bfx": "\\mathbf{x}", "bfX": "\\mathbf{X}", "bfu": "\\mathbf{u}", "bfv": "\\mathbf{v}", "bfw": "\\mathbf{w}", "bfy": "\\mathbf{y}", "bfz": "\\mathbf{z}", "bfzero": "\\boldsymbol{0}", "bfmu": "\\boldsymbol{\\mu}", "TP": "\\text{TP}", "TN": "\\text{TN}", "FP": "\\text{FP}", "FN": "\\text{FN}", "rmn": ["\\mathbb{R}^{#1 \\times #2}", 2], "dd": ["\\frac{d #1}{d #2}", 2], "pp": ["\\frac{\\partial #1}{\\partial #2}", 2], "norm": ["\\lVert #1 \\rVert", 1], "twonorm": ["\\norm{#1}_2", 1], "onenorm": ["\\norm{#1}_1", 1], "infnorm": ["\\norm{#1}_\\infty", 1], "innerprod": ["\\langle #1,#2 \\rangle", 2], "pr": ["^{(#1)}", 1], "diag": ["\\operatorname{diag}"], "sign": ["\\operatorname{sign}"], "dist": ["\\operatorname{dist}"], "simil": ["\\operatorname{sim}"], "ee": ["\\times 10^"], "floor": ["\\lfloor#1\\rfloor", 1], "argmin": ["\\operatorname{argmin}"], "Cov": ["\\operatorname{Cov}"], "logit": ["\\operatorname{logit}"]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
     <script>
         const thebe_selector = ".thebe,.cell"
@@ -274,18 +276,23 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../clustering/preliminaries.html">
-     5.1. Preliminaries
+    <a class="reference internal" href="../clustering/similarity.html">
+     5.1. Similarity and distance
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../clustering/performance.html">
+     5.2. Clustering performance
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../clustering/k-means.html">
-     5.2. k-means
+     5.3. k-means
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../clustering/hierarchical.html">
-     5.3. Hierarchical
+     5.4. Hierarchical
     </a>
    </li>
   </ul>
@@ -398,7 +405,9 @@
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="regression">
 <h1><span class="section-number">4. </span>Regression<a class="headerlink" href="#regression" title="Permalink to this headline">¶</a></h1>
-<p>Regression is the task of approximating the value of a dependent quantitative variable as a function of independent variables (sometimes called <em>predictors</em>). Regression is used for prediction, but also as a means of identifying which of the predictors are important and the nature of the relationship.</p>
+<p>Regression is the task of approximating the value of a dependent quantitative variable as a function of independent variables, sometimes called <em>predictors</em>.</p>
+<p>Regression and classification are distinct but not altogether different. Abstractly, both are concerned with finding a function <span class="math notranslate nohighlight">\(f\)</span> whose domain is feature space. In classification, the range of <span class="math notranslate nohighlight">\(f\)</span> is a finite set of class labels, while in regression, the range is the real number line, or an interval. However, we can take the output of a regression and round or otherwise quantize it to get a finite set of classes, so regression can be used for classification. Likewise, most classification methods have a generalization to regression.</p>
+<p>In addition to prediction tasks, some regression methods can be used to identify the relative significance of each predictor feature, and whether is has a direct or inverse relationship to the function value. Unimportant features can be removed to help minimize overfitting.</p>
 <div class="toctree-wrapper compound">
 </div>
 </div>

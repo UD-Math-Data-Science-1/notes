@@ -109,7 +109,7 @@ leaf = dt.apply(X)
 print(leaf)
 ```
 
-With some pandas splitting, we can find out the mean value for the samples within each leaf:
+With some pandas grouping, we can find out the mean value for the samples within each leaf:
 
 ```{code-cell}
 leaves = pd.DataFrame(zip(y,leaf),columns=["y","leaf"])
@@ -121,3 +121,45 @@ All values of the regressor will be one of the four values above:
 ```{code-cell}
 print(dt.predict(X))
 ```
+
+## Case study
+
+Here again is the diabetes data set, and the performance of a multilinear regressor on it.
+
+```{code-cell}
+from sklearn import datasets
+diabetes = datasets.load_diabetes(as_frame=True)["frame"]
+X = diabetes.drop("target",axis=1)
+y = diabetes["target"]
+
+from sklearn.model_selection import train_test_split
+
+X_tr,X_te,y_tr,y_te = train_test_split(X,y,test_size=0.2,random_state=0)
+
+from sklearn.linear_model import LinearRegression
+lm = LinearRegression()
+lm.fit(X_tr,y_tr)
+print("linear model score:",lm.score(X_te,y_te))
+```
+
+We will do a cursory grid search over some useful hyperparameters in order to get the best regressors from a decision tree and k-nearest neighbors. The data columns are standardized, so there is no need to set up a pipeline for preprocessing.
+
+```{code-cell}
+from sklearn.model_selection import GridSearchCV,KFold
+from sklearn.tree import DecisionTreeRegressor
+from sklearn.neighbors import KNeighborsRegressor
+
+kf = KFold(n_splits=6,shuffle=True,random_state=3)
+grid = { "max_depth":range(2,12), "criterion":["squared_error","absolute_error"] }
+dt = GridSearchCV(DecisionTreeRegressor(random_state=5),grid)
+dt.fit(X_tr,y_tr)
+
+grid = { "n_neighbors":range(2,25), "weights":["uniform","distance"] }
+knn = GridSearchCV(KNeighborsRegressor(),grid)
+knn.fit(X_tr,y_tr)
+
+print("Best decision tree CofD:",dt.score(X_te,y_te))
+print("Best kNN CofD:",knn.score(X_te,y_te))
+```
+
+As you can see, kNN is dead even with the linear model for this dataset. However, the coefficients of the linear model give some potentially useful information, and the linear model can be improved somewhat with regularization, while kNN offers no significant advantages.

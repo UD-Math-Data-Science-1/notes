@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>5.3. k-means &#8212; Data Science 1</title>
+    <title>5.2. Clustering performance &#8212; Data Science 1</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet">
   <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -56,8 +56,8 @@
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="5.4. Hierarchical" href="hierarchical.html" />
-    <link rel="prev" title="5.2. Clustering performance" href="performance.html" />
+    <link rel="next" title="5.3. k-means" href="k-means.html" />
+    <link rel="prev" title="5.1. Similarity and distance" href="similarity.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -280,19 +280,24 @@
      5.1. Similarity and distance
     </a>
    </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="performance.html">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
      5.2. Clustering performance
     </a>
    </li>
-   <li class="toctree-l2 current active">
-    <a class="current reference internal" href="#">
+   <li class="toctree-l2">
+    <a class="reference internal" href="k-means.html">
      5.3. k-means
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="hierarchical.html">
      5.4. Hierarchical
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="dbscan.html">
+     5.5. DBSCAN
     </a>
    </li>
   </ul>
@@ -359,11 +364,11 @@
     <div class="dropdown-buttons">
         <!-- ipynb file if we had a myst markdown file -->
         <a class="dropdown-buttons"
-            href="../_sources/clustering/k-means.ipynb"><button type="button"
+            href="../_sources/clustering/performance.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download notebook file" data-toggle="tooltip"
                 data-placement="left">.ipynb</button></a>
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/clustering/k-means.md"><button type="button"
+        <a class="dropdown-buttons" href="../_sources/clustering/performance.md"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.md</button></a>
         <!-- Download PDF via print -->
@@ -388,7 +393,7 @@
         aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
     <div class="dropdown-buttons">
         
-        <a class="binder-button" href="https://mybinder.org/v2/gh/UD-Math-Data-Science-1/notes/main?urlpath=tree/clustering/k-means.md"><button type="button"
+        <a class="binder-button" href="https://mybinder.org/v2/gh/UD-Math-Data-Science-1/notes/main?urlpath=tree/clustering/performance.md"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
                 data-placement="left"><img class="binder-button-logo"
                     src="../_static/images/logo_binder.svg"
@@ -415,13 +420,13 @@
             <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#lloyd-s-algorithm">
-   Lloyd’s algorithm
+  <a class="reference internal nav-link" href="#adjusted-rand-index">
+   (Adjusted) Rand index
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#practical-issues">
-   Practical issues
+  <a class="reference internal nav-link" href="#silhouette-coefficient">
+   Silhouette coefficient
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -430,8 +435,8 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#notalldatasets">
-   #notalldatasets
+  <a class="reference internal nav-link" href="#digits">
+   Digits
   </a>
  </li>
 </ul>
@@ -444,7 +449,7 @@
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>k-means</h1>
+                <h1>Clustering performance</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -455,13 +460,13 @@
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#lloyd-s-algorithm">
-   Lloyd’s algorithm
+  <a class="reference internal nav-link" href="#adjusted-rand-index">
+   (Adjusted) Rand index
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#practical-issues">
-   Practical issues
+  <a class="reference internal nav-link" href="#silhouette-coefficient">
+   Silhouette coefficient
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -470,8 +475,8 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#notalldatasets">
-   #notalldatasets
+  <a class="reference internal nav-link" href="#digits">
+   Digits
   </a>
  </li>
 </ul>
@@ -483,271 +488,208 @@
             
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="k-means">
-<h1><span class="section-number">5.3. </span>k-means<a class="headerlink" href="#k-means" title="Permalink to this headline">¶</a></h1>
-<p>The <span class="math notranslate nohighlight">\(k\)</span>-means algorithm is one of the best-known and most widely used clustering methods, although it has some serious limitations and drawbacks.</p>
-<p>Given a sample matrix <span class="math notranslate nohighlight">\(\bfX\)</span> with <span class="math notranslate nohighlight">\(n\)</span> rows <span class="math notranslate nohighlight">\(\bfx_i\)</span>, the algorithm divides the sample points into disjoint sets <span class="math notranslate nohighlight">\(C_1,\ldots,C_k\)</span>. Cluster <span class="math notranslate nohighlight">\(j\)</span> has a <strong>centroid</strong> <span class="math notranslate nohighlight">\(\bfmu_j\)</span>, which is the mean of the points in <span class="math notranslate nohighlight">\(C_j\)</span>. Define the <strong>inertia</strong> of <span class="math notranslate nohighlight">\(C_j\)</span> as</p>
+  <div class="tex2jax_ignore mathjax_ignore section" id="clustering-performance">
+<h1><span class="section-number">5.2. </span>Clustering performance<a class="headerlink" href="#clustering-performance" title="Permalink to this headline">¶</a></h1>
+<p>If a trusted or ground truth clustering is available, then we can compare it to a different clustering result. Let’s say that two sample points in a clustering are <em>buddies</em> if they are in the same cluster, and <em>strangers</em> otherwise.</p>
+<div class="section" id="adjusted-rand-index">
+<h2>(Adjusted) Rand index<a class="headerlink" href="#adjusted-rand-index" title="Permalink to this headline">¶</a></h2>
+<p>Let <span class="math notranslate nohighlight">\(b\)</span> be the number of pairs that are buddies in both clusterings, and let <span class="math notranslate nohighlight">\(s\)</span> be the number of pairs that are strangers in both clusterings. Noting that there are <span class="math notranslate nohighlight">\(\binom{n}{2}\)</span> distinct pairs of <span class="math notranslate nohighlight">\(n\)</span> sample points, we define the <strong>Rand index</strong> by</p>
 <div class="math notranslate nohighlight">
 \[
-I_j = \sum_{\bfx\in C_j} \norm{ \bfx - \bfmu_j }^2.
+\text{RI} = \frac{b+s}{\binom{n}{2}}.
 \]</div>
-<p>The goal of the algorithm is to choose the clusters in order to minimize the total inertia,</p>
+<p>One good feature of the Rand index is that there is no need to find a correspondence between the clusters in the two clusterings. In fact, the clusterings need not even have the same number of clusters.</p>
+<p>While the Rand index is not hard to understand, it’s not normalized to any obvious scale. The <strong>adjusted Rand index</strong> is</p>
 <div class="math notranslate nohighlight">
 \[
-I = \sum_{j=1}^k I_j.
+\text{ARI} = \frac{\text{RI} - E[\text{RI}]}{\text{max}(\text{RI})-E[\text{RI}]},
 \]</div>
-<p>This is a hard problem to solve exactly (technically, NP-hard even for <span class="math notranslate nohighlight">\(k=2\)</span>), so the algorithm uses a heuristic method to look for the minimum.</p>
-<div class="section" id="lloyd-s-algorithm">
-<h2>Lloyd’s algorithm<a class="headerlink" href="#lloyd-s-algorithm" title="Permalink to this headline">¶</a></h2>
-<p>The standard method is known as <strong>Lloyd’s algorithm</strong>. Starting with values for the <span class="math notranslate nohighlight">\(k\)</span> centroids, there is an iteration consisting of two steps:</p>
-<ul class="simple">
-<li><p><strong>Assignment</strong> Each sample point is assigned to the cluster whose centroid is the nearest. (Ties are broken randomly.)</p></li>
-<li><p><strong>Update</strong> Recalculate the centroids based on the cluster assignments:</p></li>
-</ul>
-<div class="math notranslate nohighlight">
-\[
-\bfmu_j^+ = \frac{1}{|C_j|} \sum_{\bfx\in C_j} \bfx.
-\]</div>
-<p>The algorithm stops when the assignment step does not change any of the clusters. In practice, this almost always happens quickly.</p>
+<p>where the mean and max operations are taken over all possible clusterings. (These values can be worked out by combinatorics.) Hence an ARI of 0 indicates no better agreement than a random clustering, and an ARI of 1 is complete agreement.</p>
 </div>
-<div class="section" id="practical-issues">
-<h2>Practical issues<a class="headerlink" href="#practical-issues" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li><p><strong>Initialization</strong> The performance of <span class="math notranslate nohighlight">\(k\)</span>-means depends a great deal on the initial set of centroids. Traditionally, the centroids were chosen as random members of the sample set, but better/more reliable heuristics, such as <em><span class="math notranslate nohighlight">\(k\)</span>-means++</em>, have since become more dominant.</p></li>
-<li><p><strong>\bfmultiple runs</strong> All the initialization methods include an element of randomness, and since the Lloyd algorithm usually converges quickly, it is usually run with \bfmultiple instances of the initialization, and the run with the lowest inertia is kept.</p></li>
-<li><p><strong>Selection of <span class="math notranslate nohighlight">\(k\)</span></strong> The algorithm treats <span class="math notranslate nohighlight">\(k\)</span> as a hyperparameter. Occam’s Razor dictates preferring smaller values to large ones. There are many suggestions on how to find the choice that gives the most “bang for the buck.”</p></li>
-<li><p><strong>Distance metric</strong> The Lloyd algorithm often fails to converge for norms other than the 2-norm, and \bfmust be modified if another norm is preferred.</p></li>
-<li><p><strong>Shape effects</strong> Because of the dependence on the 2-norm, the inertia criterion disfavors long, skinny clusters (i.e., anisotropic), and clusters of unequal spread (variance). Basically, it wants to find spherical blobs of roughly equal size and membership.</p></li>
-</ul>
+<div class="section" id="silhouette-coefficient">
+<h2>Silhouette coefficient<a class="headerlink" href="#silhouette-coefficient" title="Permalink to this headline">¶</a></h2>
+<p>If no reference clustering (i.e., ground truth) is available, then we can use a different measurement to assess the intrinsic quality. Suppose <span class="math notranslate nohighlight">\(\bfx_i\)</span> is a sample point. Let <span class="math notranslate nohighlight">\(\bar{b}\)</span> be the mean distance between <span class="math notranslate nohighlight">\(\bfx_i\)</span> and its buddies, and let <span class="math notranslate nohighlight">\(\bar{r}\)</span> be the mean distance between <span class="math notranslate nohighlight">\(\bfx_i\)</span> and the members of the nearest cluster of strangers. Then the <strong>silhouette coefficient</strong> or silhouette score of <span class="math notranslate nohighlight">\(\bfx_i\)</span> is</p>
+<div class="math notranslate nohighlight">
+\[
+S_i = \frac{\bar{r}-\bar{b}}{\max\{\bar{r},\bar{b}\}}.
+\]</div>
+<p>This value is between <span class="math notranslate nohighlight">\(-1\)</span> (bad) and <span class="math notranslate nohighlight">\(1\)</span> (good). Finally, the silhouette score of a cluster is the mean of the <span class="math notranslate nohighlight">\(S_i\)</span> over the samples in that cluster.</p>
 </div>
 <div class="section" id="toy-example">
 <h2>Toy example<a class="headerlink" href="#toy-example" title="Permalink to this headline">¶</a></h2>
-<p>Let’s regenerate the blobs from the previous section.</p>
+<p>We will create an artificial data set with two features and three predefined clusters.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_blobs</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_blobs</span>
 <span class="n">X</span><span class="p">,</span><span class="n">y</span> <span class="o">=</span> <span class="n">make_blobs</span><span class="p">(</span>
     <span class="n">n_samples</span><span class="o">=</span><span class="p">[</span><span class="mi">40</span><span class="p">,</span><span class="mi">30</span><span class="p">,</span><span class="mi">30</span><span class="p">],</span>
     <span class="n">centers</span><span class="o">=</span><span class="p">[[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],[</span><span class="mi">3</span><span class="p">,</span><span class="mf">1.5</span><span class="p">],[</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="p">]],</span>
     <span class="n">cluster_std</span><span class="o">=</span><span class="p">[</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">0.9</span><span class="p">,</span><span class="mf">1.5</span><span class="p">],</span>
     <span class="n">random_state</span> <span class="o">=</span> <span class="mi">19716</span>
     <span class="p">)</span>
+
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
 <span class="n">blobs</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;x1&quot;</span><span class="p">:</span><span class="n">X</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span><span class="s2">&quot;x2&quot;</span><span class="p">:</span><span class="n">X</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span><span class="s2">&quot;class&quot;</span><span class="p">:</span><span class="n">y</span><span class="p">})</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">relplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">blobs</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;x1&quot;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s2">&quot;x2&quot;</span><span class="p">,</span><span class="n">hue</span><span class="o">=</span><span class="s2">&quot;class&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/k-means_1_0.png" src="../_images/k-means_1_0.png" />
+<img alt="../_images/performance_1_0.png" src="../_images/performance_1_0.png" />
 </div>
 </div>
-<p>Now we try <span class="math notranslate nohighlight">\(k\)</span>-means with <span class="math notranslate nohighlight">\(k=3\)</span>.</p>
+<p>As you can see above, class 2 is more dispersed than the other clusters, and, given the overlaps, a person might label a few points differently.</p>
+<p>We will add a column to the data frame that records the silhouette score for each point.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.cluster</span> <span class="kn">import</span> <span class="n">KMeans</span>
-<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">silhouette_samples</span>
-
-<span class="n">km</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-<span class="n">km</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-
-<span class="n">blobs</span><span class="p">[</span><span class="s2">&quot;km3&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">km</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-<span class="n">blobs</span><span class="p">[</span><span class="s2">&quot;sil&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">silhouette_samples</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">blobs</span><span class="p">[</span><span class="s2">&quot;km3&quot;</span><span class="p">])</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">relplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">blobs</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;x1&quot;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s2">&quot;x2&quot;</span><span class="p">,</span><span class="n">hue</span><span class="o">=</span><span class="s2">&quot;km3&quot;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="n">blobs</span><span class="p">[</span><span class="s2">&quot;sil&quot;</span><span class="p">]);</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">silhouette_samples</span>
+<span class="n">blobs</span><span class="p">[</span><span class="s2">&quot;sil&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">silhouette_samples</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">relplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">blobs</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;x1&quot;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s2">&quot;x2&quot;</span><span class="p">,</span><span class="n">hue</span><span class="o">=</span><span class="s2">&quot;class&quot;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="s2">&quot;sil&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/k-means_3_0.png" src="../_images/k-means_3_0.png" />
+<img alt="../_images/performance_3_0.png" src="../_images/performance_3_0.png" />
 </div>
 </div>
-<p>Intuitively, this seems like a better clustering than the original. The silhouette scores show a modest reduction for the better clusters, but major improvement for the problematic one.</p>
+<p>In this plot, the size of the dot shows its silhouette coefficient. Those points which don’t belong comfortably with their cluster have negative scores and the smallest dots. We can find the average score in each cluster through a grouped mean:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">blobs</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;km3&quot;</span><span class="p">)[</span><span class="s2">&quot;sil&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">blobs</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;class&quot;</span><span class="p">)[</span><span class="s2">&quot;sil&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>km3
-0    0.493170
-1    0.793501
-2    0.401121
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>class
+0    0.812718
+1    0.551222
+2    0.223225
 Name: sil, dtype: float64
 </pre></div>
 </div>
 </div>
 </div>
-<p>What happens when we ask for just <span class="math notranslate nohighlight">\(k=2\)</span> clusters?</p>
+<p>These values are ordered as we would expect.</p>
+<p>Now let’s create another clustering based on the quadrants of the plane.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">km</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">km</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">quad</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">y</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span> <span class="k">return</span> <span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span> <span class="k">return</span> <span class="mi">4</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">y</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span> <span class="k">return</span> <span class="mi">2</span>
+        <span class="k">else</span><span class="p">:</span> <span class="k">return</span> <span class="mi">3</span>
 
-<span class="n">blobs</span><span class="p">[</span><span class="s2">&quot;km2&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">km</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-<span class="n">blobs</span><span class="p">[</span><span class="s2">&quot;sil&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">silhouette_samples</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">blobs</span><span class="p">[</span><span class="s2">&quot;km2&quot;</span><span class="p">])</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">relplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">blobs</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;x1&quot;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s2">&quot;x2&quot;</span><span class="p">,</span><span class="n">hue</span><span class="o">=</span><span class="s2">&quot;km2&quot;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="n">blobs</span><span class="p">[</span><span class="s2">&quot;sil&quot;</span><span class="p">]);</span>
+<span class="n">blobs</span><span class="p">[</span><span class="s2">&quot;quadrant&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">quad</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span> <span class="k">for</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">blobs</span><span class="o">.</span><span class="n">x1</span><span class="p">,</span><span class="n">blobs</span><span class="o">.</span><span class="n">x2</span><span class="p">)]</span>
+<span class="n">blobs</span><span class="p">[</span><span class="s2">&quot;sil&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">silhouette_samples</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">blobs</span><span class="p">[</span><span class="s2">&quot;quadrant&quot;</span><span class="p">])</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">relplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">blobs</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;x1&quot;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s2">&quot;x2&quot;</span><span class="p">,</span><span class="n">hue</span><span class="o">=</span><span class="s2">&quot;quadrant&quot;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="s2">&quot;sil&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/k-means_7_0.png" src="../_images/k-means_7_0.png" />
+<img alt="../_images/performance_7_0.png" src="../_images/performance_7_0.png" />
 </div>
 </div>
-<p>This result too is arguably superior to the reference clustering we created.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">blobs</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;km2&quot;</span><span class="p">)[</span><span class="s2">&quot;sil&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">blobs</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;quadrant&quot;</span><span class="p">)[</span><span class="s2">&quot;sil&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>km2
-0    0.456869
-1    0.813098
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>quadrant
+1    0.578120
+2    0.808252
+3    0.409983
+4    0.043896
 Name: sil, dtype: float64
 </pre></div>
 </div>
 </div>
 </div>
-<p>The outlier points in the generated blobs are perhaps best seen as noisy examples, at least for the purposes of clustering.</p>
+<p>Even though the original clustering had three classes, and there are four quadrants, we can still compare them by adjusted Rand index.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">adjusted_rand_score</span>
+<span class="n">adjusted_rand_score</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">blobs</span><span class="p">[</span><span class="s2">&quot;quadrant&quot;</span><span class="p">])</span>
+</pre></div>
 </div>
-<div class="section" id="notalldatasets">
-<h2>#notalldatasets<a class="headerlink" href="#notalldatasets" title="Permalink to this headline">¶</a></h2>
-<p>It’s worth keeping in mind that clustering is an artificial classification that may not reflect reality.
-For example, we can load a famous data set generated from handwriting recognition for the digits 0 through 9. It’s natural to try a <span class="math notranslate nohighlight">\(k\)</span>-means clustering with <span class="math notranslate nohighlight">\(k=10\)</span>.</p>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.8784845217926999
+</pre></div>
+</div>
+</div>
+</div>
+<p>Not surprisingly, they are seen as fairly similar.</p>
+</div>
+<div class="section" id="digits">
+<h2>Digits<a class="headerlink" href="#digits" title="Permalink to this headline">¶</a></h2>
+<p>sklearn has a well-known dataset that contains labeled handwritten digits. Let’s extract the examples for just the numerals 4, 5, and 6.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">datasets</span>
 <span class="n">digits</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">load_digits</span><span class="p">(</span><span class="n">as_frame</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="s2">&quot;frame&quot;</span><span class="p">]</span>
-<span class="n">X</span> <span class="o">=</span> <span class="n">digits</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s2">&quot;target&quot;</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="s2">&quot;columns&quot;</span><span class="p">)</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">digits</span><span class="p">[</span><span class="s2">&quot;target&quot;</span><span class="p">]</span>
-<span class="n">km</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
-<span class="n">km</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-<span class="n">digits</span><span class="p">[</span><span class="s2">&quot;km&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">km</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>The Rand index suggests that these clusters aren’t doing a great job at identifying digits.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">adjusted_rand_score</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ARI:&quot;</span><span class="p">,</span><span class="n">adjusted_rand_score</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">digits</span><span class="p">[</span><span class="s2">&quot;km&quot;</span><span class="p">]))</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">digits</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s2">&quot;target&quot;</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">digits</span><span class="o">.</span><span class="n">target</span>
+<span class="n">keep</span> <span class="o">=</span> <span class="p">(</span><span class="n">y</span><span class="o">==</span><span class="mi">4</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">y</span><span class="o">==</span><span class="mi">5</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">y</span><span class="o">==</span><span class="mi">6</span><span class="p">)</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">keep</span><span class="p">]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="n">keep</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">value_counts</span><span class="p">())</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ARI: 0.6658996801930657
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>5    182
+4    181
+6    181
+Name: target, dtype: int64
 </pre></div>
 </div>
 </div>
 </div>
-<p>We might be tempted to push harder for a better clustering result. However, it’s worth visualizing the silhouette scores for the ground-truth clustering:</p>
+<p>We can visualize the raw data. Here are some of the 6s.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">digits</span><span class="p">[</span><span class="s2">&quot;sil_true&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">silhouette_samples</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">catplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">digits</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;target&quot;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s2">&quot;sil_true&quot;</span><span class="p">,</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;box&quot;</span><span class="p">);</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/k-means_15_0.png" src="../_images/k-means_15_0.png" />
-</div>
-</div>
-<p>There are some low-quality clusters there, most notably classes 1, 8, and 9. In fact, the silhouette scores in our clustering are similar or better already:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">digits</span><span class="p">[</span><span class="s2">&quot;sil_kmeans&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">silhouette_samples</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">digits</span><span class="p">[</span><span class="s2">&quot;km&quot;</span><span class="p">])</span>
-<span class="n">digits</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;target&quot;</span><span class="p">)[[</span><span class="s2">&quot;sil_true&quot;</span><span class="p">,</span><span class="s2">&quot;sil_kmeans&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">median</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
+<span class="k">def</span> <span class="nf">plot_digits</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
+            <span class="n">row</span> <span class="o">=</span> <span class="n">j</span> <span class="o">+</span> <span class="mi">4</span><span class="o">*</span><span class="n">i</span>
+            <span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">row</span><span class="p">,:]),(</span><span class="mi">8</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+            <span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">],</span><span class="n">square</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">,</span><span class="n">cbar</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+    <span class="k">return</span> <span class="kc">None</span>
 
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>sil_true</th>
-      <th>sil_kmeans</th>
-    </tr>
-    <tr>
-      <th>target</th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>0.383051</td>
-      <td>0.370894</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>0.069325</td>
-      <td>0.189545</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>0.156625</td>
-      <td>0.157407</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>0.166186</td>
-      <td>0.145116</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>0.184106</td>
-      <td>0.180891</td>
-    </tr>
-    <tr>
-      <th>5</th>
-      <td>0.139994</td>
-      <td>0.144980</td>
-    </tr>
-    <tr>
-      <th>6</th>
-      <td>0.309357</td>
-      <td>0.306704</td>
-    </tr>
-    <tr>
-      <th>7</th>
-      <td>0.202178</td>
-      <td>0.191620</td>
-    </tr>
-    <tr>
-      <th>8</th>
-      <td>0.094333</td>
-      <td>0.081606</td>
-    </tr>
-    <tr>
-      <th>9</th>
-      <td>0.086138</td>
-      <td>0.098609</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
+<span class="n">plot_digits</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">y</span><span class="o">==</span><span class="mi">6</span><span class="p">])</span>
+</pre></div>
 </div>
-<p>It seems unlikely, then, that the recognition of digits can be greatly improved by finding a better clustering, at least in the sense of the 2-norm. Instead, we would be better off exploring different norms, engineering new features, or trying another classification method altogether.</p>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/performance_14_0.png" src="../_images/performance_14_0.png" />
+</div>
+</div>
+<p>A clustering method won’t be able to learn from the ground truth labels. In order to set expectations, we should see how well the differently labeled examples cluster. Here is how the silhouette scores are distributed.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">silhouette_samples</span>
+<span class="n">X</span><span class="p">[</span><span class="s2">&quot;sil&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">silhouette_samples</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+<span class="n">X</span><span class="p">[</span><span class="s2">&quot;label&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;category&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">catplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">X</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;label&quot;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s2">&quot;sil&quot;</span><span class="p">,</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;violin&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/performance_16_0.png" src="../_images/performance_16_0.png" />
+</div>
+</div>
+<p>The scores are mostly positive, which indicates some degree of clustering. The 6s in particular are fairly well-clustered. There are, however, some examples with negative clustering scores, indicating cases that might get assigned to different clusters than the labels suggest.</p>
+<p>It’s useful to keep in mind that while classification just requires us to separate different classes of examples, clustering is more demanding: examples in a cluster need to be more like each other, or the “average” cluster member, than they are like members of other clusters. We should expect that edge cases, even within the training data, will look ambiguous, and there is no ground truth to help draw the boundaries.</p>
 </div>
 </div>
 
@@ -776,17 +718,17 @@ For example, we can load a famous data set generated from handwriting recognitio
             
                 <!-- Previous / next buttons -->
 <div class='prev-next-area'> 
-    <a class='left-prev' id="prev-link" href="performance.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="similarity.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title"><span class="section-number">5.2. </span>Clustering performance</p>
+            <p class="prev-next-title"><span class="section-number">5.1. </span>Similarity and distance</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="hierarchical.html" title="next page">
+    <a class='right-next' id="next-link" href="k-means.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">5.4. </span>Hierarchical</p>
+        <p class="prev-next-title"><span class="section-number">5.3. </span>k-means</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
