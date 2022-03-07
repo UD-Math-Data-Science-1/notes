@@ -142,22 +142,7 @@ def plot_digits(X):
 plot_digits(X[y==6])
 ```
 
-Since the examples are labeled, we can treat this as a classification problem and use kNN to "cluster" them.
-
-```{code-cell}
-from sklearn.neighbors import KNeighborsClassifier
-knn = KNeighborsClassifier(n_neighbors=10)
-knn.fit(X,y)
-labels = knn.predict(X)
-```
-
-We already have ways to measure classifiers, but adjusted Rand index is now available as well.
-
-```{code-cell}
-adjusted_rand_score(y,labels)
-```
-
-As you can see above, this is an easy classification problem. But a clustering method won't be able to learn from the ground truth labels. In order to set expectations, we should see how well the differently labeled examples cluster. Here is how the silhouette scores are distributed.
+A clustering method won't be able to learn from the ground truth labels. In order to set expectations, we should see how well the differently labeled examples cluster. Here is how the silhouette scores are distributed.
 
 ```{code-cell}
 from sklearn.metrics import silhouette_samples

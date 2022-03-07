@@ -39,6 +39,7 @@ chapters:
     - file: clustering/performance
     - file: clustering/k-means
     - file: clustering/hierarchical
+    - file: clustering/dbscan
   - file: network/overview
     sections:
     - file: network/networkx
