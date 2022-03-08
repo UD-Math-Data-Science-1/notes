@@ -17,7 +17,7 @@ kernelspec:
 
 The algorithm has two hyperparameters: a neighborhood radius $\epsilon > 0$, and a minimum neighbor count $N_\text{min}$. DBSCAN defines a **core point** as a sample point that has at least $N_\text{min}$ additional samples within distance $\epsilon$ of it. Note that the relationship is not symmetric: the qualifying neighbors of a core point need not themselves be core points.
 
-A cluster is defined as a core point, its $\epsilon$-neighborhood, and the neighborhoods of all core points in its neighborhood, etc., extended recursively. Points that do not belong to any such clusters are designated as **noise points**.
+A cluster is defined as a core point, its $\epsilon$-neighborhood, and the neighborhoods of all core points in its neighborhood, etc., extended recursively. Points that are not core and that are not within the $\epsilon$-neighborhoods of any core points are designated as **noise points** and do not belong to any cluster.
 
 If two points are in the same cluster, then one can be reached from the other entirely by hopping along through overlapping neighborhoods of core points. Since some points might be reachable from different clusters, however, the assignment to clusters can depend on the order in which the samples are processed. Otherwise, the outcome is deterministic.
 
@@ -129,7 +129,7 @@ from sklearn.metrics import adjusted_rand_score
 adjusted_rand_score(y,yhat)
 ```
 
-Earlier we saw that a classifier can achieve a score of over $0.99$. But that learns from the true labels, while the clusters have no prior knowledge of them, or even of how many classes there are. 
+This is a relatively easy classification problem, but nevertheless this is rather good performance for a method that has no prior no prior knowledge of the labels, or even how many classes there are. 
 
 Let's take a look at some of the noise samples.
 
@@ -155,5 +155,5 @@ plot_digits(X[dbs.labels_==-1])
 
 ```
 
-At least some of these are ambiguous at best, but in other cases the failure to be clustered is harder to explain. 
+Some of these images are ambiguous at best, but in other cases the failure to be clustered with the rest of the class is harder to explain. 
 

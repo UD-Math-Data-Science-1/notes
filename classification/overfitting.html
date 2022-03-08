@@ -259,8 +259,13 @@
     </a>
    </li>
    <li class="toctree-l2">
+    <a class="reference internal" href="../regression/prob_class.html">
+     4.5. Probabilistic classification
+    </a>
+   </li>
+   <li class="toctree-l2">
     <a class="reference internal" href="../regression/logistic.html">
-     4.5. Logistic regression
+     4.6. Logistic regression
     </a>
    </li>
   </ul>
@@ -293,6 +298,11 @@
    <li class="toctree-l2">
     <a class="reference internal" href="../clustering/hierarchical.html">
      5.4. Hierarchical
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../clustering/dbscan.html">
+     5.5. DBSCAN
     </a>
    </li>
   </ul>
@@ -415,6 +425,16 @@
             <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#overfitting-in-knn">
+   Overfitting in kNN
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#biasvariance-tradeoff">
+   Bias–variance tradeoff
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#learning-curves">
    Learning curves
   </a>
@@ -440,6 +460,16 @@
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#overfitting-in-knn">
+   Overfitting in kNN
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#biasvariance-tradeoff">
+   Bias–variance tradeoff
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#learning-curves">
    Learning curves
   </a>
@@ -461,7 +491,20 @@
 <p>In ML, a <em>parameter</em> is a value that is adjusted during training; i.e., it is learned from the training data. A <em>hyperparameter</em> is one that is selected and remains fixed throughout the training. In most of mathematics, we would refer to these as <em>variables</em> and <em>parameters</em>, and sources aren’t always fastidious about the latter term.</p>
 </div>
 <p>An obvious question about hyperparameters is: Why not just use maximum algorithm power all the time? It’s not simply a matter of computing resource limitations, although those can be significant. More importantly, too much resolving power causes a classifier to learn not just major trends, but idiosyncratic details about the training set that may not generalize well, a phenomenon known as <strong>overfitting</strong>.</p>
-<p>Consider a kNN classifier with <span class="math notranslate nohighlight">\(k=1\)</span>. Each training sample’s nearest neighbor is itself! Hence this classifier will perfectly fit the training data. Let’s apply this to the loan application data, but using many different subsets of the training data in order to simulate what happens in parallel universes. We will use (1 <span class="math notranslate nohighlight">\(-\)</span> accuracy) as a measurement of error.</p>
+<div class="section" id="overfitting-in-knn">
+<h2>Overfitting in kNN<a class="headerlink" href="#overfitting-in-knn" title="Permalink to this headline">¶</a></h2>
+<p>Consider a kNN classifier with <span class="math notranslate nohighlight">\(k=1\)</span>. The class assigned to each value is just that of the nearest training example, making for a piecewise constant labelling. Let’s see how this plays out in about as simple a classification problem as we can come up with: a single feature, with the class being the sign of the feature’s value. (We can also assign zero to have class 1.) Using <span class="math notranslate nohighlight">\(k=1\)</span> produces fine results, as shown here for 4 different training sets of size 40:</p>
+<a class="reference internal image-reference" href="../_images/knn_step_k1.png"><img alt="kNN with k=1, perfect data" class="align-center" src="../_images/knn_step_k1.png" style="width: 320px;" /></a>
+<p>Now suppose we use training sets that have just 3 mislabeled examples. Here are some resulting classification functions:</p>
+<a class="reference internal image-reference" href="../_images/knn_noisy_k1.png"><img alt="kNN with k=1, noisy data" class="align-center" src="../_images/knn_noisy_k1.png" style="width: 320px;" /></a>
+<p>Each individual result is good over much of the domain, but wrong over some parts. Each one is wrong over a relatively small part of the domain, but the details depend on the particulars of the training set. On different days you will get a lot of different answers.</p>
+<p>Now let’s bump up to <span class="math notranslate nohighlight">\(k=3\)</span>. The results are much more consistent:</p>
+<a class="reference internal image-reference" href="../_images/knn_noisy_k3.png"><img alt="kNN with k=3, noisy data" class="align-center" src="../_images/knn_noisy_k3.png" style="width: 320px;" /></a>
+<p>The voting mechanism of kNN allows the classifier to ignore isolated outliers. If we continue to <span class="math notranslate nohighlight">\(k=7\)</span>, then the 3 outliers will never be able to outvote the correct values. The decision boundary between negative and positive also depends less on exactly where the points happen to lie:</p>
+<a class="reference internal image-reference" href="../_images/knn_noisy_k7.png"><img alt="kNN with k=7, noisy data" class="align-center" src="../_images/knn_noisy_k7.png" style="width: 320px;" /></a>
+<p>The choice <span class="math notranslate nohighlight">\(k=1\)</span> is an extreme case of overfitting. In any number of dimensions, each training sample’s nearest neighbor is itself, so the classifier will always perfectly fit the training data–including any incorrect or atypical values.</p>
+<p>However, the lesson is <em>not</em> simply that “bigger <span class="math notranslate nohighlight">\(k\)</span> is better.” Consider that in the extreme case of <span class="math notranslate nohighlight">\(k=21\)</span>, the classifier will predict the same result everywhere! If the true classification boundary were more complicated (i.e., if the classes switched back and forth at high frequency), using even <span class="math notranslate nohighlight">\(k=7\)</span> would be unable to capture many of the details. What increasing <span class="math notranslate nohighlight">\(k\)</span> does provide is much greater stability, both in the sense of slow variation over feature space, and in weaker dependence on the training set. If we think that a complicated decision boundary is unlikely, then both of these properties are desirable to some extent.</p>
+<p>We can see this phenomenon play out with real data, too. Let’s apply kNN to the loan application data, using many different subsets of the training data in order to simulate what happens in parallel universes. We will use (1 <span class="math notranslate nohighlight">\(-\)</span> accuracy) as a measurement of error.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">neighbors</span><span class="p">,</span><span class="n">metrics</span>
@@ -496,9 +539,8 @@
 <img alt="../_images/overfitting_1_0.png" src="../_images/overfitting_1_0.png" />
 </div>
 </div>
-<p>As anticipated, the training error (blue histogram) is always zero. But the training error (orange histogram) tells a very different story.</p>
-<p>This is an extreme instance of overfitting. The classifier has perfectly replicated the training data, but it’s unable to generalize to new data. That’s what causes the wide gap between training and test performance. There is another effect as well: the details of the fit depend strongly on the contents of the training set, so there is a large amount of variance in the testing error.</p>
-<p>If we increase <span class="math notranslate nohighlight">\(k\)</span> in the kNN classifier, then each prediction will look at more than one value in the training set, reducing the tendency to overfit.</p>
+<p>As anticipated, the training error (blue histogram) is always zero. But the testing error (orange histogram) tells a very different story. The hallmarks of overfitting are a large gap between training and test performance—i.e., poor generalization—and large variance in the testing error due to the sensitive dependence.</p>
+<p>As with the toy example, increasing <span class="math notranslate nohighlight">\(k\)</span> in the kNN classifier reduces the tendency to overfit.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">err</span><span class="p">,</span><span class="n">kind</span> <span class="o">=</span> <span class="p">[],[]</span>     <span class="c1"># track information for the results</span>
@@ -520,30 +562,55 @@
 <img alt="../_images/overfitting_3_0.png" src="../_images/overfitting_3_0.png" />
 </div>
 </div>
-<p>Now the training error is more comparable to the testing error, and the variance in the testing error is much smaller than before.</p>
+<p>Note above how the training error is more comparable to the testing error, and the variance in the testing error is much smaller than before. (The horizontal axis scaling is different in the two plots.)</p>
+</div>
+<div class="section" id="biasvariance-tradeoff">
+<h2>Bias–variance tradeoff<a class="headerlink" href="#biasvariance-tradeoff" title="Permalink to this headline">¶</a></h2>
+<p>Suppose that <span class="math notranslate nohighlight">\(f(x)\)</span> is a function giving the ground truth over the entire population. Let <span class="math notranslate nohighlight">\(\hat{f}(x)\)</span> denote a classification function obtained after training. Conceptually, <span class="math notranslate nohighlight">\(\hat{f}\)</span> is just one realization that we get from one particular training set. We use <span class="math notranslate nohighlight">\(E[\cdot]\)</span> to denote the process of averaging over all possible training sets. Note that the mean of a sum of quantities is the sum of the means.</p>
+<p>The mean error is</p>
+<div class="math notranslate nohighlight">
+\[
+E\bigl[ f(x) - \hat{f}(x) \bigr] = f(x) - E\bigl[ \hat{f}(x) \bigr] = y - \hat{y},
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(y=f(x)\)</span> and <span class="math notranslate nohighlight">\(\hat{y}\)</span> is the mean prediction over all training sets. This quantity is called the <strong>bias</strong>. Next, we look at mean squared error:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+E\bigl[ (f(x) - \hat{f}(x))^2 \bigr] &amp;= E\bigl[ (f(x) - \hat{y} + \hat{y} - \hat{f}(x))^2 \bigr] \\ 
+&amp;= E\bigl[ (f(x) - \hat{y})^2 \bigr] + E\bigl[ (\hat{y} - \hat{f}(x))^2 \bigr] - 2E\bigl[ (f(x) - \hat{y})(\hat{y} - \hat{f}(x)) \bigr] \\ 
+&amp;= (f(x) - \hat{y})^2 + E\bigl[ (\hat{y} - \hat{f}(x))^2 \bigr] - 2(f(x) - \hat{y}) E\bigl[ \hat{y} - \hat{f}(x) \bigr] \\
+&amp;= (f(x) - \hat{y})^2 + E\bigl[ (\hat{y} - \hat{f}(x))^2 \bigr].
+\end{split}\]</div>
+<p>The first term is the squared bias. The second is the <strong>variance</strong> of the learning method. In words,</p>
+<ul class="simple">
+<li><p><strong>Bias</strong> How close is the average prediction to the ground truth?</p></li>
+<li><p><strong>Variance</strong> How close to the average prediction is any one prediction likely to be?</p></li>
+</ul>
+<p>There is a crude analogy with hitting the bullseye on a dartboard. A low-variance, high-bias learner will throw a tight cluster of darts far from the bullseye. A low-bias, high-variance learner will scatter the darts evenly all over the board. When learners are overfitted, their output on a test set depends sensitively on the choice of training set, which creates a large variance.</p>
+<p>When a hyperparameter adjusts the number of degrees of freedom available to use for fitting, there might be decreased bias, simply because there is a larger universe of potential classifiers to choose from. But if taken too far, this approach tends to increase variance, because the higher fidelity is actually used to fit more closely to the particular training set that is chosen. This dilemma is generally known as the <strong>bias–variance tradeoff</strong>. This observation leads to an application of <strong>Occam’s Razor</strong>: given methods with equal empirical error, choose the least complex one.</p>
+</div>
 <div class="section" id="learning-curves">
 <h2>Learning curves<a class="headerlink" href="#learning-curves" title="Permalink to this headline">¶</a></h2>
-<p>We can illustrate the presence of bias and variance by repeating the parallel-universe experiment of the previous section with different sizes for the training data sets. In order to have more data to pull from, we will use a subset of a realistic data set used to predict the dominant type of tree in patches of forest. We use a decision tree with fixed depth throughout. (Don’t confuse the forest for the trees, haha.)</p>
+<p>We can illustrate the presence of bias and variance by running an artificial experiment with different sizes for the training datasets. In order to have more data to pull from, we will use a subset of a realistic data set used to predict the dominant type of tree in patches of forest. We use a decision tree classifier with fixed depth throughout. (Don’t confuse the forest data for the tree classifier, haha.)</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">tree</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">DecisionTreeClassifier</span>
 <span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">datasets</span>
 
 <span class="n">forest</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">fetch_covtype</span><span class="p">()</span>
-<span class="n">X</span> <span class="o">=</span> <span class="n">forest</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">][:</span><span class="mi">250000</span><span class="p">,:</span><span class="mi">8</span><span class="p">]</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">forest</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">][:</span><span class="mi">250000</span><span class="p">,:</span><span class="mi">8</span><span class="p">]</span>   <span class="c1"># 250,000 samples, 8 feature dimensions</span>
 <span class="n">y</span> <span class="o">=</span> <span class="n">forest</span><span class="p">[</span><span class="s2">&quot;target&quot;</span><span class="p">][:</span><span class="mi">250000</span><span class="p">]</span>
 <span class="n">X_tr</span><span class="p">,</span> <span class="n">X_te</span><span class="p">,</span> <span class="n">y_tr</span><span class="p">,</span> <span class="n">y_te</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">test_size</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span><span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
-<span class="n">N</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span><span class="mi">4001</span><span class="p">,</span><span class="mi">200</span><span class="p">)</span>             <span class="c1"># size of the training subset</span>
-<span class="n">err</span><span class="p">,</span><span class="n">kind</span><span class="p">,</span><span class="n">length</span> <span class="o">=</span> <span class="p">[],[],[]</span>
-<span class="n">dt</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">DecisionTreeClassifier</span><span class="p">(</span><span class="n">max_depth</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span> 
+<span class="n">N</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span><span class="mi">4001</span><span class="p">,</span><span class="mi">200</span><span class="p">)</span>             <span class="c1"># sizes of the training subsets</span>
+<span class="n">err</span><span class="p">,</span><span class="n">kind</span><span class="p">,</span><span class="n">length</span> <span class="o">=</span> <span class="p">[],[],[]</span>          <span class="c1"># for storing results</span>
+<span class="n">dt</span> <span class="o">=</span> <span class="n">DecisionTreeClassifier</span><span class="p">(</span><span class="n">max_depth</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span> 
 <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">N</span><span class="p">:</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">50</span><span class="p">):</span>
         <span class="n">X_tr</span><span class="p">,</span><span class="n">y_tr</span> <span class="o">=</span> <span class="n">shuffle</span><span class="p">(</span><span class="n">X_tr</span><span class="p">,</span><span class="n">y_tr</span><span class="p">,</span><span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-        <span class="n">XX</span><span class="p">,</span><span class="n">yy</span> <span class="o">=</span> <span class="n">X_tr</span><span class="p">[:</span><span class="n">n</span><span class="p">,:],</span><span class="n">y_tr</span><span class="p">[:</span><span class="n">n</span><span class="p">]</span>
+        <span class="n">XX</span><span class="p">,</span><span class="n">yy</span> <span class="o">=</span> <span class="n">X_tr</span><span class="p">[:</span><span class="n">n</span><span class="p">,:],</span><span class="n">y_tr</span><span class="p">[:</span><span class="n">n</span><span class="p">]</span>         <span class="c1"># training subset of size n</span>
         <span class="n">dt</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">XX</span><span class="p">,</span><span class="n">yy</span><span class="p">)</span>
-        <span class="n">err</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">dt</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">XX</span><span class="p">,</span><span class="n">yy</span><span class="p">))</span>
-        <span class="n">err</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">dt</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_te</span><span class="p">,</span><span class="n">y_te</span><span class="p">))</span>
+        <span class="n">err</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">dt</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">XX</span><span class="p">,</span><span class="n">yy</span><span class="p">))</span>       <span class="c1"># training error</span>
+        <span class="n">err</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">dt</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_te</span><span class="p">,</span><span class="n">y_te</span><span class="p">))</span>   <span class="c1"># testing error</span>
         <span class="n">kind</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="s2">&quot;train&quot;</span><span class="p">,</span><span class="s2">&quot;test&quot;</span><span class="p">])</span>
         <span class="n">length</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">n</span><span class="p">,</span><span class="n">n</span><span class="p">])</span>
 
@@ -556,9 +623,8 @@
 <img alt="../_images/overfitting_5_0.png" src="../_images/overfitting_5_0.png" />
 </div>
 </div>
-<p>The plot above shows <strong>learning curves</strong>. The dark line is the mean result over all trials, and the ribbon has a width of one standard deviation. For a small training set, the tree has more than enough resolving power, and we see a great deal of variance in the test error as well as a wide gap between those and the training errors. As the size of the training set grows, the two measurements come together as the variance decreases.</p>
+<p>The plot above shows <strong>learning curves</strong>. The solid line is the mean result over all trials, and the ribbon has a width of one standard deviation. For a small training set, the tree has more than enough resolving power, and we see indications of overfitting. As the size of the training set grows, however, the two error measurements come together as the variance decreases. Note that the curves seem to approach a horizontal asymptote at a nonzero level of error. This level indicates an unavoidable bias for this learner on this data set. As a simple analogy, think about approximating curves in the plane by a parabola. You will be able to do a perfect job for linear and quadratic functions, but if you approximate a cosine curve, you can’t get it exactly correct no matter how much information and control you have.</p>
 <p>When you see a large gap between training and test errors, you should suspect that you are in an overfitting regime. Ideally, you could bring more data to the table, perhaps by artificially augmenting the training examples. If not, you might as well decrease the resolving power of your learner, because the excess power is likely to make things worse, not better.</p>
-<p>Note that these learning curves start to approach a horizontal asymptote at a nonzero level of error. This level indicates an unavoidable bias for this learner on this data set. As a simple analogy, think about approximating curves in the plane by a parabola. You will be able to do a perfect job for linear and quadratic functions, but if you approximate a cosine curve, you can’t get it exactly correct no matter how much information and control you have.</p>
 </div>
 </div>
 

@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>4.5. Logistic regression &#8212; Data Science 1</title>
+    <title>4.6. Logistic regression &#8212; Data Science 1</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet">
   <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -57,7 +57,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="5. Clustering" href="../clustering/overview.html" />
-    <link rel="prev" title="4.4. Repurposed classifiers" href="other.html" />
+    <link rel="prev" title="4.5. Probabilistic classification" href="prob_class.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -258,9 +258,14 @@
      4.4. Repurposed classifiers
     </a>
    </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="prob_class.html">
+     4.5. Probabilistic classification
+    </a>
+   </li>
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
-     4.5. Logistic regression
+     4.6. Logistic regression
     </a>
    </li>
   </ul>
@@ -293,6 +298,11 @@
    <li class="toctree-l2">
     <a class="reference internal" href="../clustering/hierarchical.html">
      5.4. Hierarchical
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../clustering/dbscan.html">
+     5.5. DBSCAN
     </a>
    </li>
   </ul>
@@ -415,11 +425,6 @@
             <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#logistic-and-logit-functions">
-   Logistic and logit functions
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#loss-function">
    Loss function
   </a>
@@ -460,11 +465,6 @@
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#logistic-and-logit-functions">
-   Logistic and logit functions
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#loss-function">
    Loss function
   </a>
@@ -494,11 +494,9 @@
               <div>
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="logistic-regression">
-<h1><span class="section-number">4.5. </span>Logistic regression<a class="headerlink" href="#logistic-regression" title="Permalink to this headline">¶</a></h1>
-<p>Logistic regression is, somewhat paradoxically, often used for binary classification. We assume that the value of each training example is either 0 or 1, and the regressor predicts a real number between zero and one. This value is typically interpreted as the probability of observing a 1. If classification is the goal, a threshold is chosen to binarize the output to 0 or 1. However, the original probabilistic information might be valuable as a way to quantify confidence in the predictions.</p>
-<div class="section" id="logistic-and-logit-functions">
-<h2>Logistic and logit functions<a class="headerlink" href="#logistic-and-logit-functions" title="Permalink to this headline">¶</a></h2>
-<p>The <strong>logistic function</strong> is defined as</p>
+<h1><span class="section-number">4.6. </span>Logistic regression<a class="headerlink" href="#logistic-regression" title="Permalink to this headline">¶</a></h1>
+<p>The reinterpretation of classification methods as a form of regression on probability quickly leads to the question of looking for other ways to perform that regression. Specifically, can linear regression be adapted to that purpose?</p>
+<p>A linear regressor is the function <span class="math notranslate nohighlight">\(f(\bfx) = \bfx^T \bfw\)</span> for a constant vector <span class="math notranslate nohighlight">\(\bfw\)</span> (where we may augment <span class="math notranslate nohighlight">\(\bfx\)</span> with a constant in order to incorporate the intercept). It’s not a good candidate for representing a probability, which should vary between 0 and 1. A simple remedy is to transform its output using <strong>logistic function</strong>, which is defined as</p>
 <div class="math notranslate nohighlight">
 \[
 \sigma(x) = \frac{1}{1+e^{-x}}.
@@ -506,7 +504,7 @@
 <div class="figure align-default">
 <img alt="../_images/logistic.png" src="../_images/logistic.png" />
 </div>
-<p>The logistic function takes the form of a smoothed step up from 0 to 1. Its inverse is the <strong>logit function</strong>,</p>
+<p>The logistic function has the real line as its domain and takes the form of a smoothed step up from 0 to 1. Its inverse is the <strong>logit function</strong>,</p>
 <div class="math notranslate nohighlight">
 \[
 \logit(p) = \ln\left( \frac{p}{1-p} \right).
@@ -514,32 +512,37 @@
 <div class="figure align-default">
 <img alt="../_images/logit.png" src="../_images/logit.png" />
 </div>
-<p>In keeping with interpreting <span class="math notranslate nohighlight">\(p\)</span> as probability, <span class="math notranslate nohighlight">\(\logit(p)\)</span> is the <strong>log-odds ratio</strong>. For instance, if <span class="math notranslate nohighlight">\(p=2/3\)</span>, then the odds ratio is <span class="math notranslate nohighlight">\((2/3)/(1/3)=2\)</span> (i.e., 2:1 odds), and <span class="math notranslate nohighlight">\(\logit(2/3)=\ln(2)\)</span>.</p>
-<p>The starting point of logistic regression is the approximation</p>
+<p>When interpreting <span class="math notranslate nohighlight">\(p\)</span> as probability, <span class="math notranslate nohighlight">\(\logit(p)\)</span> is the <strong>log-odds ratio</strong>. For instance, if <span class="math notranslate nohighlight">\(p=2/3\)</span>, then the odds ratio is <span class="math notranslate nohighlight">\((2/3)/(1/3)=2\)</span> (i.e., 2:1 odds), and <span class="math notranslate nohighlight">\(\logit(2/3)=\ln(2)\)</span>.</p>
+<p>The logical use of linear regression, which has an unbounded range, is to match that to the logit of probability, rather than to probability itself:</p>
 <div class="math notranslate nohighlight">
 \[
 \logit(p) \approx \bfx^T\bfw,
 \]</div>
-<p>that is, multilinear regression for the function <span class="math notranslate nohighlight">\(\logit(p)\)</span>, where <span class="math notranslate nohighlight">\(p\)</span> is the probability of the class <span class="math notranslate nohighlight">\(y=1\)</span>. Hence</p>
+<p>that is, multilinear regression for the function <span class="math notranslate nohighlight">\(\logit(p)\)</span>, where <span class="math notranslate nohighlight">\(p\)</span> is the probability of the class <span class="math notranslate nohighlight">\(y=1\)</span>. Equivalently,</p>
 <div class="math notranslate nohighlight">
 \[
 p \approx \sigma(\bfx^T\bfw).
 \]</div>
-</div>
+<p>The resulting method is called <strong>logistic regression</strong>.</p>
 <div class="section" id="loss-function">
 <h2>Loss function<a class="headerlink" href="#loss-function" title="Permalink to this headline">¶</a></h2>
-<p>At a training observation <span class="math notranslate nohighlight">\((\bfx_i,y_i)\)</span>, we know that either <span class="math notranslate nohighlight">\(p=0\)</span> or <span class="math notranslate nohighlight">\(p=1\)</span>. Let <span class="math notranslate nohighlight">\(\hat{p}_i\)</span> be the output of the regressor at this observation:</p>
+<p>At each training observation <span class="math notranslate nohighlight">\((\bfx_i,y_i)\)</span>, we know that either <span class="math notranslate nohighlight">\(y_i=0\)</span> or <span class="math notranslate nohighlight">\(y_i=1\)</span>. Extending the loss function for linear regression to the logistic case would suggest the minimization of least squares,</p>
 <div class="math notranslate nohighlight">
 \[
-\hat{p}_i  = \sigma(\bfx_i^T\bfw).
+\sum_{i=1}^n \left[ \bfx_i^T\bfw - \logit(y_i) \right]^2. 
 \]</div>
-<p>The loss function is then</p>
+<p>However, the logits in this expression are all infinite, so a different loss function must be identified. One possibility is</p>
+<div class="math notranslate nohighlight">
+\[
+\sum_{i=1}^n \left[ \hat{p}_i - y_i \right]^2, \qquad \hat{p}_i = \sigma(\bfx_i^T\bfw) .
+\]</div>
+<p>It’s more common to minimize the <strong>cross-entropy</strong> loss function</p>
 <div class="math notranslate nohighlight">
 \[
 L(\bfw) = -\sum_{i=1}^n \left[ y_i \ln(\hat{p}_i) + (1-y_i) \ln(1-\hat{p}_i) \right].
 \]</div>
-<p>Note that observation <span class="math notranslate nohighlight">\(i\)</span> contributes <span class="math notranslate nohighlight">\(-\ln(1-\hat{p}_i)\)</span> if <span class="math notranslate nohighlight">\(y_i=0\)</span> and <span class="math notranslate nohighlight">\(-\ln(\hat{p}_i)\)</span> if <span class="math notranslate nohighlight">\(y_i=1\)</span>. Both quantities increase as <span class="math notranslate nohighlight">\(\hat{p}_i\)</span> gets farther away from <span class="math notranslate nohighlight">\(y_i\)</span>. This loss is a special case of <strong>cross-entropy</strong>, a measure of dissimilarity between the probabilities of 1 occurring in the training versus the prediction.</p>
-<p>As with other forms of linear regression, the loss function is often regularized using the ridge or LASSO penalty. As we covered earlier, there is a hyperparameter <span class="math notranslate nohighlight">\(C\)</span> that emphasizes small <span class="math notranslate nohighlight">\(\norm{\bfw}\)</span> as <span class="math notranslate nohighlight">\(C\to 0\)</span>, and pure regression as <span class="math notranslate nohighlight">\(C\to \infty\)</span>.</p>
+<p>Note that observation <span class="math notranslate nohighlight">\(i\)</span> contributes <span class="math notranslate nohighlight">\(-\ln(1-\hat{p}_i)\)</span> if <span class="math notranslate nohighlight">\(y_i=0\)</span> and <span class="math notranslate nohighlight">\(-\ln(\hat{p}_i)\)</span> if <span class="math notranslate nohighlight">\(y_i=1\)</span>. This loss function creates an unboundedly large penalty as <span class="math notranslate nohighlight">\(\hat{p}_i \to 1\)</span> if <span class="math notranslate nohighlight">\(y_i=0\)</span>, and vice versa.</p>
+<p>Logistic regression has a major disadvantage compared to multilinear regression: the minimization of loss does <em>not</em> lead to a linear problem for the weight vector <span class="math notranslate nohighlight">\(\bfw\)</span>. The difference in practice is usually not concerning, though. As with other forms of regression, the loss function may be regularized using the ridge or LASSO penalty. As we covered earlier, there is a regularization parameter <span class="math notranslate nohighlight">\(C\)</span> that emphasizes small <span class="math notranslate nohighlight">\(\norm{\bfw}\)</span> as <span class="math notranslate nohighlight">\(C\to 0\)</span>, and pure regression as <span class="math notranslate nohighlight">\(C\to \infty\)</span>.</p>
 </div>
 <div class="section" id="case-study-personal-spam-filter">
 <h2>Case study: Personal spam filter<a class="headerlink" href="#case-study-personal-spam-filter" title="Permalink to this headline">¶</a></h2>
@@ -1228,11 +1231,11 @@ The softmax exaggerates differences between the $q_i$, making the result closer 
             
                 <!-- Previous / next buttons -->
 <div class='prev-next-area'> 
-    <a class='left-prev' id="prev-link" href="other.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="prob_class.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title"><span class="section-number">4.4. </span>Repurposed classifiers</p>
+            <p class="prev-next-title"><span class="section-number">4.5. </span>Probabilistic classification</p>
         </div>
     </a>
     <a class='right-next' id="next-link" href="../clustering/overview.html" title="next page">

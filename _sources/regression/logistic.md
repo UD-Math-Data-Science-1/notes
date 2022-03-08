@@ -6,18 +6,16 @@ jupytext:
     format_version: 0.13
     jupytext_version: 1.11.5
 kernelspec:
-  display_name: 'Python 3.8.8 64-bit (''base'': conda)'
+  display_name: 'Python 3'
   language: python
   name: python3
 ---
 
 # Logistic regression
 
-Logistic regression is, somewhat paradoxically, often used for binary classification. We assume that the value of each training example is either 0 or 1, and the regressor predicts a real number between zero and one. This value is typically interpreted as the probability of observing a 1. If classification is the goal, a threshold is chosen to binarize the output to 0 or 1. However, the original probabilistic information might be valuable as a way to quantify confidence in the predictions.
+The reinterpretation of classification methods as a form of regression on probability quickly leads to the question of looking for other ways to perform that regression. Specifically, can linear regression be adapted to that purpose? 
 
-## Logistic and logit functions
-
-The **logistic function** is defined as
+A linear regressor is the function $f(\bfx) = \bfx^T \bfw$ for a constant vector $\bfw$ (where we may augment $\bfx$ with a constant in order to incorporate the intercept). It's not a good candidate for representing a probability, which should vary between 0 and 1. A simple remedy is to transform its output using **logistic function**, which is defined as
 
 $$
 \sigma(x) = \frac{1}{1+e^{-x}}.
@@ -26,7 +24,7 @@ $$
 ```{figure} ../_static/logistic.png
 ```
 
-The logistic function takes the form of a smoothed step up from 0 to 1. Its inverse is the **logit function**,
+The logistic function has the real line as its domain and takes the form of a smoothed step up from 0 to 1. Its inverse is the **logit function**,
 
 $$
 \logit(p) = \ln\left( \frac{p}{1-p} \right).
@@ -35,37 +33,45 @@ $$
 ```{figure} ../_static/logit.png
 ```
 
-In keeping with interpreting $p$ as probability, $\logit(p)$ is the **log-odds ratio**. For instance, if $p=2/3$, then the odds ratio is $(2/3)/(1/3)=2$ (i.e., 2:1 odds), and $\logit(2/3)=\ln(2)$. 
+When interpreting $p$ as probability, $\logit(p)$ is the **log-odds ratio**. For instance, if $p=2/3$, then the odds ratio is $(2/3)/(1/3)=2$ (i.e., 2:1 odds), and $\logit(2/3)=\ln(2)$. 
 
-The starting point of logistic regression is the approximation
+The logical use of linear regression, which has an unbounded range, is to match that to the logit of probability, rather than to probability itself:
 
 $$
 \logit(p) \approx \bfx^T\bfw,
 $$
 
-that is, multilinear regression for the function $\logit(p)$, where $p$ is the probability of the class $y=1$. Hence
+that is, multilinear regression for the function $\logit(p)$, where $p$ is the probability of the class $y=1$. Equivalently,
 
 $$
 p \approx \sigma(\bfx^T\bfw).
 $$
 
+The resulting method is called **logistic regression**.
+
 ## Loss function
 
-At a training observation $(\bfx_i,y_i)$, we know that either $p=0$ or $p=1$. Let $\hat{p}_i$ be the output of the regressor at this observation:
+At each training observation $(\bfx_i,y_i)$, we know that either $y_i=0$ or $y_i=1$. Extending the loss function for linear regression to the logistic case would suggest the minimization of least squares,
 
 $$
-\hat{p}_i  = \sigma(\bfx_i^T\bfw).
+\sum_{i=1}^n \left[ \bfx_i^T\bfw - \logit(y_i) \right]^2. 
 $$
 
-The loss function is then
+However, the logits in this expression are all infinite, so a different loss function must be identified. One possibility is 
+
+$$
+\sum_{i=1}^n \left[ \hat{p}_i - y_i \right]^2, \qquad \hat{p}_i = \sigma(\bfx_i^T\bfw) .
+$$
+
+It's more common to minimize the **cross-entropy** loss function
 
 $$
 L(\bfw) = -\sum_{i=1}^n \left[ y_i \ln(\hat{p}_i) + (1-y_i) \ln(1-\hat{p}_i) \right].
 $$
 
-Note that observation $i$ contributes $-\ln(1-\hat{p}_i)$ if $y_i=0$ and $-\ln(\hat{p}_i)$ if $y_i=1$. Both quantities increase as $\hat{p}_i$ gets farther away from $y_i$. This loss is a special case of **cross-entropy**, a measure of dissimilarity between the probabilities of 1 occurring in the training versus the prediction.
+Note that observation $i$ contributes $-\ln(1-\hat{p}_i)$ if $y_i=0$ and $-\ln(\hat{p}_i)$ if $y_i=1$. This loss function creates an unboundedly large penalty as $\hat{p}_i \to 1$ if $y_i=0$, and vice versa. 
 
-As with other forms of linear regression, the loss function is often regularized using the ridge or LASSO penalty. As we covered earlier, there is a hyperparameter $C$ that emphasizes small $\norm{\bfw}$ as $C\to 0$, and pure regression as $C\to \infty$. 
+Logistic regression has a major disadvantage compared to multilinear regression: the minimization of loss does *not* lead to a linear problem for the weight vector $\bfw$. The difference in practice is usually not concerning, though. As with other forms of regression, the loss function may be regularized using the ridge or LASSO penalty. As we covered earlier, there is a regularization parameter $C$ that emphasizes small $\norm{\bfw}$ as $C\to 0$, and pure regression as $C\to \infty$. 
 
 
 ## Case study: Personal spam filter

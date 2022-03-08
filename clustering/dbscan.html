@@ -472,7 +472,7 @@
 <h1><span class="section-number">5.5. </span>DBSCAN<a class="headerlink" href="#dbscan" title="Permalink to this headline">¶</a></h1>
 <p><strong>DBSCAN</strong> is a clustering method that tries to identify and ignore outlier points that don’t fit in well with any clusters. One of its big advantages is that it can create clusters of any shape, rather than preferring spherical blobs like <span class="math notranslate nohighlight">\(k\)</span>-means.</p>
 <p>The algorithm has two hyperparameters: a neighborhood radius <span class="math notranslate nohighlight">\(\epsilon &gt; 0\)</span>, and a minimum neighbor count <span class="math notranslate nohighlight">\(N_\text{min}\)</span>. DBSCAN defines a <strong>core point</strong> as a sample point that has at least <span class="math notranslate nohighlight">\(N_\text{min}\)</span> additional samples within distance <span class="math notranslate nohighlight">\(\epsilon\)</span> of it. Note that the relationship is not symmetric: the qualifying neighbors of a core point need not themselves be core points.</p>
-<p>A cluster is defined as a core point, its <span class="math notranslate nohighlight">\(\epsilon\)</span>-neighborhood, and the neighborhoods of all core points in its neighborhood, etc., extended recursively. Points that do not belong to any such clusters are designated as <strong>noise points</strong>.</p>
+<p>A cluster is defined as a core point, its <span class="math notranslate nohighlight">\(\epsilon\)</span>-neighborhood, and the neighborhoods of all core points in its neighborhood, etc., extended recursively. Points that are not core and that are not within the <span class="math notranslate nohighlight">\(\epsilon\)</span>-neighborhoods of any core points are designated as <strong>noise points</strong> and do not belong to any cluster.</p>
 <p>If two points are in the same cluster, then one can be reached from the other entirely by hopping along through overlapping neighborhoods of core points. Since some points might be reachable from different clusters, however, the assignment to clusters can depend on the order in which the samples are processed. Otherwise, the outcome is deterministic.</p>
 <p>Increasing <span class="math notranslate nohighlight">\(N_\text{min}\)</span> helps to avoid having many small clusters, but it might also decrease the total number of core points. If the neighborhood radius <span class="math notranslate nohighlight">\(\epsilon\)</span> is chosen too small, the algorithm is too picky—most points will end up as noise. If it’s too large, then one tends to obtain a single mega-cluster. There are heuristics for trying to guess an optimal <span class="math notranslate nohighlight">\(\epsilon\)</span>, but it’s frequently necessary to iterate over multiple values.<a class="footnote-reference brackets" href="#optics" id="id1">1</a></p>
 <div class="section" id="toy-example">
@@ -638,7 +638,7 @@ dtype: int64
 </div>
 </div>
 </div>
-<p>Earlier we saw that a classifier can achieve a score of over <span class="math notranslate nohighlight">\(0.99\)</span>. But that learns from the true labels, while the clusters have no prior knowledge of them, or even of how many classes there are.</p>
+<p>This is a relatively easy classification problem, but nevertheless this is rather good performance for a method that has no prior no prior knowledge of the labels, or even how many classes there are.</p>
 <p>Let’s take a look at some of the noise samples.</p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
@@ -663,7 +663,7 @@ dtype: int64
 <img alt="../_images/dbscan_19_0.png" src="../_images/dbscan_19_0.png" />
 </div>
 </div>
-<p>At least some of these are ambiguous at best, but in other cases the failure to be clustered is harder to explain.</p>
+<p>Some of these images are ambiguous at best, but in other cases the failure to be clustered with the rest of the class is harder to explain.</p>
 <hr class="footnotes docutils" />
 <dl class="footnote brackets">
 <dt class="label" id="optics"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
