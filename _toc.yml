@@ -32,6 +32,7 @@ chapters:
     - file: regression/multilinear
     - file: regression/regularization
     - file: regression/other
+    - file: regression/prob_class
     - file: regression/logistic
   - file: clustering/overview
     sections:
