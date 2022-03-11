@@ -10,6 +10,8 @@ kernelspec:
   language: python
   name: python3
 ---
+
+(section-regression-linear)=
 # Linear regression
 
 You have probably encountered the most basic form of regression: fitting a straight line to data points $(x_i,y_i)$ in the $xy$-plane. In this we assume a relation
