@@ -27,21 +27,46 @@ $$
 This problem can be solved by a little multidimensional calculus. If we hold $b$ fixed and take a derivative with respect to $a$, then
 
 $$
-\pp{L}{a} = \sum_{i=1}^n 2x_i(a x_i + b - y_i) = 2 a \left(\sum_{i=1}^n x_i^2\right) + 2b\left(\sum_{i=1}^n x_i\right) - \sum_{i=1}^n y_i.
+\pp{L}{a} = \sum_{i=1}^n 2x_i(a x_i + b - y_i) = 2 a \left(\sum_{i=1}^n x_i^2\right) + 2b\left(\sum_{i=1}^n x_i\right) - 2\sum_{i=1}^n x_i y_i.
 $$
 
 Similarly, if we hold $a$ fixed and differentiate with respect to $b$, then 
 
 $$
-\pp{L}{b} = \sum_{i=1}^n 2(a x_i + b - y_i) = 2 a \left(\sum_{i=1}^n x_i\right) + 2bn - \sum_{i=1}^n y_i.
+\pp{L}{b} = \sum_{i=1}^n 2(a x_i + b - y_i) = 2 a \left(\sum_{i=1}^n x_i\right) + 2bn - 2 \sum_{i=1}^n y_i.
 $$
 
 Setting both derivatives to zero creates a system of two linear equations to be solved for $a$ and $b$. 
 
+::::{prf:example}
+:label: example-linear-fit
+Find the linear regressor of the points $(-1,0)$, $(0,2)$, $(1,3)$.
+
+:::{dropdown} Solution
+We need a few sums to fill in the system to be solved:
+
+$$
+\sum_{i=1}^n x_i^2 = 1+0+1=2, \qquad & \sum_{i=1}^n x_i = -1+0+1=0, \\ 
+\sum_{i=1}^n x_iy_i = 0+0+3=3, \qquad & \sum_{i=1}^n y_i = 0+2+3=5. 
+$$
+
+Therefore we must solve (note that $n=3$)
+
+$$
+2a + 0b &= 3, \\ 
+0a + 3b &= 5. 
+$$
+
+The regression function is $f(x)=\tfrac{3}{2} x + \tfrac{5}{3}$. 
+:::
+::::
+
+
+
 Before moving on, we adopt a vector-oriented view of the process. As a sum of squares, the loss function can be written as a 2-norm:
 
 $$
-L(a,b) =  \twonorm{a \bfx + b \bfe - \bfy}^2,
+L(a,b) =  \twonorm{a\, \bfx + b \,\bfe - \bfy}^2,
 $$
 
 where $\bfe$ is a vector of $n$ ones. Minimizing $L$ over all values of $a$ and $b$ is called the **least squares** problem. (More specifically, this setup is called *simple least squares* or *ordinary least squares*.)
@@ -50,41 +75,71 @@ where $\bfe$ is a vector of $n$ ones. Minimizing $L$ over all values of $a$ and 
 
 We need to establish ways to measure regression performance. Unlike with binary classification, in regression it's not just a matter of "right" and "wrong" answers. 
 
-Suppose a regressor is represented by the function $f(x)$. We let $(x_i,y_i)$ for $i=1,\ldots,m$ be the test set, which may be different from the training set. 
-
-The quantities $y_i-f(x_i)$ are known as **residuals** of the approximation, although they are often called *errors* as well, confusingly enough.
+Suppose a regressor trained on $(x_i,y_i)$ for $i=1,\ldots,n$ is represented by the function $f(x)$. We let $(\xi_i,\eta_i)$ for $i=1,\ldots,m$ be the test set, which may be different from the training set. Naturally, we might want to use the differences $y_i-f(x_i)$, which we call **residuals**, and $\eta_i - f(\xi_i)$, which we call **errors**. (The usage of these terms is somewhat variable across different sources, though.)
 
 ### MSE
 
 A natural metric is the **mean squared error**,
 
 $$
-\frac{1}{m} \sum_{i=1}^m [y_i - f(x_i)]^2.
+\frac{1}{m} \sum_{i=1}^m \, [\eta_i - f(\xi_i)]^2.
 $$
 
-If the training and test sets are the same, then the MSE is minimized by the standard regression algorithm. A closely related measure is the **mean absolute error**,
+If the training and test sets are the same, then the MSE is proportional to the loss function $L$, which is minimized by the standard regression algorithm. A closely related measure is the **mean absolute error**,
 
 $$
-\frac{1}{m} \sum_{i=1}^m |y_i - f(x_i)|,
+\frac{1}{m} \sum_{i=1}^m \abs{y_i - f(x_i)},
 $$
 
-which is less sensitive to large outlier errors. 
-
-While easy to understand, these error measurements are dimensional and depend on the scaling of the variables. 
+which is less sensitive to large outlier errors. While easy to understand, these error measurements are dimensional and depend on the scaling of the variables. It might be helpful to compare the MSE to variance of the target values, and MAE to standard deviation.
 
 ### Coefficient of determination
 
 The **coefficient of determination** is denoted $R^2$ and defined as
 
 $$
-R^2 = 1 - \frac{\sum_{i=1}^m [y_i - f(x_i)]^2}{\sum_{i=1}^m [y_i - \bar{y}]^2},
+R^2 = 1 - \frac{\displaystyle\sum_{i=1}^m \,[\eta_i - f(\xi_i)]^2}{\displaystyle\sum_{i=1}^m \, [\eta_i - \bar{\eta}]^2},
 $$
 
-where $\bar{y}$ is the mean of the target value over the test set. This quantity is dimensionless and therefore independent of scaling. A perfect regressor has an $R^2$ value of 1, while a baseline regressor that always predicts $\bar{y}$ would have $R^2=0$. 
+where $\bar{\eta}$ is the mean of the target value over the test set. This quantity is dimensionless and therefore independent of scaling. A perfect regressor has an $R^2$ value of 1, while a baseline regressor that always predicts $\bar{\eta}$ would have $R^2=0$. 
 
 An interpretation of the definition in words is that $R^2$ is the fraction of the variance in the true values that is echoed by the variance in the regressor's predictions. When $R^2<1$, we say that the data has *unexplained variance* not accounted for by the regressor.
 
-The notation is potentially confusing, because $R^2$ can actually be negative! Such a result indicates that the predictor $f$ is doing worse than the baseline constant mean value prediction. However, if $f$ is the result of a standard linear regression, and if the test set is the training set, then $R^2$ equals the square of the Pearson correlation coefficient between the true and predicted values and therefore lies between 0 and 1.
+The notation is potentially confusing, because $R^2$ can actually be negative! Such a result indicates that the predictor $f$ is doing worse than the baseline constant mean-value prediction. However, if $f$ is the result of a standard linear regression, and if the test set is the training set, then $R^2$ equals the square of the Pearson correlation coefficient between the true and predicted values and therefore lies between 0 and 1.
+
+::::{prf:example}
+:label: example-linear-CoD
+Find the coefficient of determination for the fit in {prf:ref}`example-linear-fit`, if the test set is the same as the training set.
+
+:::{dropdown} Solution
+We have $\xi_i=x_i$ and $\eta_i=y_i$ for $i=1,2,3$. We found earlier that $f(x)=\tfrac{3}{2} x + \tfrac{5}{3}$.  Now $\bar{\eta} = \frac{1}{3}(0+2+3)=\frac{5}{3}$, and 
+
+$$
+\sum_{i=1}^m \,[\eta_i - f(\xi_i)]^2 &= \left(0-\tfrac{1}{6}\right)^2 + \left(2-\tfrac{5}{3}\right)^2 + \left(3-\tfrac{19}{6}\right)^2 = \frac{1}{6}, \\ 
+\sum_{i=1}^m \, [\eta_i - \bar{\eta}]^2 &= \left(0-\tfrac{5}{3}\right)^2 + \left(2-\tfrac{5}{3}\right)^2 + \left(3-\tfrac{5}{3}\right)^2 = \frac{14}{3}. 
+$$
+
+This yields $R^2 = 1 - (1/6)(3/14) = 27/28$. 
+:::
+::::
+
+::::{prf:example}
+:label: example-linear-CoDneg
+Find the coefficient of determination for the fit $f(x)=x$, if the test set is the same as the training set in {prf:ref}`example-linear-fit`.
+
+:::{dropdown} Solution
+The only change from the preceding example is in $f$. 
+
+$$
+\sum_{i=1}^m \,[\eta_i - f(\xi_i)]^2 &= \left(0+1\right)^2 + \left(2-0\right)^2 + \left(3-1\right)^2 = 9, \\ 
+\sum_{i=1}^m \, [\eta_i - \bar{\eta}]^2 &= \frac{14}{3}. 
+$$
+
+This yields $R^2 = 1 - (9)(3/14) = -13/14$. Since the result is negative, we would be better off always predicting $5/3$ instead of $f(x)$. This is possible only because this $f$ is not the least-squares regressor for this dataset.
+:::
+::::
+
+
 
 ## Case study: Arctic ice
 
@@ -157,16 +212,23 @@ We can get the slope and $y$-intercept of the regression line from the learner's
 (lm.coef_,lm.intercept_)
 ```
 
-The slope indicates a loss of 1% per year. (Big oof.) Here, we assess the performance on the training set. The `score` method of the regressor object computes the coefficient of determination.
+The slope indicates average decrease over time. Here, we assess the performance on the training set. Both the MSE and mean absolute error are small relative to dispersion within the values themselves:
+
 
 ```{code-cell}
-from sklearn.metrics import mean_squared_error
-R2 = lm.score(X,y)
+from sklearn.metrics import mean_squared_error, mean_absolute_error
 yhat = lm.predict(X)
 mse = mean_squared_error(y,yhat)
+mae = mean_absolute_error(y,yhat)
 
-print("MSE:",mse)
-print("variance in data:",y.var())
+print(f"MSE: {mse:.2e}, compared to variance {y.var():.2e}")
+print(f"MAE: {mae:.2e}, compared to standard deviation {y.std():.2e}")
+```
+
+The `score` method of the regressor object computes the coefficient of determination:
+
+```{code-cell}
+R2 = lm.score(X,y)
 print("R-squared:",R2)
 ```
 
