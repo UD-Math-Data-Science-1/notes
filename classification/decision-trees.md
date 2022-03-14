@@ -116,13 +116,13 @@ sns.scatterplot(data=df,x="x₁",y="x₂",hue="y");
 Now we create a decision tree for these samples.
 
 ```{code-cell}
-from sklearn import tree
-t = tree.DecisionTreeClassifier(max_depth=3)
+from sklearn.tree import DecisionTreeClassifier,plot_tree
+t = DecisionTreeClassifier(max_depth=3)
 t.fit(X,y)
 
 from matplotlib.pyplot import figure
 figure(figsize=(18,11),dpi=160)
-tree.plot_tree(t,feature_names=["x₁","x₂"]);
+plot_tree(t,feature_names=["x₁","x₂"]);
 ```
 
 The root of the tree (at the top) shows that the best split was found at the vertical line $x_1=0.644$. To the right of that line is a Gini value of zero: 8 samples, all with label 2. Thus, any future prediction by this tree will immediately return label 2 if the first feature of the input exceeds 0.644. Otherwise, it moves to the left child node and tests whether the second feature is greater than $0.96$. This splits along a horizontal line, above which there is a single sample with label 2. And so on.
@@ -146,12 +146,12 @@ y = pen["species"]
 We get some interesting information from looking at the top levels of a decision tree trained on the full dataset.
 
 ```{code-cell}
-dt = tree.DecisionTreeClassifier(max_depth=4)
+dt = DecisionTreeClassifier(max_depth=4)
 dt.fit(X,y)
 
 from matplotlib.pyplot import figure
 figure(figsize=(18,11),dpi=160)
-tree.plot_tree(dt,max_depth=2,feature_names=X.columns);
+plot_tree(dt,max_depth=2,feature_names=X.columns);
 ```
 
 The most determinative feature for identifying the species is the flipper length. If it exceeds 206.5 mm, then the penguin is rather likely to be a Gentoo. 
@@ -197,7 +197,7 @@ X = loans.drop("percent_funded",axis=1)
 y = loans["percent_funded"] > 95
 X_tr, X_te, y_tr, y_te = train_test_split(X,y,test_size=0.2,shuffle=True,random_state=0)
 
-dt = tree.DecisionTreeClassifier(max_depth=5)
+dt = DecisionTreeClassifier(max_depth=5)
 dt.fit(X_tr,y_tr)
 yhat = dt.predict(X_te)
 print(confusion_matrix(y_te,yhat))
