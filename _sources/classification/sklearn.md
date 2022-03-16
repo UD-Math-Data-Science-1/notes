@@ -17,8 +17,8 @@ The scikit-learn package (`sklearn`) is a collection of machine learning algorit
 
 ```{code-cell} ipython3
 from sklearn import datasets 
-ds = datasets.load_digits()
-X,y = ds["data"],ds["target"]
+ds = datasets.load_digits()        # loads a well-known dataset
+X,y = ds["data"],ds["target"]      # assign feature matrix and label vector
 print("feature matrix has shape",X.shape)
 print("label vector has shape",y.shape)
 n,d = X.shape
@@ -47,40 +47,45 @@ We'll explore fitting and prediction for now. Let's try a classifier whose chara
 
 ```{code-cell}
 from sklearn.neighbors import KNeighborsClassifier
-knn = KNeighborsClassifier(n_neighbors=20)   # specification
-knn.fit(X,y)                                 # training
+knn = KNeighborsClassifier(n_neighbors=20)   # specification of the model
+knn.fit(X,y)                                 # training of the model
 ```
 
-At this point, the classifier object `knn` has figured out what it needs to do with the training data, and we can ask it to make predictions. Each application we want a prediction for is a vector with 64 components (features). The prediction query has to be a 2D array, with each row being a query vector. The result is a vector of predictions.
+At this point, the classifier object `knn` has figured out what it needs to do with the training data. It has methods we can call to make predictions and evaluate the quality of the results. Each new prediction is for a *query vector* with 64 components (features). The `predict` method of the classifier allows specifying multiple query vectors as rows of an array—in fact, it expects a 2D array in all cases, even if there is just one row.
 
 ```{code-cell}
-Xq = [ [20]*d ]
-knn.predict(Xq)
+query = [20]*d   # list, d copies of 20
+Xq = [ query ]   # 2D array with a single row
+# Get vector of predictions:
+knn.predict(Xq)  
 ```
 
-We don't have any realistic data at hand other than the training data. By comparing the predictions made for that data to the true labels we supplied, we can get some idea of how accurate the predictor is.
+We don't have any realistic query data at hand other than the training data. But by comparing the predictions made for that data to the true labels we supplied, we can get some idea of how accurate the predictor is.
 
 ```{code-cell}
-yhat = knn.predict(X)   # prediction
-yhat[-6:]
+# Get vector of predictions on the original set:
+yhat = knn.predict(X)    
+yhat[-6:]      # last six components
 ```
 
 Compared to the true labels we printed out above, so far, so good. Now we simply count up the number of correctly predicted labels and divide by the total number of samples. 
 
 ```{code-cell}
-acc = sum(yhat==y)/n 
+acc = sum(yhat==y)/n    # fraction of correct predictions
 print(f"accuracy is {acc:.1%}")
 ```
 
-Of course, sklearn has functions for doing this measurement in fewer steps.
+Not surprisingly, sklearn has functions for doing this measurement in fewer steps. The `metrics` module has functions that can compare true labels with predictions. In addition, each classifier object has a `score` method that allows you to skip finding the predictions vector yourself.
 
 ```{code-cell}
-from sklearn import metrics
+from sklearn.metrics import accuracy_score
 
-acc = metrics.accuracy_score(y,yhat)
+# Compare original labels to predictions:
+acc = accuracy_score(y,yhat)    
 print(f"accuracy score is {acc:.1%}")
 
-acc = knn.score(X,y)
+# Compute accuracy on the original dataset (same result):
+acc = knn.score(X,y)    
 print(f"knn score is {acc:.1%}")
 ```
 
@@ -89,26 +94,38 @@ print(f"knn score is {acc:.1%}")
 Good performance of a classifier on the samples used to train seems to be necessary, but is it sufficient? We are more interested on how the classifier performs on new data. This is the question of *generalization*. In order to gauge generalization, we hold back some of the labeled data from training and use it only to test the performance.
 
 
-A `sklearn` helper function allows us to split off a randomized 20% of the data to use for testing:
+A `sklearn` helper function allows us to split off a random 20% of the data to use for testing. By default, it will preserve the order of the test set. This can be a problem if, for example, the samples are presented already sorted by class. It's usually recommended to shuffle the order first, but here we give a specific random seed so that the results are reproducible.
 
 ```{code-cell}
 from sklearn.model_selection import train_test_split
-X_tr, X_te, y_tr, y_te = train_test_split(X,y,test_size=0.2,shuffle=True,random_state=0)
-print(len(y_tr),"training cases and",len(y_te),"test cases")
+
+X_tr, X_te, y_tr, y_te = train_test_split(X,y,
+  test_size=0.2,
+  shuffle=True,random_state=0)
+```
+
+We can check that the test and train labels have similar characteristics:
+
+```{code-cell}
+import pandas as pd
+print("training:")
+print(pd.Series(y_tr).describe())
+
+print("\ntest:")
+print(pd.Series(y_te).describe())
 ```
 
 Now we train on the training data...
 
 ```{code-cell}
-from sklearn.neighbors import KNeighborsClassifier
 knn = KNeighborsClassifier(n_neighbors=20)
-knn.fit(X_tr,y_tr)
+knn.fit(X_tr,y_tr)   # fit only to train set
 ```
 
 ...and test on the rest.
 
 ```{code-cell}
-acc = knn.score(X_te,y_te)
+acc = knn.score(X_te,y_te)   # score only on test set
 print(f"accuracy is {acc:.1%}")
 ```
 

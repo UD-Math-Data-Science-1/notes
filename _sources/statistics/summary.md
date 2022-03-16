@@ -121,6 +121,8 @@ $$
 z_i = \frac{x_i-\bar{x}}{s_{n-1}}.
 $$
 
+(In statistics this is referred to as a *t-score*, and the term *sample z-score* is not common. In data science practice, the difference between z-scores and t-scores is rarely important, and most sources just use the term *z-score* indiscriminately.)
+
 ## Median and quantiles
 
 Mean, variance, and standard deviation are not the most relevant statistics for every data set. There are many alternatives.

@@ -10,7 +10,7 @@ For these exercises, you may use computer help to work on a problem, but your an
     :align: center
     ```
 
-    Calculate the **(a)** recall, **(b)** precision, **(c)** specificity, **(d)** accuracy, and **(e)** *F*₁ score of the classifier.
+    Calculate the **(a)** recall, **(b)** precision, **(c)** specificity, **(d)** accuracy, and **(e)** *F*₁ score of the classifier, where *dank* is the positive outcome.
 
 2. Here is a confusion matrix for a classifier of ice cream flavors. 
 
@@ -32,7 +32,7 @@ For these exercises, you may use computer help to work on a problem, but your an
 
 5. Carefully sketch the set of all points in $\real^2$ whose 1-norm distance from the origin equals 1. This is a *Manhattan unit circle*.
 
-6. Three points in the plane lie at the vertices of an equilateral triangle. Carefully sketch the decision boundaries of $k$-nearest neighbors with $k=1$, using the 2-norm. 
+6. Three points in the plane lie at the vertices of an equilateral triangle. One is labeled A and the other two are B. Carefully sketch the decision boundary of $k$-nearest neighbors with $k=1$, using the 2-norm. 
 
 7. Define points on an ellipse by $x_k=a\cos(\theta_k)$ and $y_k=b\sin(\theta_k)$, where $a$ and $b$ are positive and $\theta_k=2k\pi/8$ for $k=0,1,\ldots,7$. Show that if the $x_k$ and $y_k$ are standardized into z-scores, then the resulting points all lie on a circle centered at the origin. (Standardizing points into z-scores is sometimes called *sphereing* them.)
 

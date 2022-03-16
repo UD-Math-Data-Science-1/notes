@@ -66,10 +66,10 @@ $$
 It's more common to minimize the **cross-entropy** loss function
 
 $$
-L(\bfw) = -\sum_{i=1}^n \left[ y_i \ln(\hat{p}_i) + (1-y_i) \ln(1-\hat{p}_i) \right].
+L(\bfw) = -\sum_{i=1}^n \left[ y_i \log(\hat{p}_i) + (1-y_i) \log(1-\hat{p}_i) \right].
 $$
 
-Note that observation $i$ contributes $-\ln(1-\hat{p}_i)$ if $y_i=0$ and $-\ln(\hat{p}_i)$ if $y_i=1$. This loss function creates an unboundedly large penalty as $\hat{p}_i \to 1$ if $y_i=0$, and vice versa. 
+The logarithms can have any base, since that only changes $L$ by a constant factor. Note that observation $i$ contributes $-\log(1-\hat{p}_i)$ if $y_i=0$ and $-\log(\hat{p}_i)$ if $y_i=1$. This loss function creates an unboundedly large penalty as $\hat{p}_i \to 1$ if $y_i=0$, and vice versa. 
 
 Logistic regression has a major disadvantage compared to multilinear regression: the minimization of loss does *not* lead to a linear problem for the weight vector $\bfw$. The difference in practice is usually not concerning, though. As with other forms of regression, the loss function may be regularized using the ridge or LASSO penalty. As we covered earlier, there is a regularization parameter $C$ that emphasizes small $\norm{\bfw}$ as $C\to 0$, and pure regression as $C\to \infty$. 
 

@@ -6,7 +6,7 @@ jupytext:
     format_version: 0.13
     jupytext_version: 1.11.5
 kernelspec:
-  display_name: 'Python 3.8.8 64-bit (''base'': conda)'
+  display_name: Python 3 (ipykernel)
   language: python
   name: python3
 ---
@@ -47,6 +47,80 @@ $$
 
 As in the univariate case, minimizing the loss boils down to solving a linear system of equations, known as the *normal equations*, for $\bfw$.
 
+## Case study: Advertising and sales
+
+Here we load data about advertising spending on different media in many markets.
+
+```{code-cell} ipython3
+import pandas as pd
+ads = pd.read_csv("advertising.csv")
+ads
+```
+
+Pairwise scatter plots yield some hints about what to expect from this dataset:
+
+```{code-cell}
+import seaborn as sns
+sns.pairplot(ads);
+```
+
+The three types of media spending have about the same order of magnitude. The clearest association between *Sales* and spending is with *TV*. So we first try a univariate linear fit of sales against TV spending alone. 
+
+```{code-cell} ipython3
+X = ads.drop("Sales",axis="columns")
+X_tv = ads[["TV"]]
+y = ads["Sales"]
+
+from sklearn.linear_model import LinearRegression
+lm = LinearRegression()
+lm.fit(X_tv,y)
+print("R^2 score:",f"{lm.score(X_tv,y):.4f}")
+print("Model coeffs:",lm.coef_)
+```
+
+The coefficient of determination is quite good. Next we try folding in *Newspaper* as well:
+
+```{code-cell} ipython3
+X_tv_news = ads[["TV","Newspaper"]]
+lm.fit(X_tv_news,y)
+print("R^2 score:",f"{lm.score(X_tv_news,y):.4f}")
+print("Model coeffs:",lm.coef_)
+```
+
+This additional feature had very little effect on the quality of fit. We go on to fit using all three features:
+
+```{code-cell} ipython3
+X = ads[["TV","Newspaper","Radio"]]
+lm.fit(X,y)
+print("R^2 score:",f"{lm.score(X,y):.4f}")
+print("Model coeffs:")
+print(pd.Series(lm.coef_,index=X.columns))
+```
+
+Judging by the coefficients of the model, it's even clearer now that we can explain *Sales* very well without contributions from *Newspaper*. In order to reduce model variance, it would be reasonable to leave that column out, to barely noticeable effect:
+
+```{code-cell} ipython3
+X = ads[["Radio","TV"]].copy()
+lm.fit(X,y)
+print("R^2 score:",f"{lm.score(X,y):.4f}")
+print("Model coeffs:",lm.coef_)
+print(pd.Series(lm.coef_,index=X.columns))
+```
+
+While we have a good $R^2$ score, there is some unexplained variance remaining. We can add an additional feature that is the product of *TV* and *Radio*, representing the possibility that these media reinforce one another's effects:
+
+```{code-cell} ipython3
+X["RadioTV"] = X["Radio"]*X["TV"]
+lm.fit(X,y)
+print("R^2 score:",f"{lm.score(X,y):.4f}")
+print("Model coeffs:")
+print(pd.Series(lm.coef_,index=X.columns))
+```
+
+We did see some increase in the $R^2$ score, and the combination of both types of spending does have a positive effect on *Sales*. We have to be careful interpreting the magnitudes of the coefficients, because the size of the product feature is 100 or so times greater than either individual constituent. In that light, the interaction effect seems comparable to the individual features. 
+
+Interpreting linear regression is a major topic in statistics. There are tests that can lend more precision and rigor to the brief discussion above.
+
 ## Polynomial regression
 
 An important special case of multilinear regression is when there is initially a single predictor variable $t$, and then we define
@@ -61,7 +135,7 @@ $$
 y \approx w_1 + w_2 t + \cdots + w_d t^{d-1},
 $$
 
-which is a polynomial of degree $d-1$. 
+which is a polynomial of degree $d-1$. This allows representation of data that depends on $t$ in ways more complicated than a straight line. But it can also introduce variance.
 
 ## Case study: Fuel efficiency
 
@@ -115,7 +189,7 @@ The coefficients go in order of increasing degree.
 
 If a cubic polynomial can fit better than a line, it's plausible that increasing the degree more will lead to even better fits. In fact, the training error can only go down, because a lower-degree polynomial case is a subset of a higher-degree case.
 
-To explore the effect of degree, we split into train and test sets. 
+To explore the effect of degree, we split into train and test sets.
 
 ```{code-cell} ipython3
 from sklearn.model_selection import train_test_split

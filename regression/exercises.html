@@ -1,0 +1,564 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>4.7. Exercises &#8212; Data Science 1</title>
+    
+  <link href="../_static/css/theme.css" rel="stylesheet">
+  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"tex": {"macros": {"float": ["\\mathbb{F}"], "real": ["\\mathbb{R}"], "complex": ["\\mathbb{C}"], "nat": ["\\mathbb{N}"], "integer": ["\\mathbb{Z}"], "bfa": "\\mathbf{a}", "bfe": "\\mathbf{e}", "bfx": "\\mathbf{x}", "bfX": "\\mathbf{X}", "bfu": "\\mathbf{u}", "bfv": "\\mathbf{v}", "bfw": "\\mathbf{w}", "bfy": "\\mathbf{y}", "bfz": "\\mathbf{z}", "bfzero": "\\boldsymbol{0}", "bfmu": "\\boldsymbol{\\mu}", "TP": "\\text{TP}", "TN": "\\text{TN}", "FP": "\\text{FP}", "FN": "\\text{FN}", "rmn": ["\\mathbb{R}^{#1 \\times #2}", 2], "dd": ["\\frac{d #1}{d #2}", 2], "pp": ["\\frac{\\partial #1}{\\partial #2}", 2], "norm": ["\\left\\lVert #1 \\right\\rVert", 1], "abs": ["\\left\\lvert #1 \\right\\rvert", 1], "twonorm": ["\\norm{#1}_2", 1], "onenorm": ["\\norm{#1}_1", 1], "infnorm": ["\\norm{#1}_\\infty", 1], "innerprod": ["\\langle #1,#2 \\rangle", 2], "pr": ["^{(#1)}", 1], "diag": ["\\operatorname{diag}"], "sign": ["\\operatorname{sign}"], "dist": ["\\operatorname{dist}"], "simil": ["\\operatorname{sim}"], "ee": ["\\times 10^"], "floor": ["\\lfloor#1\\rfloor", 1], "argmin": ["\\operatorname{argmin}"], "Cov": ["\\operatorname{Cov}"], "logit": ["\\operatorname{logit}"]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="5. Clustering" href="../clustering/overview.html" />
+    <link rel="prev" title="4.6. Logistic regression" href="logistic.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Data Science 1</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   Data Science 1 @ UD Math
+  </a>
+ </li>
+</ul>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../representation/overview.html">
+   1. Representation of data
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../representation/data-types.html">
+     1.1. Types of data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../representation/numpy.html">
+     1.2. Introduction to numpy
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../representation/pandas.html">
+     1.3. Introduction to pandas
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../representation/seaborn.html">
+     1.4. Introduction to seaborn
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../statistics/overview.html">
+   2. Descriptive statistics
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../statistics/summary.html">
+     2.1. Summary statistics
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../statistics/split-apply-combine.html">
+     2.2. Split–apply–combine
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../statistics/outliers.html">
+     2.3. Outliers
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../statistics/correlation.html">
+     2.4. Correlation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../statistics/exercises.html">
+     2.5. Exercises
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../classification/overview.html">
+   3. Classification
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../classification/sklearn.html">
+     3.1. Using scikit-learn
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../classification/performance.html">
+     3.2. Classifier performance
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../classification/decision-trees.html">
+     3.3. Decision trees
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../classification/nearest-neighbors.html">
+     3.4. Nearest neighbors
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../classification/svm.html">
+     3.5. Support vector machine
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../classification/overfitting.html">
+     3.6. Overfitting
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../classification/model-selection.html">
+     3.7. Model selection
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../classification/exercises.html">
+     3.8. Exercises
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="overview.html">
+   4. Regression
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="linear.html">
+     4.1. Linear regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="multilinear.html">
+     4.2. Multilinear and polynomial regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="regularization.html">
+     4.3. Regularization
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="other.html">
+     4.4. Repurposed classifiers
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="prob_class.html">
+     4.5. Probabilistic classification
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="logistic.html">
+     4.6. Logistic regression
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     4.7. Exercises
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../clustering/overview.html">
+   5. Clustering
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <label for="toctree-checkbox-5">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../clustering/similarity.html">
+     5.1. Similarity and distance
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../clustering/performance.html">
+     5.2. Clustering performance
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../clustering/k-means.html">
+     5.3. k-means
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../clustering/hierarchical.html">
+     5.4. Hierarchical
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../clustering/dbscan.html">
+     5.5. DBSCAN
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../network/overview.html">
+   6. Networks
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+  <label for="toctree-checkbox-6">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../network/networkx.html">
+     6.1. Basics of NetworkX
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../network/degree.html">
+     6.2. Degree and distance
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/regression/exercises.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
+            
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Exercises</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                    </div>
+                </div>
+            </div>
+            
+              <div>
+                
+  <div class="tex2jax_ignore mathjax_ignore section" id="exercises">
+<h1><span class="section-number">4.7. </span>Exercises<a class="headerlink" href="#exercises" title="Permalink to this headline">¶</a></h1>
+<ol>
+<li><p>Suppose that the distinct plane points <span class="math notranslate nohighlight">\((x_i,y_i)\)</span> for <span class="math notranslate nohighlight">\(i=1,\ldots,n\)</span> are to be fit using a linear function without intercept, <span class="math notranslate nohighlight">\(f(x)=\alpha x\)</span>. Use calculus to find a formula for the value of <span class="math notranslate nohighlight">\(\alpha\)</span> that minimizes the sum of squared residuals,</p>
+<div class="math notranslate nohighlight">
+\[ r = \sum_{i=1}^n (f(x_i)-y_i)^2. \]</div>
+</li>
+<li><p>Suppose that <span class="math notranslate nohighlight">\(x_1=-2\)</span>, <span class="math notranslate nohighlight">\(x_2=1\)</span>, and <span class="math notranslate nohighlight">\(x_3=2\)</span>. Define <span class="math notranslate nohighlight">\(\alpha\)</span> as in Exercise 1, and define the predicted values <span class="math notranslate nohighlight">\(\hat{y}_k=\alpha x_k\)</span> for <span class="math notranslate nohighlight">\(k=1,2,3\)</span>. Express each <span class="math notranslate nohighlight">\(\hat{y}_k\)</span> as a combination of the three values <span class="math notranslate nohighlight">\(y_1\)</span>, <span class="math notranslate nohighlight">\(y_2\)</span>, and <span class="math notranslate nohighlight">\(y_3\)</span>, which remain arbitrary. (This is a special case of a general fact about linear regression: each prediction is a linear combination of the training values.)</p></li>
+<li><p>Using the formulas derived in <a class="reference internal" href="linear.html#section-regression-linear"><span class="std std-ref">Linear regression</span></a>, show that the point <span class="math notranslate nohighlight">\((\bar{x},\bar{y})\)</span> always lies on the linear regression line. (Hint: You only have to show that <span class="math notranslate nohighlight">\(f(\bar{x}) = \bar{y}\)</span>. This can be done without first solving for <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span>, which is a bit tedious to write out.)</p></li>
+<li><p>Suppose that values <span class="math notranslate nohighlight">\(y_i\)</span> for <span class="math notranslate nohighlight">\(i=1,\ldots,n\)</span> are to be fit to features <span class="math notranslate nohighlight">\((u_i,v_i)\)</span> using a multilinear function <span class="math notranslate nohighlight">\(f(u,v)=\alpha u + \beta v\)</span>. Define the sum of squared residuals</p>
+<div class="math notranslate nohighlight">
+\[ r = \sum_{i=1}^n (f(u_i,v_i)-y_i)^2. \]</div>
+<p>Show that by holding <span class="math notranslate nohighlight">\(\alpha\)</span> is constant and taking a derivative with respect to <span class="math notranslate nohighlight">\(\beta\)</span>, and then holding <span class="math notranslate nohighlight">\(\beta\)</span> constant and taking a derivative with respect to <span class="math notranslate nohighlight">\(\alpha\)</span>, at the minimum residual we must have</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+    \left(\sum u_i^2 \right) \alpha + \left(\sum u_i v_i \right) \beta &amp;= \sum u_i y_i, \\ 
+    \left(\sum u_i v_i \right) \alpha + \left(\sum v_i^2 \right) \beta &amp;= \sum v_i y_i. 
+    \end{split}\]</div>
+</li>
+<li><p>Repeat Exercise 1, but using the regularized residual</p>
+<div class="math notranslate nohighlight">
+\[ \tilde{r} = C \alpha^2 + \sum_{i=1}^n (f(x_i)-y_i)^2. \]</div>
+</li>
+<li><p>Repeat Exercise 4, but using the regularized residual</p>
+<div class="math notranslate nohighlight">
+\[ \tilde{r} = C (\alpha^2 + \beta^2) + \sum_{i=1}^n (f(u_i,v_i)-y_i)^2. \]</div>
+</li>
+<li><p>The probability <span class="math notranslate nohighlight">\(p\)</span> of winning a race is predicted to obey the fit <span class="math notranslate nohighlight">\(\logit(p)=\alpha x + \beta\)</span>. If <span class="math notranslate nohighlight">\(\alpha=3\)</span>, <span class="math notranslate nohighlight">\(\beta=-1\)</span>, what are the odds (odds ratio) of winning the race at <span class="math notranslate nohighlight">\(x=1\)</span>?</p></li>
+<li><p>Given the data set <span class="math notranslate nohighlight">\((x_i,y_i)=\{(0,-1),(1,1),(2,3),(3,0),(4,3)\}\)</span>, find the MAD-based <span class="math notranslate nohighlight">\(Q\)</span> score for the following hypothetical decision tree splits.</p>
+<p><strong>(a)</strong> <span class="math notranslate nohighlight">\(x \le 0.5\quad\)</span>
+<strong>(b)</strong> <span class="math notranslate nohighlight">\(x \le 1.5\quad\)</span>
+<strong>(c)</strong> <span class="math notranslate nohighlight">\(x \le 2.5\quad\)</span>
+<strong>(d)</strong> <span class="math notranslate nohighlight">\(x \le 3.5\)</span></p>
+</li>
+<li><p>Here are values on an integer lattice.</p>
+<img alt="../_images/griddata.svg" src="../_images/griddata.svg" /><p>Let <span class="math notranslate nohighlight">\(f(x_1,x_2)\)</span> be a kNN regressor with <span class="math notranslate nohighlight">\(k=4\)</span>, Euclidean metric, and mean averaging. Carefully sketch a one-dimensional plot of <span class="math notranslate nohighlight">\(f\)</span> along the given line.</p>
+<p><strong>(a)</strong> <span class="math notranslate nohighlight">\(f(1.2,t)\)</span> for <span class="math notranslate nohighlight">\(-3\le t \le 3\)</span></p>
+<p><strong>(b)</strong> <span class="math notranslate nohighlight">\(f(t,-0.75)\)</span> for <span class="math notranslate nohighlight">\(-3\le t \le 3\)</span></p>
+<p><strong>(c)</strong> <span class="math notranslate nohighlight">\(f(t,1.6)\)</span> for <span class="math notranslate nohighlight">\(-3\le t \le 3\)</span></p>
+<p><strong>(d)</strong> <span class="math notranslate nohighlight">\(f(-0.25,t)\)</span> for <span class="math notranslate nohighlight">\(-3\le t \le 3\)</span></p>
+</li>
+<li><p>Here are blue/orange labels on an integer lattice.</p>
+<img alt="../_images/gridlabels.svg" src="../_images/gridlabels.svg" /><p>Let <span class="math notranslate nohighlight">\(f(x_1,x_2)\)</span> be a kNN probabilistic classifier with <span class="math notranslate nohighlight">\(k=4\)</span>, Euclidean metric, and mean averaging. Carefully sketch a one-dimensional plot of the probability of the blue class along the given line.</p>
+<p><strong>(a)</strong> <span class="math notranslate nohighlight">\(f(1.2,t)\)</span> for <span class="math notranslate nohighlight">\(-3\le t \le 3\)</span></p>
+<p><strong>(b)</strong> <span class="math notranslate nohighlight">\(f(t,-0.75)\)</span> for <span class="math notranslate nohighlight">\(-3\le t \le 3\)</span></p>
+<p><strong>(c)</strong> <span class="math notranslate nohighlight">\(f(t,1.6)\)</span> for <span class="math notranslate nohighlight">\(-3\le t \le 3\)</span></p>
+<p><strong>(d)</strong> <span class="math notranslate nohighlight">\(f(-0.25,t)\)</span> for <span class="math notranslate nohighlight">\(-3\le t \le 3\)</span></p>
+</li>
+<li><p>Here are some label values and probabilistic predicted categories for them.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+    y: &amp;\quad [0,0,1,1] \\ 
+    \hat{p}: &amp;\quad [\tfrac{1}{4},0,\tfrac{1}{2},1] 
+    \end{split}\]</div>
+<p>Using base-2 logarithms, calculate the cross-entropy loss for these predictions.</p>
+</li>
+<li><p>Let <span class="math notranslate nohighlight">\(\bfx=[-1,0,1]\)</span> and <span class="math notranslate nohighlight">\(\bfy=[0,1,0]\)</span>. This is to be fit to a probabilistic predictor <span class="math notranslate nohighlight">\(\hat{p}(x) = \sigma(a x)\)</span> for parameter <span class="math notranslate nohighlight">\(a\)</span>.</p>
+<p><strong>(a)</strong> Show that the cross-entropy loss function <span class="math notranslate nohighlight">\(L(a)\)</span>, using natural logarithms, satisfies</p>
+<div class="math notranslate nohighlight">
+\[
+    L'(a) = \frac{e^a-1}{e^a+1}. 
+    \]</div>
+<p><strong>(b)</strong> Explain why part (a) implies that <span class="math notranslate nohighlight">\(a=0\)</span> is the global minimizer of the loss <span class="math notranslate nohighlight">\(L\)</span>.</p>
+<p><strong>(c)</strong> Using the result of part (b), simplify the optimum predictor function <span class="math notranslate nohighlight">\(\hat{p}\)</span>.</p>
+</li>
+<li><p>Let <span class="math notranslate nohighlight">\(\bfx=[-1,1]\)</span> and <span class="math notranslate nohighlight">\(\bfy=[0,1]\)</span>. This is to be fit to a probabilistic predictor <span class="math notranslate nohighlight">\(\hat{p}(x) = \sigma(a x)\)</span> for parameter <span class="math notranslate nohighlight">\(a\)</span>. Without regularization, the best fit takes <span class="math notranslate nohighlight">\(a\to\infty\)</span>, which makes the predictor become infinitely steep at <span class="math notranslate nohighlight">\(x=0\)</span>. To combat this behavior, let <span class="math notranslate nohighlight">\(L\)</span> be the cross-entropy loss function with LASSO penalty, i.e.,</p>
+<div class="math notranslate nohighlight">
+\[
+    L(a) = \ln[1-\hat{p}(-1)] - \ln[\hat{p}(1)] + C |a|, 
+    \]</div>
+<p>for a positive regularization constant <span class="math notranslate nohighlight">\(C\)</span>.</p>
+<p><strong>(a)</strong> Show that <span class="math notranslate nohighlight">\(L'\)</span> is never zero for <span class="math notranslate nohighlight">\(a&lt;0\)</span>.</p>
+<p><strong>(b)</strong> Show that if <span class="math notranslate nohighlight">\(0&lt;C&lt;1\)</span>, then <span class="math notranslate nohighlight">\(L'\)</span> has a zero at</p>
+<div class="math notranslate nohighlight">
+\[
+    a=\ln\left(\frac{2}{C}-1\right). 
+    \]</div>
+<p>Assume that this value minimizes <span class="math notranslate nohighlight">\(L\)</span>.</p>
+<p><strong>(c)</strong> Show that the minimizer above is a decreasing function of <span class="math notranslate nohighlight">\(C\)</span>. (Therefore, increasing <span class="math notranslate nohighlight">\(C\)</span> makes the predictor less steep as a function of <span class="math notranslate nohighlight">\(x\)</span>.)</p>
+</li>
+</ol>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "UD-Math-Data-Science-1/notes",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./regression"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            
+                <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="logistic.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title"><span class="section-number">4.6. </span>Logistic regression</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="../clustering/overview.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">5. </span>Clustering</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            
+        </div>
+    </div>
+    <footer class="footer">
+  <p>
+    
+      By Tobin A. Driscoll<br/>
+    
+        &copy; Copyright 2022.<br/>
+      <div class="extra_footer">
+        <img alt='UD logo' src='_static/UDlogo-small.png'>
+      </div>
+  </p>
+</footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+
+  </body>
+</html>

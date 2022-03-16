@@ -23,7 +23,7 @@
 
     
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=84ace793992934648b4de8eed757e5a2" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
@@ -39,20 +39,22 @@
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../_static/sphinx-book-theme.9d8b4a8b9bb19db25eeaddc40d639ba2.js"></script>
-    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>window.MathJax = {"tex": {"macros": {"float": ["\\mathbb{F}"], "real": ["\\mathbb{R}"], "complex": ["\\mathbb{C}"], "nat": ["\\mathbb{N}"], "integer": ["\\mathbb{Z}"], "bfa": "\\mathbf{a}", "bfe": "\\mathbf{e}", "bfx": "\\mathbf{x}", "bfX": "\\mathbf{X}", "bfu": "\\mathbf{u}", "bfv": "\\mathbf{v}", "bfw": "\\mathbf{w}", "bfy": "\\mathbf{y}", "bfz": "\\mathbf{z}", "bfzero": "\\boldsymbol{0}", "bfmu": "\\boldsymbol{\\mu}", "TP": "\\text{TP}", "TN": "\\text{TN}", "FP": "\\text{FP}", "FN": "\\text{FN}", "rmn": ["\\mathbb{R}^{#1 \\times #2}", 2], "dd": ["\\frac{d #1}{d #2}", 2], "pp": ["\\frac{\\partial #1}{\\partial #2}", 2], "norm": ["\\lVert #1 \\rVert", 1], "twonorm": ["\\norm{#1}_2", 1], "onenorm": ["\\norm{#1}_1", 1], "infnorm": ["\\norm{#1}_\\infty", 1], "innerprod": ["\\langle #1,#2 \\rangle", 2], "pr": ["^{(#1)}", 1], "diag": ["\\operatorname{diag}"], "sign": ["\\operatorname{sign}"], "dist": ["\\operatorname{dist}"], "simil": ["\\operatorname{sim}"], "ee": ["\\times 10^"], "floor": ["\\lfloor#1\\rfloor", 1], "argmin": ["\\operatorname{argmin}"], "Cov": ["\\operatorname{Cov}"], "logit": ["\\operatorname{logit}"]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
-    <script>
-        const thebe_selector = ".thebe,.cell"
-        const thebe_selector_input = "pre,.cell_input div.highlight"
-        const thebe_selector_output = ".output,.cell_output"
-    </script>
+    <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"tex": {"macros": {"float": ["\\mathbb{F}"], "real": ["\\mathbb{R}"], "complex": ["\\mathbb{C}"], "nat": ["\\mathbb{N}"], "integer": ["\\mathbb{Z}"], "bfa": "\\mathbf{a}", "bfe": "\\mathbf{e}", "bfx": "\\mathbf{x}", "bfX": "\\mathbf{X}", "bfu": "\\mathbf{u}", "bfv": "\\mathbf{v}", "bfw": "\\mathbf{w}", "bfy": "\\mathbf{y}", "bfz": "\\mathbf{z}", "bfzero": "\\boldsymbol{0}", "bfmu": "\\boldsymbol{\\mu}", "TP": "\\text{TP}", "TN": "\\text{TN}", "FP": "\\text{FP}", "FN": "\\text{FN}", "rmn": ["\\mathbb{R}^{#1 \\times #2}", 2], "dd": ["\\frac{d #1}{d #2}", 2], "pp": ["\\frac{\\partial #1}{\\partial #2}", 2], "norm": ["\\left\\lVert #1 \\right\\rVert", 1], "abs": ["\\left\\lvert #1 \\right\\rvert", 1], "twonorm": ["\\norm{#1}_2", 1], "onenorm": ["\\norm{#1}_1", 1], "infnorm": ["\\norm{#1}_\\infty", 1], "innerprod": ["\\langle #1,#2 \\rangle", 2], "pr": ["^{(#1)}", 1], "diag": ["\\operatorname{diag}"], "sign": ["\\operatorname{sign}"], "dist": ["\\operatorname{dist}"], "simil": ["\\operatorname{sim}"], "ee": ["\\times 10^"], "floor": ["\\lfloor#1\\rfloor", 1], "argmin": ["\\operatorname{argmin}"], "Cov": ["\\operatorname{Cov}"], "logit": ["\\operatorname{logit}"]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -74,12 +76,7 @@
     <div class="container-xl">
       <div class="row">
           
-<!-- Checkboxes to toggle the left sidebar -->
-<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
-<label class="overlay" for="__navigation">
-    <div class="visually-hidden">Toggle navigation sidebar</div>
-</label>
-<div class="col-12 col-md-3 bd-sidebar site-navigation " id="site-navigation">
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
     
         <div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../index.html">
@@ -259,8 +256,18 @@
     </a>
    </li>
    <li class="toctree-l2">
+    <a class="reference internal" href="prob_class.html">
+     4.5. Probabilistic classification
+    </a>
+   </li>
+   <li class="toctree-l2">
     <a class="reference internal" href="logistic.html">
-     4.5. Logistic regression
+     4.6. Logistic regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="exercises.html">
+     4.7. Exercises
     </a>
    </li>
   </ul>
@@ -293,6 +300,11 @@
    <li class="toctree-l2">
     <a class="reference internal" href="../clustering/hierarchical.html">
      5.4. Hierarchical
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../clustering/dbscan.html">
+     5.5. DBSCAN
     </a>
    </li>
   </ul>
@@ -335,22 +347,22 @@
 
 
           
-<!-- This is an invisible pixel that we watch to see if we've scrolled. -->
-<div class="sbt-scroll-pixel-helper"></div>
 <main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
     
     <div class="topbar container-xl fixed-top">
     <div class="topbar-contents row">
         <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
         <div class="col pl-md-4 topbar-main">
-            <div class="topbar-left">
-                
-                <label class="nav-toggle-button" for="__navigation">
-                    <div class="visually-hidden">Toggle navigation</div>
-                    <i class="fas fa-bars"></i>
-                </label>
-                
-            </div>
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
             
 <div class="dropdown-buttons-trigger">
     <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
@@ -393,7 +405,6 @@
                 data-placement="left"><img class="binder-button-logo"
                     src="../_static/images/logo_binder.svg"
                     alt="Interact on binder">Binder</button></a>
-        
         
         
         
@@ -488,7 +499,7 @@
               <div>
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="linear-regression">
-<h1><span class="section-number">4.1. </span>Linear regression<a class="headerlink" href="#linear-regression" title="Permalink to this headline">¶</a></h1>
+<span id="section-regression-linear"></span><h1><span class="section-number">4.1. </span>Linear regression<a class="headerlink" href="#linear-regression" title="Permalink to this headline">¶</a></h1>
 <p>You have probably encountered the most basic form of regression: fitting a straight line to data points <span class="math notranslate nohighlight">\((x_i,y_i)\)</span> in the <span class="math notranslate nohighlight">\(xy\)</span>-plane. In this we assume a relation</p>
 <div class="math notranslate nohighlight">
 \[
@@ -502,51 +513,115 @@ L(a,b) = \sum_{i=1}^n (f(x_i)-y_i)^2 = \sum_{i=1}^n (a x_i+b-y_i)^2.
 <p>This problem can be solved by a little multidimensional calculus. If we hold <span class="math notranslate nohighlight">\(b\)</span> fixed and take a derivative with respect to <span class="math notranslate nohighlight">\(a\)</span>, then</p>
 <div class="math notranslate nohighlight">
 \[
-\pp{L}{a} = \sum_{i=1}^n 2x_i(a x_i + b - y_i) = 2 a \left(\sum_{i=1}^n x_i^2\right) + 2b\left(\sum_{i=1}^n x_i\right) - \sum_{i=1}^n y_i.
+\pp{L}{a} = \sum_{i=1}^n 2x_i(a x_i + b - y_i) = 2 a \left(\sum_{i=1}^n x_i^2\right) + 2b\left(\sum_{i=1}^n x_i\right) - 2\sum_{i=1}^n x_i y_i.
 \]</div>
 <p>Similarly, if we hold <span class="math notranslate nohighlight">\(a\)</span> fixed and differentiate with respect to <span class="math notranslate nohighlight">\(b\)</span>, then</p>
 <div class="math notranslate nohighlight">
 \[
-\pp{L}{b} = \sum_{i=1}^n 2(a x_i + b - y_i) = 2 a \left(\sum_{i=1}^n x_i\right) + 2bn - \sum_{i=1}^n y_i.
+\pp{L}{b} = \sum_{i=1}^n 2(a x_i + b - y_i) = 2 a \left(\sum_{i=1}^n x_i\right) + 2bn - 2 \sum_{i=1}^n y_i.
 \]</div>
 <p>Setting both derivatives to zero creates a system of two linear equations to be solved for <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span>.</p>
-<p>Before moving on, we adopt a vector-oriented view of the process. As a sum of squares, the loss function can be written as a 2-norm:</p>
+<div class="proof example admonition" id="example-linear-fit">
+<p class="admonition-title"><span class="caption-number">Example 4.1.1 </span></p>
+<div class="example-content section" id="proof-content">
+<p>Find the linear regressor of the points <span class="math notranslate nohighlight">\((-1,0)\)</span>, <span class="math notranslate nohighlight">\((0,2)\)</span>, <span class="math notranslate nohighlight">\((1,3)\)</span>.</p>
+<details class="sphinx-bs dropdown card mb-3">
+<summary class="summary-title card-header">
+Solution<div class="summary-down docutils">
+<svg version="1.1" width="24" height="24" class="octicon octicon-chevron-down" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 8.72a.75.75 0 000 1.06l6.25 6.25a.75.75 0 001.06 0l6.25-6.25a.75.75 0 00-1.06-1.06L12 14.44 6.28 8.72a.75.75 0 00-1.06 0z"></path></svg></div>
+<div class="summary-up docutils">
+<svg version="1.1" width="24" height="24" class="octicon octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
+</summary><div class="summary-content card-body docutils">
+<p class="card-text">We need a few sums to fill in the system to be solved:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\sum_{i=1}^n x_i^2 = 1+0+1=2, \qquad &amp; \sum_{i=1}^n x_i = -1+0+1=0, \\ 
+\sum_{i=1}^n x_iy_i = 0+0+3=3, \qquad &amp; \sum_{i=1}^n y_i = 0+2+3=5. 
+\end{split}\]</div>
+<p class="card-text">Therefore we must solve (note that <span class="math notranslate nohighlight">\(n=3\)</span>)</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+2a + 0b &amp;= 3, \\ 
+0a + 3b &amp;= 5. 
+\end{split}\]</div>
+<p class="card-text">The regression function is <span class="math notranslate nohighlight">\(f(x)=\tfrac{3}{2} x + \tfrac{5}{3}\)</span>.</p>
+</div>
+</details></div>
+</div><p>Before moving on, we adopt a vector-oriented view of the process. As a sum of squares, the loss function can be written as a 2-norm:</p>
 <div class="math notranslate nohighlight">
 \[
-L(a,b) =  \twonorm{a \bfx + b \bfe - \bfy}^2,
+L(a,b) =  \twonorm{a\, \bfx + b \,\bfe - \bfy}^2,
 \]</div>
 <p>where <span class="math notranslate nohighlight">\(\bfe\)</span> is a vector of <span class="math notranslate nohighlight">\(n\)</span> ones. Minimizing <span class="math notranslate nohighlight">\(L\)</span> over all values of <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span> is called the <strong>least squares</strong> problem. (More specifically, this setup is called <em>simple least squares</em> or <em>ordinary least squares</em>.)</p>
 <div class="section" id="performance-metrics">
 <h2>Performance metrics<a class="headerlink" href="#performance-metrics" title="Permalink to this headline">¶</a></h2>
 <p>We need to establish ways to measure regression performance. Unlike with binary classification, in regression it’s not just a matter of “right” and “wrong” answers.</p>
-<p>Suppose a regressor is represented by the function <span class="math notranslate nohighlight">\(f(x)\)</span>. We let <span class="math notranslate nohighlight">\((x_i,y_i)\)</span> for <span class="math notranslate nohighlight">\(i=1,\ldots,m\)</span> be the test set, which may be different from the training set.</p>
-<p>The quantities <span class="math notranslate nohighlight">\(y_i-f(x_i)\)</span> are known as <strong>residuals</strong> of the approximation, although they are often called <em>errors</em> as well, confusingly enough.</p>
+<p>Suppose a regressor trained on <span class="math notranslate nohighlight">\((x_i,y_i)\)</span> for <span class="math notranslate nohighlight">\(i=1,\ldots,n\)</span> is represented by the function <span class="math notranslate nohighlight">\(f(x)\)</span>. We let <span class="math notranslate nohighlight">\((\xi_i,\eta_i)\)</span> for <span class="math notranslate nohighlight">\(i=1,\ldots,m\)</span> be the test set, which may be different from the training set. Naturally, we might want to use the differences <span class="math notranslate nohighlight">\(y_i-f(x_i)\)</span>, which we call <strong>residuals</strong>, and <span class="math notranslate nohighlight">\(\eta_i - f(\xi_i)\)</span>, which we call <strong>errors</strong>. (The usage of these terms is somewhat variable across different sources, though.)</p>
 <div class="section" id="mse">
 <h3>MSE<a class="headerlink" href="#mse" title="Permalink to this headline">¶</a></h3>
 <p>A natural metric is the <strong>mean squared error</strong>,</p>
 <div class="math notranslate nohighlight">
 \[
-\frac{1}{m} \sum_{i=1}^m [y_i - f(x_i)]^2.
+\frac{1}{m} \sum_{i=1}^m \, \bigl[\eta_i - f(\xi_i)\bigr]^2.
 \]</div>
-<p>If the training and test sets are the same, then the MSE is minimized by the standard regression algorithm. A closely related measure is the <strong>mean absolute error</strong>,</p>
+<p>If the training and test sets are the same, then the MSE is proportional to the loss function <span class="math notranslate nohighlight">\(L\)</span>, which is minimized by the standard regression algorithm. A closely related measure is the <strong>mean absolute error</strong>,</p>
 <div class="math notranslate nohighlight">
 \[
-\frac{1}{m} \sum_{i=1}^m |y_i - f(x_i)|,
+\frac{1}{m} \sum_{i=1}^m \abs{\eta_i - f(\xi_i)},
 \]</div>
-<p>which is less sensitive to large outlier errors.</p>
-<p>While easy to understand, these error measurements are dimensional and depend on the scaling of the variables.</p>
+<p>which is less sensitive to large outlier errors. While easy to understand, these error measurements are dimensional and depend on the scaling of the variables. It might be helpful to compare the MSE to variance of the target values, and MAE to standard deviation.</p>
 </div>
 <div class="section" id="coefficient-of-determination">
 <h3>Coefficient of determination<a class="headerlink" href="#coefficient-of-determination" title="Permalink to this headline">¶</a></h3>
 <p>The <strong>coefficient of determination</strong> is denoted <span class="math notranslate nohighlight">\(R^2\)</span> and defined as</p>
 <div class="math notranslate nohighlight">
 \[
-R^2 = 1 - \frac{\sum_{i=1}^m [y_i - f(x_i)]^2}{\sum_{i=1}^m [y_i - \bar{y}]^2},
+R^2 = 1 - \frac{\displaystyle\sum_{i=1}^m \,\bigl[\eta_i - f(\xi_i)\bigr]^2}{\displaystyle\sum_{i=1}^m \, \bigl(\eta_i - \bar{\eta}\bigr)^2},
 \]</div>
-<p>where <span class="math notranslate nohighlight">\(\bar{y}\)</span> is the mean of the target value over the test set. This quantity is dimensionless and therefore independent of scaling. A perfect regressor has an <span class="math notranslate nohighlight">\(R^2\)</span> value of 1, while a baseline regressor that always predicts <span class="math notranslate nohighlight">\(\bar{y}\)</span> would have <span class="math notranslate nohighlight">\(R^2=0\)</span>.</p>
+<p>where <span class="math notranslate nohighlight">\(\bar{\eta}\)</span> is the mean of the target value over the test set. This quantity is dimensionless and therefore independent of scaling. A perfect regressor has an <span class="math notranslate nohighlight">\(R^2\)</span> value of 1, while a baseline regressor that always predicts <span class="math notranslate nohighlight">\(\bar{\eta}\)</span> would have <span class="math notranslate nohighlight">\(R^2=0\)</span>.</p>
 <p>An interpretation of the definition in words is that <span class="math notranslate nohighlight">\(R^2\)</span> is the fraction of the variance in the true values that is echoed by the variance in the regressor’s predictions. When <span class="math notranslate nohighlight">\(R^2&lt;1\)</span>, we say that the data has <em>unexplained variance</em> not accounted for by the regressor.</p>
-<p>The notation is potentially confusing, because <span class="math notranslate nohighlight">\(R^2\)</span> can actually be negative! Such a result indicates that the predictor <span class="math notranslate nohighlight">\(f\)</span> is doing worse than the baseline constant mean value prediction. However, if <span class="math notranslate nohighlight">\(f\)</span> is the result of a standard linear regression, and if the test set is the training set, then <span class="math notranslate nohighlight">\(R^2\)</span> equals the square of the Pearson correlation coefficient between the true and predicted values and therefore lies between 0 and 1.</p>
+<p>The notation is potentially confusing, because <span class="math notranslate nohighlight">\(R^2\)</span> can actually be negative! Such a result indicates that the predictor <span class="math notranslate nohighlight">\(f\)</span> is doing worse than the baseline constant mean-value prediction. However, if <span class="math notranslate nohighlight">\(f\)</span> is the result of a standard linear regression, and if the test set is the training set, then <span class="math notranslate nohighlight">\(R^2\)</span> equals the square of the Pearson correlation coefficient between the true and predicted values and therefore lies between 0 and 1.</p>
+<div class="proof example admonition" id="example-linear-CoD">
+<p class="admonition-title"><span class="caption-number">Example 4.1.2 </span></p>
+<div class="example-content section" id="proof-content">
+<p>Find the coefficient of determination for the fit in <a class="reference internal" href="#example-linear-fit">Example 4.1.1</a>, if the test set is the same as the training set.</p>
+<details class="sphinx-bs dropdown card mb-3">
+<summary class="summary-title card-header">
+Solution<div class="summary-down docutils">
+<svg version="1.1" width="24" height="24" class="octicon octicon-chevron-down" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 8.72a.75.75 0 000 1.06l6.25 6.25a.75.75 0 001.06 0l6.25-6.25a.75.75 0 00-1.06-1.06L12 14.44 6.28 8.72a.75.75 0 00-1.06 0z"></path></svg></div>
+<div class="summary-up docutils">
+<svg version="1.1" width="24" height="24" class="octicon octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
+</summary><div class="summary-content card-body docutils">
+<p class="card-text">We have <span class="math notranslate nohighlight">\(\xi_i=x_i\)</span> and <span class="math notranslate nohighlight">\(\eta_i=y_i\)</span> for <span class="math notranslate nohighlight">\(i=1,2,3\)</span>. We found earlier that <span class="math notranslate nohighlight">\(f(x)=\tfrac{3}{2} x + \tfrac{5}{3}\)</span>.  Now <span class="math notranslate nohighlight">\(\bar{\eta} = \frac{1}{3}(0+2+3)=\frac{5}{3}\)</span>, and</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\sum_{i=1}^m \,[\eta_i - f(\xi_i)]^2 &amp;= \left(0-\tfrac{1}{6}\right)^2 + \left(2-\tfrac{5}{3}\right)^2 + \left(3-\tfrac{19}{6}\right)^2 = \frac{1}{6}, \\ 
+\sum_{i=1}^m \, [\eta_i - \bar{\eta}]^2 &amp;= \left(0-\tfrac{5}{3}\right)^2 + \left(2-\tfrac{5}{3}\right)^2 + \left(3-\tfrac{5}{3}\right)^2 = \frac{14}{3}. 
+\end{split}\]</div>
+<p class="card-text">This yields <span class="math notranslate nohighlight">\(R^2 = 1 - (1/6)(3/14) = 27/28\)</span>.</p>
 </div>
+</details></div>
+</div><div class="proof example admonition" id="example-linear-CoDneg">
+<p class="admonition-title"><span class="caption-number">Example 4.1.3 </span></p>
+<div class="example-content section" id="proof-content">
+<p>Find the coefficient of determination for the fit <span class="math notranslate nohighlight">\(f(x)=x\)</span>, if the test set is the same as the training set in <a class="reference internal" href="#example-linear-fit">Example 4.1.1</a>.</p>
+<details class="sphinx-bs dropdown card mb-3">
+<summary class="summary-title card-header">
+Solution<div class="summary-down docutils">
+<svg version="1.1" width="24" height="24" class="octicon octicon-chevron-down" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 8.72a.75.75 0 000 1.06l6.25 6.25a.75.75 0 001.06 0l6.25-6.25a.75.75 0 00-1.06-1.06L12 14.44 6.28 8.72a.75.75 0 00-1.06 0z"></path></svg></div>
+<div class="summary-up docutils">
+<svg version="1.1" width="24" height="24" class="octicon octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
+</summary><div class="summary-content card-body docutils">
+<p class="card-text">The only change from the preceding example is in <span class="math notranslate nohighlight">\(f\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\sum_{i=1}^m \,[\eta_i - f(\xi_i)]^2 &amp;= \left(0+1\right)^2 + \left(2-0\right)^2 + \left(3-1\right)^2 = 9, \\ 
+\sum_{i=1}^m \, [\eta_i - \bar{\eta}]^2 &amp;= \frac{14}{3}. 
+\end{split}\]</div>
+<p class="card-text">This yields <span class="math notranslate nohighlight">\(R^2 = 1 - (9)(3/14) = -13/14\)</span>. Since the result is negative, we would be better off always predicting <span class="math notranslate nohighlight">\(5/3\)</span> instead of <span class="math notranslate nohighlight">\(f(x)\)</span>. This is possible only because this <span class="math notranslate nohighlight">\(f\)</span> is not the least-squares regressor for this dataset.</p>
+</div>
+</details></div>
+</div></div>
 </div>
 <div class="section" id="case-study-arctic-ice">
 <h2>Case study: Arctic ice<a class="headerlink" href="#case-study-arctic-ice" title="Permalink to this headline">¶</a></h2>
@@ -752,7 +827,7 @@ Name: extent, dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.FacetGrid at 0x7fdb78b25f10&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.FacetGrid at 0x7fe059b68550&gt;
 </pre></div>
 </div>
 <img alt="../_images/linear_9_1.png" src="../_images/linear_9_1.png" />
@@ -813,24 +888,36 @@ Name: extent, dtype: float64
 </div>
 </div>
 </div>
-<p>The slope indicates a loss of 1% per year. (Big oof.) Here, we assess the performance on the training set. The <code class="docutils literal notranslate"><span class="pre">score</span></code> method of the regressor object computes the coefficient of determination.</p>
+<p>The slope indicates average decrease over time. Here, we assess the performance on the training set. Both the MSE and mean absolute error are small relative to dispersion within the values themselves:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_squared_error</span>
-<span class="n">R2</span> <span class="o">=</span> <span class="n">lm</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_squared_error</span><span class="p">,</span> <span class="n">mean_absolute_error</span>
 <span class="n">yhat</span> <span class="o">=</span> <span class="n">lm</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
 <span class="n">mse</span> <span class="o">=</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">yhat</span><span class="p">)</span>
+<span class="n">mae</span> <span class="o">=</span> <span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">yhat</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;MSE:&quot;</span><span class="p">,</span><span class="n">mse</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;variance in data:&quot;</span><span class="p">,</span><span class="n">y</span><span class="o">.</span><span class="n">var</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;MSE: </span><span class="si">{</span><span class="n">mse</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2">, compared to variance </span><span class="si">{</span><span class="n">y</span><span class="o">.</span><span class="n">var</span><span class="p">()</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;MAE: </span><span class="si">{</span><span class="n">mae</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2">, compared to standard deviation </span><span class="si">{</span><span class="n">y</span><span class="o">.</span><span class="n">std</span><span class="p">()</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>MSE: 4.01e-03, compared to variance 2.33e-02
+MAE: 4.93e-02, compared to standard deviation 1.53e-01
+</pre></div>
+</div>
+</div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">score</span></code> method of the regressor object computes the coefficient of determination:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">R2</span> <span class="o">=</span> <span class="n">lm</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;R-squared:&quot;</span><span class="p">,</span><span class="n">R2</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>MSE: 0.004013897553371555
-variance in data: 0.023314236588503352
-R-squared: 0.8237357450183896
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>R-squared: 0.8237357450183896
 </pre></div>
 </div>
 </div>

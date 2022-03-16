@@ -23,7 +23,7 @@
 
     
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=84ace793992934648b4de8eed757e5a2" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
@@ -39,17 +39,19 @@
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../_static/sphinx-book-theme.9d8b4a8b9bb19db25eeaddc40d639ba2.js"></script>
-    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
-    <script>
-        const thebe_selector = ".thebe,.cell"
-        const thebe_selector_input = "pre,.cell_input div.highlight"
-        const thebe_selector_output = ".output,.cell_output"
-    </script>
+    <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -72,12 +74,7 @@
     <div class="container-xl">
       <div class="row">
           
-<!-- Checkboxes to toggle the left sidebar -->
-<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
-<label class="overlay" for="__navigation">
-    <div class="visually-hidden">Toggle navigation sidebar</div>
-</label>
-<div class="col-12 col-md-3 bd-sidebar site-navigation " id="site-navigation">
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
     
         <div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../index.html">
@@ -257,8 +254,18 @@
     </a>
    </li>
    <li class="toctree-l2">
+    <a class="reference internal" href="../regression/prob_class.html">
+     4.5. Probabilistic classification
+    </a>
+   </li>
+   <li class="toctree-l2">
     <a class="reference internal" href="../regression/logistic.html">
-     4.5. Logistic regression
+     4.6. Logistic regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../regression/exercises.html">
+     4.7. Exercises
     </a>
    </li>
   </ul>
@@ -291,6 +298,11 @@
    <li class="toctree-l2">
     <a class="reference internal" href="../clustering/hierarchical.html">
      5.4. Hierarchical
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../clustering/dbscan.html">
+     5.5. DBSCAN
     </a>
    </li>
   </ul>
@@ -333,22 +345,22 @@
 
 
           
-<!-- This is an invisible pixel that we watch to see if we've scrolled. -->
-<div class="sbt-scroll-pixel-helper"></div>
 <main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
     
     <div class="topbar container-xl fixed-top">
     <div class="topbar-contents row">
         <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
         <div class="col pl-md-4 topbar-main">
-            <div class="topbar-left">
-                
-                <label class="nav-toggle-button" for="__navigation">
-                    <div class="visually-hidden">Toggle navigation</div>
-                    <i class="fas fa-bars"></i>
-                </label>
-                
-            </div>
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
             
 <div class="dropdown-buttons-trigger">
     <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
@@ -391,7 +403,6 @@
                 data-placement="left"><img class="binder-button-logo"
                     src="../_static/images/logo_binder.svg"
                     alt="Interact on binder">Binder</button></a>
-        
         
         
         
@@ -477,8 +488,8 @@
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">datasets</span> 
-<span class="n">ds</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">load_digits</span><span class="p">()</span>
-<span class="n">X</span><span class="p">,</span><span class="n">y</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">],</span><span class="n">ds</span><span class="p">[</span><span class="s2">&quot;target&quot;</span><span class="p">]</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">load_digits</span><span class="p">()</span>        <span class="c1"># loads a well-known dataset</span>
+<span class="n">X</span><span class="p">,</span><span class="n">y</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">],</span><span class="n">ds</span><span class="p">[</span><span class="s2">&quot;target&quot;</span><span class="p">]</span>      <span class="c1"># assign feature matrix and label vector</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;feature matrix has shape&quot;</span><span class="p">,</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;label vector has shape&quot;</span><span class="p">,</span><span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 <span class="n">n</span><span class="p">,</span><span class="n">d</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span>
@@ -530,8 +541,8 @@ there are 64 features and 1797 samples
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">KNeighborsClassifier</span>
-<span class="n">knn</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>   <span class="c1"># specification</span>
-<span class="n">knn</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>                                 <span class="c1"># training</span>
+<span class="n">knn</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>   <span class="c1"># specification of the model</span>
+<span class="n">knn</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>                                 <span class="c1"># training of the model</span>
 </pre></div>
 </div>
 </div>
@@ -541,11 +552,13 @@ there are 64 features and 1797 samples
 </div>
 </div>
 </div>
-<p>At this point, the classifier object <code class="docutils literal notranslate"><span class="pre">knn</span></code> has figured out what it needs to do with the training data, and we can ask it to make predictions. Each application we want a prediction for is a vector with 64 components (features). The prediction query has to be a 2D array, with each row being a query vector. The result is a vector of predictions.</p>
+<p>At this point, the classifier object <code class="docutils literal notranslate"><span class="pre">knn</span></code> has figured out what it needs to do with the training data. It has methods we can call to make predictions and evaluate the quality of the results. Each new prediction is for a <em>query vector</em> with 64 components (features). The <code class="docutils literal notranslate"><span class="pre">predict</span></code> method of the classifier allows specifying multiple query vectors as rows of an array—in fact, it expects a 2D array in all cases, even if there is just one row.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Xq</span> <span class="o">=</span> <span class="p">[</span> <span class="p">[</span><span class="mi">20</span><span class="p">]</span><span class="o">*</span><span class="n">d</span> <span class="p">]</span>
-<span class="n">knn</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">Xq</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">query</span> <span class="o">=</span> <span class="p">[</span><span class="mi">20</span><span class="p">]</span><span class="o">*</span><span class="n">d</span>   <span class="c1"># list, d copies of 20</span>
+<span class="n">Xq</span> <span class="o">=</span> <span class="p">[</span> <span class="n">query</span> <span class="p">]</span>   <span class="c1"># 2D array with a single row</span>
+<span class="c1"># Get vector of predictions:</span>
+<span class="n">knn</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">Xq</span><span class="p">)</span>  
 </pre></div>
 </div>
 </div>
@@ -555,11 +568,12 @@ there are 64 features and 1797 samples
 </div>
 </div>
 </div>
-<p>We don’t have any realistic data at hand other than the training data. By comparing the predictions made for that data to the true labels we supplied, we can get some idea of how accurate the predictor is.</p>
+<p>We don’t have any realistic query data at hand other than the training data. But by comparing the predictions made for that data to the true labels we supplied, we can get some idea of how accurate the predictor is.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">yhat</span> <span class="o">=</span> <span class="n">knn</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>   <span class="c1"># prediction</span>
-<span class="n">yhat</span><span class="p">[</span><span class="o">-</span><span class="mi">6</span><span class="p">:]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get vector of predictions on the original set:</span>
+<span class="n">yhat</span> <span class="o">=</span> <span class="n">knn</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>    
+<span class="n">yhat</span><span class="p">[</span><span class="o">-</span><span class="mi">6</span><span class="p">:]</span>      <span class="c1"># last six components</span>
 </pre></div>
 </div>
 </div>
@@ -572,7 +586,7 @@ there are 64 features and 1797 samples
 <p>Compared to the true labels we printed out above, so far, so good. Now we simply count up the number of correctly predicted labels and divide by the total number of samples.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">acc</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">yhat</span><span class="o">==</span><span class="n">y</span><span class="p">)</span><span class="o">/</span><span class="n">n</span> 
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">acc</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">yhat</span><span class="o">==</span><span class="n">y</span><span class="p">)</span><span class="o">/</span><span class="n">n</span>    <span class="c1"># fraction of correct predictions</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;accuracy is </span><span class="si">{</span><span class="n">acc</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -583,22 +597,26 @@ there are 64 features and 1797 samples
 </div>
 </div>
 </div>
-<p>Of course, sklearn has functions for doing this measurement in fewer steps.</p>
+<p>Not surprisingly, sklearn has functions for doing this measurement in fewer steps. The <code class="docutils literal notranslate"><span class="pre">metrics</span></code> module has functions that can compare true labels with predictions. In addition, each classifier object has a <code class="docutils literal notranslate"><span class="pre">score</span></code> method that allows you to skip finding the predictions vector yourself.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">metrics</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span>
 
-<span class="n">acc</span> <span class="o">=</span> <span class="n">metrics</span><span class="o">.</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">yhat</span><span class="p">)</span>
+<span class="c1"># Compare original labels to predictions:</span>
+<span class="n">acc</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">yhat</span><span class="p">)</span>    
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;accuracy score is </span><span class="si">{</span><span class="n">acc</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-<span class="n">acc</span> <span class="o">=</span> <span class="n">knn</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+<span class="c1"># Compute accuracy on the original dataset (same result):</span>
+<span class="n">acc</span> <span class="o">=</span> <span class="n">knn</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>    
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;knn score is </span><span class="si">{</span><span class="n">acc</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>accuracy score is 98.2%
-knn score is 98.2%
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>knn score is 98.2%
 </pre></div>
 </div>
 </div>
@@ -606,17 +624,52 @@ knn score is 98.2%
 <div class="section" id="traintest-paradigm">
 <h2>Train–test paradigm<a class="headerlink" href="#traintest-paradigm" title="Permalink to this headline">¶</a></h2>
 <p>Good performance of a classifier on the samples used to train seems to be necessary, but is it sufficient? We are more interested on how the classifier performs on new data. This is the question of <em>generalization</em>. In order to gauge generalization, we hold back some of the labeled data from training and use it only to test the performance.</p>
-<p>A <code class="docutils literal notranslate"><span class="pre">sklearn</span></code> helper function allows us to split off a randomized 20% of the data to use for testing:</p>
+<p>A <code class="docutils literal notranslate"><span class="pre">sklearn</span></code> helper function allows us to split off a random 20% of the data to use for testing. By default, it will preserve the order of the test set. This can be a problem if, for example, the samples are presented already sorted by class. It’s usually recommended to shuffle the order first, but here we give a specific random seed so that the results are reproducible.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
-<span class="n">X_tr</span><span class="p">,</span> <span class="n">X_te</span><span class="p">,</span> <span class="n">y_tr</span><span class="p">,</span> <span class="n">y_te</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span><span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">y_tr</span><span class="p">),</span><span class="s2">&quot;training cases and&quot;</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">y_te</span><span class="p">),</span><span class="s2">&quot;test cases&quot;</span><span class="p">)</span>
+
+<span class="n">X_tr</span><span class="p">,</span> <span class="n">X_te</span><span class="p">,</span> <span class="n">y_tr</span><span class="p">,</span> <span class="n">y_te</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">,</span>
+  <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
+  <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can check that the test and train labels have similar characteristics:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;training:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">y_tr</span><span class="p">)</span><span class="o">.</span><span class="n">describe</span><span class="p">())</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">test:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">y_te</span><span class="p">)</span><span class="o">.</span><span class="n">describe</span><span class="p">())</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1437 training cases and 360 test cases
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>training:
+count    1437.000000
+mean        4.410578
+std         2.866549
+min         0.000000
+25%         2.000000
+50%         4.000000
+75%         7.000000
+max         9.000000
+dtype: float64
+
+test:
+count    360.000000
+mean       4.811111
+std        2.841767
+min        0.000000
+25%        2.000000
+50%        5.000000
+75%        7.000000
+max        9.000000
+dtype: float64
 </pre></div>
 </div>
 </div>
@@ -624,9 +677,8 @@ knn score is 98.2%
 <p>Now we train on the training data…</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">KNeighborsClassifier</span>
-<span class="n">knn</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
-<span class="n">knn</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_tr</span><span class="p">,</span><span class="n">y_tr</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">knn</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">knn</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_tr</span><span class="p">,</span><span class="n">y_tr</span><span class="p">)</span>   <span class="c1"># fit only to train set</span>
 </pre></div>
 </div>
 </div>
@@ -639,7 +691,7 @@ knn score is 98.2%
 <p>…and test on the rest.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">acc</span> <span class="o">=</span> <span class="n">knn</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_te</span><span class="p">,</span><span class="n">y_te</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">acc</span> <span class="o">=</span> <span class="n">knn</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_te</span><span class="p">,</span><span class="n">y_te</span><span class="p">)</span>   <span class="c1"># score only on test set</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;accuracy is </span><span class="si">{</span><span class="n">acc</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
