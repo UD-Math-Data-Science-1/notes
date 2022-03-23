@@ -84,13 +84,13 @@ Suppose a regressor trained on $(x_i,y_i)$ for $i=1,\ldots,n$ is represented by 
 A natural metric is the **mean squared error**,
 
 $$
-\frac{1}{m} \sum_{i=1}^m \, [\eta_i - f(\xi_i)]^2.
+\frac{1}{m} \sum_{i=1}^m \, \bigl[\eta_i - f(\xi_i)\bigr]^2.
 $$
 
 If the training and test sets are the same, then the MSE is proportional to the loss function $L$, which is minimized by the standard regression algorithm. A closely related measure is the **mean absolute error**,
 
 $$
-\frac{1}{m} \sum_{i=1}^m \abs{y_i - f(x_i)},
+\frac{1}{m} \sum_{i=1}^m \abs{\eta_i - f(\xi_i)},
 $$
 
 which is less sensitive to large outlier errors. While easy to understand, these error measurements are dimensional and depend on the scaling of the variables. It might be helpful to compare the MSE to variance of the target values, and MAE to standard deviation.
@@ -100,7 +100,7 @@ which is less sensitive to large outlier errors. While easy to understand, these
 The **coefficient of determination** is denoted $R^2$ and defined as
 
 $$
-R^2 = 1 - \frac{\displaystyle\sum_{i=1}^m \,[\eta_i - f(\xi_i)]^2}{\displaystyle\sum_{i=1}^m \, [\eta_i - \bar{\eta}]^2},
+R^2 = 1 - \frac{\displaystyle\sum_{i=1}^m \,\bigl[\eta_i - f(\xi_i)\bigr]^2}{\displaystyle\sum_{i=1}^m \, \bigl(\eta_i - \bar{\eta}\bigr)^2},
 $$
 
 where $\bar{\eta}$ is the mean of the target value over the test set. This quantity is dimensionless and therefore independent of scaling. A perfect regressor has an $R^2$ value of 1, while a baseline regressor that always predicts $\bar{\eta}$ would have $R^2=0$. 
@@ -175,7 +175,7 @@ bymo = ice.groupby("mo")
 bymo["extent"].mean()
 ```
 
-While the effect of the seasonal variation somewhat cancels out over time when fitting a line, it's preferable to remove this obvious trend before the fit takes place. We will add a column that measures the relative change from the mean in each month.
+While the effect of the seasonal variation somewhat cancels out over time when fitting a line, it's preferable to remove this obvious trend before the fit takes place. We will add a column that measures the relative change from the mean in each month, i.e., $(x-\bar{x})/\bar{x}$ within each group.
 
 ```{code-cell}
 ice["detrended"] = bymo["extent"].transform(lambda x: x/x.mean() - 1)
@@ -188,7 +188,7 @@ An `lmplot` in seaborn will show the best-fit line.
 sns.lmplot(data=ice,x="year",y="detrended");
 ```
 
-However, keep Simpson's paradox in mind. The previous plot showed considerably more variance in the warm months. How do the fits look for the data within each month?
+However, keep Simpson's paradox in mind. The previous plot showed considerably more variance in the warm months. How do the fits look for the data *within* each month?
 
 ```{code-cell}
 sns.lmplot(data=ice,x="year",y="detrended",col="mo",col_wrap=4);
@@ -203,12 +203,13 @@ from sklearn.linear_model import LinearRegression
 lm = LinearRegression()
 
 aug = ice["mo"]==8
-X = ice.loc[aug,["year"]]
+# We need a frame, not a series, so use a vector of columns for X: 
+X = ice.loc[aug,["year"]]  
 y = ice.loc[aug,"detrended"]
 lm.fit(X,y)
 ```
 
-We can get the slope and $y$-intercept of the regression line from the learner's properties.
+We can get the slope and $y$-intercept of the regression line from the learner's properties. (Calculated parameters tend to have underscores at the ends of their names in sklearn.)
 
 ```{code-cell}
 (lm.coef_,lm.intercept_)
@@ -235,4 +236,6 @@ print("R-squared:",R2)
 ```
 
 An $R^2$ value this close to 1 would usually be considered a sign of a good fit, although we have not tested for generalization to new data.
+
+<div style="max-width:608px"><div style="position:relative;padding-bottom:66.118421052632%"><iframe id="kaltura_player" src="https://cdnapisec.kaltura.com/p/2358381/sp/235838100/embedIframeJs/uiconf_id/43030021/partner_id/2358381?iframeembed=true&playerId=kaltura_player&entry_id=1_ni5ejhzh&flashvars[streamerType]=auto&amp;flashvars[localizationCode]=en&amp;flashvars[leadWithHTML5]=true&amp;flashvars[sideBarContainer.plugin]=true&amp;flashvars[sideBarContainer.position]=left&amp;flashvars[sideBarContainer.clickToClose]=true&amp;flashvars[chapters.plugin]=true&amp;flashvars[chapters.layout]=vertical&amp;flashvars[chapters.thumbnailRotator]=false&amp;flashvars[streamSelector.plugin]=true&amp;flashvars[EmbedPlayer.SpinnerTarget]=videoHolder&amp;flashvars[dualScreen.plugin]=true&amp;flashvars[Kaltura.addCrossoriginToIframe]=true&amp;&wid=1_sztzkr5t" width="608" height="402" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen *; encrypted-media *" sandbox="allow-forms allow-same-origin allow-scripts allow-top-navigation allow-pointer-lock allow-popups allow-modals allow-orientation-lock allow-popups-to-escape-sandbox allow-presentation allow-top-navigation-by-user-activation" frameborder="0" title="Kaltura Player" style="position:absolute;top:0;left:0;width:100%;height:100%"></iframe></div></div>
 
