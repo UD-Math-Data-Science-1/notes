@@ -141,8 +141,6 @@ This yields $R^2 = 1 - (9)(3/14) = -13/14$. Since the result is negative, we wou
 :::
 ::::
 
-
-
 ## Case study: Arctic ice
 
 Let's import data about the extent of sea ice in the Arctic circle, collected monthly since 1979.
@@ -150,7 +148,8 @@ Let's import data about the extent of sea ice in the Arctic circle, collected mo
 ```{code-cell}
 import pandas as pd
 ice = pd.read_csv("sea-ice.csv")
-ice.columns = [s.strip() for s in ice.columns]   # simplify names
+# Simplify column names:
+ice.columns = [s.strip() for s in ice.columns]   
 ice
 ```
 
@@ -203,7 +202,7 @@ from sklearn.linear_model import LinearRegression
 lm = LinearRegression()
 
 aug = ice["mo"]==8
-# We need a frame, not a series, so use a vector of columns for X: 
+# We need a frame, not a series, so use a vector for columns for X: 
 X = ice.loc[aug,["year"]]  
 y = ice.loc[aug,"detrended"]
 lm.fit(X,y)

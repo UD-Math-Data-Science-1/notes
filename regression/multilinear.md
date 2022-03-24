@@ -59,16 +59,16 @@ ads
 
 Pairwise scatter plots yield some hints about what to expect from this dataset:
 
-```{code-cell}
+```{code-cell} ipython3
 import seaborn as sns
 sns.pairplot(ads);
 ```
 
-The three types of media spending have about the same order of magnitude. The clearest association between *Sales* and spending is with *TV*. So we first try a univariate linear fit of sales against TV spending alone. 
+The three types of media spending have about the same order of magnitude. The clearest association between *Sales* and spending is with *TV*. So we first try a univariate linear fit of sales against TV spending alone.
 
 ```{code-cell} ipython3
 X = ads.drop("Sales",axis="columns")
-X_tv = ads[["TV"]]
+X_tv = ads[["TV"]]    # has to be a frame, so ["TV"] not "TV"
 y = ads["Sales"]
 
 from sklearn.linear_model import LinearRegression
@@ -100,16 +100,17 @@ print(pd.Series(lm.coef_,index=X.columns))
 Judging by the coefficients of the model, it's even clearer now that we can explain *Sales* very well without contributions from *Newspaper*. In order to reduce model variance, it would be reasonable to leave that column out, to barely noticeable effect:
 
 ```{code-cell} ipython3
-X = ads[["Radio","TV"]].copy()
+X = ads[["Radio","TV"]]
 lm.fit(X,y)
 print("R^2 score:",f"{lm.score(X,y):.4f}")
 print("Model coeffs:",lm.coef_)
 print(pd.Series(lm.coef_,index=X.columns))
 ```
 
-While we have a good $R^2$ score, there is some unexplained variance remaining. We can add an additional feature that is the product of *TV* and *Radio*, representing the possibility that these media reinforce one another's effects:
+While we have a good $R^2$ score, there is some unexplained variance remaining. We can add an additional feature that is the product of *TV* and *Radio*, representing the possibility that these media reinforce one another's effects. (In order to modify our frame `X`, which is only a view of part of the original frame `ads`, we first have to redefine it as an independent copy.)
 
 ```{code-cell} ipython3
+X = ads[["Radio","TV"]].copy()
 X["RadioTV"] = X["Radio"]*X["TV"]
 lm.fit(X,y)
 print("R^2 score:",f"{lm.score(X,y):.4f}")
@@ -117,7 +118,7 @@ print("Model coeffs:")
 print(pd.Series(lm.coef_,index=X.columns))
 ```
 
-We did see some increase in the $R^2$ score, and the combination of both types of spending does have a positive effect on *Sales*. We have to be careful interpreting the magnitudes of the coefficients, because the size of the product feature is 100 or so times greater than either individual constituent. In that light, the interaction effect seems comparable to the individual features. 
+We did see some increase in the $R^2$ score, and therefore the combination of both types of spending does have a positive effect on *Sales*. We have to be careful interpreting the magnitudes of the coefficients, because the size of the product feature is 100 or so times greater than either individual constituent. In that light, the interaction effect seems comparable to the individual features. 
 
 Interpreting linear regression is a major topic in statistics. There are tests that can lend more precision and rigor to the brief discussion above.
 
@@ -143,8 +144,7 @@ We return to the data set regarding the fuel efficiency of cars.
 
 ```{code-cell} ipython3
 import seaborn as sns
-cars = sns.load_dataset("mpg")
-cars = cars.dropna()
+cars = sns.load_dataset("mpg").dropna()
 cars
 ```
 
@@ -168,13 +168,14 @@ from sklearn.preprocessing import PolynomialFeatures
 from sklearn.pipeline import make_pipeline
 import pandas as pd
 
-X = cars[["horsepower"]].to_numpy()
+X = cars[["horsepower"]]
 y = cars["mpg"]
 lm = LinearRegression(fit_intercept=False)
 cubic = make_pipeline(PolynomialFeatures(degree=3),lm)
 cubic.fit(X,y)
 
-print("prediction at hp=200:",cubic.predict([[200]]))
+query = pd.DataFrame([200],columns=X.columns)
+print("prediction at hp=200:",cubic.predict(query))
 ```
 
 The prediction above is consistent with the earlier figure. 
