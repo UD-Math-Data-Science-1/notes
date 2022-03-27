@@ -27,7 +27,6 @@ penguins = sns.load_dataset("penguins").dropna()
 # Select only numeric columns for features:
 X = penguins.loc[:,penguins.dtypes=="float64"]  
 y = penguins["species"].astype("category")
-labels = y.values.categories  # all unique species names
 
 from sklearn.model_selection import train_test_split
 X_tr,X_te,y_tr,y_te = train_test_split(X,y,test_size=0.2,shuffle=True,random_state=5)
@@ -65,11 +64,14 @@ def get_roc_data(y,p_hat,labels):
     out = []
     # Each species gets a turn at being the "positive" outcome (one vs rest)
     for (i,label) in enumerate(labels):  
-        fp,tp,theta = roc_curve(y==label,p_hat[:,i])  
+        fp,tp,theta = roc_curve(y,p_hat[:,i],pos_label=label)  
         out.append(pd.DataFrame({"FP rate":fp,"TP rate":tp,"threshold":theta}))
     return out
 
-roc = get_roc_data(y_te,knn.predict_proba(X_te),labels)
+p_hat = knn.predict_proba(X_te)
+# Use the classes_ property of the regressor to ensure that we use the same ordering of 
+# the labels as in the columns of p_hat.
+roc = get_roc_data(y_te,p_hat,knn.classes_)
 roc[0]
 ```
 
