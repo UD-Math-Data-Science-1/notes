@@ -57,7 +57,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="4.6. Logistic regression" href="logistic.html" />
-    <link rel="prev" title="4.4. Repurposed classifiers" href="other.html" />
+    <link rel="prev" title="4.4. Nonlinear regression" href="nonlinear.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -254,8 +254,8 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="other.html">
-     4.4. Repurposed classifiers
+    <a class="reference internal" href="nonlinear.html">
+     4.4. Nonlinear regression
     </a>
    </li>
    <li class="toctree-l2 current active">
@@ -546,7 +546,8 @@
 <span class="n">p_hat</span> <span class="o">=</span> <span class="n">knn</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_te</span><span class="p">)</span>
 <span class="c1"># Use the classes_ property of the regressor to ensure that we use the same ordering of </span>
 <span class="c1"># the labels as in the columns of p_hat.</span>
-<span class="n">roc</span> <span class="o">=</span> <span class="n">get_roc_data</span><span class="p">(</span><span class="n">y_te</span><span class="p">,</span><span class="n">p_hat</span><span class="p">,</span><span class="n">knn</span><span class="o">.</span><span class="n">classes_</span><span class="p">)</span>
+<span class="n">labels</span> <span class="o">=</span> <span class="n">knn</span><span class="o">.</span><span class="n">classes_</span>
+<span class="n">roc</span> <span class="o">=</span> <span class="n">get_roc_data</span><span class="p">(</span><span class="n">y_te</span><span class="p">,</span><span class="n">p_hat</span><span class="p">,</span><span class="n">labels</span><span class="p">)</span>
 <span class="n">roc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 </pre></div>
 </div>
@@ -635,17 +636,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="n">cn</span><span class="o">/</span><span class="mi">8</span><span class="n">w40979d27x0kv2wsnx7zgvm0000gp</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_29168</span><span class="o">/</span><span class="mf">2326132965.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;FP rate&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;TP rate&quot;</span><span class="p">)</span>
-<span class="ne">----&gt; </span><span class="mi">6</span> <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">labels</span><span class="p">);</span>
-
-<span class="ne">NameError</span>: name &#39;labels&#39; is not defined
-</pre></div>
-</div>
-<img alt="../_images/prob_class_9_1.png" src="../_images/prob_class_9_1.png" />
+<img alt="../_images/prob_class_9_0.png" src="../_images/prob_class_9_0.png" />
 </div>
 </div>
 <p>The ideal situation is in the top left corner of the plot, corresponding to perfect recall and specificity. Each curve starts in the lower left corner and ends at the upper right corner. The <em>Gentoo</em> curve comes quite close to the ideal. All of the curves explicitly show the tradeoff between recall and specificity. The information could be used to choose a threshold that favors either side of the tradeoff.</p>
@@ -664,18 +655,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="n">cn</span><span class="o">/</span><span class="mi">8</span><span class="n">w40979d27x0kv2wsnx7zgvm0000gp</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_29168</span><span class="o">/</span><span class="mf">1933574524.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">knnw</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span><span class="n">weights</span><span class="o">=</span><span class="s2">&quot;distance&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">knnw</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_tr</span><span class="p">,</span><span class="n">y_tr</span><span class="p">)</span>
-<span class="ne">----&gt; </span><span class="mi">3</span> <span class="n">roc</span> <span class="o">=</span> <span class="n">get_roc_data</span><span class="p">(</span><span class="n">y_te</span><span class="p">,</span><span class="n">knnw</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_te</span><span class="p">),</span><span class="n">labels</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="k">for</span> <span class="n">df</span> <span class="ow">in</span> <span class="n">roc</span><span class="p">:</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span>     <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;FP rate&quot;</span><span class="p">],</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;TP rate&quot;</span><span class="p">])</span>
-
-<span class="ne">NameError</span>: name &#39;labels&#39; is not defined
-</pre></div>
-</div>
+<img alt="../_images/prob_class_11_0.png" src="../_images/prob_class_11_0.png" />
 </div>
 </div>
 <p>ROC curves lead to another classification performance metric known as <strong>area under ROC curve</strong> (AUC-ROC). Its name tells you exactly what it is, and it ranges between zero (bad) and one (ideal). Unlike the other classification metrics we have encountered, AUC-ROC tries to account not just for the final result of the classification, which nominally occurs when the threshold is $\tfrac{1}{2}, but also for the confidence with which those results can be predicted.</p>
@@ -727,11 +707,11 @@ AUC for knn-weights: 0.9393029393029394
             
                 <!-- Previous / next buttons -->
 <div class='prev-next-area'> 
-    <a class='left-prev' id="prev-link" href="other.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="nonlinear.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title"><span class="section-number">4.4. </span>Repurposed classifiers</p>
+            <p class="prev-next-title"><span class="section-number">4.4. </span>Nonlinear regression</p>
         </div>
     </a>
     <a class='right-next' id="next-link" href="logistic.html" title="next page">

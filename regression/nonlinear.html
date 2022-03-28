@@ -716,12 +716,12 @@ Name: y, dtype: float64
 <span class="n">knn</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">KNeighborsRegressor</span><span class="p">(),</span><span class="n">grid</span><span class="p">,</span><span class="n">cv</span><span class="o">=</span><span class="n">kf</span><span class="p">)</span>
 <span class="n">knn</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_tr</span><span class="p">,</span><span class="n">y_tr</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Best kNN CofD score:&quot;</span><span class="p">,</span><span class="n">knn</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_te</span><span class="p">,</span><span class="n">y_te</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;best kNN CofD score:&quot;</span><span class="p">,</span><span class="n">knn</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_te</span><span class="p">,</span><span class="n">y_te</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Best kNN CofD score: 0.6925833004606998
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>best kNN CofD score: 0.6925833004606998
 </pre></div>
 </div>
 </div>
@@ -735,12 +735,12 @@ Name: y, dtype: float64
 <span class="n">knn_std</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">pipe</span><span class="p">,</span><span class="n">grid</span><span class="p">,</span><span class="n">cv</span><span class="o">=</span><span class="n">kf</span><span class="p">)</span>
 <span class="n">knn_std</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_tr</span><span class="p">,</span><span class="n">y_tr</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Best kNN with standardization, CofD score:&quot;</span><span class="p">,</span><span class="n">knn_std</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_te</span><span class="p">,</span><span class="n">y_te</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;best kNN with standardization, CofD score:&quot;</span><span class="p">,</span><span class="n">knn_std</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_te</span><span class="p">,</span><span class="n">y_te</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Best kNN with standardization, CofD score: 0.7438913789127495
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>best kNN with standardization, CofD score: 0.7438913789127495
 </pre></div>
 </div>
 </div>

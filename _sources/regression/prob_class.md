@@ -71,7 +71,8 @@ def get_roc_data(y,p_hat,labels):
 p_hat = knn.predict_proba(X_te)
 # Use the classes_ property of the regressor to ensure that we use the same ordering of 
 # the labels as in the columns of p_hat.
-roc = get_roc_data(y_te,p_hat,knn.classes_)
+labels = knn.classes_
+roc = get_roc_data(y_te,p_hat,labels)
 roc[0]
 ```
 

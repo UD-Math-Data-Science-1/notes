@@ -203,7 +203,7 @@ grid = {"n_neighbors":range(2,25),
 knn = GridSearchCV(KNeighborsRegressor(),grid,cv=kf)
 knn.fit(X_tr,y_tr)
 
-print("Best kNN CofD score:",knn.score(X_te,y_te))
+print("best kNN CofD score:",knn.score(X_te,y_te))
 ```
 
 No improvement was made. But unlike the linear regressor, kNN regression is sensitive to feature scaling and should be used with standardization.
@@ -215,7 +215,7 @@ grid = {"kneighborsregressor__n_neighbors":range(2,25),
 knn_std = GridSearchCV(pipe,grid,cv=kf)
 knn_std.fit(X_tr,y_tr)
 
-print("Best kNN with standardization, CofD score:",knn_std.score(X_te,y_te))
+print("best kNN with standardization, CofD score:",knn_std.score(X_te,y_te))
 ```
 
 As you can see above, we got a fairly substantial improvement over the linear regressor.
