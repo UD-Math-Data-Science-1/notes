@@ -478,18 +478,17 @@
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
 <span class="n">penguins</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">load_dataset</span><span class="p">(</span><span class="s2">&quot;penguins&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
-<span class="n">X</span> <span class="o">=</span> <span class="n">penguins</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="n">penguins</span><span class="o">.</span><span class="n">dtypes</span><span class="o">==</span><span class="s2">&quot;float64&quot;</span><span class="p">]</span>
+<span class="c1"># Select only numeric columns for features:</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">penguins</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="n">penguins</span><span class="o">.</span><span class="n">dtypes</span><span class="o">==</span><span class="s2">&quot;float64&quot;</span><span class="p">]</span>  
 <span class="n">y</span> <span class="o">=</span> <span class="n">penguins</span><span class="p">[</span><span class="s2">&quot;species&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;category&quot;</span><span class="p">)</span>
 
 <span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
 <span class="n">X_tr</span><span class="p">,</span><span class="n">X_te</span><span class="p">,</span><span class="n">y_tr</span><span class="p">,</span><span class="n">y_te</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span><span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">random_state</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
-
-<span class="n">labels</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">categories</span>
 </pre></div>
 </div>
 </div>
 </div>
-<p>We can use <span class="math notranslate nohighlight">\(k=5\)</span> on a nearest neighbors classifier, and use it to predict species.</p>
+<p>We can use <span class="math notranslate nohighlight">\(k=5\)</span> on a nearest neighbors classifier, and use it to predict species as we have before.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">KNeighborsClassifier</span>
@@ -506,7 +505,7 @@
 </div>
 </div>
 </div>
-<p>But we can also access the probabilistic interpretation.</p>
+<p>But we can also access the probabilistic interpretation via <code class="docutils literal notranslate"><span class="pre">predict_proba</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">phat</span> <span class="o">=</span> <span class="n">knn</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_te</span><span class="p">)</span>
@@ -525,23 +524,29 @@
 </div>
 </div>
 </div>
-<p>For example, while the third and fourth test cases led to unanimous votes for <em>Gentoo</em>, the sixth case was deemed <em>Adelie</em> in a 3–2 squeaker (or is it squawker?).</p>
+<p>From the output above we see that, for example, while the third and fourth test cases led to unanimous votes for <em>Gentoo</em>, the sixth case was deemed <em>Adelie</em> in a 3–2 squeaker (or is it squawker?).</p>
 <div class="section" id="roc-curve">
 <h2>ROC curve<a class="headerlink" href="#roc-curve" title="Permalink to this headline">¶</a></h2>
-<p>The <strong>ROC curve</strong>, or <em>receiver operator characteristic</em> curve, is a way to play what-if by adjusting the voting margins needed to “win” a particular label. Let’s explain by continuing the penguin example.</p>
+<p>The <strong>ROC curve</strong>, or <em>receiver operator characteristic</em> curve, is a way to play what-if by adjusting the voting margins needed to “win” a positive label. Let’s explain by continuing the penguin example.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">roc_curve</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
+<span class="c1"># Function to get the ROC curve data, given true labels and an array of probabilistic</span>
+<span class="c1"># predictions. Returns one frame of curve data per unique label.</span>
 <span class="k">def</span> <span class="nf">get_roc_data</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">p_hat</span><span class="p">,</span><span class="n">labels</span><span class="p">):</span>
     <span class="n">out</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">label</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">labels</span><span class="p">):</span>
-        <span class="n">fp</span><span class="p">,</span><span class="n">tp</span><span class="p">,</span><span class="n">theta</span> <span class="o">=</span> <span class="n">roc_curve</span><span class="p">(</span><span class="n">y</span><span class="o">==</span><span class="n">label</span><span class="p">,</span><span class="n">p_hat</span><span class="p">[:,</span><span class="n">i</span><span class="p">])</span>
+    <span class="c1"># Each species gets a turn at being the &quot;positive&quot; outcome (one vs rest)</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">label</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">labels</span><span class="p">):</span>  
+        <span class="n">fp</span><span class="p">,</span><span class="n">tp</span><span class="p">,</span><span class="n">theta</span> <span class="o">=</span> <span class="n">roc_curve</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">p_hat</span><span class="p">[:,</span><span class="n">i</span><span class="p">],</span><span class="n">pos_label</span><span class="o">=</span><span class="n">label</span><span class="p">)</span>  
         <span class="n">out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;FP rate&quot;</span><span class="p">:</span><span class="n">fp</span><span class="p">,</span><span class="s2">&quot;TP rate&quot;</span><span class="p">:</span><span class="n">tp</span><span class="p">,</span><span class="s2">&quot;threshold&quot;</span><span class="p">:</span><span class="n">theta</span><span class="p">}))</span>
     <span class="k">return</span> <span class="n">out</span>
 
-<span class="n">roc</span> <span class="o">=</span> <span class="n">get_roc_data</span><span class="p">(</span><span class="n">y_te</span><span class="p">,</span><span class="n">knn</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_te</span><span class="p">),</span><span class="n">labels</span><span class="p">)</span>
+<span class="n">p_hat</span> <span class="o">=</span> <span class="n">knn</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_te</span><span class="p">)</span>
+<span class="c1"># Use the classes_ property of the regressor to ensure that we use the same ordering of </span>
+<span class="c1"># the labels as in the columns of p_hat.</span>
+<span class="n">roc</span> <span class="o">=</span> <span class="n">get_roc_data</span><span class="p">(</span><span class="n">y_te</span><span class="p">,</span><span class="n">p_hat</span><span class="p">,</span><span class="n">knn</span><span class="o">.</span><span class="n">classes_</span><span class="p">)</span>
 <span class="n">roc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 </pre></div>
 </div>
@@ -630,11 +635,21 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/prob_class_9_0.png" src="../_images/prob_class_9_0.png" />
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="n">cn</span><span class="o">/</span><span class="mi">8</span><span class="n">w40979d27x0kv2wsnx7zgvm0000gp</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_29168</span><span class="o">/</span><span class="mf">2326132965.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;FP rate&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;TP rate&quot;</span><span class="p">)</span>
+<span class="ne">----&gt; </span><span class="mi">6</span> <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">labels</span><span class="p">);</span>
+
+<span class="ne">NameError</span>: name &#39;labels&#39; is not defined
+</pre></div>
+</div>
+<img alt="../_images/prob_class_9_1.png" src="../_images/prob_class_9_1.png" />
 </div>
 </div>
 <p>The ideal situation is in the top left corner of the plot, corresponding to perfect recall and specificity. Each curve starts in the lower left corner and ends at the upper right corner. The <em>Gentoo</em> curve comes quite close to the ideal. All of the curves explicitly show the tradeoff between recall and specificity. The information could be used to choose a threshold that favors either side of the tradeoff.</p>
-<p>If we weight neighbors’ votes inversely to their distance from the query point, then the thresholds aren’t restricted to multiples of 1/5.</p>
+<p>If we weight neighbors’ votes inversely to their distance from the query point, then the thresholds aren’t restricted to multiples of <span class="math notranslate nohighlight">\(\tfrac{1}{5}\)</span>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">knnw</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span><span class="n">weights</span><span class="o">=</span><span class="s2">&quot;distance&quot;</span><span class="p">)</span>
@@ -649,15 +664,29 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/prob_class_11_0.png" src="../_images/prob_class_11_0.png" />
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="n">cn</span><span class="o">/</span><span class="mi">8</span><span class="n">w40979d27x0kv2wsnx7zgvm0000gp</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_29168</span><span class="o">/</span><span class="mf">1933574524.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">knnw</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span><span class="n">weights</span><span class="o">=</span><span class="s2">&quot;distance&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">knnw</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_tr</span><span class="p">,</span><span class="n">y_tr</span><span class="p">)</span>
+<span class="ne">----&gt; </span><span class="mi">3</span> <span class="n">roc</span> <span class="o">=</span> <span class="n">get_roc_data</span><span class="p">(</span><span class="n">y_te</span><span class="p">,</span><span class="n">knnw</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_te</span><span class="p">),</span><span class="n">labels</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="k">for</span> <span class="n">df</span> <span class="ow">in</span> <span class="n">roc</span><span class="p">:</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span>     <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;FP rate&quot;</span><span class="p">],</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;TP rate&quot;</span><span class="p">])</span>
+
+<span class="ne">NameError</span>: name &#39;labels&#39; is not defined
+</pre></div>
 </div>
 </div>
-<p>One use of ROC curves is another performance metric known as <strong>area under ROC curve</strong> (AUC-ROC). Its name tells you exactly what it is, and it ranges between zero (bad) and one (ideal). Unlike the other classification metrics we have encountered, AUC-ROC tries to account not just for the final result of the classification (which occurs when the threshold is 1/2), but also for the confidence with which those results can be predicted.</p>
+</div>
+<p>ROC curves lead to another classification performance metric known as <strong>area under ROC curve</strong> (AUC-ROC). Its name tells you exactly what it is, and it ranges between zero (bad) and one (ideal). Unlike the other classification metrics we have encountered, AUC-ROC tries to account not just for the final result of the classification, which nominally occurs when the threshold is $\tfrac{1}{2}, but also for the confidence with which those results can be predicted.</p>
+<p>The function <code class="docutils literal notranslate"><span class="pre">roc_auc_score</span></code> requires a keyword argument when there are more than two classes, to specify “one vs. rest” or “one vs. one” matchups.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">roc_auc_score</span>
-<span class="n">s</span> <span class="o">=</span> <span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_te</span><span class="p">,</span><span class="n">knn</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_te</span><span class="p">),</span><span class="n">multi_class</span><span class="o">=</span><span class="s2">&quot;ovr&quot;</span><span class="p">)</span>
+<span class="n">p_hat</span> <span class="o">=</span> <span class="n">knn</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_te</span><span class="p">)</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_te</span><span class="p">,</span><span class="n">p_hat</span><span class="p">,</span><span class="n">multi_class</span><span class="o">=</span><span class="s2">&quot;ovr&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;AUC for knn-uniform:&quot;</span><span class="p">,</span><span class="n">s</span><span class="p">)</span>
+
 <span class="n">s</span> <span class="o">=</span> <span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_te</span><span class="p">,</span><span class="n">knnw</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_te</span><span class="p">),</span><span class="n">multi_class</span><span class="o">=</span><span class="s2">&quot;ovr&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;AUC for knn-weights:&quot;</span><span class="p">,</span><span class="n">s</span><span class="p">)</span>
 </pre></div>

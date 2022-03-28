@@ -6,14 +6,14 @@ jupytext:
     format_version: 0.13
     jupytext_version: 1.11.5
 kernelspec:
-  display_name: 'Python 3.8.8 64-bit (''base'': conda)'
+  display_name: Python 3 (ipykernel)
   language: python
   name: python3
 ---
 
 # Regularization
 
-As a general term, *regularization* refers to modifying something that is difficult to always compute accurately with something more tractable. For learning models, regularization is a common way to combat overfitting.
+As a general term, *regularization* refers to modifying something that is difficult to compute accurately with something more tractable. For learning models, regularization is a common way to combat overfitting.
 
 Imagine we had an $\real^{n\times 4}$ feature matrix in which the features are identical; that is, the predictor variables satisfy $x_1=x_2=x_3=x_4$, and suppose the target $y$ also equals $x_1$. Clearly, we get a perfect regression if we use
 
@@ -58,9 +58,9 @@ LASSO tends to produce **sparse** results, meaning that some of the regression c
 
 ## Case study: Diabetes progression
 
-We'll apply regularized regression to data collected about the progression of diabetes. 
+We'll apply regularized regression to data collected about the progression of diabetes.
 
-```{code-cell}
+```{code-cell} ipython3
 from sklearn import datasets
 diabetes = datasets.load_diabetes(as_frame=True)["frame"]
 diabetes
@@ -68,61 +68,112 @@ diabetes
 
 First, we look at basic linear regression on all 10 predictive features in the data.
 
-```{code-cell}
+```{code-cell} ipython3
 X = diabetes.drop("target",axis=1)
 y = diabetes["target"]
 
 from sklearn.model_selection import train_test_split
-
-X_tr,X_te,y_tr,y_te = train_test_split(X,y,test_size=0.2,random_state=0)
+X_tr,X_te,y_tr,y_te = train_test_split(X,y,test_size=0.2,random_state=2)
 
 from sklearn.linear_model import LinearRegression
 lm = LinearRegression()
 lm.fit(X_tr,y_tr)
-print("linear model score:",lm.score(X_te,y_te))
+print("linear model CoD score:",lm.score(X_te,y_te))
 ```
 
 We will find that ridge regression improves the score a bit, at least for some hyperparameter values:
 
-```{code-cell}
+```{code-cell} ipython3
 from sklearn.linear_model import Ridge
-rr = Ridge(alpha=0.5)
+rr = Ridge(alpha=0.1)  # alpha weights the regularization term
 rr.fit(X_tr,y_tr)
-print("ridge regression score:",rr.score(X_te,y_te))
+print("ridge regression CoD score:",rr.score(X_te,y_te))
 ```
 
-A LASSO regression makes a smaller improvement:
+Ridge regularization added a penalty for the 2-norm of the regression coefficients vector. Accordingly, the regularized solution has smaller coefficients:
 
-```{code-cell}
+```{code-cell} ipython3
+from numpy.linalg import norm
+print("2-norm of unregularized model coefficients:",norm(lm.coef_))
+print("2-norm of ridge regression coefficients:",norm(rr.coef_))
+```
+
+As we continue to increase the regularization parameter, the method becomes increasingly obsessed with keeping the coefficient vector small, and pays ever less attention to the data as a result. Eventually, the quality of fit will decrease.
+
+```{code-cell} ipython3
+rr = Ridge(alpha=4)  # more regularization
+rr.fit(X_tr,y_tr)
+print("2-norm of coefficient vector:",norm(rr.coef_))
+print("ridge regression CoD score:",rr.score(X_te,y_te))
+```
+
+LASSO penalizes the 1-norm of the coefficient vector. Here's a LASSO regression fit:
+
+```{code-cell} ipython3
 from sklearn.linear_model import Lasso
-lass = Lasso(alpha=0.2)
+lass = Lasso(alpha=0.05)
 lass.fit(X_tr,y_tr)
-print("LASSO model score:",lass.score(X_te,y_te))
+print("LASSO model CoD score:",lass.score(X_te,y_te))
+print("1-norm of LASSO coefficient vector:",norm(lass.coef_,1))
+print("1-norm of unregularized coefficient vector:",norm(lm.coef_,1))
+```
+
+A validation curve suggests modest gains in the $R^2$ score as the regularization parameter is varied:
+
+```{code-cell} ipython3
+from sklearn.model_selection import KFold,validation_curve
+import numpy as np
+kf = KFold(n_splits=4,shuffle=True,random_state=0)
+
+alpha = np.linspace(0,0.1,80)[1:]  # exclude alpha=0
+_,scores = validation_curve(lass,X_tr,y_tr,cv=kf,param_name="alpha",param_range=alpha)
+```
+
+```{code-cell} ipython3
+import seaborn as sns
+sns.relplot(x=alpha,y=np.mean(scores,axis=1));
 ```
 
 However, while ridge regression still uses all of the features, LASSO ignores four of them:
 
-```{code-cell}
+```{code-cell} ipython3
 print("ridge coeffs:")
 print(rr.coef_)
+lass = Lasso(alpha=0.05)
+lass.fit(X_tr,y_tr)
 print("LASSO coeffs:")
 print(lass.coef_)
 ```
 
-We can use the magnitude of the LASSO coefficients to rank the relative importance of the predictive features:
+We can use the magnitude of the LASSO coefficients to rank the relative importance of the predictive features. We have to make sure to take the absolute values of the coefficients, because we don't care about whether an effect is positive or negative, just its magnitude.
 
-```{code-cell}
+```{code-cell} ipython3
 import numpy as np
-idx = np.argsort(np.abs(lass.coef_))  # sort zero to largest
-idx = idx[::-1]                       # reverse
-X.columns[idx]
+# Get the permutation that sorts values in increasing order.
+idx = np.argsort(np.abs(lass.coef_))  
+idx = idx[::-1]    # reverse the order
+idx
 ```
 
-Now we can repeat the linear regression, but using only the top 5 features:
+The last three features were dropped by LASSO:
 
-```{code-cell}
-lm.fit(X_tr.iloc[:,idx[:5]],y_tr)
-print("linear model score using 5 features:",lm.score(X_te.iloc[:,idx[:5]],y_te))
+```{code-cell} ipython3
+zeroed = X.columns[idx[-3:]]
+print(zeroed)
 ```
 
-Sometimes, less really is more!
+Now we can drop these features from the dataset:
+
+```{code-cell} ipython3
+X_tr_reduced = X_tr.drop(zeroed,axis=1)
+X_te_reduced = X_te.drop(zeroed,axis=1)
+X_tr_reduced.head(5)
+```
+
+Returning to the original, unregularized fit, we find that hardly anything is lost by using the reduced feature set:
+
+```{code-cell} ipython3
+print("original linear model score:",lm.score(X_te,y_te))
+lm.fit(X_tr_reduced,y_tr)
+print("reduced linear model score:",lm.score(X_te_reduced,y_te))
+```

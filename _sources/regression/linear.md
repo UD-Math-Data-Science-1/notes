@@ -141,8 +141,6 @@ This yields $R^2 = 1 - (9)(3/14) = -13/14$. Since the result is negative, we wou
 :::
 ::::
 
-
-
 ## Case study: Arctic ice
 
 Let's import data about the extent of sea ice in the Arctic circle, collected monthly since 1979.
@@ -150,7 +148,8 @@ Let's import data about the extent of sea ice in the Arctic circle, collected mo
 ```{code-cell}
 import pandas as pd
 ice = pd.read_csv("sea-ice.csv")
-ice.columns = [s.strip() for s in ice.columns]   # simplify names
+# Simplify column names:
+ice.columns = [s.strip() for s in ice.columns]   
 ice
 ```
 
@@ -175,7 +174,7 @@ bymo = ice.groupby("mo")
 bymo["extent"].mean()
 ```
 
-While the effect of the seasonal variation somewhat cancels out over time when fitting a line, it's preferable to remove this obvious trend before the fit takes place. We will add a column that measures the relative change from the mean in each month.
+While the effect of the seasonal variation somewhat cancels out over time when fitting a line, it's preferable to remove this obvious trend before the fit takes place. We will add a column that measures the relative change from the mean in each month, i.e., $(x-\bar{x})/\bar{x}$ within each group.
 
 ```{code-cell}
 ice["detrended"] = bymo["extent"].transform(lambda x: x/x.mean() - 1)
@@ -188,7 +187,7 @@ An `lmplot` in seaborn will show the best-fit line.
 sns.lmplot(data=ice,x="year",y="detrended");
 ```
 
-However, keep Simpson's paradox in mind. The previous plot showed considerably more variance in the warm months. How do the fits look for the data within each month?
+However, keep Simpson's paradox in mind. The previous plot showed considerably more variance in the warm months. How do the fits look for the data *within* each month?
 
 ```{code-cell}
 sns.lmplot(data=ice,x="year",y="detrended",col="mo",col_wrap=4);
@@ -203,12 +202,13 @@ from sklearn.linear_model import LinearRegression
 lm = LinearRegression()
 
 aug = ice["mo"]==8
-X = ice.loc[aug,["year"]]
+# We need a frame, not a series, so use a vector for columns for X: 
+X = ice.loc[aug,["year"]]  
 y = ice.loc[aug,"detrended"]
 lm.fit(X,y)
 ```
 
-We can get the slope and $y$-intercept of the regression line from the learner's properties.
+We can get the slope and $y$-intercept of the regression line from the learner's properties. (Calculated parameters tend to have underscores at the ends of their names in sklearn.)
 
 ```{code-cell}
 (lm.coef_,lm.intercept_)

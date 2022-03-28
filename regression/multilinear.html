@@ -652,7 +652,7 @@ L(\bfw) = \twonorm{\bfX \bfw- \bfy}^2.
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="n">ads</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s2">&quot;Sales&quot;</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="s2">&quot;columns&quot;</span><span class="p">)</span>
-<span class="n">X_tv</span> <span class="o">=</span> <span class="n">ads</span><span class="p">[[</span><span class="s2">&quot;TV&quot;</span><span class="p">]]</span>
+<span class="n">X_tv</span> <span class="o">=</span> <span class="n">ads</span><span class="p">[[</span><span class="s2">&quot;TV&quot;</span><span class="p">]]</span>    <span class="c1"># has to be a frame, so [&quot;TV&quot;] not &quot;TV&quot;</span>
 <span class="n">y</span> <span class="o">=</span> <span class="n">ads</span><span class="p">[</span><span class="s2">&quot;Sales&quot;</span><span class="p">]</span>
 
 <span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LinearRegression</span>
@@ -712,7 +712,7 @@ dtype: float64
 <p>Judging by the coefficients of the model, it’s even clearer now that we can explain <em>Sales</em> very well without contributions from <em>Newspaper</em>. In order to reduce model variance, it would be reasonable to leave that column out, to barely noticeable effect:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="n">ads</span><span class="p">[[</span><span class="s2">&quot;Radio&quot;</span><span class="p">,</span><span class="s2">&quot;TV&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="n">ads</span><span class="p">[[</span><span class="s2">&quot;Radio&quot;</span><span class="p">,</span><span class="s2">&quot;TV&quot;</span><span class="p">]]</span>
 <span class="n">lm</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;R^2 score:&quot;</span><span class="p">,</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">lm</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">)</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Model coeffs:&quot;</span><span class="p">,</span><span class="n">lm</span><span class="o">.</span><span class="n">coef_</span><span class="p">)</span>
@@ -730,10 +730,11 @@ dtype: float64
 </div>
 </div>
 </div>
-<p>While we have a good <span class="math notranslate nohighlight">\(R^2\)</span> score, there is some unexplained variance remaining. We can add an additional feature that is the product of <em>TV</em> and <em>Radio</em>, representing the possibility that these media reinforce one another’s effects:</p>
+<p>While we have a good <span class="math notranslate nohighlight">\(R^2\)</span> score, there is some unexplained variance remaining. We can add an additional feature that is the product of <em>TV</em> and <em>Radio</em>, representing the possibility that these media reinforce one another’s effects. (In order to modify our frame <code class="docutils literal notranslate"><span class="pre">X</span></code>, which is only a view of part of the original frame <code class="docutils literal notranslate"><span class="pre">ads</span></code>, we first have to redefine it as an independent copy.)</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X</span><span class="p">[</span><span class="s2">&quot;RadioTV&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="s2">&quot;Radio&quot;</span><span class="p">]</span><span class="o">*</span><span class="n">X</span><span class="p">[</span><span class="s2">&quot;TV&quot;</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="n">ads</span><span class="p">[[</span><span class="s2">&quot;Radio&quot;</span><span class="p">,</span><span class="s2">&quot;TV&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">X</span><span class="p">[</span><span class="s2">&quot;RadioTV&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="s2">&quot;Radio&quot;</span><span class="p">]</span><span class="o">*</span><span class="n">X</span><span class="p">[</span><span class="s2">&quot;TV&quot;</span><span class="p">]</span>
 <span class="n">lm</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;R^2 score:&quot;</span><span class="p">,</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">lm</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">)</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Model coeffs:&quot;</span><span class="p">)</span>
@@ -752,7 +753,7 @@ dtype: float64
 </div>
 </div>
 </div>
-<p>We did see some increase in the <span class="math notranslate nohighlight">\(R^2\)</span> score, and the combination of both types of spending does have a positive effect on <em>Sales</em>. We have to be careful interpreting the magnitudes of the coefficients, because the size of the product feature is 100 or so times greater than either individual constituent. In that light, the interaction effect seems comparable to the individual features.</p>
+<p>We did see some increase in the <span class="math notranslate nohighlight">\(R^2\)</span> score, and therefore the combination of both types of spending does have a positive effect on <em>Sales</em>. We have to be careful interpreting the magnitudes of the coefficients, because the size of the product feature is 100 or so times greater than either individual constituent. In that light, the interaction effect seems comparable to the individual features.</p>
 <p>Interpreting linear regression is a major topic in statistics. There are tests that can lend more precision and rigor to the brief discussion above.</p>
 </div>
 <div class="section" id="polynomial-regression">
@@ -775,8 +776,7 @@ y \approx w_1 + w_2 t + \cdots + w_d t^{d-1},
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="n">cars</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">load_dataset</span><span class="p">(</span><span class="s2">&quot;mpg&quot;</span><span class="p">)</span>
-<span class="n">cars</span> <span class="o">=</span> <span class="n">cars</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+<span class="n">cars</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">load_dataset</span><span class="p">(</span><span class="s2">&quot;mpg&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
 <span class="n">cars</span>
 </pre></div>
 </div>
@@ -979,13 +979,14 @@ y \approx w_1 + w_2 t + \cdots + w_d t^{d-1},
 <span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">make_pipeline</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
-<span class="n">X</span> <span class="o">=</span> <span class="n">cars</span><span class="p">[[</span><span class="s2">&quot;horsepower&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">cars</span><span class="p">[[</span><span class="s2">&quot;horsepower&quot;</span><span class="p">]]</span>
 <span class="n">y</span> <span class="o">=</span> <span class="n">cars</span><span class="p">[</span><span class="s2">&quot;mpg&quot;</span><span class="p">]</span>
 <span class="n">lm</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">(</span><span class="n">fit_intercept</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="n">cubic</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">PolynomialFeatures</span><span class="p">(</span><span class="n">degree</span><span class="o">=</span><span class="mi">3</span><span class="p">),</span><span class="n">lm</span><span class="p">)</span>
 <span class="n">cubic</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;prediction at hp=200:&quot;</span><span class="p">,</span><span class="n">cubic</span><span class="o">.</span><span class="n">predict</span><span class="p">([[</span><span class="mi">200</span><span class="p">]]))</span>
+<span class="n">query</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="mi">200</span><span class="p">],</span><span class="n">columns</span><span class="o">=</span><span class="n">X</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;prediction at hp=200:&quot;</span><span class="p">,</span><span class="n">cubic</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">query</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>

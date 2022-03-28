@@ -470,7 +470,7 @@
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="regularization">
 <h1><span class="section-number">4.3. </span>Regularization<a class="headerlink" href="#regularization" title="Permalink to this headline">¶</a></h1>
-<p>As a general term, <em>regularization</em> refers to modifying something that is difficult to always compute accurately with something more tractable. For learning models, regularization is a common way to combat overfitting.</p>
+<p>As a general term, <em>regularization</em> refers to modifying something that is difficult to compute accurately with something more tractable. For learning models, regularization is a common way to combat overfitting.</p>
 <p>Imagine we had an <span class="math notranslate nohighlight">\(\real^{n\times 4}\)</span> feature matrix in which the features are identical; that is, the predictor variables satisfy <span class="math notranslate nohighlight">\(x_1=x_2=x_3=x_4\)</span>, and suppose the target <span class="math notranslate nohighlight">\(y\)</span> also equals <span class="math notranslate nohighlight">\(x_1\)</span>. Clearly, we get a perfect regression if we use</p>
 <div class="math notranslate nohighlight">
 \[
@@ -713,18 +713,17 @@ L(\bfw) = \twonorm{ \bfX \bfw- \bfy }^2 + \alpha \onenorm{\bfw}.
 <span class="n">y</span> <span class="o">=</span> <span class="n">diabetes</span><span class="p">[</span><span class="s2">&quot;target&quot;</span><span class="p">]</span>
 
 <span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
-
-<span class="n">X_tr</span><span class="p">,</span><span class="n">X_te</span><span class="p">,</span><span class="n">y_tr</span><span class="p">,</span><span class="n">y_te</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span><span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">X_tr</span><span class="p">,</span><span class="n">X_te</span><span class="p">,</span><span class="n">y_tr</span><span class="p">,</span><span class="n">y_te</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span><span class="n">random_state</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 
 <span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LinearRegression</span>
 <span class="n">lm</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span>
 <span class="n">lm</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_tr</span><span class="p">,</span><span class="n">y_tr</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;linear model score:&quot;</span><span class="p">,</span><span class="n">lm</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_te</span><span class="p">,</span><span class="n">y_te</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;linear model CoD score:&quot;</span><span class="p">,</span><span class="n">lm</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_te</span><span class="p">,</span><span class="n">y_te</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>linear model score: 0.33222203269065154
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>linear model CoD score: 0.4399387660024644
 </pre></div>
 </div>
 </div>
@@ -733,32 +732,93 @@ L(\bfw) = \twonorm{ \bfX \bfw- \bfy }^2 + \alpha \onenorm{\bfw}.
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">Ridge</span>
-<span class="n">rr</span> <span class="o">=</span> <span class="n">Ridge</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">rr</span> <span class="o">=</span> <span class="n">Ridge</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>  <span class="c1"># alpha weights the regularization term</span>
 <span class="n">rr</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_tr</span><span class="p">,</span><span class="n">y_tr</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ridge regression score:&quot;</span><span class="p">,</span><span class="n">rr</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_te</span><span class="p">,</span><span class="n">y_te</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ridge regression CoD score:&quot;</span><span class="p">,</span><span class="n">rr</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_te</span><span class="p">,</span><span class="n">y_te</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ridge regression score: 0.35667773997495866
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ridge regression CoD score: 0.4519973816947852
 </pre></div>
 </div>
 </div>
 </div>
-<p>A LASSO regression makes a smaller improvement:</p>
+<p>Ridge regularization added a penalty for the 2-norm of the regression coefficients vector. Accordingly, the regularized solution has smaller coefficients:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">numpy.linalg</span> <span class="kn">import</span> <span class="n">norm</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;2-norm of unregularized model coefficients:&quot;</span><span class="p">,</span><span class="n">norm</span><span class="p">(</span><span class="n">lm</span><span class="o">.</span><span class="n">coef_</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;2-norm of ridge regression coefficients:&quot;</span><span class="p">,</span><span class="n">norm</span><span class="p">(</span><span class="n">rr</span><span class="o">.</span><span class="n">coef_</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2-norm of unregularized model coefficients: 1525.2110583591345
+2-norm of ridge regression coefficients: 808.5402825823023
+</pre></div>
+</div>
+</div>
+</div>
+<p>As we continue to increase the regularization parameter, the method becomes increasingly obsessed with keeping the coefficient vector small, and pays ever less attention to the data as a result. Eventually, the quality of fit will decrease.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rr</span> <span class="o">=</span> <span class="n">Ridge</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>  <span class="c1"># more regularization</span>
+<span class="n">rr</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_tr</span><span class="p">,</span><span class="n">y_tr</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;2-norm of coefficient vector:&quot;</span><span class="p">,</span><span class="n">norm</span><span class="p">(</span><span class="n">rr</span><span class="o">.</span><span class="n">coef_</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ridge regression CoD score:&quot;</span><span class="p">,</span><span class="n">rr</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_te</span><span class="p">,</span><span class="n">y_te</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2-norm of coefficient vector: 238.89433325997197
+ridge regression CoD score: 0.2659744571622481
+</pre></div>
+</div>
+</div>
+</div>
+<p>LASSO penalizes the 1-norm of the coefficient vector. Here’s a LASSO regression fit:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">Lasso</span>
-<span class="n">lass</span> <span class="o">=</span> <span class="n">Lasso</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+<span class="n">lass</span> <span class="o">=</span> <span class="n">Lasso</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
 <span class="n">lass</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_tr</span><span class="p">,</span><span class="n">y_tr</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;LASSO model score:&quot;</span><span class="p">,</span><span class="n">lass</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_te</span><span class="p">,</span><span class="n">y_te</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;LASSO model CoD score:&quot;</span><span class="p">,</span><span class="n">lass</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_te</span><span class="p">,</span><span class="n">y_te</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;1-norm of LASSO coefficient vector:&quot;</span><span class="p">,</span><span class="n">norm</span><span class="p">(</span><span class="n">lass</span><span class="o">.</span><span class="n">coef_</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;1-norm of unregularized coefficient vector:&quot;</span><span class="p">,</span><span class="n">norm</span><span class="p">(</span><span class="n">lm</span><span class="o">.</span><span class="n">coef_</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>LASSO model score: 0.3433304728856845
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>LASSO model CoD score: 0.4382313890360462
+1-norm of LASSO coefficient vector: 1906.3692828814872
+1-norm of unregularized coefficient vector: 3722.853581168863
 </pre></div>
 </div>
+</div>
+</div>
+<p>A validation curve suggests modest gains in the <span class="math notranslate nohighlight">\(R^2\)</span> score as the regularization parameter is varied:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">KFold</span><span class="p">,</span><span class="n">validation_curve</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">kf</span> <span class="o">=</span> <span class="n">KFold</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span><span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">alpha</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mf">0.1</span><span class="p">,</span><span class="mi">80</span><span class="p">)[</span><span class="mi">1</span><span class="p">:]</span>  <span class="c1"># exclude alpha=0</span>
+<span class="n">_</span><span class="p">,</span><span class="n">scores</span> <span class="o">=</span> <span class="n">validation_curve</span><span class="p">(</span><span class="n">lass</span><span class="p">,</span><span class="n">X_tr</span><span class="p">,</span><span class="n">y_tr</span><span class="p">,</span><span class="n">cv</span><span class="o">=</span><span class="n">kf</span><span class="p">,</span><span class="n">param_name</span><span class="o">=</span><span class="s2">&quot;alpha&quot;</span><span class="p">,</span><span class="n">param_range</span><span class="o">=</span><span class="n">alpha</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">relplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">scores</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">));</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/regularization_14_0.png" src="../_images/regularization_14_0.png" />
 </div>
 </div>
 <p>However, while ridge regression still uses all of the features, LASSO ignores four of them:</p>
@@ -766,6 +826,8 @@ L(\bfw) = \twonorm{ \bfX \bfw- \bfy }^2 + \alpha \onenorm{\bfw}.
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ridge coeffs:&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">rr</span><span class="o">.</span><span class="n">coef_</span><span class="p">)</span>
+<span class="n">lass</span> <span class="o">=</span> <span class="n">Lasso</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
+<span class="n">lass</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_tr</span><span class="p">,</span><span class="n">y_tr</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;LASSO coeffs:&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">lass</span><span class="o">.</span><span class="n">coef_</span><span class="p">)</span>
 </pre></div>
@@ -773,46 +835,154 @@ L(\bfw) = \twonorm{ \bfX \bfw- \bfy }^2 + \alpha \onenorm{\bfw}.
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ridge coeffs:
-[   8.3095978  -121.63358099  388.91388623  219.55009665  -19.77469383
-  -70.82842908 -183.84763557  125.0866159   328.9173479   100.08665295]
+[ 35.59882969  -5.65413725 128.72386461  95.80592564  26.99211072
+  13.94765865 -73.92991399  68.3705389  121.92677535  63.9783969 ]
 LASSO coeffs:
-[  -0.          -90.57212015  546.28988664  196.86417823   -0.
-  -19.04570829 -198.35369805    0.          469.75585901    0.        ]
+[  -0.         -155.28275008  529.16520628  313.42663726 -132.50563763
+   -0.         -165.17345325    0.          580.25912765   30.55647073]
 </pre></div>
 </div>
 </div>
 </div>
-<p>We can use the magnitude of the LASSO coefficients to rank the relative importance of the predictive features:</p>
+<p>We can use the magnitude of the LASSO coefficients to rank the relative importance of the predictive features. We have to make sure to take the absolute values of the coefficients, because we don’t care about whether an effect is positive or negative, just its magnitude.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">lass</span><span class="o">.</span><span class="n">coef_</span><span class="p">))</span>  <span class="c1"># sort zero to largest</span>
-<span class="n">idx</span> <span class="o">=</span> <span class="n">idx</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>                       <span class="c1"># reverse</span>
-<span class="n">X</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+<span class="c1"># Get the permutation that sorts values in increasing order.</span>
+<span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">lass</span><span class="o">.</span><span class="n">coef_</span><span class="p">))</span>  
+<span class="n">idx</span> <span class="o">=</span> <span class="n">idx</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>    <span class="c1"># reverse the order</span>
+<span class="n">idx</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Index([&#39;bmi&#39;, &#39;s5&#39;, &#39;s3&#39;, &#39;bp&#39;, &#39;sex&#39;, &#39;s2&#39;, &#39;s6&#39;, &#39;s4&#39;, &#39;s1&#39;, &#39;age&#39;], dtype=&#39;object&#39;)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([8, 2, 3, 6, 1, 4, 9, 7, 5, 0])
 </pre></div>
 </div>
 </div>
 </div>
-<p>Now we can repeat the linear regression, but using only the top 5 features:</p>
+<p>The last three features were dropped by LASSO:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lm</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_tr</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="n">idx</span><span class="p">[:</span><span class="mi">5</span><span class="p">]],</span><span class="n">y_tr</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;linear model score using 5 features:&quot;</span><span class="p">,</span><span class="n">lm</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_te</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="n">idx</span><span class="p">[:</span><span class="mi">5</span><span class="p">]],</span><span class="n">y_te</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">zeroed</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="n">idx</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">:]]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">zeroed</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>linear model score using 5 features: 0.3436913537040863
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Index([&#39;s4&#39;, &#39;s2&#39;, &#39;age&#39;], dtype=&#39;object&#39;)
 </pre></div>
 </div>
 </div>
 </div>
-<p>Sometimes, less really is more!</p>
+<p>Now we can drop these features from the dataset:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_tr_reduced</span> <span class="o">=</span> <span class="n">X_tr</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">zeroed</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">X_te_reduced</span> <span class="o">=</span> <span class="n">X_te</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">zeroed</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">X_tr_reduced</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>sex</th>
+      <th>bmi</th>
+      <th>bp</th>
+      <th>s1</th>
+      <th>s3</th>
+      <th>s5</th>
+      <th>s6</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>70</th>
+      <td>-0.044642</td>
+      <td>-0.069797</td>
+      <td>-0.012556</td>
+      <td>-0.000193</td>
+      <td>0.070730</td>
+      <td>-0.062913</td>
+      <td>0.040343</td>
+    </tr>
+    <tr>
+      <th>37</th>
+      <td>-0.044642</td>
+      <td>0.011039</td>
+      <td>-0.057314</td>
+      <td>-0.024960</td>
+      <td>0.030232</td>
+      <td>0.017037</td>
+      <td>-0.005220</td>
+    </tr>
+    <tr>
+      <th>170</th>
+      <td>0.050680</td>
+      <td>-0.020218</td>
+      <td>-0.036656</td>
+      <td>-0.013953</td>
+      <td>0.059685</td>
+      <td>-0.096433</td>
+      <td>-0.017646</td>
+    </tr>
+    <tr>
+      <th>400</th>
+      <td>-0.044642</td>
+      <td>0.045529</td>
+      <td>0.090730</td>
+      <td>-0.018080</td>
+      <td>0.070730</td>
+      <td>-0.034524</td>
+      <td>-0.009362</td>
+    </tr>
+    <tr>
+      <th>286</th>
+      <td>-0.044642</td>
+      <td>-0.054707</td>
+      <td>-0.077971</td>
+      <td>-0.033216</td>
+      <td>0.140681</td>
+      <td>-0.019197</td>
+      <td>-0.005220</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Returning to the original, unregularized fit, we find that hardly anything is lost by using the reduced feature set:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;original linear model score:&quot;</span><span class="p">,</span><span class="n">lm</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_te</span><span class="p">,</span><span class="n">y_te</span><span class="p">))</span>
+<span class="n">lm</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_tr_reduced</span><span class="p">,</span><span class="n">y_tr</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;reduced linear model score:&quot;</span><span class="p">,</span><span class="n">lm</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_te_reduced</span><span class="p">,</span><span class="n">y_te</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>original linear model score: 0.4399387660024644
+reduced linear model score: 0.4388377188754572
+</pre></div>
+</div>
+</div>
+</div>
 </div>
 </div>
 

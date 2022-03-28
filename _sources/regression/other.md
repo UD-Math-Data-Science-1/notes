@@ -133,16 +133,15 @@ X = diabetes.drop("target",axis=1)
 y = diabetes["target"]
 
 from sklearn.model_selection import train_test_split
-
 X_tr,X_te,y_tr,y_te = train_test_split(X,y,test_size=0.2,random_state=0)
 
 from sklearn.linear_model import LinearRegression
 lm = LinearRegression()
 lm.fit(X_tr,y_tr)
-print("linear model score:",lm.score(X_te,y_te))
+print("linear model CofD score:",lm.score(X_te,y_te))
 ```
 
-We will do a cursory grid search over some useful hyperparameters in order to get the best regressors from a decision tree and k-nearest neighbors. The data columns are standardized, so there is no need to set up a pipeline for preprocessing.
+We will do a cursory grid search over some useful hyperparameters in order to get the best regressors from a decision tree and k-nearest neighbors. The data columns in this frame are already standardized, so there is no need to set up a pipeline for preprocessing. Note that the DT and kNN regressors, like the linear regressor, uses coefficient of determination in their `score` methods. 
 
 ```{code-cell}
 from sklearn.model_selection import GridSearchCV,KFold
@@ -162,4 +161,4 @@ print("Best decision tree CofD:",dt.score(X_te,y_te))
 print("Best kNN CofD:",knn.score(X_te,y_te))
 ```
 
-As you can see, kNN is dead even with the linear model for this dataset. However, the coefficients of the linear model give some potentially useful information, and the linear model can be improved somewhat with regularization, while kNN offers no significant advantages.
+As you can see, kNN is no better than the linear model for this dataset. Moreover, the coefficients of the linear model give some potentially useful information, and the linear model can be improved somewhat with regularization, while kNN offers no significant advantages here.

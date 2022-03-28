@@ -654,23 +654,22 @@ Name: y, dtype: float64
 <span class="n">y</span> <span class="o">=</span> <span class="n">diabetes</span><span class="p">[</span><span class="s2">&quot;target&quot;</span><span class="p">]</span>
 
 <span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
-
 <span class="n">X_tr</span><span class="p">,</span><span class="n">X_te</span><span class="p">,</span><span class="n">y_tr</span><span class="p">,</span><span class="n">y_te</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span><span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
 <span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LinearRegression</span>
 <span class="n">lm</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span>
 <span class="n">lm</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_tr</span><span class="p">,</span><span class="n">y_tr</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;linear model score:&quot;</span><span class="p">,</span><span class="n">lm</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_te</span><span class="p">,</span><span class="n">y_te</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;linear model CofD score:&quot;</span><span class="p">,</span><span class="n">lm</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_te</span><span class="p">,</span><span class="n">y_te</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>linear model score: 0.33222203269065154
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>linear model CofD score: 0.33222203269065154
 </pre></div>
 </div>
 </div>
 </div>
-<p>We will do a cursory grid search over some useful hyperparameters in order to get the best regressors from a decision tree and k-nearest neighbors. The data columns are standardized, so there is no need to set up a pipeline for preprocessing.</p>
+<p>We will do a cursory grid search over some useful hyperparameters in order to get the best regressors from a decision tree and k-nearest neighbors. The data columns in this frame are already standardized, so there is no need to set up a pipeline for preprocessing. Note that the DT and kNN regressors, like the linear regressor, uses coefficient of determination in their <code class="docutils literal notranslate"><span class="pre">score</span></code> methods.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">GridSearchCV</span><span class="p">,</span><span class="n">KFold</span>
@@ -698,7 +697,7 @@ Best kNN CofD: 0.3389200737706485
 </div>
 </div>
 </div>
-<p>As you can see, kNN is dead even with the linear model for this dataset. However, the coefficients of the linear model give some potentially useful information, and the linear model can be improved somewhat with regularization, while kNN offers no significant advantages.</p>
+<p>As you can see, kNN is no better than the linear model for this dataset. Moreover, the coefficients of the linear model give some potentially useful information, and the linear model can be improved somewhat with regularization, while kNN offers no significant advantages here.</p>
 </div>
 </div>
 
