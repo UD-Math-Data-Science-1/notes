@@ -44,7 +44,7 @@
     <script src="../_static/copybutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/sphinx-book-theme.9d8b4a8b9bb19db25eeaddc40d639ba2.js"></script>
-    <script>window.MathJax = {"tex": {"macros": {"float": ["\\mathbb{F}"], "real": ["\\mathbb{R}"], "complex": ["\\mathbb{C}"], "nat": ["\\mathbb{N}"], "integer": ["\\mathbb{Z}"], "bfa": "\\mathbf{a}", "bfe": "\\mathbf{e}", "bfx": "\\mathbf{x}", "bfX": "\\mathbf{X}", "bfu": "\\mathbf{u}", "bfv": "\\mathbf{v}", "bfw": "\\mathbf{w}", "bfy": "\\mathbf{y}", "bfz": "\\mathbf{z}", "bfzero": "\\boldsymbol{0}", "bfmu": "\\boldsymbol{\\mu}", "TP": "\\text{TP}", "TN": "\\text{TN}", "FP": "\\text{FP}", "FN": "\\text{FN}", "rmn": ["\\mathbb{R}^{#1 \\times #2}", 2], "dd": ["\\frac{d #1}{d #2}", 2], "pp": ["\\frac{\\partial #1}{\\partial #2}", 2], "norm": ["\\left\\lVert #1 \\right\\rVert", 1], "abs": ["\\left\\lvert #1 \\right\\rvert", 1], "twonorm": ["\\norm{#1}_2", 1], "onenorm": ["\\norm{#1}_1", 1], "infnorm": ["\\norm{#1}_\\infty", 1], "innerprod": ["\\langle #1,#2 \\rangle", 2], "pr": ["^{(#1)}", 1], "diag": ["\\operatorname{diag}"], "sign": ["\\operatorname{sign}"], "dist": ["\\operatorname{dist}"], "simil": ["\\operatorname{sim}"], "ee": ["\\times 10^"], "floor": ["\\lfloor#1\\rfloor", 1], "argmin": ["\\operatorname{argmin}"], "Cov": ["\\operatorname{Cov}"], "logit": ["\\operatorname{logit}"]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script>window.MathJax = {"tex": {"macros": {"float": ["\\mathbb{F}"], "real": ["\\mathbb{R}"], "complex": ["\\mathbb{C}"], "nat": ["\\mathbb{N}"], "integer": ["\\mathbb{Z}"], "bfa": "\\mathbf{a}", "bfe": "\\mathbf{e}", "bfx": "\\mathbf{x}", "bfX": "\\mathbf{X}", "bfu": "\\mathbf{u}", "bfv": "\\mathbf{v}", "bfw": "\\mathbf{w}", "bfy": "\\mathbf{y}", "bfz": "\\mathbf{z}", "bfzero": "\\boldsymbol{0}", "bfmu": "\\boldsymbol{\\mu}", "TP": "\\text{TP}", "TN": "\\text{TN}", "FP": "\\text{FP}", "FN": "\\text{FN}", "rmn": ["\\mathbb{R}^{#1 \\times #2}", 2], "dd": ["\\frac{d #1}{d #2}", 2], "pp": ["\\frac{\\partial #1}{\\partial #2}", 2], "norm": ["\\left\\lVert \\mathstrut #1 \\right\\rVert", 1], "abs": ["\\left\\lvert \\mathstrut #1 \\right\\rvert", 1], "twonorm": ["\\norm{#1}_2", 1], "onenorm": ["\\norm{#1}_1", 1], "infnorm": ["\\norm{#1}_\\infty", 1], "innerprod": ["\\langle #1,#2 \\rangle", 2], "pr": ["^{(#1)}", 1], "diag": ["\\operatorname{diag}"], "sign": ["\\operatorname{sign}"], "dist": ["\\operatorname{dist}"], "simil": ["\\operatorname{sim}"], "ee": ["\\times 10^"], "floor": ["\\lfloor#1\\rfloor", 1], "argmin": ["\\operatorname{argmin}"], "Cov": ["\\operatorname{Cov}"], "logit": ["\\operatorname{logit}"]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
     <script>
@@ -508,8 +508,8 @@
 <p>But we can also access the probabilistic interpretation via <code class="docutils literal notranslate"><span class="pre">predict_proba</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">phat</span> <span class="o">=</span> <span class="n">knn</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_te</span><span class="p">)</span>
-<span class="n">phat</span><span class="p">[:</span><span class="mi">6</span><span class="p">,:]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">p_hat</span> <span class="o">=</span> <span class="n">knn</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_te</span><span class="p">)</span>
+<span class="n">p_hat</span><span class="p">[:</span><span class="mi">6</span><span class="p">,:]</span>
 </pre></div>
 </div>
 </div>
@@ -527,28 +527,72 @@
 <p>From the output above we see that, for example, while the third and fourth test cases led to unanimous votes for <em>Gentoo</em>, the sixth case was deemed <em>Adelie</em> in a 3–2 squeaker (or is it squawker?).</p>
 <div class="section" id="roc-curve">
 <h2>ROC curve<a class="headerlink" href="#roc-curve" title="Permalink to this headline">¶</a></h2>
-<p>The <strong>ROC curve</strong>, or <em>receiver operator characteristic</em> curve, is a way to play what-if by adjusting the voting margins needed to “win” a positive label. Let’s explain by continuing the penguin example.</p>
+<p>The <strong>ROC curve</strong>, or <em>receiver operator characteristic</em> curve, is a way to play what-if by adjusting the voting margins needed to “win” a positive label. Let’s explain by continuing the penguin example with <span class="math notranslate nohighlight">\(k=5\)</span>.</p>
+<p>Say that at some query point, there are 2 votes for A, 2 for C, and 1 for G. We might flip a coin and decide on class A, but from a one-versus-rest (OVR) point of view, it would be reasonable to say that A failed to win 50% of the votes. In fact, at that level, <em>none</em> of the species should be considered having received a “positive” vote.</p>
+<p>We can apply this idea with an adjustable threshold <span class="math notranslate nohighlight">\(\theta\)</span> in the interval <span class="math notranslate nohighlight">\([0,1]\)</span>. If a single class receives a fraction of votes that is at least <span class="math notranslate nohighlight">\(\theta\)</span>, it has a positive result for that class. This means that we no longer assign a label “A/C/G” to each query, but a vector <span class="math notranslate nohighlight">\([A,C,G]\)</span> in which each component is either 0 or 1. Specifically, each vote fraction that is less than <span class="math notranslate nohighlight">\(\theta\)</span> is rounded down, and the others are rounded up.</p>
+<p>For instance, at <span class="math notranslate nohighlight">\(\theta=0\)</span>, every query is labeled <span class="math notranslate nohighlight">\([1,1,1]\)</span>. For <span class="math notranslate nohighlight">\(\theta &gt; 0\)</span>, any class receiving no votes at a query point gets a negative result, i.e., 0 in its component. For <span class="math notranslate nohighlight">\(\theta &gt; 0.2\)</span>, any class getting zero or one vote (out of <span class="math notranslate nohighlight">\(k=5\)</span> total) is a negative result, and so on. When <span class="math notranslate nohighlight">\(\theta=1\)</span>, only a class receiving a unanimous vote is scored as positive, and if we imagine <span class="math notranslate nohighlight">\(\theta &gt; 1\)</span>, then the result at any query point is <span class="math notranslate nohighlight">\([0,0,0]\)</span>, because nothing can receive more than 100% of the votes!</p>
+<p>In the code, we can set a threshold value and easily determine the positive-result vector at each of the test points:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">hits</span><span class="p">(</span><span class="n">p_hat</span><span class="p">,</span><span class="n">theta</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">p_hat</span> <span class="o">&gt;=</span> <span class="n">theta</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+
+<span class="n">pos</span> <span class="o">=</span> <span class="n">hits</span><span class="p">(</span><span class="n">p_hat</span><span class="p">,</span><span class="mi">2</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pos</span><span class="p">[:</span><span class="mi">6</span><span class="p">,:])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[1 0 0]
+ [1 0 0]
+ [0 0 1]
+ [0 0 1]
+ [1 0 0]
+ [0 0 0]]
+</pre></div>
+</div>
+</div>
+</div>
+<p>We should compare the first column of the <code class="docutils literal notranslate"><span class="pre">pos</span></code> matrix, for the <em>Adelie</em> species, to the test cases actually labelled <em>Adelie</em> to find all the true positives:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A_actual</span> <span class="o">=</span> <span class="p">(</span><span class="n">y_te</span><span class="o">==</span><span class="s2">&quot;Adelie&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+<span class="n">A_truepos</span> <span class="o">=</span> <span class="n">pos</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">A_actual</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Similarly, we can find all the false positives for <em>Adelie</em> as well:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A_falsepos</span> <span class="o">=</span> <span class="n">pos</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">A_actual</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>It makes sense to reason about the rate of true positives, the fraction of actual positive cases identified as such, and the rate of false positives, the fraction of actual negative cases mistakenly identified as positive:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A_TPrate</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">A_truepos</span><span class="p">)</span> <span class="o">/</span> <span class="nb">sum</span><span class="p">(</span><span class="n">A_actual</span><span class="p">)</span>
+<span class="n">A_FPrate</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">A_falsepos</span><span class="p">)</span> <span class="o">/</span> <span class="nb">sum</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">A_actual</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;TP rate: </span><span class="si">{</span><span class="n">A_TPrate</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">, FP rate: </span><span class="si">{</span><span class="n">A_FPrate</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>TP rate: 0.5667, FP rate: 0.0541
+</pre></div>
+</div>
+</div>
+</div>
+<p>As a matter of fact, the TP rate is just the recall, and the FP rate is 1 minus the specificity. We can repeat this calculation over all values of the threshold between 0 and 1. We don’t have to, though, because there is a function in sklearn for it already.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">roc_curve</span>
+<span class="n">fp_rate</span><span class="p">,</span><span class="n">tp_rate</span><span class="p">,</span><span class="n">theta</span> <span class="o">=</span> <span class="n">roc_curve</span><span class="p">(</span><span class="n">y_te</span><span class="o">==</span><span class="s2">&quot;Adelie&quot;</span><span class="p">,</span><span class="n">p_hat</span><span class="p">[:,</span><span class="mi">0</span><span class="p">])</span>
+
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-
-<span class="c1"># Function to get the ROC curve data, given true labels and an array of probabilistic</span>
-<span class="c1"># predictions. Returns one frame of curve data per unique label.</span>
-<span class="k">def</span> <span class="nf">get_roc_data</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">p_hat</span><span class="p">,</span><span class="n">labels</span><span class="p">):</span>
-    <span class="n">out</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="c1"># Each species gets a turn at being the &quot;positive&quot; outcome (one vs rest)</span>
-    <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">label</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">labels</span><span class="p">):</span>  
-        <span class="n">fp</span><span class="p">,</span><span class="n">tp</span><span class="p">,</span><span class="n">theta</span> <span class="o">=</span> <span class="n">roc_curve</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">p_hat</span><span class="p">[:,</span><span class="n">i</span><span class="p">],</span><span class="n">pos_label</span><span class="o">=</span><span class="n">label</span><span class="p">)</span>  
-        <span class="n">out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;FP rate&quot;</span><span class="p">:</span><span class="n">fp</span><span class="p">,</span><span class="s2">&quot;TP rate&quot;</span><span class="p">:</span><span class="n">tp</span><span class="p">,</span><span class="s2">&quot;threshold&quot;</span><span class="p">:</span><span class="n">theta</span><span class="p">}))</span>
-    <span class="k">return</span> <span class="n">out</span>
-
-<span class="n">p_hat</span> <span class="o">=</span> <span class="n">knn</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_te</span><span class="p">)</span>
-<span class="c1"># Use the classes_ property of the regressor to ensure that we use the same ordering of </span>
-<span class="c1"># the labels as in the columns of p_hat.</span>
-<span class="n">labels</span> <span class="o">=</span> <span class="n">knn</span><span class="o">.</span><span class="n">classes_</span>
-<span class="n">roc</span> <span class="o">=</span> <span class="n">get_roc_data</span><span class="p">(</span><span class="n">y_te</span><span class="p">,</span><span class="n">p_hat</span><span class="p">,</span><span class="n">labels</span><span class="p">)</span>
-<span class="n">roc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;TP rate&quot;</span><span class="p">:</span><span class="n">tp_rate</span><span class="p">,</span><span class="s2">&quot;FP rate&quot;</span><span class="p">:</span><span class="n">fp_rate</span><span class="p">,</span><span class="s2">&quot;threshold&quot;</span><span class="p">:</span><span class="n">theta</span><span class="p">})</span>
 </pre></div>
 </div>
 </div>
@@ -571,8 +615,8 @@
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>FP rate</th>
       <th>TP rate</th>
+      <th>FP rate</th>
       <th>threshold</th>
     </tr>
   </thead>
@@ -585,32 +629,32 @@
     </tr>
     <tr>
       <th>1</th>
-      <td>0.027027</td>
       <td>0.233333</td>
+      <td>0.027027</td>
       <td>1.0</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>0.054054</td>
       <td>0.566667</td>
+      <td>0.054054</td>
       <td>0.8</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>0.216216</td>
       <td>0.900000</td>
+      <td>0.216216</td>
       <td>0.6</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>0.405405</td>
       <td>0.966667</td>
+      <td>0.405405</td>
       <td>0.4</td>
     </tr>
     <tr>
       <th>5</th>
-      <td>0.459459</td>
       <td>1.000000</td>
+      <td>0.459459</td>
       <td>0.2</td>
     </tr>
     <tr>
@@ -623,39 +667,48 @@
 </table>
 </div></div></div>
 </div>
-<p>The output above details what happens to the recall (aka <em>TP rate</em>) and 1 minus the specificity (the <em>FP rate</em>) as the threshold for choosing <em>Adelie</em> starts from never, then requiring 100% of the votes, then 80% of the votes, and so on, ending up with always choosing <em>Adelie</em>. Here is how the results appear graphically for all three species:</p>
+<p>The table above only records the values of <span class="math notranslate nohighlight">\(\theta\)</span> where the rates change. Usually, this information is presented in graphical form as an <strong>ROC curve</strong>. We can make one for each species as follows.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="k">for</span> <span class="n">df</span> <span class="ow">in</span> <span class="n">roc</span><span class="p">:</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;FP rate&quot;</span><span class="p">],</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;TP rate&quot;</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;FP rate&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;TP rate&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">labels</span><span class="p">);</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">RocCurveDisplay</span>
+
+<span class="n">fig</span><span class="p">,</span><span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">label</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">knn</span><span class="o">.</span><span class="n">classes_</span><span class="p">):</span>
+    <span class="n">RocCurveDisplay</span><span class="o">.</span><span class="n">from_predictions</span><span class="p">(</span><span class="n">y_te</span><span class="o">==</span><span class="n">label</span><span class="p">,</span><span class="n">p_hat</span><span class="p">[:,</span><span class="n">i</span><span class="p">],</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;FP rate&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;TP rate&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">knn</span><span class="o">.</span><span class="n">classes_</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/prob_class_9_0.png" src="../_images/prob_class_9_0.png" />
+<img alt="../_images/prob_class_18_0.png" src="../_images/prob_class_18_0.png" />
 </div>
 </div>
 <p>The ideal situation is in the top left corner of the plot, corresponding to perfect recall and specificity. Each curve starts in the lower left corner and ends at the upper right corner. The <em>Gentoo</em> curve comes quite close to the ideal. All of the curves explicitly show the tradeoff between recall and specificity. The information could be used to choose a threshold that favors either side of the tradeoff.</p>
-<p>If we weight neighbors’ votes inversely to their distance from the query point, then the thresholds aren’t restricted to multiples of <span class="math notranslate nohighlight">\(\tfrac{1}{5}\)</span>.</p>
+<p>If we weight neighbors’ votes inversely to their distance from the query point, then the thresholds aren’t restricted to multiples of <span class="math notranslate nohighlight">\(\tfrac{1}{5}\)</span>, and the curves have more features.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">knnw</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span><span class="n">weights</span><span class="o">=</span><span class="s2">&quot;distance&quot;</span><span class="p">)</span>
 <span class="n">knnw</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_tr</span><span class="p">,</span><span class="n">y_tr</span><span class="p">)</span>
-<span class="n">roc</span> <span class="o">=</span> <span class="n">get_roc_data</span><span class="p">(</span><span class="n">y_te</span><span class="p">,</span><span class="n">knnw</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_te</span><span class="p">),</span><span class="n">labels</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">df</span> <span class="ow">in</span> <span class="n">roc</span><span class="p">:</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;FP rate&quot;</span><span class="p">],</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;TP rate&quot;</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;FP rate&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;TP rate&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">labels</span><span class="p">);</span>
+<span class="n">p_hat</span> <span class="o">=</span> <span class="n">knnw</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_te</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span><span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">label</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">knn</span><span class="o">.</span><span class="n">classes_</span><span class="p">):</span>
+    <span class="n">RocCurveDisplay</span><span class="o">.</span><span class="n">from_predictions</span><span class="p">(</span><span class="n">y_te</span><span class="o">==</span><span class="n">label</span><span class="p">,</span><span class="n">p_hat</span><span class="p">[:,</span><span class="n">i</span><span class="p">],</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;FP rate&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;TP rate&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">knn</span><span class="o">.</span><span class="n">classes_</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/prob_class_11_0.png" src="../_images/prob_class_11_0.png" />
+<img alt="../_images/prob_class_20_0.png" src="../_images/prob_class_20_0.png" />
 </div>
 </div>
 <p>ROC curves lead to another classification performance metric known as <strong>area under ROC curve</strong> (AUC-ROC). Its name tells you exactly what it is, and it ranges between zero (bad) and one (ideal). Unlike the other classification metrics we have encountered, AUC-ROC tries to account not just for the final result of the classification, which nominally occurs when the threshold is $\tfrac{1}{2}, but also for the confidence with which those results can be predicted.</p>
@@ -663,22 +716,22 @@
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">roc_auc_score</span>
-<span class="n">p_hat</span> <span class="o">=</span> <span class="n">knn</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_te</span><span class="p">)</span>
-<span class="n">s</span> <span class="o">=</span> <span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_te</span><span class="p">,</span><span class="n">p_hat</span><span class="p">,</span><span class="n">multi_class</span><span class="o">=</span><span class="s2">&quot;ovr&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;AUC for knn-uniform:&quot;</span><span class="p">,</span><span class="n">s</span><span class="p">)</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_te</span><span class="p">,</span> <span class="n">knn</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_te</span><span class="p">),</span><span class="n">multi_class</span><span class="o">=</span><span class="s2">&quot;ovr&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;AUC for knn-uniform: </span><span class="si">{</span><span class="n">s</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-<span class="n">s</span> <span class="o">=</span> <span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_te</span><span class="p">,</span><span class="n">knnw</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_te</span><span class="p">),</span><span class="n">multi_class</span><span class="o">=</span><span class="s2">&quot;ovr&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;AUC for knn-weights:&quot;</span><span class="p">,</span><span class="n">s</span><span class="p">)</span>
+<span class="n">sw</span> <span class="o">=</span> <span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_te</span><span class="p">,</span><span class="n">knnw</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_te</span><span class="p">),</span><span class="n">multi_class</span><span class="o">=</span><span class="s2">&quot;ovr&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;AUC for knn-weights: </span><span class="si">{</span><span class="n">sw</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AUC for knn-uniform: 0.9193947443947442
-AUC for knn-weights: 0.9393029393029394
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AUC for knn-uniform: 0.9194
+AUC for knn-weights: 0.9393
 </pre></div>
 </div>
 </div>
 </div>
+<p><strong>Note about the video.</strong> In it, I’m using an older version of the code above where I compute the data for the curves and plot them manually. You can skip over those parts without missing anything important.</p>
 <div style="max-width:608px"><div style="position:relative;padding-bottom:66.118421052632%"><iframe id="kaltura_player" src="https://cdnapisec.kaltura.com/p/2358381/sp/235838100/embedIframeJs/uiconf_id/43030021/partner_id/2358381?iframeembed=true&playerId=kaltura_player&entry_id=1_apqqbhl3&flashvars[streamerType]=auto&amp;flashvars[localizationCode]=en&amp;flashvars[leadWithHTML5]=true&amp;flashvars[sideBarContainer.plugin]=true&amp;flashvars[sideBarContainer.position]=left&amp;flashvars[sideBarContainer.clickToClose]=true&amp;flashvars[chapters.plugin]=true&amp;flashvars[chapters.layout]=vertical&amp;flashvars[chapters.thumbnailRotator]=false&amp;flashvars[streamSelector.plugin]=true&amp;flashvars[EmbedPlayer.SpinnerTarget]=videoHolder&amp;flashvars[dualScreen.plugin]=true&amp;flashvars[Kaltura.addCrossoriginToIframe]=true&amp;&wid=1_w2notzkt" width="608" height="402" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen *; encrypted-media *" sandbox="allow-forms allow-same-origin allow-scripts allow-top-navigation allow-pointer-lock allow-popups allow-modals allow-orientation-lock allow-popups-to-escape-sandbox allow-presentation allow-top-navigation-by-user-activation" frameborder="0" title="Kaltura Player" style="position:absolute;top:0;left:0;width:100%;height:100%"></iframe></div></div></div>
 </div>
 

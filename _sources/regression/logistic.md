@@ -69,9 +69,19 @@ $$
 L(\bfw) = -\sum_{i=1}^n \left[ y_i \log(\hat{p}_i) + (1-y_i) \log(1-\hat{p}_i) \right].
 $$
 
-The logarithms above can have any base, since that only changes $L$ by a constant factor. Note that in cross-entropy, observation $i$ contributes $-\log(1-\hat{p}_i)$ if $y_i=0$ and $-\log(\hat{p}_i)$ if $y_i=1$. This loss function creates an unboundedly large penalty as $\hat{p}_i \to 1$ if $y_i=0$, and vice versa, which often makes it preferable to the least-squares alternative above.
+The logarithms above can have any base, since that choice only changes $L$ by a constant factor. Note that in cross-entropy, observation $i$ contributes $-\log(1-\hat{p}_i)$ if $y_i=0$ and $-\log(\hat{p}_i)$ if $y_i=1$. This loss function creates an unboundedly large penalty as $\hat{p}_i \to 1$ if $y_i=0$, and vice versa, which often makes it preferable to the least-squares alternative above.
 
-Logistic regression does have a major disadvantage compared to (multi)linear regression: the minimization of loss does *not* lead to a linear problem for the weight vector $\bfw$. The difference in practice is usually not concerning, though. As with other forms of regression, the loss function may be regularized using the ridge or LASSO penalty. As we covered earlier, there is a regularization parameter $C$ that emphasizes small $\norm{\bfw}$ as $C\to 0$, and pure regression as $C\to \infty$. 
+Logistic regression does have a major disadvantage compared to (multi)linear regression: the minimization of loss does *not* lead to a linear problem for the weight vector $\bfw$. The difference in practice is usually not concerning, though.
+
+## Regularization
+
+As with other forms of regression, the loss function may be regularized using the ridge or LASSO penalty. The standard formulation is 
+
+$$
+\widetilde{L}(\bfw) = C \, L(\bfw) + \norm{\bfw},
+$$
+
+where $C$ is a positive hyperparameter and the vector norm is either the 2-norm (ridge) or 1-norm (LASSO). Note that $C$ functions like the inverse of the regularization parameter $\alpha$ in our linear regressor. This is simply a different convention (like the one for the SVM), but it means that smaller values of $C$ imply *greater* amounts of regularization.
 
 ## Case study: Personal spam filter
 
@@ -107,38 +117,42 @@ from sklearn.linear_model import LogisticRegression
 logr = LogisticRegression(C=100,solver="liblinear")
 pipe = make_pipeline(StandardScaler(),logr)
 pipe.fit(X_tr,y_tr)
-pipe.score(X_te,y_te)
+print("accuracy:",pipe.score(X_te,y_te))
 ```
 
-Let's look at the most extreme regression coefficients.
+Let's look at the most extreme regression coefficients, associating them with the feature names and then sorting the results:
 
 ```{code-cell} ipython3
-pd.Series(logr.coef_[0],index=X.columns).sort_values()
+coef = pd.Series(logr.coef_[0],index=X.columns).sort_values()
+print("least spammy:")
+print(coef[:4])
+print("\nmost spammy:")
+print(coef[-4:])
 ```
 
-The word "george" is a strong counter-indicator for spam (remember that this data set comes from an individual), while the presence of "free" or consecutive capital letters is a strong signal of spam. 
+The word "george" is a strong counter-indicator for spam (remember that this data set comes from an individual). Its presence makes the inner product $\bfx^T\bfw$ more negative, which drives the logistic function closer to 0. Conversely, the presence of consecutive capital letters increases the inner product and pushes the probability closer to 1. 
 
-The predictions by the regressor are all either 0 or 1. But we can also see the forecasted probabilities before rounding.
+The predictions by the regressor are all either 0 or 1. But we can also see the forecasted probabilities before thresholding.
 
 ```{code-cell} ipython3
-print("classes:")
+print("predicted classes:")
 print(pipe.predict(X_tr.iloc[:5,:]))
 print("\nprobabilities:")
 print(pipe.predict_proba(X_tr.iloc[:5,:]))
 ```
 
-The probabilities might be useful for making decisions based on the results. They can also be used to create an ROC curve.
+The probabilities might be useful for making decisions based on the results. For example, the first instance above was much less certain about the classification than the second, and a lower threshold for determining spam might have changed the class to 1. The probability matrix can be used to create an ROC curve showing the tradeoffs over all thresholds.
 
-For a validation-based selection of the best regularization parameter value, we can use `LogisticRegressionCV`.
+For a validation-based selection of the best regularization parameter value, we can use `LogisticRegressionCV`, which is basically a convenience method for a grid search. You can specify which values of $C$ to search over, or just say how many, as we do here:
 
 ```{code-cell} ipython3
 from sklearn.linear_model import LogisticRegressionCV
-logr = LogisticRegressionCV(Cs=40,cv=5,solver="liblinear")
+logr = LogisticRegressionCV(Cs=40,cv=5,solver="liblinear",random_state=0)
 pipe = make_pipeline(StandardScaler(),logr)
 pipe.fit(X_tr,y_tr)
 
 print(f"best C value: {logr.C_[0]:.3g}")
-print(f"R2 score: {pipe.score(X_te,y_te):.4f}")
+print(f"accuracy score: {pipe.score(X_te,y_te):.4f}")
 ```
 
 ## Multiclass case
@@ -171,7 +185,7 @@ X_tr,X_te,y_tr,y_te = train_test_split(X,y,test_size=0.2,shuffle=True,random_sta
 logr = LogisticRegression(solver="liblinear")
 pipe = make_pipeline(StandardScaler(),logr)
 pipe.fit(X_tr,y_tr)
-print("CofD score:",pipe.score(X_te,y_te))
+print("accuracy score:",pipe.score(X_te,y_te))
 ```
 
 We can now look at predictions of probability for each class.
@@ -192,7 +206,7 @@ import numpy as np
 sns.displot(x=np.max(p_hat,axis=1));
 ```
 
-You can see from the plot that a solid majority of classifications are made with at least 90% probability. So if we set a high threshold for classification, we should get few false positives while still getting good recall. In fact, the AUC-ROC score is very high:
+You can see from the plot that a solid majority of classifications are made with at least 90% probability. So if we set a high threshold for classification, we should get few false positives while still getting good recall. An AUC-ROC score can be computed by averaging the values over the curves for each class. In this case, AUC-ROC score is very high:
 
 ```{code-cell} ipython3
 from sklearn.metrics import roc_auc_score

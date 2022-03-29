@@ -44,7 +44,7 @@
     <script src="../_static/copybutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/sphinx-book-theme.9d8b4a8b9bb19db25eeaddc40d639ba2.js"></script>
-    <script>window.MathJax = {"tex": {"macros": {"float": ["\\mathbb{F}"], "real": ["\\mathbb{R}"], "complex": ["\\mathbb{C}"], "nat": ["\\mathbb{N}"], "integer": ["\\mathbb{Z}"], "bfa": "\\mathbf{a}", "bfe": "\\mathbf{e}", "bfx": "\\mathbf{x}", "bfX": "\\mathbf{X}", "bfu": "\\mathbf{u}", "bfv": "\\mathbf{v}", "bfw": "\\mathbf{w}", "bfy": "\\mathbf{y}", "bfz": "\\mathbf{z}", "bfzero": "\\boldsymbol{0}", "bfmu": "\\boldsymbol{\\mu}", "TP": "\\text{TP}", "TN": "\\text{TN}", "FP": "\\text{FP}", "FN": "\\text{FN}", "rmn": ["\\mathbb{R}^{#1 \\times #2}", 2], "dd": ["\\frac{d #1}{d #2}", 2], "pp": ["\\frac{\\partial #1}{\\partial #2}", 2], "norm": ["\\left\\lVert #1 \\right\\rVert", 1], "abs": ["\\left\\lvert #1 \\right\\rvert", 1], "twonorm": ["\\norm{#1}_2", 1], "onenorm": ["\\norm{#1}_1", 1], "infnorm": ["\\norm{#1}_\\infty", 1], "innerprod": ["\\langle #1,#2 \\rangle", 2], "pr": ["^{(#1)}", 1], "diag": ["\\operatorname{diag}"], "sign": ["\\operatorname{sign}"], "dist": ["\\operatorname{dist}"], "simil": ["\\operatorname{sim}"], "ee": ["\\times 10^"], "floor": ["\\lfloor#1\\rfloor", 1], "argmin": ["\\operatorname{argmin}"], "Cov": ["\\operatorname{Cov}"], "logit": ["\\operatorname{logit}"]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script>window.MathJax = {"tex": {"macros": {"float": ["\\mathbb{F}"], "real": ["\\mathbb{R}"], "complex": ["\\mathbb{C}"], "nat": ["\\mathbb{N}"], "integer": ["\\mathbb{Z}"], "bfa": "\\mathbf{a}", "bfe": "\\mathbf{e}", "bfx": "\\mathbf{x}", "bfX": "\\mathbf{X}", "bfu": "\\mathbf{u}", "bfv": "\\mathbf{v}", "bfw": "\\mathbf{w}", "bfy": "\\mathbf{y}", "bfz": "\\mathbf{z}", "bfzero": "\\boldsymbol{0}", "bfmu": "\\boldsymbol{\\mu}", "TP": "\\text{TP}", "TN": "\\text{TN}", "FP": "\\text{FP}", "FN": "\\text{FN}", "rmn": ["\\mathbb{R}^{#1 \\times #2}", 2], "dd": ["\\frac{d #1}{d #2}", 2], "pp": ["\\frac{\\partial #1}{\\partial #2}", 2], "norm": ["\\left\\lVert \\mathstrut #1 \\right\\rVert", 1], "abs": ["\\left\\lvert \\mathstrut #1 \\right\\rvert", 1], "twonorm": ["\\norm{#1}_2", 1], "onenorm": ["\\norm{#1}_1", 1], "infnorm": ["\\norm{#1}_\\infty", 1], "innerprod": ["\\langle #1,#2 \\rangle", 2], "pr": ["^{(#1)}", 1], "diag": ["\\operatorname{diag}"], "sign": ["\\operatorname{sign}"], "dist": ["\\operatorname{dist}"], "simil": ["\\operatorname{sim}"], "ee": ["\\times 10^"], "floor": ["\\lfloor#1\\rfloor", 1], "argmin": ["\\operatorname{argmin}"], "Cov": ["\\operatorname{Cov}"], "logit": ["\\operatorname{logit}"]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
     <script>
@@ -435,6 +435,11 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#regularization">
+   Regularization
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#case-study-personal-spam-filter">
    Case study: Personal spam filter
   </a>
@@ -472,6 +477,11 @@
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#loss-function">
    Loss function
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#regularization">
+   Regularization
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -546,8 +556,17 @@ p \approx \sigma(\bfx^T\bfw).
 \[
 L(\bfw) = -\sum_{i=1}^n \left[ y_i \log(\hat{p}_i) + (1-y_i) \log(1-\hat{p}_i) \right].
 \]</div>
-<p>The logarithms above can have any base, since that only changes <span class="math notranslate nohighlight">\(L\)</span> by a constant factor. Note that in cross-entropy, observation <span class="math notranslate nohighlight">\(i\)</span> contributes <span class="math notranslate nohighlight">\(-\log(1-\hat{p}_i)\)</span> if <span class="math notranslate nohighlight">\(y_i=0\)</span> and <span class="math notranslate nohighlight">\(-\log(\hat{p}_i)\)</span> if <span class="math notranslate nohighlight">\(y_i=1\)</span>. This loss function creates an unboundedly large penalty as <span class="math notranslate nohighlight">\(\hat{p}_i \to 1\)</span> if <span class="math notranslate nohighlight">\(y_i=0\)</span>, and vice versa, which often makes it preferable to the least-squares alternative above.</p>
-<p>Logistic regression does have a major disadvantage compared to (multi)linear regression: the minimization of loss does <em>not</em> lead to a linear problem for the weight vector <span class="math notranslate nohighlight">\(\bfw\)</span>. The difference in practice is usually not concerning, though. As with other forms of regression, the loss function may be regularized using the ridge or LASSO penalty. As we covered earlier, there is a regularization parameter <span class="math notranslate nohighlight">\(C\)</span> that emphasizes small <span class="math notranslate nohighlight">\(\norm{\bfw}\)</span> as <span class="math notranslate nohighlight">\(C\to 0\)</span>, and pure regression as <span class="math notranslate nohighlight">\(C\to \infty\)</span>.</p>
+<p>The logarithms above can have any base, since that choice only changes <span class="math notranslate nohighlight">\(L\)</span> by a constant factor. Note that in cross-entropy, observation <span class="math notranslate nohighlight">\(i\)</span> contributes <span class="math notranslate nohighlight">\(-\log(1-\hat{p}_i)\)</span> if <span class="math notranslate nohighlight">\(y_i=0\)</span> and <span class="math notranslate nohighlight">\(-\log(\hat{p}_i)\)</span> if <span class="math notranslate nohighlight">\(y_i=1\)</span>. This loss function creates an unboundedly large penalty as <span class="math notranslate nohighlight">\(\hat{p}_i \to 1\)</span> if <span class="math notranslate nohighlight">\(y_i=0\)</span>, and vice versa, which often makes it preferable to the least-squares alternative above.</p>
+<p>Logistic regression does have a major disadvantage compared to (multi)linear regression: the minimization of loss does <em>not</em> lead to a linear problem for the weight vector <span class="math notranslate nohighlight">\(\bfw\)</span>. The difference in practice is usually not concerning, though.</p>
+</div>
+<div class="section" id="regularization">
+<h2>Regularization<a class="headerlink" href="#regularization" title="Permalink to this headline">¶</a></h2>
+<p>As with other forms of regression, the loss function may be regularized using the ridge or LASSO penalty. The standard formulation is</p>
+<div class="math notranslate nohighlight">
+\[
+\widetilde{L}(\bfw) = C \, L(\bfw) + \norm{\bfw},
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(C\)</span> is a positive hyperparameter and the vector norm is either the 2-norm (ridge) or 1-norm (LASSO). Note that <span class="math notranslate nohighlight">\(C\)</span> functions like the inverse of the regularization parameter <span class="math notranslate nohighlight">\(\alpha\)</span> in our linear regressor. This is simply a different convention (like the one for the SVM), but it means that smaller values of <span class="math notranslate nohighlight">\(C\)</span> imply <em>greater</em> amounts of regularization.</p>
 </div>
 <div class="section" id="case-study-personal-spam-filter">
 <h2>Case study: Personal spam filter<a class="headerlink" href="#case-study-personal-spam-filter" title="Permalink to this headline">¶</a></h2>
@@ -900,91 +919,50 @@ L(\bfw) = -\sum_{i=1}^n \left[ y_i \log(\hat{p}_i) + (1-y_i) \log(1-\hat{p}_i) \
 <span class="n">logr</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">C</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span><span class="n">solver</span><span class="o">=</span><span class="s2">&quot;liblinear&quot;</span><span class="p">)</span>
 <span class="n">pipe</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">StandardScaler</span><span class="p">(),</span><span class="n">logr</span><span class="p">)</span>
 <span class="n">pipe</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_tr</span><span class="p">,</span><span class="n">y_tr</span><span class="p">)</span>
-<span class="n">pipe</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_te</span><span class="p">,</span><span class="n">y_te</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;accuracy:&quot;</span><span class="p">,</span><span class="n">pipe</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_te</span><span class="p">,</span><span class="n">y_te</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.9337676438653637
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>accuracy: 0.9337676438653637
 </pre></div>
 </div>
 </div>
 </div>
-<p>Let’s look at the most extreme regression coefficients.</p>
+<p>Let’s look at the most extreme regression coefficients, associating them with the feature names and then sorting the results:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">logr</span><span class="o">.</span><span class="n">coef_</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">index</span><span class="o">=</span><span class="n">X</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">coef</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">logr</span><span class="o">.</span><span class="n">coef_</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">index</span><span class="o">=</span><span class="n">X</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;least spammy:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">coef</span><span class="p">[:</span><span class="mi">4</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">most spammy:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">coef</span><span class="p">[</span><span class="o">-</span><span class="mi">4</span><span class="p">:])</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>word_freq_george             -24.055873
-word_freq_cs                  -8.573934
-word_freq_hp                  -3.512677
-word_freq_meeting             -1.940974
-word_freq_lab                 -1.469316
-word_freq_edu                 -1.460705
-word_freq_hpl                 -1.181911
-word_freq_85                  -1.177344
-word_freq_re                  -0.981293
-word_freq_conference          -0.934152
-word_freq_project             -0.776980
-word_freq_pm                  -0.477826
-char_freq_%3B                 -0.379451
-capital_run_length_average    -0.367801
-word_freq_data                -0.346597
-word_freq_labs                -0.287406
-word_freq_original            -0.271247
-char_freq_%5B                 -0.209782
-word_freq_address             -0.196341
-word_freq_table               -0.183580
-word_freq_parts               -0.165103
-word_freq_direct              -0.135774
-word_freq_will                -0.132897
-word_freq_1999                -0.124816
-word_freq_make                -0.110128
-word_freq_receive             -0.082429
-char_freq_%28                 -0.067925
-word_freq_people              -0.021478
-word_freq_email               -0.004437
-word_freq_report               0.022125
-word_freq_all                  0.058893
-word_freq_mail                 0.076243
-word_freq_money                0.149010
-word_freq_you                  0.162890
-word_freq_order                0.183803
-word_freq_telnet               0.212813
-word_freq_over                 0.221469
-word_freq_650                  0.230857
-word_freq_font                 0.239646
-word_freq_your                 0.249595
-word_freq_415                  0.249837
-char_freq_%21                  0.250076
-word_freq_internet             0.265411
-word_freq_857                  0.281856
-word_freq_our                  0.295921
-word_freq_business             0.396552
-word_freq_technology           0.417834
-capital_run_length_total       0.428443
-word_freq_credit               0.458949
-word_freq_addresses            0.504272
-word_freq_000                  0.730850
-word_freq_remove               0.802990
-word_freq_free                 1.135052
-char_freq_%23                  1.155145
-char_freq_%24                  1.262550
-capital_run_length_longest     1.975006
-word_freq_3d                   2.112929
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>least spammy:
+word_freq_george    -24.055873
+word_freq_cs         -8.573934
+word_freq_hp         -3.512677
+word_freq_meeting    -1.940974
+dtype: float64
+
+most spammy:
+char_freq_%23                 1.155145
+char_freq_%24                 1.262550
+capital_run_length_longest    1.975006
+word_freq_3d                  2.112929
 dtype: float64
 </pre></div>
 </div>
 </div>
 </div>
-<p>The word “george” is a strong counter-indicator for spam (remember that this data set comes from an individual), while the presence of “free” or consecutive capital letters is a strong signal of spam.</p>
-<p>The predictions by the regressor are all either 0 or 1. But we can also see the forecasted probabilities before rounding.</p>
+<p>The word “george” is a strong counter-indicator for spam (remember that this data set comes from an individual). Its presence makes the inner product <span class="math notranslate nohighlight">\(\bfx^T\bfw\)</span> more negative, which drives the logistic function closer to 0. Conversely, the presence of consecutive capital letters increases the inner product and pushes the probability closer to 1.</p>
+<p>The predictions by the regressor are all either 0 or 1. But we can also see the forecasted probabilities before thresholding.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;classes:&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;predicted classes:&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">pipe</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_tr</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="mi">5</span><span class="p">,:]))</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">probabilities:&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">pipe</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_tr</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="mi">5</span><span class="p">,:]))</span>
@@ -992,7 +970,7 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>classes:
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>predicted classes:
 [0 0 0 0 0]
 
 probabilities:
@@ -1005,23 +983,23 @@ probabilities:
 </div>
 </div>
 </div>
-<p>The probabilities might be useful for making decisions based on the results. They can also be used to create an ROC curve.</p>
-<p>For a validation-based selection of the best regularization parameter value, we can use <code class="docutils literal notranslate"><span class="pre">LogisticRegressionCV</span></code>.</p>
+<p>The probabilities might be useful for making decisions based on the results. For example, the first instance above was much less certain about the classification than the second, and a lower threshold for determining spam might have changed the class to 1. The probability matrix can be used to create an ROC curve showing the tradeoffs over all thresholds.</p>
+<p>For a validation-based selection of the best regularization parameter value, we can use <code class="docutils literal notranslate"><span class="pre">LogisticRegressionCV</span></code>, which is basically a convenience method for a grid search. You can specify which values of <span class="math notranslate nohighlight">\(C\)</span> to search over, or just say how many, as we do here:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegressionCV</span>
-<span class="n">logr</span> <span class="o">=</span> <span class="n">LogisticRegressionCV</span><span class="p">(</span><span class="n">Cs</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span><span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span><span class="n">solver</span><span class="o">=</span><span class="s2">&quot;liblinear&quot;</span><span class="p">)</span>
+<span class="n">logr</span> <span class="o">=</span> <span class="n">LogisticRegressionCV</span><span class="p">(</span><span class="n">Cs</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span><span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span><span class="n">solver</span><span class="o">=</span><span class="s2">&quot;liblinear&quot;</span><span class="p">,</span><span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">pipe</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">StandardScaler</span><span class="p">(),</span><span class="n">logr</span><span class="p">)</span>
 <span class="n">pipe</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_tr</span><span class="p">,</span><span class="n">y_tr</span><span class="p">)</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;best C value: </span><span class="si">{</span><span class="n">logr</span><span class="o">.</span><span class="n">C_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.3g</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;R2 score: </span><span class="si">{</span><span class="n">pipe</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_te</span><span class="p">,</span><span class="n">y_te</span><span class="p">)</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;accuracy score: </span><span class="si">{</span><span class="n">pipe</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_te</span><span class="p">,</span><span class="n">y_te</span><span class="p">)</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>best C value: 21.5
-R2 score: 0.9349
+accuracy score: 0.9349
 </pre></div>
 </div>
 </div>
@@ -1054,12 +1032,12 @@ R2 score: 0.9349
 <span class="n">logr</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">solver</span><span class="o">=</span><span class="s2">&quot;liblinear&quot;</span><span class="p">)</span>
 <span class="n">pipe</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">StandardScaler</span><span class="p">(),</span><span class="n">logr</span><span class="p">)</span>
 <span class="n">pipe</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_tr</span><span class="p">,</span><span class="n">y_tr</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;CofD score:&quot;</span><span class="p">,</span><span class="n">pipe</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_te</span><span class="p">,</span><span class="n">y_te</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;accuracy score:&quot;</span><span class="p">,</span><span class="n">pipe</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_te</span><span class="p">,</span><span class="n">y_te</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CofD score: 0.98705966930266
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>accuracy score: 0.98705966930266
 </pre></div>
 </div>
 </div>
@@ -1220,7 +1198,7 @@ R2 score: 0.9349
 <img alt="../_images/logistic_19_0.png" src="../_images/logistic_19_0.png" />
 </div>
 </div>
-<p>You can see from the plot that a solid majority of classifications are made with at least 90% probability. So if we set a high threshold for classification, we should get few false positives while still getting good recall. In fact, the AUC-ROC score is very high:</p>
+<p>You can see from the plot that a solid majority of classifications are made with at least 90% probability. So if we set a high threshold for classification, we should get few false positives while still getting good recall. An AUC-ROC score can be computed by averaging the values over the curves for each class. In this case, AUC-ROC score is very high:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">roc_auc_score</span>
