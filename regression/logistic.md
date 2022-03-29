@@ -143,21 +143,20 @@ print(f"R2 score: {pipe.score(X_te,y_te):.4f}")
 
 ## Multiclass case
 
-When there are more than two unique labels possible, logistic regression can be extended through the **one-vs-rest** paradigm. Given $K$ classes, there are $K$ binary regressors fit for the outcomes "class 1/not class 1," "class 2/not class 2," and so on. This gives predictive relative probabilities $q_1,\ldots,q_K$ for the occurrence of each individual class. Since they need not sum to 1, they can be normalized into predicted probabilities via
+When there are more than two unique labels possible, logistic regression can be extended through the **one-vs-rest** (OVR) paradigm. Given $K$ classes, there are $K$ binary regressors fit for the outcomes "class 1/not class 1," "class 2/not class 2," and so on, giving $K$ different coefficient vectors, $\bfw_k$. Now for a sample point $\bfx_i$ we predict probabilities for it being in each class:
 
 $$
-\hat{p}_i = \frac{q_i}{\sum_{k=1}^K q_k}.
+\hat{q}_{i,k} = \sigma(\bfx_i^T \bfw_k), \qquad k=1,\ldots,K. 
 $$
 
-<!-- 
-Another way to convert them is by using a **softmax** function:
+Since the $K$ OVR regressors are done independently, there is no reason to think these probabilities will sum to 1 over all the classes. But it's easy to normalize them:
 
 $$
-p_i = \frac{e^{q_i}}{\sum_{k=1}^K e^{q_k}}.
+\hat{p}_{i,k} = \frac{\hat{q}_{i,k}}{\sum_{k=1}^K \hat{q}_{i,k}}.
 $$
 
-The softmax exaggerates differences between the $q_i$, making the result closer to a "winner takes all" result.
- -->
+That is, we get a matrix of probabilities. Each of the $n$ rows gives the class probabilities at a single sample point, and each of the $K$ columns gives the probability of one class at all the samples.
+
 
 ## Case study: Gas sensor drift
 
@@ -199,3 +198,5 @@ You can see from the plot that a solid majority of classifications are made with
 from sklearn.metrics import roc_auc_score
 roc_auc_score(y_te,p_hat,multi_class="ovr")
 ```
+
+<div style="max-width:608px"><div style="position:relative;padding-bottom:66.118421052632%"><iframe id="kaltura_player" src="https://cdnapisec.kaltura.com/p/2358381/sp/235838100/embedIframeJs/uiconf_id/43030021/partner_id/2358381?iframeembed=true&playerId=kaltura_player&entry_id=1_mr2gh70i&flashvars[streamerType]=auto&amp;flashvars[localizationCode]=en&amp;flashvars[leadWithHTML5]=true&amp;flashvars[sideBarContainer.plugin]=true&amp;flashvars[sideBarContainer.position]=left&amp;flashvars[sideBarContainer.clickToClose]=true&amp;flashvars[chapters.plugin]=true&amp;flashvars[chapters.layout]=vertical&amp;flashvars[chapters.thumbnailRotator]=false&amp;flashvars[streamSelector.plugin]=true&amp;flashvars[EmbedPlayer.SpinnerTarget]=videoHolder&amp;flashvars[dualScreen.plugin]=true&amp;flashvars[Kaltura.addCrossoriginToIframe]=true&amp;&wid=1_en335xwu" width="608" height="402" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen *; encrypted-media *" sandbox="allow-forms allow-same-origin allow-scripts allow-top-navigation allow-pointer-lock allow-popups allow-modals allow-orientation-lock allow-popups-to-escape-sandbox allow-presentation allow-top-navigation-by-user-activation" frameborder="0" title="Kaltura Player" style="position:absolute;top:0;left:0;width:100%;height:100%"></iframe></div></div>
