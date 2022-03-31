@@ -144,7 +144,7 @@ ax.set_aspect(1)
 ax.legend(knn.classes_);
 ```
 
-ROC curves lead to another classification performance metric known as **area under ROC curve** (AUC-ROC). Its name tells you exactly what it is, and it ranges between zero (bad) and one (ideal). Unlike the other classification metrics we have encountered, AUC-ROC tries to account not just for the final result of the classification, which nominally occurs when the threshold is $\tfrac{1}{2}, but also for the confidence with which those results can be predicted.
+ROC curves lead to another classification performance metric known as **area under ROC curve** (AUC-ROC). Its name tells you exactly what it is, and it ranges between zero (bad) and one (ideal). Unlike the other classification metrics we have encountered, AUC-ROC tries to account not just for the final result of the classification, which nominally occurs when the threshold is $\tfrac{1}{2}$, but also for the confidence with which those results can be predicted.
 
 The function `roc_auc_score` requires a keyword argument when there are more than two classes, to specify "one vs. rest" or "one vs. one" matchups.
 
