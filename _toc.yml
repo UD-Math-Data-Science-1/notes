@@ -42,6 +42,7 @@ chapters:
     - file: clustering/k-means
     - file: clustering/hierarchical
     - file: clustering/dbscan
+    - file: clustering/exercises
   - file: network/overview
     sections:
     - file: network/networkx
