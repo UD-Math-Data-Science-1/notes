@@ -22,8 +22,8 @@
       
 
     
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=84ace793992934648b4de8eed757e5a2" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
@@ -35,24 +35,26 @@
     
   <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
 
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../_static/sphinx-book-theme.9d8b4a8b9bb19db25eeaddc40d639ba2.js"></script>
-    <script>window.MathJax = {"tex": {"macros": {"float": ["\\mathbb{F}"], "real": ["\\mathbb{R}"], "complex": ["\\mathbb{C}"], "nat": ["\\mathbb{N}"], "integer": ["\\mathbb{Z}"], "bfa": "\\mathbf{a}", "bfe": "\\mathbf{e}", "bfx": "\\mathbf{x}", "bfX": "\\mathbf{X}", "bfu": "\\mathbf{u}", "bfv": "\\mathbf{v}", "bfw": "\\mathbf{w}", "bfy": "\\mathbf{y}", "bfz": "\\mathbf{z}", "bfzero": "\\boldsymbol{0}", "bfmu": "\\boldsymbol{\\mu}", "TP": "\\text{TP}", "TN": "\\text{TN}", "FP": "\\text{FP}", "FN": "\\text{FN}", "rmn": ["\\mathbb{R}^{#1 \\times #2}", 2], "dd": ["\\frac{d #1}{d #2}", 2], "pp": ["\\frac{\\partial #1}{\\partial #2}", 2], "norm": ["\\left\\lVert \\mathstrut #1 \\right\\rVert", 1], "abs": ["\\left\\lvert \\mathstrut #1 \\right\\rvert", 1], "twonorm": ["\\norm{#1}_2", 1], "onenorm": ["\\norm{#1}_1", 1], "infnorm": ["\\norm{#1}_\\infty", 1], "innerprod": ["\\langle #1,#2 \\rangle", 2], "pr": ["^{(#1)}", 1], "diag": ["\\operatorname{diag}"], "sign": ["\\operatorname{sign}"], "dist": ["\\operatorname{dist}"], "simil": ["\\operatorname{sim}"], "ee": ["\\times 10^"], "floor": ["\\lfloor#1\\rfloor", 1], "argmin": ["\\operatorname{argmin}"], "Cov": ["\\operatorname{Cov}"], "logit": ["\\operatorname{logit}"]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
-    <script>
-        const thebe_selector = ".thebe,.cell"
-        const thebe_selector_input = "pre,.cell_input div.highlight"
-        const thebe_selector_output = ".output,.cell_output"
-    </script>
+    <script >let toggleHintShow = 'Click to show';</script>
+    <script >let toggleHintHide = 'Click to hide';</script>
+    <script >let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script >const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"processClass": "tex2jax_process|mathjax_process|math|output_area"}})</script>
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -74,12 +76,7 @@
     <div class="container-xl">
       <div class="row">
           
-<!-- Checkboxes to toggle the left sidebar -->
-<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
-<label class="overlay" for="__navigation">
-    <div class="visually-hidden">Toggle navigation sidebar</div>
-</label>
-<div class="col-12 col-md-3 bd-sidebar site-navigation " id="site-navigation">
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
     
         <div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../index.html">
@@ -310,6 +307,11 @@
      5.5. DBSCAN
     </a>
    </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="exercises.html">
+     5.6. Exercises
+    </a>
+   </li>
   </ul>
  </li>
  <li class="toctree-l1 has-children">
@@ -350,22 +352,22 @@
 
 
           
-<!-- This is an invisible pixel that we watch to see if we've scrolled. -->
-<div class="sbt-scroll-pixel-helper"></div>
 <main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
     
     <div class="topbar container-xl fixed-top">
     <div class="topbar-contents row">
         <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
         <div class="col pl-md-4 topbar-main">
-            <div class="topbar-left">
-                
-                <label class="nav-toggle-button" for="__navigation">
-                    <div class="visually-hidden">Toggle navigation</div>
-                    <i class="fas fa-bars"></i>
-                </label>
-                
-            </div>
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
             
 <div class="dropdown-buttons-trigger">
     <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
@@ -411,7 +413,6 @@
         
         
         
-        
         <button type="button" class="btn btn-secondary topbarbtn"
             onclick="initThebeSBT()" title="Launch Thebe" data-toggle="tooltip" data-placement="left"><i
                 class="fas fa-play"></i><span style="margin-left: .4em;">Live Code</span></button>
@@ -429,6 +430,11 @@
             </div>
             <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#distance-metrics">
+   Distance metrics
+  </a>
+ </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#probability-distributions">
    Probability distributions
@@ -472,6 +478,11 @@
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#distance-metrics">
+   Distance metrics
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#probability-distributions">
    Probability distributions
   </a>
@@ -504,46 +515,61 @@
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="similarity-and-distance">
 <h1><span class="section-number">5.1. </span>Similarity and distance<a class="headerlink" href="#similarity-and-distance" title="Permalink to this headline">¶</a></h1>
-<p>Given an <span class="math notranslate nohighlight">\(n\times d\)</span> feature matrix, we want to define disjoint subsets of the <span class="math notranslate nohighlight">\(\bfx_i\)</span> such that the samples within a cluster are more similar to one another than they are to members of other clusters.</p>
+<p>Given an <span class="math notranslate nohighlight">\(n\times d\)</span> feature matrix, we want to define disjoint subsets of the <span class="math notranslate nohighlight">\(\bfx_i\)</span> such that the samples within a subset, or <strong>cluster</strong>, are more similar to one another than they are to members of other clusters.</p>
 <p>The first decision we have to make is how to measure <em>similarity</em>. When a distance metric is available, we consider similarity to be inversely related to distance. For example, if we have defined a distance function between pairs of vectors as <span class="math notranslate nohighlight">\(\dist(\bfx,\bfy)\)</span>, then we could define similarity as</p>
 <div class="math notranslate nohighlight">
 \[
 \simil(\bfx,\bfy) = \exp \left[ - \frac{\dist(\bfx,\bfy)^2}{2\sigma^2}  \right].
 \]</div>
-<p>A distance of zero implies a similarity of 1, while the similarity tends to zero as distance increases. The scaling parameter <span class="math notranslate nohighlight">\(\sigma\)</span> controls the rate of drop; for instance, when the distance is <span class="math notranslate nohighlight">\(\sigma\)</span>, the similarity is <span class="math notranslate nohighlight">\(e^{-1/2}\approx 0.6\)</span>. To create a distance metric from a similarity measure, we could invert the functional relationship above, provided that similarity is scaled to lie between 0 and 1.</p>
+<p>Thus a distance of zero implies a similarity of 1, while the similarity tends to zero as distance increases. The scaling parameter <span class="math notranslate nohighlight">\(\sigma\)</span> controls the rate of decrease; for instance, when the distance is <span class="math notranslate nohighlight">\(\sigma\)</span>, the similarity is <span class="math notranslate nohighlight">\(e^{-1/2}\approx 0.6\)</span>.</p>
+<p>There are ways to define similarity without making use of a distance, but we won’t be using them.</p>
+<div class="section" id="distance-metrics">
+<h2>Distance metrics<a class="headerlink" href="#distance-metrics" title="Permalink to this headline">¶</a></h2>
+<div class="proof definition admonition" id="definition-similarity-metric">
+<p class="admonition-title"><span class="caption-number">Definition 5.1.1 </span></p>
+<div class="definition-content section" id="proof-content">
+<p>A <strong>distance metric</strong> is a function dist on pairs of vectors that satisfies the following properties for all vectors:</p>
+<ol class="simple">
+<li><p><span class="math notranslate nohighlight">\(\dist(\bfx,\bfy)=0\)</span> if and only if <span class="math notranslate nohighlight">\(\bfx=\bfy\)</span>,</p></li>
+<li><p><span class="math notranslate nohighlight">\(\dist(\bfx,\bfy) = \dist(\bfy,\bfx)\)</span>, and</p></li>
+<li><p><span class="math notranslate nohighlight">\(\dist(\bfx,\bfy) \le \dist(\bfx,\bfz) + \dist(\bfz,\bfy)\)</span>, known as the triangle inequality.</p></li>
+</ol>
+</div>
+</div><p>These are considered the essential axioms of a distance metric. From them, you can also deduce that the distance function is always nonnegative. The term <em>distance metric</em> isn’t always used carefully to mean a function satisfying the three axioms, however, and some applications use a metric that does not satisfy the triangle inequality.</p>
 <p>We already have the distance metric</p>
 <div class="math notranslate nohighlight">
 \[
 \dist(\bfx,\bfy) = \norm{\bfx-\bfy}
 \]</div>
-<p>for any vector norm. It satisfies the three properties</p>
-<ol class="simple">
-<li><p><span class="math notranslate nohighlight">\(\dist(\bfx,\bfy)=0\)</span> if and only if <span class="math notranslate nohighlight">\(\bfx=\bfy\)</span>,</p></li>
-<li><p><span class="math notranslate nohighlight">\(\dist(\bfx,\bfy) = \dist(\bfy,\bfx)\)</span>, and</p></li>
-<li><p><span class="math notranslate nohighlight">\(\dist(\bfx,\bfy) \le \dist(\bfx,\bfz) + \dist(\bfz,\bfy)\)</span>.</p></li>
-</ol>
-<p>These are considered the essential axioms of a distance metric. From them, you can also deduce that the distance function is always nonnegative.</p>
-<p>The term <em>distance metric</em> isn’t always used carefully to mean a function satisfying the three axioms, however, and a distance function derived from a similarity function may violate them.</p>
-<p>One other proper distance metric is <strong>angular distance</strong>. Generalizing from 2D and 3D vector geometry, we define the angle <span class="math notranslate nohighlight">\(\theta\)</span> between vectors <span class="math notranslate nohighlight">\(\bfu\)</span> and <span class="math notranslate nohighlight">\(\bfv\)</span> in <span class="math notranslate nohighlight">\(\real^d\)</span> by</p>
+<p>for any vector norm.</p>
+<p>Another proper distance metric is <strong>angular distance</strong>. Generalizing from 2D and 3D vector geometry, we define the angle <span class="math notranslate nohighlight">\(\theta\)</span> between vectors <span class="math notranslate nohighlight">\(\bfu\)</span> and <span class="math notranslate nohighlight">\(\bfv\)</span> in <span class="math notranslate nohighlight">\(\real^d\)</span> by</p>
 <div class="math notranslate nohighlight">
 \[
 \cos(\theta) = \frac{\mathbf{u}^T\mathbf{v}}{\twonorm{\mathbf{u}} \, \twonorm{\mathbf{v}}}.
 \]</div>
-<p>Then the quantity <span class="math notranslate nohighlight">\(\theta/\pi\)</span> is a distance metric. Because arccos is a relatively expensive computational operation, though, it’s more common to use <strong>cosine similarity</strong>, defined as <span class="math notranslate nohighlight">\(\cos(\theta)\)</span>, and the related <strong>cosine distance</strong> <span class="math notranslate nohighlight">\(\tfrac{1}{2}[1-\cos(\theta)]\)</span>, even though the latter does not satisfy the triangle inequality.</p>
+<p>Then the quantity <span class="math notranslate nohighlight">\(\theta/\pi\)</span> is a distance metric. Because arccos is a relatively expensive computational operation, though, it’s common to use <strong>cosine similarity</strong>, defined as <span class="math notranslate nohighlight">\(\cos(\theta)\)</span>, and the related <strong>cosine distance</strong> <span class="math notranslate nohighlight">\(\tfrac{1}{2}[1-\cos(\theta)]\)</span>, even though the latter does not satisfy the triangle inequality.</p>
 <p>Categorical variables can be included in distance measures. An ordinal variable is easily converted to equally spaced numerical values, which then may get a standard treatment. Nominal features are often compared using <strong>Hamming distance</strong>, which is just the total number of features that have different values in the two vectors.</p>
+</div>
 <div class="section" id="probability-distributions">
 <h2>Probability distributions<a class="headerlink" href="#probability-distributions" title="Permalink to this headline">¶</a></h2>
-<p>A <strong>discrete probability distribution</strong> is a vector <span class="math notranslate nohighlight">\(\bfx\)</span> whose components are nonnegative and satisfying <span class="math notranslate nohighlight">\(\onenorm{\bfx}=1\)</span>. Such a vector can be interpreted as frequencies or probabilities of observing different classes. One information-theoretic distance metric for probability distributions is <strong>information radius</strong>, defined as</p>
+<p>A <strong>discrete probability distribution</strong> is a vector <span class="math notranslate nohighlight">\(\bfx\)</span> whose components are nonnegative and satisfying <span class="math notranslate nohighlight">\(\onenorm{\bfx}=1\)</span>. Such a vector can be interpreted as frequencies or probabilities of observing different classes.</p>
+<p>We already encountered one way to measure the dissimilarity of two probability distributions, the <em>cross-entropy</em>:</p>
 <div class="math notranslate nohighlight">
 \[
-\operatorname{IR}(\bfu,\bfu) = \frac{1}{2} \left[ \operatorname{KL}(\bfu,\bfz) + \operatorname{KL}(\bfv,\bfz) \right],
+\operatorname{CE}(\bfx,\bfy) = -\sum_{i=1}^d x_i \log(y_i). 
 \]</div>
-<p>where <span class="math notranslate nohighlight">\(\bfz=(\bfu+\bfv)/2\)</span> and KL is the <em>Kullback–Leibler diveregence</em></p>
+<p>A related measure is the <em>Kullback–Leibler diveregence</em>, or relative entropy,</p>
 <div class="math notranslate nohighlight">
 \[
 \operatorname{KL}(\bfx,\bfy) = \sum_{i=1}^d x_i \log\left( \frac{x_i}{y_i} \right).
 \]</div>
-<p>Typically one uses a base-2 logarithm, in which case IR ranges between 0 and 1. Note that where <span class="math notranslate nohighlight">\(0\cdot \log(0)\)</span> is encountered in the KL definition, it equals zero, in accordance with its limiting value from calculus.</p>
+<p>Whenever <span class="math notranslate nohighlight">\(0\cdot \log(0)\)</span> is encountered in the CE or KL definitions, it equals zero, in accordance with its limiting value from calculus.</p>
+<p>Neither cross-entropy nor KL divergence are symmetric in their arguments. But there is a related true metric called <strong>information radius</strong>, defined as</p>
+<div class="math notranslate nohighlight">
+\[
+\operatorname{IR}(\bfu,\bfv) = \frac{1}{2} \left[ \operatorname{KL}(\bfu,\bfz) + \operatorname{KL}(\bfv,\bfz) \right]
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\bfz=(\bfu+\bfv)/2\)</span>. Typically one uses a base-2 logarithm, in which case IR ranges between 0 and 1.</p>
 <div class="proof example admonition" id="example-similarity-IR">
 <p class="admonition-title"><span class="caption-number">Example 5.1.1 </span></p>
 <div class="example-content section" id="proof-content">
@@ -572,7 +598,8 @@ Not surprisingly, these distribution vectors are as far apart as you can get.  -
 \[
 D_{ij} = \text{dist}(\bfx_i,\bfx_j).
 \]</div>
-<p>Note that <span class="math notranslate nohighlight">\(D_{ii}=0\)</span> and <span class="math notranslate nohighlight">\(D_{ji}=D_{ij}\)</span>. Many clustering algorithms allow supplying <span class="math notranslate nohighlight">\(\mathbf{D}\)</span> in lieu of the feature vectors. One can similarly define a <em>similarity matrix</em> using the Gaussian kernel. An advantage of similarity is that small values can be rounded down to zero. This has little effect on the results, but can create big gains in execution time and memory.</p>
+<p>Note that <span class="math notranslate nohighlight">\(D_{ii}=0\)</span> and <span class="math notranslate nohighlight">\(D_{ji}=D_{ij}\)</span>. Many clustering algorithms allow supplying <span class="math notranslate nohighlight">\(\mathbf{D}\)</span> in lieu of the feature vectors.</p>
+<p>One can analogously define a <em>similarity matrix</em> using the Gaussian kernel. An advantage of similarity is that small values can be rounded down to zero. This has little effect on the results, but can create big gains in execution time and memory usage.</p>
 <div class="section" id="toy-example">
 <h3>Toy example<a class="headerlink" href="#toy-example" title="Permalink to this headline">¶</a></h3>
 <p>Suppose we have sample points lying near the corners of a cube in 3D. This lets us compute an 8×8 distance matrix.</p>
@@ -587,30 +614,26 @@ D_{ij} = \text{dist}(\bfx_i,\bfx_j).
 <span class="p">]</span>
 
 <span class="n">D2</span> <span class="o">=</span> <span class="n">pairwise_distances</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">metric</span><span class="o">=</span><span class="s2">&quot;euclidean&quot;</span><span class="p">)</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">D2</span><span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">D2</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:&gt;
-</pre></div>
-</div>
-<img alt="../_images/similarity_1_1.png" src="../_images/similarity_1_1.png" />
+<img alt="../_images/similarity_1_0.png" src="../_images/similarity_1_0.png" />
 </div>
 </div>
 <p>Note the symmetry. Changing to a different norm is trivial.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">D1</span> <span class="o">=</span> <span class="n">pairwise_distances</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">metric</span><span class="o">=</span><span class="s2">&quot;manhattan&quot;</span><span class="p">)</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">D1</span><span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">D1</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:&gt;
-</pre></div>
-</div>
-<img alt="../_images/similarity_3_1.png" src="../_images/similarity_3_1.png" />
+<img alt="../_images/similarity_3_0.png" src="../_images/similarity_3_0.png" />
 </div>
 </div>
 </div>
@@ -618,7 +641,13 @@ D_{ij} = \text{dist}(\bfx_i,\bfx_j).
 <div class="section" id="distance-in-high-dimensions">
 <h2>Distance in high dimensions<a class="headerlink" href="#distance-in-high-dimensions" title="Permalink to this headline">¶</a></h2>
 <p>High-dimensional space <a class="reference external" href="https://homes.cs.washington.edu/~pedrod/papers/cacm12.pdf">does not conform to some intuitions</a> formed by our experiences in 2D and 3D. For example, consider the unit hyperball <span class="math notranslate nohighlight">\(\twonorm{\bfx}\le 1\)</span> in <span class="math notranslate nohighlight">\(d\)</span> dimensions. We’ll take it as given that scaling a <span class="math notranslate nohighlight">\(d\)</span>-dimensional object by a number <span class="math notranslate nohighlight">\(r\)</span> will scale the volume by <span class="math notranslate nohighlight">\(r^d\)</span>. Then for any <span class="math notranslate nohighlight">\(r&lt;1\)</span>, the fraction of the unit hyperball’s volume lying <em>outside</em> the smaller hyperball of fixed radius <span class="math notranslate nohighlight">\(r\)</span> is <span class="math notranslate nohighlight">\(1-r^d\)</span>, which approaches <span class="math notranslate nohighlight">\(1\)</span> as <span class="math notranslate nohighlight">\(d\to \infty\)</span>. That is, if we choose points randomly within a hyperball, almost all of them will be near the outer boundary.</p>
-<p>There are other, similar mathematical results demonstrating the unexpectedness of distances in high-dimensional space. These go under the colorful name <em>curse of dimensionality</em>, and the advice given in response to them is sometimes stated as, “Don’t use distance metrics in high-dimensional space.” But that advice is easy to overstate. The curse is mainly about <em>randomly</em> chosen points, and it is correct that dimensions full of random, noisy, or irrelevant features will make many learning algorithms less effective. But if features carry useful information, adding them usually makes matters better, not worse.</p>
+<p>The volume of that unit hyperball also vanishes as <span class="math notranslate nohighlight">\(d\to \infty\)</span>. This is because the inequality</p>
+<div class="math notranslate nohighlight">
+\[
+x_1^2 + x_2^2 + \cdots + x_d^2 \le 1,
+\]</div>
+<p>where each <span class="math notranslate nohighlight">\(x_i\)</span> is chosen randomly in <span class="math notranslate nohighlight">\([-1,1]\)</span>, becomes ever harder to satisfy as the number of terms in the sum grows, and the relative occurrence of such points is increasingly rare.</p>
+<p>There are other, similar mathematical results demonstrating the unexpectedness of distances in high-dimensional space. These go under the colorful name <em>curse of dimensionality</em>, and the advice given in response to them is sometimes stated as, “Don’t use distance metrics in high-dimensional space.” But that advice is easy to overstate. The curse is essentially about <em>randomly</em> chosen points, and it is correct that dimensions of noisy or irrelevant features will make many learning algorithms less effective. But if features carry useful information, adding them usually makes matters better, not worse.</p>
 </div>
 </div>
 

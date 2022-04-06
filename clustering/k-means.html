@@ -22,8 +22,8 @@
       
 
     
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=84ace793992934648b4de8eed757e5a2" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
@@ -35,24 +35,26 @@
     
   <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
 
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../_static/sphinx-book-theme.9d8b4a8b9bb19db25eeaddc40d639ba2.js"></script>
-    <script>window.MathJax = {"tex": {"macros": {"float": ["\\mathbb{F}"], "real": ["\\mathbb{R}"], "complex": ["\\mathbb{C}"], "nat": ["\\mathbb{N}"], "integer": ["\\mathbb{Z}"], "bfa": "\\mathbf{a}", "bfe": "\\mathbf{e}", "bfx": "\\mathbf{x}", "bfX": "\\mathbf{X}", "bfu": "\\mathbf{u}", "bfv": "\\mathbf{v}", "bfw": "\\mathbf{w}", "bfy": "\\mathbf{y}", "bfz": "\\mathbf{z}", "bfzero": "\\boldsymbol{0}", "bfmu": "\\boldsymbol{\\mu}", "TP": "\\text{TP}", "TN": "\\text{TN}", "FP": "\\text{FP}", "FN": "\\text{FN}", "rmn": ["\\mathbb{R}^{#1 \\times #2}", 2], "dd": ["\\frac{d #1}{d #2}", 2], "pp": ["\\frac{\\partial #1}{\\partial #2}", 2], "norm": ["\\left\\lVert \\mathstrut #1 \\right\\rVert", 1], "abs": ["\\left\\lvert \\mathstrut #1 \\right\\rvert", 1], "twonorm": ["\\norm{#1}_2", 1], "onenorm": ["\\norm{#1}_1", 1], "infnorm": ["\\norm{#1}_\\infty", 1], "innerprod": ["\\langle #1,#2 \\rangle", 2], "pr": ["^{(#1)}", 1], "diag": ["\\operatorname{diag}"], "sign": ["\\operatorname{sign}"], "dist": ["\\operatorname{dist}"], "simil": ["\\operatorname{sim}"], "ee": ["\\times 10^"], "floor": ["\\lfloor#1\\rfloor", 1], "argmin": ["\\operatorname{argmin}"], "Cov": ["\\operatorname{Cov}"], "logit": ["\\operatorname{logit}"]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
-    <script>
-        const thebe_selector = ".thebe,.cell"
-        const thebe_selector_input = "pre,.cell_input div.highlight"
-        const thebe_selector_output = ".output,.cell_output"
-    </script>
+    <script >let toggleHintShow = 'Click to show';</script>
+    <script >let toggleHintHide = 'Click to hide';</script>
+    <script >let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script >const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"processClass": "tex2jax_process|mathjax_process|math|output_area"}})</script>
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -74,12 +76,7 @@
     <div class="container-xl">
       <div class="row">
           
-<!-- Checkboxes to toggle the left sidebar -->
-<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
-<label class="overlay" for="__navigation">
-    <div class="visually-hidden">Toggle navigation sidebar</div>
-</label>
-<div class="col-12 col-md-3 bd-sidebar site-navigation " id="site-navigation">
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
     
         <div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../index.html">
@@ -310,6 +307,11 @@
      5.5. DBSCAN
     </a>
    </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="exercises.html">
+     5.6. Exercises
+    </a>
+   </li>
   </ul>
  </li>
  <li class="toctree-l1 has-children">
@@ -350,22 +352,22 @@
 
 
           
-<!-- This is an invisible pixel that we watch to see if we've scrolled. -->
-<div class="sbt-scroll-pixel-helper"></div>
 <main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
     
     <div class="topbar container-xl fixed-top">
     <div class="topbar-contents row">
         <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
         <div class="col pl-md-4 topbar-main">
-            <div class="topbar-left">
-                
-                <label class="nav-toggle-button" for="__navigation">
-                    <div class="visually-hidden">Toggle navigation</div>
-                    <i class="fas fa-bars"></i>
-                </label>
-                
-            </div>
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
             
 <div class="dropdown-buttons-trigger">
     <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
@@ -411,7 +413,6 @@
         
         
         
-        
         <button type="button" class="btn btn-secondary topbarbtn"
             onclick="initThebeSBT()" title="Launch Thebe" data-toggle="tooltip" data-placement="left"><i
                 class="fas fa-play"></i><span style="margin-left: .4em;">Live Code</span></button>
@@ -445,8 +446,8 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#notalldatasets">
-   #notalldatasets
+  <a class="reference internal nav-link" href="#case-study-digits">
+   Case study: digits
   </a>
  </li>
 </ul>
@@ -485,8 +486,8 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#notalldatasets">
-   #notalldatasets
+  <a class="reference internal nav-link" href="#case-study-digits">
+   Case study: digits
   </a>
  </li>
 </ul>
@@ -501,17 +502,39 @@
   <div class="tex2jax_ignore mathjax_ignore section" id="k-means">
 <h1><span class="section-number">5.3. </span>k-means<a class="headerlink" href="#k-means" title="Permalink to this headline">¶</a></h1>
 <p>The <span class="math notranslate nohighlight">\(k\)</span>-means algorithm is one of the best-known and most widely used clustering methods, although it has some serious limitations and drawbacks.</p>
-<p>Given a sample matrix <span class="math notranslate nohighlight">\(\bfX\)</span> with <span class="math notranslate nohighlight">\(n\)</span> rows <span class="math notranslate nohighlight">\(\bfx_i\)</span>, the algorithm divides the sample points into disjoint sets <span class="math notranslate nohighlight">\(C_1,\ldots,C_k\)</span>. Cluster <span class="math notranslate nohighlight">\(j\)</span> has a <strong>centroid</strong> <span class="math notranslate nohighlight">\(\bfmu_j\)</span>, which is the mean of the points in <span class="math notranslate nohighlight">\(C_j\)</span>. Define the <strong>inertia</strong> of <span class="math notranslate nohighlight">\(C_j\)</span> as</p>
+<p>Given a sample matrix <span class="math notranslate nohighlight">\(\bfX\)</span> with <span class="math notranslate nohighlight">\(n\)</span> rows <span class="math notranslate nohighlight">\(\bfx_i\)</span>, the algorithm divides the sample points into disjoint sets <span class="math notranslate nohighlight">\(C_1,\ldots,C_k\)</span>, where <span class="math notranslate nohighlight">\(k\)</span> is a preselected hyperparameter. Cluster <span class="math notranslate nohighlight">\(j\)</span> has a <strong>centroid</strong> <span class="math notranslate nohighlight">\(\bfmu_j\)</span>, which is the mean of the points in <span class="math notranslate nohighlight">\(C_j\)</span>. Define the <strong>inertia</strong> of <span class="math notranslate nohighlight">\(C_j\)</span> as</p>
 <div class="math notranslate nohighlight">
 \[
-I_j = \sum_{\bfx\in C_j} \norm{ \bfx - \bfmu_j }^2.
+I_j = \sum_{\bfx\in C_j} \norm{ \bfx - \bfmu_j }_2^2.
 \]</div>
 <p>The goal of the algorithm is to choose the clusters in order to minimize the total inertia,</p>
 <div class="math notranslate nohighlight">
 \[
 I = \sum_{j=1}^k I_j.
 \]</div>
-<p>This is a hard problem to solve exactly (technically, NP-hard even for <span class="math notranslate nohighlight">\(k=2\)</span>), so the algorithm uses a heuristic method to look for the minimum.</p>
+<!-- For any cluster, its centroid is the point that minimizes the inertia of the cluster. Suppose that $C_j$ is split into two parts $A$ and $B$ that have centroids $\bfmu_A$ and $\bfmu_B$. Those centroids minimize the inertias of the subclusters. Hence, 
+
+$$
+\sum_{\bfx\in A} \norm{ \bfx - \bfmu_A }^2 + \sum_{\bfx\in B} \norm{ \bfx - \bfmu_B }^2 
+\le  \sum_{\bfx\in A} \norm{ \bfx - \bfmu_j }^2 + \sum_{\bfx\in B} \norm{ \bfx - \bfmu_j}^2  = I_j. 
+$$
+
+We conclude that splitting a cluster will make the total inertia decrease. In fact, if each sample point is put into its own cluster, the inertia is 0.  -->
+<div class="proof example admonition" id="example-k-means-inertia">
+<p class="admonition-title"><span class="caption-number">Example 5.3.1 </span></p>
+<div class="example-content section" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(k=2\)</span>. Given the values <span class="math notranslate nohighlight">\(-3,-2,-1,2,5,7\)</span>, we might cluster <span class="math notranslate nohighlight">\(\{-3,-2,-1\}\)</span> and <span class="math notranslate nohighlight">\(\{2,5,7\}\)</span>. The total inertia is then</p>
+<div class="math notranslate nohighlight">
+\[
+\left[  (-3+2)^2 + (-2+2)^2 + (-1+2)^2   \right]  + \left[  \bigl(2-\tfrac{14}{3}\bigr)^2 + \bigl(5-\tfrac{14}{3}\bigr)^2 + \bigl(7-\tfrac{14}{3}\bigr)^2   \right] = 2 + \frac{124}{9} = 15.78.
+\]</div>
+<p>If we instead cluster as <span class="math notranslate nohighlight">\(\{-3,-2,-1,2\}\)</span> and <span class="math notranslate nohighlight">\(\{5,7\}\)</span>, then the total inertia is</p>
+<div class="math notranslate nohighlight">
+\[
+\left[  (-3+1)^2 + (-2+1)^2 + (-1+1)^2  + (2+1)^2 \right]  + \left[   (5-6)^2 + (7-6)^2   \right] = 14 + 2 = 16.
+\]</div>
+</div>
+</div><p>Finding the minimum inertia among all possible <span class="math notranslate nohighlight">\(k\)</span>-clusterings is an infeasible problem to solve exactly at any practical size. Instead, the approach is to iteratively improve from a starting clustering.</p>
 <div class="section" id="lloyd-s-algorithm">
 <h2>Lloyd’s algorithm<a class="headerlink" href="#lloyd-s-algorithm" title="Permalink to this headline">¶</a></h2>
 <p>The standard method is known as <strong>Lloyd’s algorithm</strong>. Starting with values for the <span class="math notranslate nohighlight">\(k\)</span> centroids, there is an iteration consisting of two steps:</p>
@@ -523,16 +546,17 @@ I = \sum_{j=1}^k I_j.
 \[
 \bfmu_j^+ = \frac{1}{|C_j|} \sum_{\bfx\in C_j} \bfx.
 \]</div>
-<p>The algorithm stops when the assignment step does not change any of the clusters. In practice, this almost always happens quickly.</p>
+<p>The algorithm stops when the assignment step does not change any of the clusters. In practice, this almost always happens quickly. Here is a demonstration:</p>
+<video width=640 controls src="../_static/kmeans_demo.mp4"></video><p>While Lloyd’s algorithm will find a local minimum of total inertia, in the sense that small changes cannot decrease it, there is no guarantee of converging to the global minimum.</p>
 </div>
 <div class="section" id="practical-issues">
 <h2>Practical issues<a class="headerlink" href="#practical-issues" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p><strong>Initialization</strong> The performance of <span class="math notranslate nohighlight">\(k\)</span>-means depends a great deal on the initial set of centroids. Traditionally, the centroids were chosen as random members of the sample set, but better/more reliable heuristics, such as <em><span class="math notranslate nohighlight">\(k\)</span>-means++</em>, have since become more dominant.</p></li>
-<li><p><strong>\bfmultiple runs</strong> All the initialization methods include an element of randomness, and since the Lloyd algorithm usually converges quickly, it is usually run with \bfmultiple instances of the initialization, and the run with the lowest inertia is kept.</p></li>
-<li><p><strong>Selection of <span class="math notranslate nohighlight">\(k\)</span></strong> The algorithm treats <span class="math notranslate nohighlight">\(k\)</span> as a hyperparameter. Occam’s Razor dictates preferring smaller values to large ones. There are many suggestions on how to find the choice that gives the most “bang for the buck.”</p></li>
-<li><p><strong>Distance metric</strong> The Lloyd algorithm often fails to converge for norms other than the 2-norm, and \bfmust be modified if another norm is preferred.</p></li>
-<li><p><strong>Shape effects</strong> Because of the dependence on the 2-norm, the inertia criterion disfavors long, skinny clusters (i.e., anisotropic), and clusters of unequal spread (variance). Basically, it wants to find spherical blobs of roughly equal size and membership.</p></li>
+<li><p><strong>Initialization</strong>. The performance of <span class="math notranslate nohighlight">\(k\)</span>-means depends a great deal on the initial set of centroids. Traditionally, the centroids were chosen as random members of the sample set, but better/more reliable heuristics, such as <em><span class="math notranslate nohighlight">\(k\)</span>-means++</em>, have since become more dominant.</p></li>
+<li><p><strong>Multiple runs</strong>. All the initialization methods include an element of randomness, and since the Lloyd algorithm usually converges quickly, it is often run with multiple instances of the initialization, and the run with the lowest inertia is kept.</p></li>
+<li><p><strong>Selection of <span class="math notranslate nohighlight">\(k\)</span></strong>. The algorithm treats <span class="math notranslate nohighlight">\(k\)</span> as a hyperparameter. Occam’s Razor dictates preferring smaller values to large ones. There are many suggestions on how to find the choice that gives the most “bang for the buck.”</p></li>
+<li><p><strong>Distance metric</strong>. The Lloyd algorithm often fails to converge for norms other than the 2-norm, and must be modified if another norm is preferred.</p></li>
+<li><p><strong>Shape effects</strong>. Because of the dependence on the norm, the inertia criterion disfavors long, skinny clusters and clusters of unequal dispersion. Basically, it wants to find spherical blobs (as defined by the metric) of roughly equal size.</p></li>
 </ul>
 </div>
 <div class="section" id="toy-example">
@@ -568,114 +592,7 @@ I = \sum_{j=1}^k I_j.
 <span class="n">km</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
 
 <span class="n">blobs</span><span class="p">[</span><span class="s2">&quot;km3&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">km</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-<span class="n">blobs</span><span class="p">[</span><span class="s2">&quot;sil&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">silhouette_samples</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">blobs</span><span class="p">[</span><span class="s2">&quot;km3&quot;</span><span class="p">])</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">relplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">blobs</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;x1&quot;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s2">&quot;x2&quot;</span><span class="p">,</span><span class="n">hue</span><span class="o">=</span><span class="s2">&quot;km3&quot;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="n">blobs</span><span class="p">[</span><span class="s2">&quot;sil&quot;</span><span class="p">]);</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/k-means_3_0.png" src="../_images/k-means_3_0.png" />
-</div>
-</div>
-<p>Intuitively, this seems like a better clustering than the original. The silhouette scores show a modest reduction for the better clusters, but major improvement for the problematic one.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">blobs</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;km3&quot;</span><span class="p">)[</span><span class="s2">&quot;sil&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>km3
-0    0.493170
-1    0.793501
-2    0.401121
-Name: sil, dtype: float64
-</pre></div>
-</div>
-</div>
-</div>
-<p>What happens when we ask for just <span class="math notranslate nohighlight">\(k=2\)</span> clusters?</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">km</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">km</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-
-<span class="n">blobs</span><span class="p">[</span><span class="s2">&quot;km2&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">km</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-<span class="n">blobs</span><span class="p">[</span><span class="s2">&quot;sil&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">silhouette_samples</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">blobs</span><span class="p">[</span><span class="s2">&quot;km2&quot;</span><span class="p">])</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">relplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">blobs</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;x1&quot;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s2">&quot;x2&quot;</span><span class="p">,</span><span class="n">hue</span><span class="o">=</span><span class="s2">&quot;km2&quot;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="n">blobs</span><span class="p">[</span><span class="s2">&quot;sil&quot;</span><span class="p">]);</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/k-means_7_0.png" src="../_images/k-means_7_0.png" />
-</div>
-</div>
-<p>This result too is arguably superior to the reference clustering we created.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">blobs</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;km2&quot;</span><span class="p">)[</span><span class="s2">&quot;sil&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>km2
-0    0.456869
-1    0.813098
-Name: sil, dtype: float64
-</pre></div>
-</div>
-</div>
-</div>
-<p>The outlier points in the generated blobs are perhaps best seen as noisy examples, at least for the purposes of clustering.</p>
-</div>
-<div class="section" id="notalldatasets">
-<h2>#notalldatasets<a class="headerlink" href="#notalldatasets" title="Permalink to this headline">¶</a></h2>
-<p>It’s worth keeping in mind that clustering is an artificial classification that may not reflect reality.
-For example, we can load a famous data set generated from handwriting recognition for the digits 0 through 9. It’s natural to try a <span class="math notranslate nohighlight">\(k\)</span>-means clustering with <span class="math notranslate nohighlight">\(k=10\)</span>.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">datasets</span>
-<span class="n">digits</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">load_digits</span><span class="p">(</span><span class="n">as_frame</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="s2">&quot;frame&quot;</span><span class="p">]</span>
-<span class="n">X</span> <span class="o">=</span> <span class="n">digits</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s2">&quot;target&quot;</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="s2">&quot;columns&quot;</span><span class="p">)</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">digits</span><span class="p">[</span><span class="s2">&quot;target&quot;</span><span class="p">]</span>
-<span class="n">km</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
-<span class="n">km</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-<span class="n">digits</span><span class="p">[</span><span class="s2">&quot;km&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">km</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>The Rand index suggests that these clusters aren’t doing a great job at identifying digits.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">adjusted_rand_score</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ARI:&quot;</span><span class="p">,</span><span class="n">adjusted_rand_score</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">digits</span><span class="p">[</span><span class="s2">&quot;km&quot;</span><span class="p">]))</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ARI: 0.6658996801930657
-</pre></div>
-</div>
-</div>
-</div>
-<p>We might be tempted to push harder for a better clustering result. However, it’s worth visualizing the silhouette scores for the ground-truth clustering:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">digits</span><span class="p">[</span><span class="s2">&quot;sil_true&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">silhouette_samples</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">catplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">digits</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;target&quot;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s2">&quot;sil_true&quot;</span><span class="p">,</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;box&quot;</span><span class="p">);</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/k-means_15_0.png" src="../_images/k-means_15_0.png" />
-</div>
-</div>
-<p>There are some low-quality clusters there, most notably classes 1, 8, and 9. In fact, the silhouette scores in our clustering are similar or better already:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">digits</span><span class="p">[</span><span class="s2">&quot;sil_kmeans&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">silhouette_samples</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">digits</span><span class="p">[</span><span class="s2">&quot;km&quot;</span><span class="p">])</span>
-<span class="n">digits</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;target&quot;</span><span class="p">)[[</span><span class="s2">&quot;sil_true&quot;</span><span class="p">,</span><span class="s2">&quot;sil_kmeans&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">median</span><span class="p">()</span>
+<span class="n">blobs</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -698,71 +615,349 @@ For example, we can load a famous data set generated from handwriting recognitio
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>sil_true</th>
-      <th>sil_kmeans</th>
-    </tr>
-    <tr>
-      <th>target</th>
-      <th></th>
-      <th></th>
+      <th>x1</th>
+      <th>x2</th>
+      <th>class</th>
+      <th>km3</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>0</th>
-      <td>0.383051</td>
-      <td>0.370894</td>
+      <td>1.328556</td>
+      <td>-3.036395</td>
+      <td>2</td>
+      <td>2</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>0.069325</td>
-      <td>0.189545</td>
+      <td>-1.815547</td>
+      <td>2.585740</td>
+      <td>0</td>
+      <td>1</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>0.156625</td>
-      <td>0.157407</td>
+      <td>3.387517</td>
+      <td>2.686224</td>
+      <td>1</td>
+      <td>0</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>0.166186</td>
-      <td>0.145116</td>
+      <td>2.348428</td>
+      <td>1.652876</td>
+      <td>1</td>
+      <td>0</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>0.184106</td>
-      <td>0.180891</td>
+      <td>-1.266983</td>
+      <td>2.792976</td>
+      <td>0</td>
+      <td>1</td>
     </tr>
     <tr>
       <th>5</th>
-      <td>0.139994</td>
-      <td>0.144980</td>
+      <td>2.489843</td>
+      <td>0.682657</td>
+      <td>2</td>
+      <td>0</td>
     </tr>
     <tr>
       <th>6</th>
-      <td>0.309357</td>
-      <td>0.306704</td>
+      <td>1.775981</td>
+      <td>1.854831</td>
+      <td>1</td>
+      <td>0</td>
     </tr>
     <tr>
       <th>7</th>
-      <td>0.202178</td>
-      <td>0.191620</td>
-    </tr>
-    <tr>
-      <th>8</th>
-      <td>0.094333</td>
-      <td>0.081606</td>
-    </tr>
-    <tr>
-      <th>9</th>
-      <td>0.086138</td>
-      <td>0.098609</td>
+      <td>2.702074</td>
+      <td>2.752115</td>
+      <td>1</td>
+      <td>0</td>
     </tr>
   </tbody>
 </table>
 </div></div></div>
 </div>
-<p>It seems unlikely, then, that the recognition of digits can be greatly improved by finding a better clustering, at least in the sense of the 2-norm. Instead, we would be better off exploring different norms, engineering new features, or trying another classification method altogether.</p>
+<p>Here we show the points using color to indicate cluster membership and size for the silhouette value:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">blobs</span><span class="p">[</span><span class="s2">&quot;sil&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">silhouette_samples</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">blobs</span><span class="p">[</span><span class="s2">&quot;km3&quot;</span><span class="p">])</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">relplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">blobs</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;x1&quot;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s2">&quot;x2&quot;</span><span class="p">,</span><span class="n">hue</span><span class="o">=</span><span class="s2">&quot;km3&quot;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="n">blobs</span><span class="p">[</span><span class="s2">&quot;sil&quot;</span><span class="p">]);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/k-means_5_0.png" src="../_images/k-means_5_0.png" />
+</div>
+</div>
+<p>Intuitively, this is at least comparable to the original classification. The silhouettes show a modest reduction for the better clusters, but improvement for the problematic one.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;scores for original classes:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">blobs</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;class&quot;</span><span class="p">)[</span><span class="s2">&quot;sil&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">())</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">scores for 3 k-means clusters:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">blobs</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;km3&quot;</span><span class="p">)[</span><span class="s2">&quot;sil&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>scores for original classes:
+class
+2    0.364877
+1    0.537780
+0    0.810844
+Name: sil, dtype: float64
+
+scores for 3 k-means clusters:
+km3
+2    0.401121
+0    0.493170
+1    0.793501
+Name: sil, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<p>What happens when we ask for just <span class="math notranslate nohighlight">\(k=2\)</span> clusters?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">km</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">km</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+<span class="n">blobs</span><span class="p">[</span><span class="s2">&quot;km2&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">km</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="n">blobs</span><span class="p">[</span><span class="s2">&quot;sil&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">silhouette_samples</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">blobs</span><span class="p">[</span><span class="s2">&quot;km2&quot;</span><span class="p">])</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">relplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">blobs</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;x1&quot;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s2">&quot;x2&quot;</span><span class="p">,</span><span class="n">hue</span><span class="o">=</span><span class="s2">&quot;km2&quot;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="n">blobs</span><span class="p">[</span><span class="s2">&quot;sil&quot;</span><span class="p">]);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/k-means_9_0.png" src="../_images/k-means_9_0.png" />
+</div>
+</div>
+<p>This result is arguably superior to the reference classification.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;scores for 2 k-means clusters:&quot;</span><span class="p">)</span>
+<span class="n">blobs</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;km2&quot;</span><span class="p">)[</span><span class="s2">&quot;sil&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>scores for 2 k-means clusters:
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>km2
+1    0.456869
+0    0.813098
+Name: sil, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<p>The outlier points in the generated blobs are perhaps best seen as noisy examples, at least for the purposes of clustering.</p>
+</div>
+<div class="section" id="case-study-digits">
+<h2>Case study: digits<a class="headerlink" href="#case-study-digits" title="Permalink to this headline">¶</a></h2>
+<p>We can return to the handwriting recognition dataset. Again we keep only the samples labeled 4, 5, or 6.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">datasets</span>
+<span class="n">digits</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">load_digits</span><span class="p">(</span><span class="n">as_frame</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="s2">&quot;frame&quot;</span><span class="p">]</span>
+<span class="n">keep</span> <span class="o">=</span> <span class="n">digits</span><span class="p">[</span><span class="s2">&quot;target&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">])</span>
+<span class="n">digits</span> <span class="o">=</span> <span class="n">digits</span><span class="p">[</span><span class="n">keep</span><span class="p">]</span>
+
+<span class="n">X</span> <span class="o">=</span> <span class="n">digits</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s2">&quot;target&quot;</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="s2">&quot;columns&quot;</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">digits</span><span class="p">[</span><span class="s2">&quot;target&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We fit 3 clusters to the feature matrix:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">km</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">km</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="n">digits</span><span class="p">[</span><span class="s2">&quot;kmeans3&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">km</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="n">digits</span><span class="p">[[</span><span class="s2">&quot;target&quot;</span><span class="p">,</span><span class="s2">&quot;kmeans3&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>target</th>
+      <th>kmeans3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>4</th>
+      <td>4</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>5</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>6</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>4</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>5</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>6</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>4</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>5</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>The adjusted Rand index suggests that we have reproduced the classification well:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">adjusted_rand_score</span>
+<span class="n">ARI</span> <span class="o">=</span> <span class="n">adjusted_rand_score</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">digits</span><span class="p">[</span><span class="s2">&quot;kmeans3&quot;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ARI:&quot;</span><span class="p">,</span><span class="n">ARI</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ARI: 0.9617847446531459
+</pre></div>
+</div>
+</div>
+</div>
+<p>However, that conclusion benefits from our prior knowledge. What if we did not know how many clusters to look for? One option is to try many different values of <span class="math notranslate nohighlight">\(k\)</span>, keeping track of some metric. Here, we record the final total inertia and the mean silhouette score.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">silhouette_score</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;k&quot;</span><span class="p">:[],</span><span class="s2">&quot;inertia&quot;</span><span class="p">:[],</span><span class="s2">&quot;mean silhouette&quot;</span><span class="p">:[]})</span>
+<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">9</span><span class="p">):</span>
+    <span class="n">km</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="n">k</span><span class="p">)</span>
+    <span class="n">km</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+    <span class="n">I</span> <span class="o">=</span> <span class="n">km</span><span class="o">.</span><span class="n">inertia_</span>
+    <span class="n">sil</span> <span class="o">=</span> <span class="n">silhouette_score</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">km</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">))</span>
+    <span class="n">results</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;k&quot;</span><span class="p">:[</span><span class="n">k</span><span class="p">],</span><span class="s2">&quot;inertia&quot;</span><span class="p">:[</span><span class="n">I</span><span class="p">],</span><span class="s2">&quot;mean silhouette&quot;</span><span class="p">:[</span><span class="n">sil</span><span class="p">]}),</span><span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">results</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>k</th>
+      <th>inertia</th>
+      <th>mean silhouette</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2.0</td>
+      <td>446601.467620</td>
+      <td>0.226800</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>3.0</td>
+      <td>360547.755566</td>
+      <td>0.251904</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>4.0</td>
+      <td>325210.020058</td>
+      <td>0.245860</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>5.0</td>
+      <td>297558.275700</td>
+      <td>0.234854</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>6.0</td>
+      <td>280563.005048</td>
+      <td>0.188237</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>7.0</td>
+      <td>269773.137148</td>
+      <td>0.169136</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>8.0</td>
+      <td>259294.113156</td>
+      <td>0.186038</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>The inertia continues to decrease as <span class="math notranslate nohighlight">\(k\)</span> increases, although the rate of decrease slows somewhat. But the silhouette score is maximized at <span class="math notranslate nohighlight">\(k=3\)</span>, which could be considered a reason to choose 3 clusters.</p>
 </div>
 </div>
 

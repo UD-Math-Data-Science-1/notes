@@ -22,8 +22,8 @@
       
 
     
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=84ace793992934648b4de8eed757e5a2" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
@@ -35,28 +35,30 @@
     
   <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
 
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../_static/sphinx-book-theme.9d8b4a8b9bb19db25eeaddc40d639ba2.js"></script>
-    <script>window.MathJax = {"tex": {"macros": {"float": ["\\mathbb{F}"], "real": ["\\mathbb{R}"], "complex": ["\\mathbb{C}"], "nat": ["\\mathbb{N}"], "integer": ["\\mathbb{Z}"], "bfa": "\\mathbf{a}", "bfe": "\\mathbf{e}", "bfx": "\\mathbf{x}", "bfX": "\\mathbf{X}", "bfu": "\\mathbf{u}", "bfv": "\\mathbf{v}", "bfw": "\\mathbf{w}", "bfy": "\\mathbf{y}", "bfz": "\\mathbf{z}", "bfzero": "\\boldsymbol{0}", "bfmu": "\\boldsymbol{\\mu}", "TP": "\\text{TP}", "TN": "\\text{TN}", "FP": "\\text{FP}", "FN": "\\text{FN}", "rmn": ["\\mathbb{R}^{#1 \\times #2}", 2], "dd": ["\\frac{d #1}{d #2}", 2], "pp": ["\\frac{\\partial #1}{\\partial #2}", 2], "norm": ["\\left\\lVert \\mathstrut #1 \\right\\rVert", 1], "abs": ["\\left\\lvert \\mathstrut #1 \\right\\rvert", 1], "twonorm": ["\\norm{#1}_2", 1], "onenorm": ["\\norm{#1}_1", 1], "infnorm": ["\\norm{#1}_\\infty", 1], "innerprod": ["\\langle #1,#2 \\rangle", 2], "pr": ["^{(#1)}", 1], "diag": ["\\operatorname{diag}"], "sign": ["\\operatorname{sign}"], "dist": ["\\operatorname{dist}"], "simil": ["\\operatorname{sim}"], "ee": ["\\times 10^"], "floor": ["\\lfloor#1\\rfloor", 1], "argmin": ["\\operatorname{argmin}"], "Cov": ["\\operatorname{Cov}"], "logit": ["\\operatorname{logit}"]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
-    <script>
-        const thebe_selector = ".thebe,.cell"
-        const thebe_selector_input = "pre,.cell_input div.highlight"
-        const thebe_selector_output = ".output,.cell_output"
-    </script>
+    <script >let toggleHintShow = 'Click to show';</script>
+    <script >let toggleHintHide = 'Click to hide';</script>
+    <script >let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script >const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"processClass": "tex2jax_process|mathjax_process|math|output_area"}})</script>
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="6. Networks" href="../network/overview.html" />
+    <link rel="next" title="5.6. Exercises" href="exercises.html" />
     <link rel="prev" title="5.4. Hierarchical" href="hierarchical.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
@@ -74,12 +76,7 @@
     <div class="container-xl">
       <div class="row">
           
-<!-- Checkboxes to toggle the left sidebar -->
-<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
-<label class="overlay" for="__navigation">
-    <div class="visually-hidden">Toggle navigation sidebar</div>
-</label>
-<div class="col-12 col-md-3 bd-sidebar site-navigation " id="site-navigation">
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
     
         <div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../index.html">
@@ -310,6 +307,11 @@
      5.5. DBSCAN
     </a>
    </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="exercises.html">
+     5.6. Exercises
+    </a>
+   </li>
   </ul>
  </li>
  <li class="toctree-l1 has-children">
@@ -350,22 +352,22 @@
 
 
           
-<!-- This is an invisible pixel that we watch to see if we've scrolled. -->
-<div class="sbt-scroll-pixel-helper"></div>
 <main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
     
     <div class="topbar container-xl fixed-top">
     <div class="topbar-contents row">
         <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
         <div class="col pl-md-4 topbar-main">
-            <div class="topbar-left">
-                
-                <label class="nav-toggle-button" for="__navigation">
-                    <div class="visually-hidden">Toggle navigation</div>
-                    <i class="fas fa-bars"></i>
-                </label>
-                
-            </div>
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
             
 <div class="dropdown-buttons-trigger">
     <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
@@ -411,7 +413,6 @@
         
         
         
-        
         <button type="button" class="btn btn-secondary topbarbtn"
             onclick="initThebeSBT()" title="Launch Thebe" data-toggle="tooltip" data-placement="left"><i
                 class="fas fa-play"></i><span style="margin-left: .4em;">Live Code</span></button>
@@ -430,13 +431,18 @@
             <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#properties">
+   Properties
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#toy-example">
    Toy example
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#digits">
-   Digits
+  <a class="reference internal nav-link" href="#case-study-digits">
+   Case study: digits
   </a>
  </li>
 </ul>
@@ -460,13 +466,18 @@
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#properties">
+   Properties
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#toy-example">
    Toy example
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#digits">
-   Digits
+  <a class="reference internal nav-link" href="#case-study-digits">
+   Case study: digits
   </a>
  </li>
 </ul>
@@ -481,10 +492,57 @@
   <div class="tex2jax_ignore mathjax_ignore section" id="dbscan">
 <h1><span class="section-number">5.5. </span>DBSCAN<a class="headerlink" href="#dbscan" title="Permalink to this headline">¶</a></h1>
 <p><strong>DBSCAN</strong> is a clustering method that tries to identify and ignore outlier points that don’t fit in well with any clusters. One of its big advantages is that it can create clusters of any shape, rather than preferring spherical blobs like <span class="math notranslate nohighlight">\(k\)</span>-means.</p>
-<p>The algorithm has two hyperparameters: a neighborhood radius <span class="math notranslate nohighlight">\(\epsilon &gt; 0\)</span>, and a minimum neighbor count <span class="math notranslate nohighlight">\(N_\text{min}\)</span>. DBSCAN defines a <strong>core point</strong> as a sample point that has at least <span class="math notranslate nohighlight">\(N_\text{min}\)</span> additional samples within distance <span class="math notranslate nohighlight">\(\epsilon\)</span> of it. Note that the relationship is not symmetric: the qualifying neighbors of a core point need not themselves be core points.</p>
-<p>A cluster is defined as a core point, its <span class="math notranslate nohighlight">\(\epsilon\)</span>-neighborhood, and the neighborhoods of all core points in its neighborhood, etc., extended recursively. Points that are not core and that are not within the <span class="math notranslate nohighlight">\(\epsilon\)</span>-neighborhoods of any core points are designated as <strong>noise points</strong> and do not belong to any cluster.</p>
-<p>If two points are in the same cluster, then one can be reached from the other entirely by hopping along through overlapping neighborhoods of core points. Since some points might be reachable from different clusters, however, the assignment to clusters can depend on the order in which the samples are processed. Otherwise, the outcome is deterministic.</p>
+<p>The algorithm has two hyperparameters: a neighborhood radius <span class="math notranslate nohighlight">\(\epsilon &gt; 0\)</span>, and a minimum neighbor count <span class="math notranslate nohighlight">\(N_\text{min}\)</span>. Each sample point has a <strong>neighborhood</strong> consisting of all the points (including itself) that are within distance <span class="math notranslate nohighlight">\(\epsilon\)</span> of it. All the neighborhoods that contain fewer than <span class="math notranslate nohighlight">\(N_\text{min}\)</span> points are ignored for the rest of the algorithm. The points that have qualifying neighborhoods are known as <strong>core points</strong>.</p>
+<p>From each core point, we define its set of <strong>reachable</strong> points by including all of its neighbors, then all the neighbors of the core points that were added, and so on, recursively. That is, both core and non-core points can be reachable, but only the reachable core points have neighborhoods whose contents are also reachable.</p>
+<p>Select a core point, and assign it and all the points reachable from it to a new cluster. Repeat with an unassigned core point, etc., until all core points have been assigned to a cluster. Points that remain are not reachable from any core point and are called <strong>noise points</strong>. They are not considered to be part of any cluster, which is a unique feature of DBSCAN. The rest of the non-core points are sometimes known as <strong>border points</strong>.</p>
+<!-- If $p$ and $q$ are core points and $q$ is reachable from $p$, then $p$ is reachable from $q$ also. However, reachability is not symmetric for non-core points (non-core points can't reach anything but themselves). -->
+<!-- 
+
+Finally, we say that two points are **connected** if there exists a core point from which they are both reachable. This is the relationship used to define clusters. Select a core point, and assign it and all the points connected to it to a new cluster. Repeat with an unassigned core point, etc., until all points have been assigned to a cluster. -->
+<div class="proof example admonition" id="example-dbscan-toy">
+<p class="admonition-title"><span class="caption-number">Example 5.5.1 </span></p>
+<div class="example-content section" id="proof-content">
+<p>Here is a distance matrix for six sample points <span class="math notranslate nohighlight">\(\bfx_1,\ldots,\bfx_6\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\left[
+\begin{array}{cccccc}
+0 &amp; \sqrt{8} &amp; \sqrt{7} &amp; \sqrt{3} &amp; \sqrt{5} &amp; \sqrt{11} \\
+\sqrt{8} &amp; \0 &amp; \sqrt{12} &amp; \sqrt{14} &amp; \sqrt{12} &amp; \sqrt{10} \\
+\sqrt{7} &amp; \sqrt{12} &amp; 0 &amp; \sqrt{10} &amp; \sqrt{10} &amp; \sqrt{8} \\
+\sqrt{3} &amp; \sqrt{14} &amp; \sqrt{10} &amp; \0 &amp; \sqrt{3} &amp; \sqrt{12} \\
+\sqrt{5} &amp; \sqrt{12} &amp; \sqrt{10} &amp; \sqrt{3} &amp; \0 &amp; \sqrt{3} \\
+\sqrt{11} &amp; \sqrt{10} &amp; \sqrt{8} &amp; \sqrt{12} &amp; \sqrt{10} &amp; \0 \\
+\end{array}
+\right]
+\end{split}\]</div>
+<p>Find the DBSCAN clustering for (a) <span class="math notranslate nohighlight">\(\epsilon=2,\, N_\text{min}=2\)</span>, and (b) <span class="math notranslate nohighlight">\(\epsilon=3,\, N_\text{min}=5\)</span>. (Always select the lowest-numbered available core point for a new cluster.)</p>
+<details class="sphinx-bs dropdown card mb-3">
+<summary class="summary-title card-header">
+Solution<div class="summary-down docutils">
+<svg version="1.1" width="24" height="24" class="octicon octicon-chevron-down" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 8.72a.75.75 0 000 1.06l6.25 6.25a.75.75 0 001.06 0l6.25-6.25a.75.75 0 00-1.06-1.06L12 14.44 6.28 8.72a.75.75 0 00-1.06 0z"></path></svg></div>
+<div class="summary-up docutils">
+<svg version="1.1" width="24" height="24" class="octicon octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
+</summary><div class="summary-content card-body docutils">
+<p class="card-text">(a) The initial neighborhoods are (by index sets)</p>
+<div class="math notranslate nohighlight">
+\[
+1:\{1,4\},\, 2:\{2\}, 3:\{3\}, 4:\{1,4,5\},\, 5:\{4,5,6\}, 6:\{6\}. 
+\]</div>
+<p class="card-text">Hence points 1, 4, and 5 are core points. Starting from point 1, 4 is reachable, and then 5 is reachable too, and then 6 is reachable. So the only cluster is <span class="math notranslate nohighlight">\(\{1,4,5,6\}\)</span>, where 6 is a border point. Points 2 and 3 are noise points.</p>
+<p class="card-text">(b) The initial neighborhoods are now</p>
+<div class="math notranslate nohighlight">
+\[
+1:\{1,2,3,4,5\},\, 2:\{1,2\}, 3:\{1,3,6\}, 4:\{1,4,5\},\, 5:\{1,4,5,6\}, 6:\{3,6\}. 
+\]</div>
+<p class="card-text">Hence 1 is the only core point. It brings 2, 3, 4, and 5 into the lone cluster, but as border points, they cannot add to it. So 6 is a noise point.</p>
+</div>
+</details></div>
+</div><div class="section" id="properties">
+<h2>Properties<a class="headerlink" href="#properties" title="Permalink to this headline">¶</a></h2>
+<p>For core points, reachability is a symmetric relationship (<span class="math notranslate nohighlight">\(p\)</span> is reachable from <span class="math notranslate nohighlight">\(q\)</span> if and only if <span class="math notranslate nohighlight">\(q\)</span> is reachable from <span class="math notranslate nohighlight">\(p\)</span>). As a result, a core points always end up in a cluster with all of its reachable core points. But the cluster assignments of the border points can depend on the order in which core points are processed.</p>
 <p>Increasing <span class="math notranslate nohighlight">\(N_\text{min}\)</span> helps to avoid having many small clusters, but it might also decrease the total number of core points. If the neighborhood radius <span class="math notranslate nohighlight">\(\epsilon\)</span> is chosen too small, the algorithm is too picky—most points will end up as noise. If it’s too large, then one tends to obtain a single mega-cluster. There are heuristics for trying to guess an optimal <span class="math notranslate nohighlight">\(\epsilon\)</span>, but it’s frequently necessary to iterate over multiple values.<a class="footnote-reference brackets" href="#optics" id="id1">1</a></p>
+</div>
 <div class="section" id="toy-example">
 <h2>Toy example<a class="headerlink" href="#toy-example" title="Permalink to this headline">¶</a></h2>
 <p>Here is a challenging artificial sample set: a blob of 200 points in the middle, with 300 points in a ring around it.</p>
@@ -502,102 +560,197 @@
 <span class="n">outer</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">r</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">),</span><span class="n">r</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)))</span><span class="o">.</span><span class="n">T</span>
 
 <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">inner</span><span class="p">,</span><span class="n">outer</span><span class="p">)),</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;x1&quot;</span><span class="p">,</span><span class="s2">&quot;x2&quot;</span><span class="p">])</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">relplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;x1&quot;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s2">&quot;x2&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">relplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;x1&quot;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s2">&quot;x2&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.FacetGrid at 0x7f8959de0100&gt;
+<img alt="../_images/dbscan_1_0.png" src="../_images/dbscan_1_0.png" />
+</div>
+</div>
+<p>We start by computing all the pairwise distances between points.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">pairwise_distances</span>
+<span class="n">D</span> <span class="o">=</span> <span class="n">pairwise_distances</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="n">metric</span><span class="o">=</span><span class="s2">&quot;euclidean&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<img alt="../_images/dbscan_1_1.png" src="../_images/dbscan_1_1.png" />
 </div>
 </div>
-<p>If we choose a small enough <span class="math notranslate nohighlight">\(\epsilon\)</span>, very few points have enough neighbors to qualify as core points, and most of the 500 points end up labeled as noise (value <span class="math notranslate nohighlight">\(-1\)</span> as the cluster label).</p>
+<p>For any value of <span class="math notranslate nohighlight">\(\epsilon\)</span>, we can find the entries in each row of the distance matrix that are no greater than <span class="math notranslate nohighlight">\(\epsilon\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_neighbors</span><span class="p">(</span><span class="n">D</span><span class="p">,</span><span class="n">eps</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">[</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">row</span> <span class="o">&lt;=</span> <span class="n">eps</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">D</span> <span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>If <span class="math notranslate nohighlight">\(\epsilon\)</span> is small enough, most points will have only themselves as neighborhoods.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nbrs</span> <span class="o">=</span> <span class="n">get_neighbors</span><span class="p">(</span><span class="n">D</span><span class="p">,</span><span class="mf">0.02</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">nbrs</span><span class="p">[:</span><span class="mi">6</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[array([0]), array([1]), array([2]), array([3]), array([4]), array([5])]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">N</span> <span class="o">=</span> <span class="p">[</span> <span class="nb">len</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">nbrs</span> <span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;neighborhood sizes for eps=0.02:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">N</span><span class="p">)</span><span class="o">.</span><span class="n">value_counts</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>neighborhood sizes for eps=0.02:
+1    488
+2     12
+dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<p>As a result, there can be at most 12 clusters if <span class="math notranslate nohighlight">\(N_\text{min}&gt;1\)</span>, and most points will be noise points. We can check this using the <code class="docutils literal notranslate"><span class="pre">DBSCAN</span></code> clusterer.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.cluster</span> <span class="kn">import</span> <span class="n">DBSCAN</span>
-<span class="n">db</span> <span class="o">=</span> <span class="n">DBSCAN</span><span class="p">(</span><span class="n">eps</span><span class="o">=</span><span class="mf">0.02</span><span class="p">,</span><span class="n">min_samples</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">db</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">labels_</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">y</span><span class="o">==-</span><span class="mi">1</span><span class="p">),</span><span class="s2">&quot;noise points,&quot;</span><span class="p">,</span><span class="nb">sum</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span><span class="o">!=-</span><span class="mi">1</span><span class="p">),</span><span class="s2">&quot;clusters&quot;</span><span class="p">)</span>
+<span class="n">dbs</span> <span class="o">=</span> <span class="n">DBSCAN</span><span class="p">(</span><span class="n">eps</span><span class="o">=</span><span class="mf">0.02</span><span class="p">,</span><span class="n">min_samples</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">dbs</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>488 noise points, 6 clusters
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>DBSCAN(eps=0.02, min_samples=2)
 </pre></div>
 </div>
 </div>
 </div>
-<p>But if we make <span class="math notranslate nohighlight">\(\epsilon\)</span> too large, everything is labeled as a single cluster.</p>
+<p>A <code class="docutils literal notranslate"><span class="pre">DBSCAN</span></code> object has a <code class="docutils literal notranslate"><span class="pre">labels_</span></code> property with cluster assignments, just like other cluster objects. But a cluster assignment <code class="docutils literal notranslate"><span class="pre">-1</span></code> indicates a noise point. The number of clusters, then, is one less than the number of unique values in the assignment vector.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">db</span> <span class="o">=</span> <span class="n">DBSCAN</span><span class="p">(</span><span class="n">eps</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">min_samples</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">db</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">labels_</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">y</span><span class="o">==-</span><span class="mi">1</span><span class="p">),</span><span class="s2">&quot;noise points,&quot;</span><span class="p">,</span><span class="nb">sum</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span><span class="o">!=-</span><span class="mi">1</span><span class="p">),</span><span class="s2">&quot;clusters&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">dbs</span><span class="o">.</span><span class="n">labels_</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;epsilon=0.02:&quot;</span><span class="p">,</span><span class="nb">sum</span><span class="p">(</span><span class="n">y</span><span class="o">==-</span><span class="mi">1</span><span class="p">),</span><span class="s2">&quot;noise points,&quot;</span><span class="p">,</span><span class="nb">sum</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span><span class="o">!=-</span><span class="mi">1</span><span class="p">),</span><span class="s2">&quot;clusters&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0 noise points, 1 clusters
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>epsilon=0.02: 488 noise points, 6 clusters
 </pre></div>
 </div>
 </div>
 </div>
-<p>In between, most points belong to a cluster, and the number of clusters is pretty low.</p>
+<p>If <span class="math notranslate nohighlight">\(\epsilon\)</span> is sufficiently large, on the other hand, the neighborhoods of the points are so large that they each contain many points.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">db</span> <span class="o">=</span> <span class="n">DBSCAN</span><span class="p">(</span><span class="n">eps</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span><span class="n">min_samples</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">db</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">labels_</span><span class="p">)</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">relplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;x1&quot;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s2">&quot;x2&quot;</span><span class="p">,</span><span class="n">hue</span><span class="o">=</span><span class="n">y</span><span class="p">,</span><span class="n">palette</span><span class="o">=</span><span class="s2">&quot;colorblind&quot;</span><span class="p">);</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nbrs</span> <span class="o">=</span> <span class="n">get_neighbors</span><span class="p">(</span><span class="n">D</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">N</span> <span class="o">=</span> <span class="p">[</span> <span class="nb">len</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">nbrs</span> <span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;neighborhood sizes for eps=2:&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">displot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">N</span><span class="p">,</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;number of neighbors&quot;</span><span class="p">));</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/dbscan_7_0.png" src="../_images/dbscan_7_0.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>neighborhood sizes for eps=2:
+</pre></div>
+</div>
+<img alt="../_images/dbscan_14_1.png" src="../_images/dbscan_14_1.png" />
 </div>
 </div>
-<p>However, there is one very small cluster above that we can get rid of by adjusting <span class="math notranslate nohighlight">\(N_\text{min}\)</span>.</p>
+<p>So for <span class="math notranslate nohighlight">\(N_\text{min}=40\)</span>, say, every point will be a core point. The neighborhoods overlap so much that they all end up in a single cluster:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">db</span> <span class="o">=</span> <span class="n">DBSCAN</span><span class="p">(</span><span class="n">eps</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span><span class="n">min_samples</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
-<span class="n">db</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">labels_</span><span class="p">)</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">relplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;x1&quot;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s2">&quot;x2&quot;</span><span class="p">,</span><span class="n">hue</span><span class="o">=</span><span class="n">y</span><span class="p">,</span><span class="n">palette</span><span class="o">=</span><span class="s2">&quot;colorblind&quot;</span><span class="p">);</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dbs</span> <span class="o">=</span> <span class="n">DBSCAN</span><span class="p">(</span><span class="n">eps</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">min_samples</span><span class="o">=</span><span class="mi">40</span><span class="p">)</span>
+<span class="n">dbs</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">dbs</span><span class="o">.</span><span class="n">labels_</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;epsilon=2:&quot;</span><span class="p">,</span><span class="nb">sum</span><span class="p">(</span><span class="n">y</span><span class="o">==-</span><span class="mi">1</span><span class="p">),</span><span class="s2">&quot;noise points,&quot;</span><span class="p">,</span><span class="nb">sum</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span><span class="o">!=-</span><span class="mi">1</span><span class="p">),</span><span class="s2">&quot;clusters&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/dbscan_9_0.png" src="../_images/dbscan_9_0.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>epsilon=2: 0 noise points, 1 clusters
+</pre></div>
 </div>
 </div>
-<p>The two clusters are the natural ones, and the noise points arguably lie in no-man’s-land.</p>
 </div>
-<div class="section" id="digits">
-<h2>Digits<a class="headerlink" href="#digits" title="Permalink to this headline">¶</a></h2>
+<p>In between, most points belong to one of the two natural clusters.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dbs</span> <span class="o">=</span> <span class="n">DBSCAN</span><span class="p">(</span><span class="n">eps</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span><span class="n">min_samples</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">dbs</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">&quot;cluster&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">dbs</span><span class="o">.</span><span class="n">labels_</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">relplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;x1&quot;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s2">&quot;x2&quot;</span><span class="p">,</span><span class="n">hue</span><span class="o">=</span><span class="s2">&quot;cluster&quot;</span><span class="p">,</span><span class="n">palette</span><span class="o">=</span><span class="s2">&quot;colorblind&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/dbscan_18_0.png" src="../_images/dbscan_18_0.png" />
+</div>
+</div>
+<p>We can convert some of the tiny clusters above into noise points by adjusting <span class="math notranslate nohighlight">\(N_\text{min}\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dbs</span> <span class="o">=</span> <span class="n">DBSCAN</span><span class="p">(</span><span class="n">eps</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span><span class="n">min_samples</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">dbs</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">&quot;cluster&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">dbs</span><span class="o">.</span><span class="n">labels_</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">relplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;x1&quot;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s2">&quot;x2&quot;</span><span class="p">,</span><span class="n">hue</span><span class="o">=</span><span class="s2">&quot;cluster&quot;</span><span class="p">,</span><span class="n">palette</span><span class="o">=</span><span class="s2">&quot;colorblind&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/dbscan_20_0.png" src="../_images/dbscan_20_0.png" />
+</div>
+</div>
+<p>A fitted DBSCAN clusterer has a property <code class="docutils literal notranslate"><span class="pre">core_sample_indices_</span></code> that holds the indices of all the core points. We use that here to find and highlight the border points.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;is_core&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>    <span class="c1"># create a column of Falses</span>
+<span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">dbs</span><span class="o">.</span><span class="n">core_sample_indices_</span><span class="p">,</span><span class="s2">&quot;is_core&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">&quot;is_border&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="o">~</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;is_core&quot;</span><span class="p">])</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;cluster&quot;</span><span class="p">]</span><span class="o">!=-</span><span class="mi">1</span><span class="p">)</span>   <span class="c1"># not core and not noise</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">relplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;x1&quot;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s2">&quot;x2&quot;</span><span class="p">,</span><span class="n">style</span><span class="o">=</span><span class="s2">&quot;cluster&quot;</span><span class="p">,</span><span class="n">hue</span><span class="o">=</span><span class="s2">&quot;is_border&quot;</span><span class="p">,</span><span class="n">palette</span><span class="o">=</span><span class="s2">&quot;colorblind&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/dbscan_22_0.png" src="../_images/dbscan_22_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="case-study-digits">
+<h2>Case study: digits<a class="headerlink" href="#case-study-digits" title="Permalink to this headline">¶</a></h2>
 <p>We return to the handwritten digits data, keeping only the written 4s, 5s, and 6s.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">datasets</span>
 <span class="n">digits</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">load_digits</span><span class="p">(</span><span class="n">as_frame</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="s2">&quot;frame&quot;</span><span class="p">]</span>
+<span class="n">digits</span> <span class="o">=</span> <span class="n">digits</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">digits</span><span class="p">[</span><span class="s2">&quot;target&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">])]</span>
 <span class="n">X</span> <span class="o">=</span> <span class="n">digits</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s2">&quot;target&quot;</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">y</span> <span class="o">=</span> <span class="n">digits</span><span class="o">.</span><span class="n">target</span>
-<span class="n">keep</span> <span class="o">=</span> <span class="p">(</span><span class="n">y</span><span class="o">==</span><span class="mi">4</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">y</span><span class="o">==</span><span class="mi">5</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">y</span><span class="o">==</span><span class="mi">6</span><span class="p">)</span>
-<span class="n">X</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">keep</span><span class="p">]</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="n">keep</span><span class="p">]</span>
+<span class="n">y</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>5    182
+4    181
+6    181
+Name: target, dtype: int64
 </pre></div>
 </div>
 </div>
 </div>
-<p>Without a good sense for optimal hyperparameters, we do a quick search over <span class="math notranslate nohighlight">\(\epsilon\)</span>. We want to simulate not having any ground truth labels, so we will use the mean silhouette score to judge the clustering.</p>
+<p>Without a good sense for optimal hyperparameters, we do a quick search over <span class="math notranslate nohighlight">\(\epsilon\)</span>. We want to simulate not having any ground truth labels, so we will use the mean silhouette score to assess the clusterings.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">silhouette_score</span>
 <span class="n">result_</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="n">eps_</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">30</span><span class="p">)</span>
+<span class="n">eps_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">30</span><span class="p">,</span><span class="mf">0.25</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">eps</span> <span class="ow">in</span> <span class="n">eps_</span><span class="p">:</span>
     <span class="n">dbs</span> <span class="o">=</span> <span class="n">DBSCAN</span><span class="p">(</span><span class="n">eps</span><span class="o">=</span><span class="n">eps</span><span class="p">,</span><span class="n">min_samples</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
     <span class="n">dbs</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
@@ -605,30 +758,33 @@
     
 <span class="n">best</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">result_</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;best score is&quot;</span><span class="p">,</span><span class="n">result_</span><span class="p">[</span><span class="n">best</span><span class="p">],</span><span class="s2">&quot;at eps value&quot;</span><span class="p">,</span><span class="n">eps_</span><span class="p">[</span><span class="n">best</span><span class="p">])</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">relplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">eps_</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="n">result_</span><span class="p">,</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;line&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>best score is 0.22252976167954971 at eps value 23
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>best score is 0.23197509661264856 at eps value 23.75
 </pre></div>
 </div>
+<img alt="../_images/dbscan_26_1.png" src="../_images/dbscan_26_1.png" />
 </div>
 </div>
-<p>Here’s of the labels break down in the best case.</p>
+<p>Here’s how the labels break down in the best case.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dbs</span> <span class="o">=</span> <span class="n">DBSCAN</span><span class="p">(</span><span class="n">eps</span><span class="o">=</span><span class="mi">23</span><span class="p">,</span><span class="n">min_samples</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dbs</span> <span class="o">=</span> <span class="n">DBSCAN</span><span class="p">(</span><span class="n">eps</span><span class="o">=</span><span class="n">eps_</span><span class="p">[</span><span class="n">best</span><span class="p">],</span><span class="n">min_samples</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 <span class="n">dbs</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-<span class="n">yhat</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">dbs</span><span class="o">.</span><span class="n">labels_</span><span class="p">,</span><span class="n">index</span><span class="o">=</span><span class="n">y</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
-<span class="n">yhat</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+<span class="n">y_hat</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">dbs</span><span class="o">.</span><span class="n">labels_</span><span class="p">,</span><span class="n">index</span><span class="o">=</span><span class="n">y</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+<span class="n">y_hat</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 1    178
+ 2    172
  0    170
- 2    165
--1     31
+-1     24
 dtype: int64
 </pre></div>
 </div>
@@ -638,23 +794,24 @@ dtype: int64
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">adjusted_rand_score</span>
-<span class="n">adjusted_rand_score</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">yhat</span><span class="p">)</span>
+<span class="n">adjusted_rand_score</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">y_hat</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.908241730048358
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.9273617998627647
 </pre></div>
 </div>
 </div>
 </div>
-<p>This is a relatively easy classification problem, but nevertheless this is rather good performance for a method that has no prior no prior knowledge of the labels, or even how many classes there are.</p>
-<p>Let’s take a look at some of the noise samples.</p>
+<p>This is a relatively easy classification problem, but nevertheless this is rather good performance for a method that has no prior knowledge of the labels, or even how many classes there are.</p>
+<p>Let’s take a look at some of the samples that were labeled as noise.</p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
+<span class="c1"># Given feature matrix, plot first 16 rows as 8x8 gray images in a grid.</span>
 <span class="k">def</span> <span class="nf">plot_digits</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
     <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
@@ -665,19 +822,20 @@ dtype: int64
             <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
     <span class="k">return</span> <span class="kc">None</span>
 
+<span class="c1"># Plot some noise cases.</span>
 <span class="n">plot_digits</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">dbs</span><span class="o">.</span><span class="n">labels_</span><span class="o">==-</span><span class="mi">1</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/dbscan_19_0.png" src="../_images/dbscan_19_0.png" />
+<img alt="../_images/dbscan_32_0.png" src="../_images/dbscan_32_0.png" />
 </div>
 </div>
-<p>Some of these images are ambiguous at best, but in other cases the failure to be clustered with the rest of the class is harder to explain.</p>
+<p>Some of these images are ambiguous to a human, but in other cases the failure to be clustered with the right class is harder to explain immediately.</p>
 <hr class="footnotes docutils" />
 <dl class="footnote brackets">
 <dt class="label" id="optics"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
-<dd><p>The OPTICS algorithm attempts to address this issue by, in effect, analyzing the data just once for all <span class="math notranslate nohighlight">\(\epsilon\)</span> simultaneously.</p>
+<dd><p>The OPTICS algorithm attempts to address the <span class="math notranslate nohighlight">\(\epsilon\)</span> issue by, in effect, analyzing the data just once for all <span class="math notranslate nohighlight">\(\epsilon\)</span> simultaneously.</p>
 </dd>
 </dl>
 </div>
@@ -715,10 +873,10 @@ dtype: int64
             <p class="prev-next-title"><span class="section-number">5.4. </span>Hierarchical</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="../network/overview.html" title="next page">
+    <a class='right-next' id="next-link" href="exercises.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">6. </span>Networks</p>
+        <p class="prev-next-title"><span class="section-number">5.6. </span>Exercises</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
