@@ -673,17 +673,17 @@ C = \frac{2}{3 \cdot 2 / 2} = \frac{2}{3}.
 </div>
 </div>
 <p>The most sensible definition of distance to the lone node is infinity, and averages including infinity are themselves infinite. We have the same problem when it comes to clustering, since the degree of the isolated node is zero.</p>
-<p>At this point, let’s ask how often this happens. For  <span class="math notranslate nohighlight">\(n=101\)</span>, <span class="math notranslate nohighlight">\(p=1/25\)</span>, the expected <span class="math notranslate nohighlight">\(\bar{k}\)</span> is <span class="math notranslate nohighlight">\(4.0\)</span>.</p>
+<p>At this point, let’s ask how often this happens. For  <span class="math notranslate nohighlight">\(n=251\)</span>, <span class="math notranslate nohighlight">\(p=1/50\)</span>, the expected <span class="math notranslate nohighlight">\(\bar{k}\)</span> is <span class="math notranslate nohighlight">\(5\)</span>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n</span><span class="p">,</span><span class="n">p</span> <span class="o">=</span> <span class="mi">101</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="mi">25</span>
-<span class="n">is_connected</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span> <span class="n">nx</span><span class="o">.</span><span class="n">is_connected</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">erdos_renyi_graph</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">p</span><span class="p">,</span><span class="n">seed</span><span class="o">=</span><span class="nb">iter</span><span class="p">))</span> <span class="k">for</span> <span class="nb">iter</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span> <span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">is_connected</span><span class="o">/</span><span class="mi">1000</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2"> are connected&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n</span><span class="p">,</span><span class="n">p</span> <span class="o">=</span> <span class="mi">251</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="mi">50</span>
+<span class="n">is_connected</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span> <span class="n">nx</span><span class="o">.</span><span class="n">is_connected</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">erdos_renyi_graph</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">p</span><span class="p">,</span><span class="n">seed</span><span class="o">=</span><span class="nb">iter</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span> <span class="k">for</span> <span class="nb">iter</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">500</span><span class="p">)</span> <span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">is_connected</span><span class="o">/</span><span class="mi">500</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2"> are connected&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>18.8% are connected
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>19.2% are connected
 </pre></div>
 </div>
 </div>
@@ -691,14 +691,14 @@ C = \frac{2}{3 \cdot 2 / 2} = \frac{2}{3}.
 <p>Let’s crank up the expected <span class="math notranslate nohighlight">\(\bar{k}\)</span> to 10.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n</span><span class="p">,</span><span class="n">p</span> <span class="o">=</span> <span class="mi">101</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="mi">10</span>
-<span class="n">is_connected</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span> <span class="n">nx</span><span class="o">.</span><span class="n">is_connected</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">erdos_renyi_graph</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">p</span><span class="p">,</span><span class="n">seed</span><span class="o">=</span><span class="nb">iter</span><span class="p">))</span> <span class="k">for</span> <span class="nb">iter</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span> <span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">is_connected</span><span class="o">/</span><span class="mi">1000</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2"> are connected&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n</span><span class="p">,</span><span class="n">p</span> <span class="o">=</span> <span class="mi">251</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="mi">25</span>
+<span class="n">is_connected</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span> <span class="n">nx</span><span class="o">.</span><span class="n">is_connected</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">erdos_renyi_graph</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">p</span><span class="p">,</span><span class="n">seed</span><span class="o">=</span><span class="nb">iter</span><span class="o">+</span><span class="mi">10</span><span class="p">))</span> <span class="k">for</span> <span class="nb">iter</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span> <span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">is_connected</span><span class="o">/</span><span class="mi">500</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2"> are connected&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>99.7% are connected
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>198.0% are connected
 </pre></div>
 </div>
 </div>
@@ -706,32 +706,41 @@ C = \frac{2}{3 \cdot 2 / 2} = \frac{2}{3}.
 <p>Let’s cut a little slack at this point and look at what the distance and clustering are for those ER graphs which are connected.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n</span><span class="p">,</span><span class="n">p</span> <span class="o">=</span> <span class="mi">101</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="mi">25</span>
-<span class="n">dbar</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="n">cbar</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="k">for</span> <span class="nb">iter</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2000</span><span class="p">):</span>
-    <span class="n">ER</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">erdos_renyi_graph</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">p</span><span class="p">,</span><span class="n">seed</span><span class="o">=</span><span class="nb">iter</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n</span><span class="p">,</span><span class="n">p</span> <span class="o">=</span> <span class="mi">251</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="mi">25</span>
+<span class="n">dbar</span><span class="p">,</span><span class="n">cbar</span> <span class="o">=</span> <span class="p">[],[]</span>
+<span class="k">for</span> <span class="nb">iter</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">500</span><span class="p">):</span>
+    <span class="n">ER</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">erdos_renyi_graph</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">p</span><span class="p">,</span><span class="n">seed</span><span class="o">=</span><span class="nb">iter</span><span class="o">+</span><span class="mi">5</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">nx</span><span class="o">.</span><span class="n">is_connected</span><span class="p">(</span><span class="n">ER</span><span class="p">):</span>
         <span class="n">dbar</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">average_shortest_path_length</span><span class="p">(</span><span class="n">ER</span><span class="p">))</span>
         <span class="n">cbar</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">average_clustering</span><span class="p">(</span><span class="n">ER</span><span class="p">))</span>        
 
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;average distances:&quot;</span><span class="p">)</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">displot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">dbar</span><span class="p">,</span><span class="n">bins</span><span class="o">=</span><span class="mi">19</span><span class="p">);</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;average clustering:&quot;</span><span class="p">)</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">displot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">cbar</span><span class="p">,</span><span class="n">bins</span><span class="o">=</span><span class="mi">19</span><span class="p">);</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">displot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">dbar</span><span class="p">,</span><span class="n">bins</span><span class="o">=</span><span class="mi">15</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>average distances:
-average clustering:
 </pre></div>
 </div>
 <img alt="../_images/small-world_25_1.png" src="../_images/small-world_25_1.png" />
-<img alt="../_images/small-world_25_2.png" src="../_images/small-world_25_2.png" />
 </div>
 </div>
-<p>Hence, when the graph is connected, we can expect the average distance to be less than 4. The local clustering is close to zero; there is no special affinity for friendship among one’s friends.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;average clustering:&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">displot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">cbar</span><span class="p">,</span><span class="n">bins</span><span class="o">=</span><span class="mi">15</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>average clustering:
+</pre></div>
+</div>
+<img alt="../_images/small-world_26_1.png" src="../_images/small-world_26_1.png" />
+</div>
+</div>
+<p>Hence, when the graph is connected, the local clustering is close to zero; there is no special affinity for friendship among one’s friends.</p>
 </div>
 <div class="section" id="twitch-network">
 <h2>Twitch network<a class="headerlink" href="#twitch-network" title="Permalink to this headline">¶</a></h2>
@@ -803,7 +812,7 @@ Estimated mean distance: 3.67368
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/small-world_33_0.png" src="../_images/small-world_33_0.png" />
+<img alt="../_images/small-world_34_0.png" src="../_images/small-world_34_0.png" />
 </div>
 </div>
 <p>The distribution above casts some doubt about using the mean as a summary, but for the record, the value is</p>
@@ -892,7 +901,7 @@ Average of mean clustering: 0.001434606204988957
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/small-world_44_0.png" src="../_images/small-world_44_0.png" />
+<img alt="../_images/small-world_45_0.png" src="../_images/small-world_45_0.png" />
 </div>
 </div>
 <p>For <span class="math notranslate nohighlight">\(q&lt;1\)</span>, a WS graph has a mean clustering coefficient that is significantly above zero.</p>
@@ -925,7 +934,7 @@ Average of mean clustering: 0.001434606204988957
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mean clustering in WS graphs on 60 nodes:
 </pre></div>
 </div>
-<img alt="../_images/small-world_47_1.png" src="../_images/small-world_47_1.png" />
+<img alt="../_images/small-world_48_1.png" src="../_images/small-world_48_1.png" />
 </div>
 </div>
 <p>Let’s scale the experiment up to the size of the Twitch network.</p>
@@ -958,7 +967,7 @@ Average of mean clustering: 0.001434606204988957
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mean clustering in WS graphs on 7126 nodes:
 </pre></div>
 </div>
-<img alt="../_images/small-world_50_1.png" src="../_images/small-world_50_1.png" />
+<img alt="../_images/small-world_51_1.png" src="../_images/small-world_51_1.png" />
 </div>
 </div>
 <p>The mean clustering resembles the value of 0.13 for the Twitch network at around <span class="math notranslate nohighlight">\(q=0.4\)</span>. However, that leaves the mean distance a bit too large:</p>

@@ -34,11 +34,11 @@ $$
 \left[
 \begin{array}{cccccc}
 0 & \sqrt{8} & \sqrt{7} & \sqrt{3} & \sqrt{5} & \sqrt{11} \\
-\sqrt{8} & \0 & \sqrt{12} & \sqrt{14} & \sqrt{12} & \sqrt{10} \\
+\sqrt{8} & 0 & \sqrt{12} & \sqrt{14} & \sqrt{12} & \sqrt{10} \\
 \sqrt{7} & \sqrt{12} & 0 & \sqrt{10} & \sqrt{10} & \sqrt{8} \\
-\sqrt{3} & \sqrt{14} & \sqrt{10} & \0 & \sqrt{3} & \sqrt{12} \\
-\sqrt{5} & \sqrt{12} & \sqrt{10} & \sqrt{3} & \0 & \sqrt{3} \\
-\sqrt{11} & \sqrt{10} & \sqrt{8} & \sqrt{12} & \sqrt{10} & \0 \\
+\sqrt{3} & \sqrt{14} & \sqrt{10} & 0 & \sqrt{3} & \sqrt{12} \\
+\sqrt{5} & \sqrt{12} & \sqrt{10} & \sqrt{3} & 0 & \sqrt{3} \\
+\sqrt{11} & \sqrt{10} & \sqrt{8} & \sqrt{12} & \sqrt{10} & 0 \\
 \end{array}
 \right]
 $$

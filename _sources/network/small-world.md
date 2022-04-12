@@ -104,7 +104,7 @@ nx.clustering(W,1)
 
 ## ER graphs
 
-Let's look at distance and clustering within ER random graphs. We quickly run into a problem: the ER graph may not have a path between all pairs of points. We say that such a graph is not **connected**. 
+Let's look at distance and clustering within ER random graphs. We quickly run into a problem: the ER graph may not have a path between all pairs of points. We say that such a graph is not **connected**.
 
 ```{code-cell} ipython3
 n,p = 101,1/25
@@ -118,41 +118,43 @@ nx.draw(ER,node_size=50)
 
 The most sensible definition of distance to the lone node is infinity, and averages including infinity are themselves infinite. We have the same problem when it comes to clustering, since the degree of the isolated node is zero. 
 
-At this point, let's ask how often this happens. For  $n=101$, $p=1/25$, the expected $\bar{k}$ is $4.0$.
+At this point, let's ask how often this happens. For  $n=251$, $p=1/50$, the expected $\bar{k}$ is $5$.
 
 ```{code-cell} ipython3
-n,p = 101,1/25
-is_connected = sum( nx.is_connected(nx.erdos_renyi_graph(n,p,seed=iter)) for iter in range(1000) )
-print(f"{is_connected/1000:.1%} are connected")
+n,p = 251,1/50
+is_connected = sum( nx.is_connected(nx.erdos_renyi_graph(n,p,seed=iter+1)) for iter in range(500) )
+print(f"{is_connected/500:.1%} are connected")
 ```
 
 Let's crank up the expected $\bar{k}$ to 10.
 
 ```{code-cell} ipython3
-n,p = 101,1/10
-is_connected = sum( nx.is_connected(nx.erdos_renyi_graph(n,p,seed=iter)) for iter in range(1000) )
-print(f"{is_connected/1000:.1%} are connected")
+n,p = 251,1/25
+is_connected = sum( nx.is_connected(nx.erdos_renyi_graph(n,p,seed=iter+10)) for iter in range(1000) )
+print(f"{is_connected/500:.1%} are connected")
 ```
 
-Let's cut a little slack at this point and look at what the distance and clustering are for those ER graphs which are connected. 
+Let's cut a little slack at this point and look at what the distance and clustering are for those ER graphs which are connected.
 
 ```{code-cell} ipython3
-n,p = 101,1/25
-dbar = []
-cbar = []
-for iter in range(2000):
-    ER = nx.erdos_renyi_graph(n,p,seed=iter)
+n,p = 251,1/25
+dbar,cbar = [],[]
+for iter in range(500):
+    ER = nx.erdos_renyi_graph(n,p,seed=iter+5)
     if nx.is_connected(ER):
         dbar.append(nx.average_shortest_path_length(ER))
         cbar.append(nx.average_clustering(ER))        
 
 print("average distances:")
-sns.displot(x=dbar,bins=19);
-print("average clustering:")
-sns.displot(x=cbar,bins=19);
+sns.displot(x=dbar,bins=15);
 ```
 
-Hence, when the graph is connected, we can expect the average distance to be less than 4. The local clustering is close to zero; there is no special affinity for friendship among one's friends.
+```{code-cell} ipython3
+print("average clustering:")
+sns.displot(x=cbar,bins=15);
+```
+
+Hence, when the graph is connected, the local clustering is close to zero; there is no special affinity for friendship among one's friends.
 
 +++
 

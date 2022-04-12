@@ -329,12 +329,17 @@
   <ul>
    <li class="toctree-l2">
     <a class="reference internal" href="../network/networkx.html">
-     6.1. Basics of NetworkX
+     6.1. Graphs
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../network/small-world.html">
+     6.2. Small-world networks
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../network/degree.html">
-     6.2. Degree and distance
+     6.3. Degree distributions
     </a>
    </li>
   </ul>
@@ -512,11 +517,11 @@ Finally, we say that two points are **connected** if there exists a core point f
 \left[
 \begin{array}{cccccc}
 0 &amp; \sqrt{8} &amp; \sqrt{7} &amp; \sqrt{3} &amp; \sqrt{5} &amp; \sqrt{11} \\
-\sqrt{8} &amp; \0 &amp; \sqrt{12} &amp; \sqrt{14} &amp; \sqrt{12} &amp; \sqrt{10} \\
+\sqrt{8} &amp; 0 &amp; \sqrt{12} &amp; \sqrt{14} &amp; \sqrt{12} &amp; \sqrt{10} \\
 \sqrt{7} &amp; \sqrt{12} &amp; 0 &amp; \sqrt{10} &amp; \sqrt{10} &amp; \sqrt{8} \\
-\sqrt{3} &amp; \sqrt{14} &amp; \sqrt{10} &amp; \0 &amp; \sqrt{3} &amp; \sqrt{12} \\
-\sqrt{5} &amp; \sqrt{12} &amp; \sqrt{10} &amp; \sqrt{3} &amp; \0 &amp; \sqrt{3} \\
-\sqrt{11} &amp; \sqrt{10} &amp; \sqrt{8} &amp; \sqrt{12} &amp; \sqrt{10} &amp; \0 \\
+\sqrt{3} &amp; \sqrt{14} &amp; \sqrt{10} &amp; 0 &amp; \sqrt{3} &amp; \sqrt{12} \\
+\sqrt{5} &amp; \sqrt{12} &amp; \sqrt{10} &amp; \sqrt{3} &amp; 0 &amp; \sqrt{3} \\
+\sqrt{11} &amp; \sqrt{10} &amp; \sqrt{8} &amp; \sqrt{12} &amp; \sqrt{10} &amp; 0 \\
 \end{array}
 \right]
 \end{split}\]</div>
