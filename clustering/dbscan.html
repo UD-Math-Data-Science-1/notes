@@ -749,35 +749,48 @@ Name: target, dtype: int64
 </div>
 </div>
 </div>
-<p>Without a good sense for optimal hyperparameters, we do a quick search over <span class="math notranslate nohighlight">\(\epsilon\)</span>. We want to simulate not having any ground truth labels, so we will use the mean silhouette score to assess the clusterings.</p>
+<p>Without a good sense for optimal hyperparameters, we do a quick search over <span class="math notranslate nohighlight">\(\epsilon\)</span>. We want to simulate not having any ground truth labels, but silhouette score is a bit tricky to use with DBSCAN because of the noise samples.</p>
+<p>Noise points aren’t meant to be a cluster, so including them in the score can be misleading. However, leaving them out completely just incentivizes designating more samples as noise. Let’s look at the distribution of clusters and noise samples as a function of the parameter <span class="math notranslate nohighlight">\(\epsilon\)</span>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">silhouette_score</span>
-<span class="n">result_</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="n">eps_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">30</span><span class="p">,</span><span class="mf">0.25</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">eps</span> <span class="ow">in</span> <span class="n">eps_</span><span class="p">:</span>
-    <span class="n">dbs</span> <span class="o">=</span> <span class="n">DBSCAN</span><span class="p">(</span><span class="n">eps</span><span class="o">=</span><span class="n">eps</span><span class="p">,</span><span class="n">min_samples</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">silhouette_score</span><span class="p">,</span><span class="n">silhouette_samples</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;eps&quot;</span><span class="p">:[],</span><span class="s2">&quot;clusters&quot;</span><span class="p">:[],</span><span class="s2">&quot;noise&quot;</span><span class="p">:[]})</span>
+<span class="k">for</span> <span class="n">eps</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">26</span><span class="p">,</span><span class="mf">0.25</span><span class="p">):</span>
+    <span class="n">dbs</span> <span class="o">=</span> <span class="n">DBSCAN</span><span class="p">(</span><span class="n">eps</span><span class="o">=</span><span class="n">eps</span><span class="p">,</span><span class="n">min_samples</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
     <span class="n">dbs</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-    <span class="n">result_</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">silhouette_score</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">dbs</span><span class="o">.</span><span class="n">labels_</span><span class="p">))</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="n">dbs</span><span class="o">.</span><span class="n">labels_</span>
+    <span class="n">k</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="n">c</span><span class="o">!=-</span><span class="mi">1</span><span class="p">]))</span>  <span class="c1"># remove the &quot;noise&quot; label before counting</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">((</span><span class="n">result</span><span class="p">,</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+        <span class="p">{</span><span class="s2">&quot;eps&quot;</span><span class="p">:[</span><span class="n">eps</span><span class="p">],</span><span class="s2">&quot;clusters&quot;</span><span class="p">:</span><span class="n">k</span><span class="p">,</span><span class="s2">&quot;noise&quot;</span><span class="p">:</span><span class="nb">sum</span><span class="p">(</span><span class="n">c</span><span class="o">==-</span><span class="mi">1</span><span class="p">)}</span>
+                                 <span class="p">)),</span><span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     
-<span class="n">best</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">result_</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;best score is&quot;</span><span class="p">,</span><span class="n">result_</span><span class="p">[</span><span class="n">best</span><span class="p">],</span><span class="s2">&quot;at eps value&quot;</span><span class="p">,</span><span class="n">eps_</span><span class="p">[</span><span class="n">best</span><span class="p">])</span>
-
-<span class="n">sns</span><span class="o">.</span><span class="n">relplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">eps_</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="n">result_</span><span class="p">,</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;line&quot;</span><span class="p">);</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">relplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">result</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;eps&quot;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s2">&quot;noise&quot;</span><span class="p">,</span><span class="n">hue</span><span class="o">=</span><span class="s2">&quot;clusters&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>best score is 0.23197509661264856 at eps value 23.75
-</pre></div>
-</div>
-<img alt="../_images/dbscan_26_1.png" src="../_images/dbscan_26_1.png" />
+<img alt="../_images/dbscan_26_0.png" src="../_images/dbscan_26_0.png" />
 </div>
 </div>
-<p>Here’s how the labels break down in the best case.</p>
+<p>We could argue that the long stretch in which there are 3 clusters with reasonably low noise makes <span class="math notranslate nohighlight">\(k=3\)</span> clusters the best choice. We will use the <span class="math notranslate nohighlight">\(\epsilon\)</span> that minimizes noise with <span class="math notranslate nohighlight">\(k=3\)</span>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dbs</span> <span class="o">=</span> <span class="n">DBSCAN</span><span class="p">(</span><span class="n">eps</span><span class="o">=</span><span class="n">eps_</span><span class="p">[</span><span class="n">best</span><span class="p">],</span><span class="n">min_samples</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">result</span><span class="p">[</span><span class="s2">&quot;clusters&quot;</span><span class="p">]</span><span class="o">==</span><span class="mi">3</span><span class="p">]</span>
+<span class="n">i</span> <span class="o">=</span><span class="n">result</span><span class="p">[</span><span class="s2">&quot;noise&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">argmin</span><span class="p">()</span>
+<span class="n">eps_best</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s2">&quot;eps&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;best eps:&quot;</span><span class="p">,</span><span class="n">eps_best</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>best eps: 23.75
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dbs</span> <span class="o">=</span> <span class="n">DBSCAN</span><span class="p">(</span><span class="n">eps</span><span class="o">=</span><span class="n">eps_best</span><span class="p">,</span><span class="n">min_samples</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
 <span class="n">dbs</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
 <span class="n">y_hat</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">dbs</span><span class="o">.</span><span class="n">labels_</span><span class="p">,</span><span class="n">index</span><span class="o">=</span><span class="n">y</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
 <span class="n">y_hat</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
@@ -786,15 +799,15 @@ Name: target, dtype: int64
 </div>
 <div class="cell_output docutils container">
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 1    178
- 2    172
  0    170
--1     24
+ 2    169
+-1     27
 dtype: int64
 </pre></div>
 </div>
 </div>
 </div>
-<p>As you can see above, three clusters emerged naturally, which is encouraging. We can compare to the true labels via the Rand score:</p>
+<p>The three clusters have nearly equal size, which is encouraging. We can compare to the true labels via the Rand score:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">adjusted_rand_score</span>
@@ -803,12 +816,12 @@ dtype: int64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.9273617998627647
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.9189992711211001
 </pre></div>
 </div>
 </div>
 </div>
-<p>This is a relatively easy classification problem, but nevertheless this is rather good performance for a method that has no prior knowledge of the labels, or even how many classes there are.</p>
+<p>This is a relatively easy classification problem, but nevertheless this is good performance for a method that has no prior knowledge of the labels, or even how many classes there are.</p>
 <p>Let’s take a look at some of the samples that were labeled as noise.</p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
@@ -832,7 +845,7 @@ dtype: int64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/dbscan_32_0.png" src="../_images/dbscan_32_0.png" />
+<img alt="../_images/dbscan_33_0.png" src="../_images/dbscan_33_0.png" />
 </div>
 </div>
 <p>Some of these images are ambiguous to a human, but in other cases the failure to be clustered with the right class is harder to explain immediately.</p>

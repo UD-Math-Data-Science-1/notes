@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>6.1. Basics of NetworkX &#8212; Data Science 1</title>
+    <title>6.1. Graphs &#8212; Data Science 1</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet">
   <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -56,7 +56,7 @@
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="6.2. Degree and distance" href="degree.html" />
+    <link rel="next" title="6.2. Small-world networks" href="small-world.html" />
     <link rel="prev" title="6. Networks" href="overview.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
@@ -329,12 +329,17 @@
   <ul class="current">
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
-     6.1. Basics of NetworkX
+     6.1. Graphs
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="small-world.html">
+     6.2. Small-world networks
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="degree.html">
-     6.2. Degree and distance
+     6.3. Degree distributions
     </a>
    </li>
   </ul>
@@ -408,7 +413,7 @@
         aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
     <div class="dropdown-buttons">
         
-        <a class="binder-button" href="https://mybinder.org/v2/gh/UD-Math-Data-Science-1/notes/main?urlpath=tree/network/networkx.ipynb"><button type="button"
+        <a class="binder-button" href="https://mybinder.org/v2/gh/UD-Math-Data-Science-1/notes/main?urlpath=tree/network/networkx.md"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
                 data-placement="left"><img class="binder-button-logo"
                     src="../_static/images/logo_binder.svg"
@@ -435,8 +440,8 @@
             <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#ego-graphs">
-   Ego graphs
+  <a class="reference internal nav-link" href="#networkx">
+   NetworkX
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -445,8 +450,18 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#connectedness">
-   Connectedness
+  <a class="reference internal nav-link" href="#importing-networks">
+   Importing networks
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#degree-and-average-degree">
+   Degree and average degree
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#random-graphs">
+   Random graphs
   </a>
  </li>
 </ul>
@@ -459,7 +474,7 @@
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Basics of NetworkX</h1>
+                <h1>Graphs</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -470,8 +485,8 @@
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#ego-graphs">
-   Ego graphs
+  <a class="reference internal nav-link" href="#networkx">
+   NetworkX
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -480,8 +495,18 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#connectedness">
-   Connectedness
+  <a class="reference internal nav-link" href="#importing-networks">
+   Importing networks
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#degree-and-average-degree">
+   Degree and average degree
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#random-graphs">
+   Random graphs
   </a>
  </li>
 </ul>
@@ -493,12 +518,17 @@
             
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="basics-of-networkx">
-<h1><span class="section-number">6.1. </span>Basics of NetworkX<a class="headerlink" href="#basics-of-networkx" title="Permalink to this headline">¶</a></h1>
-<p>The best-known package for working with networks is NetworkX.</p>
+  <div class="tex2jax_ignore mathjax_ignore section" id="graphs">
+<h1><span class="section-number">6.1. </span>Graphs<a class="headerlink" href="#graphs" title="Permalink to this headline">¶</a></h1>
+<p>In mathematics, a network is represented as a <strong>graph</strong>. A graph is a collection of <strong>nodes</strong> (also called <em>vertices</em>) and <strong>edges</strong> that connect pairs of nodes. A basic distinction in graph theory is between an <strong>undirected graph</strong>, in which the edge <span class="math notranslate nohighlight">\((a,b)\)</span> is identical to <span class="math notranslate nohighlight">\((b,a)\)</span>, and a <strong>directed graph</strong> or <strong>digraph</strong>, in which <span class="math notranslate nohighlight">\((a,b)\)</span> and <span class="math notranslate nohighlight">\((b,a)\)</span> are different potential edges. In either type of graph, each edge might be labeled with a numerical value, which results in a <strong>weighted graph</strong>.</p>
+<p>Undirected, unweighted graphs will give us plenty to handle, and we will not seek to go beyond them. We also will not consider graphs that allow a node to link to itself.</p>
+<div class="section" id="networkx">
+<h2>NetworkX<a class="headerlink" href="#networkx" title="Permalink to this headline">¶</a></h2>
+<p>The best-known Python package for working with networks is NetworkX.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
 </pre></div>
 </div>
 </div>
@@ -507,21 +537,7 @@
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">star</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">(</span> <span class="p">[(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">),(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">),(</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">),(</span><span class="mi">1</span><span class="p">,</span><span class="mi">5</span><span class="p">),(</span><span class="mi">1</span><span class="p">,</span><span class="mi">6</span><span class="p">)]</span> <span class="p">)</span>
-<span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">star</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/networkx_3_0.png" src="../_images/networkx_3_0.png" />
-</div>
-</div>
-<p>Another way to create a graph is to give the start and end nodes of the edges as columns in a data frame.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span> <span class="p">{</span><span class="s1">&#39;from&#39;</span><span class="p">:[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">],</span><span class="s1">&#39;to&#39;</span><span class="p">:[</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">1</span><span class="p">]}</span> <span class="p">)</span>
-<span class="n">H</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">from_pandas_edgelist</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="s1">&#39;from&#39;</span><span class="p">,</span><span class="s1">&#39;to&#39;</span><span class="p">)</span>
-<span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">H</span><span class="p">)</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">star</span><span class="p">,</span><span class="n">with_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">node_color</span><span class="o">=</span><span class="s2">&quot;lightblue&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -529,7 +545,42 @@
 <img alt="../_images/networkx_5_0.png" src="../_images/networkx_5_0.png" />
 </div>
 </div>
-<p>There are functions that generate different well-studied types of graphs. A <strong>complete graph</strong> is one that has every possible edge.</p>
+<p>Another way to create a graph is to give the start and end nodes of the edges as columns in a data frame.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span> <span class="p">{</span><span class="s1">&#39;from&#39;</span><span class="p">:[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">],</span><span class="s1">&#39;to&#39;</span><span class="p">:[</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">1</span><span class="p">]}</span> <span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+<span class="n">H</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">from_pandas_edgelist</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="s1">&#39;from&#39;</span><span class="p">,</span><span class="s1">&#39;to&#39;</span><span class="p">)</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">H</span><span class="p">,</span><span class="n">with_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">node_color</span><span class="o">=</span><span class="s2">&quot;lightblue&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   from  to
+0     1   2
+1     2   3
+2     3   4
+3     4   5
+4     5   6
+5     6   1
+</pre></div>
+</div>
+<img alt="../_images/networkx_7_1.png" src="../_images/networkx_7_1.png" />
+</div>
+</div>
+<p>There are functions that generate different well-studied types of graphs. For instance, the graph above is a <strong>cycle graph</strong> or <em>ring lattice</em>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">cycle_graph</span><span class="p">(</span><span class="mi">9</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/networkx_9_0.png" src="../_images/networkx_9_0.png" />
+</div>
+</div>
+<p>A <strong>complete graph</strong> is one that has every possible edge.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">K5</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">complete_graph</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
@@ -542,9 +593,15 @@
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>5 nodes, 10 edges
 </pre></div>
 </div>
-<img alt="../_images/networkx_7_1.png" src="../_images/networkx_7_1.png" />
+<img alt="../_images/networkx_11_1.png" src="../_images/networkx_11_1.png" />
 </div>
 </div>
+<p>In a graph on <span class="math notranslate nohighlight">\(n\)</span> nodes, there are</p>
+<div class="math notranslate nohighlight">
+\[
+\binom{n}{2} = \frac{n!}{(n-2)!2!} = \frac{n(n-1)}{2}
+\]</div>
+<p>unique pairs of distinct nodes. Hence, that is the number of edges in the undirected complete graph on <span class="math notranslate nohighlight">\(n\)</span> nodes.</p>
 <p>A <strong>lattice graph</strong> has a regular structure, like graph paper.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -558,49 +615,90 @@
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>24 nodes, 38 edges
 </pre></div>
 </div>
-<img alt="../_images/networkx_9_1.png" src="../_images/networkx_9_1.png" />
+<img alt="../_images/networkx_14_1.png" src="../_images/networkx_14_1.png" />
 </div>
 </div>
-<p>An <strong>Erdős-Rényi graph</strong> includes each individual possible edge with a fixed probability <span class="math notranslate nohighlight">\(p\)</span>. When one refers to a “random graph” without any additional context, this is the type that is meant.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">er</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">erdos_renyi_graph</span><span class="p">(</span><span class="mi">60</span><span class="p">,</span><span class="mf">.08</span><span class="p">,</span><span class="n">seed</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">er</span><span class="o">.</span><span class="n">number_of_nodes</span><span class="p">(),</span><span class="s2">&quot;nodes,&quot;</span><span class="p">,</span><span class="n">er</span><span class="o">.</span><span class="n">number_of_edges</span><span class="p">(),</span><span class="s2">&quot;edges&quot;</span><span class="p">)</span>
-<span class="n">nx</span><span class="o">.</span><span class="n">draw_circular</span><span class="p">(</span><span class="n">er</span><span class="p">,</span><span class="n">node_size</span><span class="o">=</span><span class="mi">40</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>60 nodes, 145 edges
-</pre></div>
-</div>
-<img alt="../_images/networkx_11_1.png" src="../_images/networkx_11_1.png" />
-</div>
-</div>
-<p>A <strong>Watts–Strogatz graph</strong> is randomized but prefers links to a small group of neighbors over distant nodes.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ws</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">watts_strogatz_graph</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mf">.2</span><span class="p">,</span><span class="n">seed</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
-<span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">ws</span><span class="p">,</span><span class="n">node_size</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/networkx_13_0.png" src="../_images/networkx_13_0.png" />
-</div>
-</div>
+<p>In an <span class="math notranslate nohighlight">\(m\times n\)</span> lattice graph, there are <span class="math notranslate nohighlight">\(m-1\)</span> edges in one direction repeated <span class="math notranslate nohighlight">\(n\)</span> times, plus <span class="math notranslate nohighlight">\(n-1\)</span> edges in the other direction, repeated <span class="math notranslate nohighlight">\(m\)</span> times. Thus there are</p>
+<div class="math notranslate nohighlight">
+\[
+(m-1)n + (n-1)m = 2mn-(m+n)
+\]</div>
+<p>edges altogether.</p>
 <p>There are different ways to draw a particular graph in the plane, as determined by the positions of the nodes. The default is to imagine that the edges are springs pulling on the nodes. But there are alternatives that may be useful at times.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nx</span><span class="o">.</span><span class="n">draw_circular</span><span class="p">(</span><span class="n">K5</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nx</span><span class="o">.</span><span class="n">draw_circular</span><span class="p">(</span><span class="n">lat</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/networkx_15_0.png" src="../_images/networkx_15_0.png" />
+<img alt="../_images/networkx_17_0.png" src="../_images/networkx_17_0.png" />
 </div>
 </div>
-<p>There are many ways to read graphs from (and write them to) files. Here is a friend network among Twitch users. The file has a pair of nodes representing one edge on each line.</p>
+<p>As you can see, it’s not easy to tell how similar two graphs are by comparing their plots.</p>
+</div>
+<div class="section" id="adjacency-matrix">
+<h2>Adjacency matrix<a class="headerlink" href="#adjacency-matrix" title="Permalink to this headline">¶</a></h2>
+<p>Two nodes are said to be <strong>adjacent</strong> if there is an edge between them. Every graph can be associated with an <strong>adjacency matrix</strong>. Suppose the nodes are numbered from <span class="math notranslate nohighlight">\(0\)</span> to <span class="math notranslate nohighlight">\(n-1\)</span>. The adjacency matrix is <span class="math notranslate nohighlight">\(n\times n\)</span> and has a 1 at position <span class="math notranslate nohighlight">\((i,j)\)</span> if node <span class="math notranslate nohighlight">\(i\)</span> and node <span class="math notranslate nohighlight">\(j\)</span> are adjacent, and a 0 otherwise.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">adjacency_matrix</span><span class="p">(</span><span class="n">star</span><span class="p">)</span>
+<span class="n">A</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;6x6 sparse matrix of type &#39;&lt;class &#39;numpy.int64&#39;&gt;&#39;
+	with 10 stored elements in Compressed Sparse Row format&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<p>Observe that <code class="docutils literal notranslate"><span class="pre">A</span></code> is not stored in the format we have been used to. In a large network we would expect most of its entries to be zero, so it makes more sense to store it as a <em>sparse matrix</em>, where we keep track of only the nonzero entries:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  (0, 1)	1
+  (0, 2)	1
+  (0, 3)	1
+  (0, 4)	1
+  (0, 5)	1
+  (1, 0)	1
+  (2, 0)	1
+  (3, 0)	1
+  (4, 0)	1
+  (5, 0)	1
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can easily convert <code class="docutils literal notranslate"><span class="pre">A</span></code> to a standard array, if it is not too large to fit in memory.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0, 1, 1, 1, 1, 1],
+       [1, 0, 0, 0, 0, 0],
+       [1, 0, 0, 0, 0, 0],
+       [1, 0, 0, 0, 0, 0],
+       [1, 0, 0, 0, 0, 0],
+       [1, 0, 0, 0, 0, 0]])
+</pre></div>
+</div>
+</div>
+</div>
+<p>In an undirected graph, we have <span class="math notranslate nohighlight">\(A_{ij}=A_{ji}\)</span> everywhere, and we say that <span class="math notranslate nohighlight">\(A\)</span> is <em>symmetric</em>.</p>
+</div>
+<div class="section" id="importing-networks">
+<h2>Importing networks<a class="headerlink" href="#importing-networks" title="Permalink to this headline">¶</a></h2>
+<p>There are many ways to read graphs from (and write them to) files. For example, here is a friend network among Twitch users. The file has a pair of nodes representing one edge on each line.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">twitch</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">read_edgelist</span><span class="p">(</span><span class="s2">&quot;musae_edges.csv&quot;</span><span class="p">,</span><span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">,</span><span class="n">nodetype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
@@ -620,24 +718,16 @@
 </div>
 </div>
 </div>
-<div class="section" id="ego-graphs">
-<h2>Ego graphs<a class="headerlink" href="#ego-graphs" title="Permalink to this headline">¶</a></h2>
-<p>We can extract for any node of a graph its <strong>ego graph</strong>, which is the subset of nodes it is connected to, along with the associated edges.</p>
+<p>This graph is difficult to draw in its entirety. We can zoom in on a subset by selecting a node and its <strong>ego graph</strong>, which includes its adjacent nodes along with all edges between these nodes.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ego</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">ego_graph</span><span class="p">(</span><span class="n">twitch</span><span class="p">,</span><span class="mi">400</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">ego</span><span class="p">,</span><span class="n">with_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">node_size</span><span class="o">=</span><span class="mi">800</span><span class="p">,</span><span class="n">node_color</span><span class="o">=</span><span class="s2">&quot;yellow&quot;</span><span class="p">)</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">ego</span><span class="p">,</span><span class="n">with_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">node_size</span><span class="o">=</span><span class="mi">800</span><span class="p">,</span><span class="n">node_color</span><span class="o">=</span><span class="s2">&quot;yellow&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/networkx_21_0.png" src="../_images/networkx_21_0.png" />
+<img alt="../_images/networkx_31_0.png" src="../_images/networkx_31_0.png" />
 </div>
 </div>
 <p>Notice that the nodes of the ego network have the same labels as they did in the original graph that it was taken from.</p>
@@ -645,163 +735,180 @@
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">big_ego</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">ego_graph</span><span class="p">(</span><span class="n">twitch</span><span class="p">,</span><span class="mi">400</span><span class="p">,</span><span class="n">radius</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">big_ego</span><span class="o">.</span><span class="n">number_of_nodes</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>528
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pos</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">spring_layout</span><span class="p">(</span><span class="n">big_ego</span><span class="p">,</span><span class="n">iterations</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">big_ego</span><span class="o">.</span><span class="n">number_of_nodes</span><span class="p">(),</span><span class="s2">&quot;nodes and&quot;</span><span class="p">,</span><span class="n">big_ego</span><span class="o">.</span><span class="n">number_of_edges</span><span class="p">(),</span><span class="s2">&quot;edges&quot;</span><span class="p">)</span>
+<span class="n">pos</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">spring_layout</span><span class="p">(</span><span class="n">big_ego</span><span class="p">,</span><span class="n">iterations</span><span class="o">=</span><span class="mi">60</span><span class="p">)</span>
 <span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">big_ego</span><span class="p">,</span><span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span><span class="n">width</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span><span class="n">node_size</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span><span class="n">node_color</span><span class="o">=</span><span class="s2">&quot;purple&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/networkx_24_0.png" src="../_images/networkx_24_0.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>528 nodes and 1567 edges
+</pre></div>
+</div>
+<img alt="../_images/networkx_33_1.png" src="../_images/networkx_33_1.png" />
 </div>
 </div>
+<p>The reason for the two-step process in making the plot above is that computing the node positions via springs takes a hidden computational iteration. By calling that iteration explicitly, we were able to stop if early and save time.</p>
 </div>
-<div class="section" id="adjacency-matrix">
-<h2>Adjacency matrix<a class="headerlink" href="#adjacency-matrix" title="Permalink to this headline">¶</a></h2>
-<p>Two nodes are said to be <strong>adjacent</strong> if there is an edge between them. Every graph can be associated with an <strong>adjacency matrix</strong>. Suppose the nodes are numbered from <span class="math notranslate nohighlight">\(0\)</span> to <span class="math notranslate nohighlight">\(n-1\)</span>. The adjacency matrix is <span class="math notranslate nohighlight">\(n\times n\)</span> and has a 1 at position <span class="math notranslate nohighlight">\((i,j)\)</span> if node <span class="math notranslate nohighlight">\(i\)</span> and node <span class="math notranslate nohighlight">\(j\)</span> are adjacent, and a 0 otherwise.</p>
+<div class="section" id="degree-and-average-degree">
+<h2>Degree and average degree<a class="headerlink" href="#degree-and-average-degree" title="Permalink to this headline">¶</a></h2>
+<p>The <strong>degree</strong> of a node is the number of edges that have the node as an endpoint. Equivalently, it is the number of nodes in its ego graph, minus the original node itself. Tthe <strong>average degree</strong> of a graph is the mean of the degrees of all of its nodes.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">degree</span></code> property of a graph gives a list of all nodes with their degrees.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">adjacency_matrix</span><span class="p">(</span><span class="n">ego</span><span class="p">)</span>
-<span class="n">A</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ego</span><span class="o">.</span><span class="n">degree</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;10x10 sparse matrix of type &#39;&lt;class &#39;numpy.int64&#39;&gt;&#39;
-	with 24 stored elements in Compressed Sparse Row format&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>DegreeView({897: 2, 400: 9, 5394: 2, 3379: 3, 4406: 1, 5079: 1, 6136: 2, 5049: 1, 6107: 1, 639: 2})
 </pre></div>
 </div>
 </div>
 </div>
-<p>Observe that <code class="docutils literal notranslate"><span class="pre">A</span></code> is not stored in the format we have been used to. In a large network we would expect most of its entries to be zero, so it makes more sense to store it as a <em>sparse matrix</em>, where we keep track of only the nonzero entries:</p>
+<p>The result here can be a bit awkward to work with; it’s actually a <em>generator</em> of a list, rather than the list itself. (This “lazy” attitude is useful when dealing with very large networks.) So, for instance, we can collect the list as ordered tuples using a comprehension:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">A</span><span class="p">[:</span><span class="mi">3</span><span class="p">,:])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">d</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">ego</span><span class="o">.</span><span class="n">degree</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  (0, 1)	1
-  (0, 2)	1
-  (1, 0)	1
-  (1, 2)	1
-  (1, 3)	1
-  (1, 4)	1
-  (1, 5)	1
-  (1, 6)	1
-  (1, 7)	1
-  (1, 8)	1
-  (1, 9)	1
-  (2, 0)	1
-  (2, 1)	1
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[(897, 2),
+ (400, 9),
+ (5394, 2),
+ (3379, 3),
+ (4406, 1),
+ (5079, 1),
+ (6136, 2),
+ (5049, 1),
+ (6107, 1),
+ (639, 2)]
 </pre></div>
 </div>
 </div>
 </div>
-<p>We can easily convert <code class="docutils literal notranslate"><span class="pre">A</span></code> to a standard array, if it is not too large to fit in memory.</p>
+<p>To compute the average degree, we can do a sum over the generator instead.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">average_degree</span><span class="p">(</span><span class="n">g</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">g</span><span class="o">.</span><span class="n">degree</span><span class="p">)</span><span class="o">/</span><span class="n">g</span><span class="o">.</span><span class="n">number_of_nodes</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;average degree of K5 complete graph:&quot;</span><span class="p">,</span><span class="n">average_degree</span><span class="p">(</span><span class="n">K5</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;average degree of Twitch network:&quot;</span><span class="p">,</span><span class="n">average_degree</span><span class="p">(</span><span class="n">twitch</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0, 1, 1, 0, 0, 0, 0, 0, 0, 0],
-       [1, 0, 1, 1, 1, 1, 1, 1, 1, 1],
-       [1, 1, 0, 0, 0, 0, 0, 0, 0, 0],
-       [0, 1, 0, 0, 0, 0, 1, 0, 0, 1],
-       [0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
-       [0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
-       [0, 1, 0, 1, 0, 0, 0, 0, 0, 0],
-       [0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
-       [0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
-       [0, 1, 0, 1, 0, 0, 0, 0, 0, 0]])
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>average degree of K5 complete graph: 4.0
+average degree of Twitch network: 9.914117316867808
 </pre></div>
 </div>
 </div>
 </div>
-<p>In an undirected graph, we have <span class="math notranslate nohighlight">\(A_{ij}=A_{ji}\)</span> everywhere, and we say that <span class="math notranslate nohighlight">\(A\)</span> is <em>symmetric</em>.</p>
-</div>
-<div class="section" id="connectedness">
-<h2>Connectedness<a class="headerlink" href="#connectedness" title="Permalink to this headline">¶</a></h2>
-<p>We say that two nodes in a network are <strong>connected</strong> if there is a path of edges between them. If every pair of nodes in the network are connected, then we say the <em>graph</em> is connected.</p>
+<p>There’s a much easier way to compute this quantity, however. If we sum the degrees of all the nodes in a graph, we must get twice the number of edges in the graph.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nx</span><span class="o">.</span><span class="n">is_connected</span><span class="p">(</span><span class="n">twitch</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">average_degree</span><span class="p">(</span><span class="n">g</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mi">2</span><span class="o">*</span><span class="n">g</span><span class="o">.</span><span class="n">number_of_edges</span><span class="p">()</span><span class="o">/</span><span class="n">g</span><span class="o">.</span><span class="n">number_of_nodes</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;average degree of Twitch network:&quot;</span><span class="p">,</span><span class="n">average_degree</span><span class="p">(</span><span class="n">twitch</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>average degree of Twitch network: 9.914117316867808
 </pre></div>
 </div>
 </div>
 </div>
-<p>If a subset <span class="math notranslate nohighlight">\(C\)</span> of nodes (with associated edges) forms a connected graph, and there are no links from nodes in <span class="math notranslate nohighlight">\(C\)</span> to nodes outside of <span class="math notranslate nohighlight">\(C\)</span>, then <span class="math notranslate nohighlight">\(C\)</span> is a <strong>connected component</strong>. A connected graph has one connected component; the other extreme is a graph with no edges, in which the number of connected components equals the number of nodes.</p>
+</div>
+<div class="section" id="random-graphs">
+<h2>Random graphs<a class="headerlink" href="#random-graphs" title="Permalink to this headline">¶</a></h2>
+<p>One way of understanding a real-world network is by comparing it to ones that are constructed randomly, but according to relatively simple rules. The idea is that if the real network behaves similarly to members of some random family, then perhaps it is constructed according to similar principles.</p>
+<p>An <strong>Erdős-Rényi graph</strong> (ER graph) includes each individual possible edge with a fixed probability <span class="math notranslate nohighlight">\(p\)</span>. That is, if you have a weighted coin that comes up heads (100p)% of the time, then you toss the coin for each possible pair of vertices and include their edge if it is heads.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ego</span><span class="o">.</span><span class="n">remove_edge</span><span class="p">(</span><span class="mi">400</span><span class="p">,</span><span class="mi">5079</span><span class="p">)</span>
-<span class="n">nx</span><span class="o">.</span><span class="n">draw_circular</span><span class="p">(</span><span class="n">ego</span><span class="p">,</span><span class="n">with_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">node_size</span><span class="o">=</span><span class="mi">800</span><span class="p">,</span><span class="n">node_color</span><span class="o">=</span><span class="s2">&quot;yellow&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n</span><span class="p">,</span><span class="n">p</span> <span class="o">=</span> <span class="mi">50</span><span class="p">,</span><span class="mf">0.08</span>
+<span class="n">ER</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">erdos_renyi_graph</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">p</span><span class="p">,</span><span class="n">seed</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ER</span><span class="o">.</span><span class="n">number_of_nodes</span><span class="p">(),</span><span class="s2">&quot;nodes,&quot;</span><span class="p">,</span><span class="n">ER</span><span class="o">.</span><span class="n">number_of_edges</span><span class="p">(),</span><span class="s2">&quot;edges&quot;</span><span class="p">)</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw_circular</span><span class="p">(</span><span class="n">ER</span><span class="p">,</span><span class="n">node_size</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span><span class="n">edge_color</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/networkx_37_0.png" src="../_images/networkx_37_0.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>50 nodes, 91 edges
+</pre></div>
+</div>
+<img alt="../_images/networkx_45_1.png" src="../_images/networkx_45_1.png" />
 </div>
 </div>
+<p>Since there are <span class="math notranslate nohighlight">\(\binom{n}{2}\)</span> unique pairs among <span class="math notranslate nohighlight">\(n\)</span> nodes, the mean number of edges in an ER graph is</p>
+<div class="math notranslate nohighlight">
+\[
+p\binom{n}{2} = \frac{pn(n-1)}{2}.
+\]</div>
+<p>This fact is usually stated in terms of the average node degree, <span class="math notranslate nohighlight">\(\bar{k}\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+E[\bar{k}] = \frac{1}{n} pn(n-1) = p(n-1).
+\]</div>
+<p>There are two senses of “average” going on here: in each graph instance, you find the average degree, then you take the average (expectation, <span class="math notranslate nohighlight">\(E[\cdot]\)</span>) over all random instances. Here is the distribution of <span class="math notranslate nohighlight">\(\bar{k}\)</span> over 10000 instances when its expected value is <span class="math notranslate nohighlight">\(4.0\)</span>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nx</span><span class="o">.</span><span class="n">number_connected_components</span><span class="p">(</span><span class="n">ego</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n</span><span class="p">,</span><span class="n">p</span> <span class="o">=</span> <span class="mi">41</span><span class="p">,</span><span class="mf">0.1</span>
+<span class="n">kbar</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="nb">iter</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10000</span><span class="p">):</span>
+    <span class="n">ER</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">erdos_renyi_graph</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">p</span><span class="p">,</span><span class="n">seed</span><span class="o">=</span><span class="nb">iter</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">kbar</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">average_degree</span><span class="p">(</span><span class="n">ER</span><span class="p">))</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">displot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">kbar</span><span class="p">,</span><span class="n">bins</span><span class="o">=</span><span class="mi">19</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2
-</pre></div>
+<img alt="../_images/networkx_49_0.png" src="../_images/networkx_49_0.png" />
 </div>
 </div>
-</div>
-<p>An <strong>articulation node</strong> is a node that, when removed (with its incident edges) from a graph, increases the number of connected components. Each articulation node is a “choke point” or hub for communication between otherwise disconnected subgraphs. The Twitch network has many such nodes.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ap</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">articulation_points</span><span class="p">(</span><span class="n">twitch</span><span class="p">))</span>
-<span class="nb">len</span><span class="p">(</span><span class="n">ap</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>780
-</pre></div>
-</div>
-</div>
-</div>
-<p>Removing an articulation node results in at least two connected components, but there might be more.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">t2</span> <span class="o">=</span> <span class="n">twitch</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-<span class="n">t2</span><span class="o">.</span><span class="n">remove_node</span><span class="p">(</span><span class="n">ap</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="n">nx</span><span class="o">.</span><span class="n">number_connected_components</span><span class="p">(</span><span class="n">t2</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>13
-</pre></div>
-</div>
-</div>
-</div>
-</div>
+<!-- 
+## Connectedness
+
++++
+
+We say that two nodes in a network are **connected** if there is a path of edges between them. If every pair of nodes in the network are connected, then we say the *graph* is connected.
+
+```{code-cell} ipython3
+nx.is_connected(twitch)
+```
+
+If a subset $C$ of nodes (with associated edges) forms a connected graph, and there are no links from nodes in $C$ to nodes outside of $C$, then $C$ is a **connected component**. A connected graph has one connected component; the other extreme is a graph with no edges, in which the number of connected components equals the number of nodes.
+
+```{code-cell} ipython3
+ego.remove_edge(400,5079)
+nx.draw_circular(ego,with_labels=True,node_size=800,node_color="yellow")
+```
+
+```{code-cell} ipython3
+:tags: []
+
+nx.number_connected_components(ego)
+```
+
+An **articulation node** is a node that, when removed (with its incident edges) from a graph, increases the number of connected components. Each articulation node is a "choke point" or hub for communication between otherwise disconnected subgraphs. The Twitch network has many such nodes.
+
+```{code-cell} ipython3
+ap = list(nx.articulation_points(twitch))
+len(ap)
+```
+
+Removing an articulation node results in at least two connected components, but there might be more.
+
+```{code-cell} ipython3
+t2 = twitch.copy()
+t2.remove_node(ap[0])
+nx.number_connected_components(t2)
+```
+ --></div>
 </div>
 
     <script type="text/x-thebe-config">
@@ -836,10 +943,10 @@
             <p class="prev-next-title"><span class="section-number">6. </span>Networks</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="degree.html" title="next page">
+    <a class='right-next' id="next-link" href="small-world.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">6.2. </span>Degree and distance</p>
+        <p class="prev-next-title"><span class="section-number">6.2. </span>Small-world networks</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

@@ -44,8 +44,6 @@
     <script src="../_static/copybutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/sphinx-book-theme.9d8b4a8b9bb19db25eeaddc40d639ba2.js"></script>
-    <script>window.MathJax = {"tex": {"macros": {"float": ["\\mathbb{F}"], "real": ["\\mathbb{R}"], "complex": ["\\mathbb{C}"], "nat": ["\\mathbb{N}"], "integer": ["\\mathbb{Z}"], "bfa": "\\mathbf{a}", "bfe": "\\mathbf{e}", "bfx": "\\mathbf{x}", "bfX": "\\mathbf{X}", "bfu": "\\mathbf{u}", "bfv": "\\mathbf{v}", "bfw": "\\mathbf{w}", "bfy": "\\mathbf{y}", "bfz": "\\mathbf{z}", "bfzero": "\\boldsymbol{0}", "bfmu": "\\boldsymbol{\\mu}", "TP": "\\text{TP}", "TN": "\\text{TN}", "FP": "\\text{FP}", "FN": "\\text{FN}", "rmn": ["\\mathbb{R}^{#1 \\times #2}", 2], "dd": ["\\frac{d #1}{d #2}", 2], "pp": ["\\frac{\\partial #1}{\\partial #2}", 2], "norm": ["\\left\\lVert \\mathstrut #1 \\right\\rVert", 1], "abs": ["\\left\\lvert \\mathstrut #1 \\right\\rvert", 1], "twonorm": ["\\norm{#1}_2", 1], "onenorm": ["\\norm{#1}_1", 1], "infnorm": ["\\norm{#1}_\\infty", 1], "innerprod": ["\\langle #1,#2 \\rangle", 2], "pr": ["^{(#1)}", 1], "diag": ["\\operatorname{diag}"], "sign": ["\\operatorname{sign}"], "dist": ["\\operatorname{dist}"], "simil": ["\\operatorname{sim}"], "ee": ["\\times 10^"], "floor": ["\\lfloor#1\\rfloor", 1], "argmin": ["\\operatorname{argmin}"], "Cov": ["\\operatorname{Cov}"], "logit": ["\\operatorname{logit}"]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
     <script>
         const thebe_selector = ".thebe,.cell"
@@ -56,7 +54,7 @@
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="6.1. Basics of NetworkX" href="networkx.html" />
+    <link rel="next" title="6.1. Graphs" href="networkx.html" />
     <link rel="prev" title="5.6. Exercises" href="../clustering/exercises.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
@@ -329,12 +327,17 @@
   <ul>
    <li class="toctree-l2">
     <a class="reference internal" href="networkx.html">
-     6.1. Basics of NetworkX
+     6.1. Graphs
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="small-world.html">
+     6.2. Small-world networks
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="degree.html">
-     6.2. Degree and distance
+     6.3. Degree distributions
     </a>
    </li>
   </ul>
@@ -426,8 +429,6 @@
   <div class="tex2jax_ignore mathjax_ignore section" id="networks">
 <h1><span class="section-number">6. </span>Networks<a class="headerlink" href="#networks" title="Permalink to this headline">¶</a></h1>
 <p>Many phenomena have a natural network structure. Obvious examples are social networks, transportation networks, and the Web, but other examples include cellular protein interactions, scientific citations, ecological predation, and many others.</p>
-<p>In mathematics, a network is represented as a <strong>graph</strong>. A graph is a collection of <strong>nodes</strong> and <strong>edges</strong> that connect pairs of nodes. One important distinction in graph theory is between an <strong>undirected graph</strong>, in which the edge <span class="math notranslate nohighlight">\((a,b)\)</span> is identical to <span class="math notranslate nohighlight">\((b,a)\)</span>, and a <strong>directed graph</strong> or <strong>digraph</strong>, in which <span class="math notranslate nohighlight">\((a,b)\)</span> and <span class="math notranslate nohighlight">\((b,a)\)</span> are different potential edges. In either type of graph, each edge might be labeled with a numerical value, which results in a <strong>weighted graph</strong>.</p>
-<p>Undirected, unweighted graphs will give us plenty to handle, and we will not seek to go beyond them.</p>
 <div class="toctree-wrapper compound">
 </div>
 </div>
@@ -467,7 +468,7 @@
     <a class='right-next' id="next-link" href="networkx.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">6.1. </span>Basics of NetworkX</p>
+        <p class="prev-next-title"><span class="section-number">6.1. </span>Graphs</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

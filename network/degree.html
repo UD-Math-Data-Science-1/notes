@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>6.2. Degree and distance &#8212; Data Science 1</title>
+    <title>6.3. Degree distributions &#8212; Data Science 1</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet">
   <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -56,7 +56,7 @@
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="prev" title="6.1. Basics of NetworkX" href="networkx.html" />
+    <link rel="prev" title="6.2. Small-world networks" href="small-world.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -328,12 +328,17 @@
   <ul class="current">
    <li class="toctree-l2">
     <a class="reference internal" href="networkx.html">
-     6.1. Basics of NetworkX
+     6.1. Graphs
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="small-world.html">
+     6.2. Small-world networks
     </a>
    </li>
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
-     6.2. Degree and distance
+     6.3. Degree distributions
     </a>
    </li>
   </ul>
@@ -434,13 +439,13 @@
             <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#distance">
-   Distance
+  <a class="reference internal nav-link" href="#power-law-distribution">
+   Power-law distribution
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#clustering">
-   Clustering
+  <a class="reference internal nav-link" href="#barabasialbert-graphs">
+   Barabási–Albert graphs
   </a>
  </li>
 </ul>
@@ -453,7 +458,7 @@
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Degree and distance</h1>
+                <h1>Degree distributions</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -464,13 +469,13 @@
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#distance">
-   Distance
+  <a class="reference internal nav-link" href="#power-law-distribution">
+   Power-law distribution
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#clustering">
-   Clustering
+  <a class="reference internal nav-link" href="#barabasialbert-graphs">
+   Barabási–Albert graphs
   </a>
  </li>
 </ul>
@@ -482,154 +487,100 @@
             
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="degree-and-distance">
-<h1><span class="section-number">6.2. </span>Degree and distance<a class="headerlink" href="#degree-and-distance" title="Permalink to this headline">¶</a></h1>
+  <div class="tex2jax_ignore mathjax_ignore section" id="degree-distributions">
+<h1><span class="section-number">6.3. </span>Degree distributions<a class="headerlink" href="#degree-distributions" title="Permalink to this headline">¶</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
 </pre></div>
 </div>
 </div>
 </div>
+<p>As we know, means of distributions do not always tell the entire story. For example, here is the distribution of the degrees of all the nodes in our Twitch network example.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">twitch</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">read_edgelist</span><span class="p">(</span><span class="s2">&quot;musae_edges.csv&quot;</span><span class="p">,</span><span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">,</span><span class="n">nodetype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>The <strong>degree</strong> of a node is the number of edges that have the node as an endpoint.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">degrees</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">twitch</span><span class="o">.</span><span class="n">degree</span><span class="p">,</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;node&quot;</span><span class="p">,</span><span class="s2">&quot;degree&quot;</span><span class="p">])</span>
-<span class="n">degrees</span>
+<span class="n">twitch_degrees</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">twitch</span><span class="o">.</span><span class="n">degree</span><span class="p">,</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;node&quot;</span><span class="p">,</span><span class="s2">&quot;degree&quot;</span><span class="p">])</span>
+<span class="n">hist</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">displot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">twitch_degrees</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;degree&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>node</th>
-      <th>degree</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>6194</td>
-      <td>6</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>255</td>
-      <td>6</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>980</td>
-      <td>18</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>2992</td>
-      <td>4</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>2507</td>
-      <td>22</td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th>7121</th>
-      <td>2933</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>7122</th>
-      <td>2267</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>7123</th>
-      <td>6694</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>7124</th>
-      <td>6995</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>7125</th>
-      <td>7071</td>
-      <td>1</td>
-    </tr>
-  </tbody>
-</table>
-<p>7126 rows × 2 columns</p>
-</div></div></div>
+<img alt="../_images/degree_3_0.png" src="../_images/degree_3_0.png" />
 </div>
+</div>
+<p>A few nodes in the network have hundreds of friends:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">friend_counts</span> <span class="o">=</span> <span class="n">twitch_degrees</span><span class="p">[</span><span class="s2">&quot;degree&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+<span class="n">friend_counts</span><span class="o">.</span><span class="n">sort_values</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>86        1
+79        1
+135       1
+186       1
+154       1
+       ... 
+5       458
+4       605
+3       761
+2       979
+1      1161
+Name: degree, Length: 130, dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<p>These “gregarious nodes” or <em>hubs</em> create the long tail in the degree distribution.</p>
+<p>We can find the average degree of this network and create an ER graph with the same expected average degree.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="n">twitch</span><span class="o">.</span><span class="n">number_of_nodes</span><span class="p">()</span>
+<span class="n">kbar</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">twitch</span><span class="o">.</span><span class="n">number_of_edges</span><span class="p">()</span><span class="o">/</span><span class="n">n</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">kbar</span><span class="o">/</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ER</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">erdos_renyi_graph</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">p</span><span class="p">,</span><span class="n">seed</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">degrees</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">ER</span><span class="o">.</span><span class="n">degree</span><span class="p">,</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;node&quot;</span><span class="p">,</span><span class="s2">&quot;degree&quot;</span><span class="p">])</span>
 <span class="n">hist</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">displot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">degrees</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;degree&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/degree_5_0.png" src="../_images/degree_5_0.png" />
+<img alt="../_images/degree_8_0.png" src="../_images/degree_8_0.png" />
 </div>
 </div>
-<p>Let’s compare the distribution to that of a random graph of the same size and edge density. This type of random graph selects every possible node with equal probability, which we will set to get roughly the same number of edges as in the Twitch network.</p>
+<p>We already know that ER fails to replicate the clustering of the Twitch network. The dramatic difference in degree distributions confirms its unsuitability as a model.</p>
+<p>A WS graph likewise lacks the proper long tail in the Twitch degree distribution:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">number_of_nodes</span><span class="p">(</span><span class="n">twitch</span><span class="p">)</span>
-<span class="n">p</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">number_of_edges</span><span class="p">(</span><span class="n">twitch</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">n</span><span class="o">*</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">rando</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">erdos_renyi_graph</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">p</span><span class="p">)</span>
-
-<span class="n">dd</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">rando</span><span class="o">.</span><span class="n">degree</span><span class="p">,</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;node&quot;</span><span class="p">,</span><span class="s2">&quot;degree&quot;</span><span class="p">])</span>
-<span class="n">hist</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">displot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">dd</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;degree&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/degree_7_0.png" src="../_images/degree_7_0.png" />
-</div>
-</div>
-<p>This is nothing like the Twitch network. This observation is general and well-known: <em>social networks are not like random networks.</em></p>
-<p>The behavior of the Twitch degree distribution gets very interesting when the axes are transformed to use log scales:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hist</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">displot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">degrees</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;degree&quot;</span><span class="p">,</span><span class="n">log_scale</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">hist</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_yscale</span><span class="p">(</span><span class="s2">&quot;log&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">k</span><span class="p">,</span><span class="n">q</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span><span class="mf">0.4</span>
+<span class="n">WS</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">watts_strogatz_graph</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">k</span><span class="p">,</span><span class="n">q</span><span class="p">,</span><span class="n">seed</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+<span class="n">degrees</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">WS</span><span class="o">.</span><span class="n">degree</span><span class="p">,</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;node&quot;</span><span class="p">,</span><span class="s2">&quot;degree&quot;</span><span class="p">])</span>
+<span class="n">hist</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">displot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">degrees</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;degree&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <img alt="../_images/degree_10_0.png" src="../_images/degree_10_0.png" />
+</div>
+</div>
+<div class="section" id="power-law-distribution">
+<h2>Power-law distribution<a class="headerlink" href="#power-law-distribution" title="Permalink to this headline">¶</a></h2>
+<p>The behavior of the Twitch degree distribution gets very interesting when the axes are transformed to use log scales:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hist</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">displot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">twitch_degrees</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;degree&quot;</span><span class="p">,</span><span class="n">log_scale</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">hist</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_yscale</span><span class="p">(</span><span class="s2">&quot;log&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/degree_12_0.png" src="../_images/degree_12_0.png" />
 </div>
 </div>
 <p>For degrees between 10 and several hundred, the counts lie nearly on a straight line. That is, if <span class="math notranslate nohighlight">\(x\)</span> is degree and <span class="math notranslate nohighlight">\(y\)</span> is the node count at that degree, then</p>
@@ -642,11 +593,11 @@
 \[
 y \approx B x^{-a},
 \]</div>
-<p>for some <span class="math notranslate nohighlight">\(a &gt; 0\)</span>. This relationship is known as a <strong>power law</strong>. Many social networks follow a power-law distrubution of node degrees.</p>
-<p>A power law is an example of a <em>fat-talied</em> distribution; the decay of <span class="math notranslate nohighlight">\(x^{-a}\)</span> as <span class="math notranslate nohighlight">\(x\to\infty\)</span> is much slower than, say, the normal distribution’s <span class="math notranslate nohighlight">\(e^{-x^2/2}\)</span>. One effect is that there is a significant disparity between the mean and median values of the node degrees:</p>
+<p>for some <span class="math notranslate nohighlight">\(a &gt; 0\)</span>. This relationship is known as a <strong>power law</strong>. Many social networks seem to follow a power-law distrubution of node degrees, to some extent. (The precise extent is a subject of hot debate.)</p>
+<p>Note that the decay of <span class="math notranslate nohighlight">\(x^{-a}\)</span> as <span class="math notranslate nohighlight">\(x\to\infty\)</span> is much slower than, say, the normal distribution’s <span class="math notranslate nohighlight">\(e^{-x^2/2}\)</span>. This is a manifestation of the long tail. One effect is that there is a significant disparity between the mean and median values of the node degrees:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">degrees</span><span class="p">[</span><span class="s2">&quot;degree&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">twitch_degrees</span><span class="p">[</span><span class="s2">&quot;degree&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -664,11 +615,11 @@ Name: degree, dtype: float64
 </div>
 </div>
 </div>
-<p>Note also from the above that the standard deviation is much larger than the mean. This can be interpreted as another sign that the degree distribution is widely dispersed over orders of magnitude. As an idealization, the network can be described as <em>scale-free</em>.</p>
+<p>The summary above also shows that the standard deviation is much larger than the mean. This is another indication that the degree distribution is widely dispersed over orders of magnitude.</p>
 <p>We can get a fair estimate of the constants <span class="math notranslate nohighlight">\(B\)</span> and <span class="math notranslate nohighlight">\(a\)</span> in the power law by doing a least-squares fit on the logs of <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span>. First, we need the counts:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y</span> <span class="o">=</span> <span class="n">degrees</span><span class="p">[</span><span class="s2">&quot;degree&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y</span> <span class="o">=</span> <span class="n">twitch_degrees</span><span class="p">[</span><span class="s2">&quot;degree&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
 <span class="n">counts</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;degree&quot;</span><span class="p">:</span><span class="n">y</span><span class="o">.</span><span class="n">index</span><span class="p">,</span><span class="s2">&quot;count&quot;</span><span class="p">:</span><span class="n">y</span><span class="o">.</span><span class="n">values</span><span class="p">})</span>
 <span class="n">counts</span> <span class="o">=</span> <span class="n">counts</span><span class="p">[(</span><span class="n">counts</span><span class="p">[</span><span class="s2">&quot;count&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">counts</span><span class="p">[</span><span class="s2">&quot;count&quot;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">200</span><span class="p">)];</span>
 </pre></div>
@@ -689,38 +640,26 @@ Name: degree, dtype: float64
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LinearRegression</span>
 <span class="n">lm</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span>
 <span class="n">lm</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">counts</span><span class="p">[[</span><span class="s2">&quot;log_x&quot;</span><span class="p">]],</span><span class="n">counts</span><span class="p">[</span><span class="s2">&quot;log_y&quot;</span><span class="p">])</span>
-<span class="n">lm</span><span class="o">.</span><span class="n">coef_</span><span class="p">,</span><span class="n">lm</span><span class="o">.</span><span class="n">intercept_</span>
+<span class="n">lm</span><span class="o">.</span><span class="n">coef_</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">lm</span><span class="o">.</span><span class="n">intercept_</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(array([-2.13584775]), 10.397579197774625)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(-2.135847745320904, 10.397579197774625)
 </pre></div>
 </div>
 </div>
 </div>
 <p>The first value, which is both the slope of the line and the exponent of <span class="math notranslate nohighlight">\(x\)</span> the power law, is the most interesting part. It estimates that the degree counts vary as <span class="math notranslate nohighlight">\(Bx^{-2.1}\)</span> over a wide range of degrees.</p>
-<p>A certain type of random graph known as a <strong>Barabási–Albert</strong> graph is constructed by connecting one node at a time. Edges are added randomly, but preference is given to connect to nodes that already have higher degree (i.e., are more “popular”). Because of this rule, there is a natural tendency to develop a few hubs of high degree.</p>
+</div>
+<div class="section" id="barabasialbert-graphs">
+<h2>Barabási–Albert graphs<a class="headerlink" href="#barabasialbert-graphs" title="Permalink to this headline">¶</a></h2>
+<p>A random <strong>Barabási–Albert</strong> graph (BA graph) is constructed by starting with a small seed network and connecting one node at a time with <span class="math notranslate nohighlight">\(m\)</span> new edges to it. Edges are added randomly, but preference is given to connect to nodes that already have higher degree (i.e., are more “popular”). Because of this rule, there is a natural tendency to develop a few hubs of high degree.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bag</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">barabasi_albert_graph</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="n">seed</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">bag_deg</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">bag</span><span class="o">.</span><span class="n">degree</span><span class="p">,</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;node&quot;</span><span class="p">,</span><span class="s2">&quot;degree&quot;</span><span class="p">])</span>
-
-<span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">bag</span><span class="p">,</span><span class="n">node_size</span><span class="o">=</span><span class="mi">8</span><span class="o">*</span><span class="n">bag_deg</span><span class="p">[</span><span class="s2">&quot;degree&quot;</span><span class="p">],</span><span class="n">node_color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/degree_22_0.png" src="../_images/degree_22_0.png" />
-</div>
-</div>
-<p>When we scale the construction up to the size and average degree of the Twitch network, a power-law distribution emerges.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bag</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">barabasi_albert_graph</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="nb">round</span><span class="p">(</span><span class="n">p</span><span class="o">*</span><span class="n">n</span><span class="p">),</span><span class="n">seed</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">bag_deg</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">bag</span><span class="o">.</span><span class="n">degree</span><span class="p">,</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;node&quot;</span><span class="p">,</span><span class="s2">&quot;degree&quot;</span><span class="p">])</span>
-<span class="n">hist</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">displot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">bag_deg</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;degree&quot;</span><span class="p">,</span><span class="n">log_scale</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">hist</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_yscale</span><span class="p">(</span><span class="s2">&quot;log&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">BA</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">barabasi_albert_graph</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="n">seed</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">BA_degrees</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">BA</span><span class="o">.</span><span class="n">degree</span><span class="p">,</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;node&quot;</span><span class="p">,</span><span class="s2">&quot;degree&quot;</span><span class="p">])</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">BA</span><span class="p">,</span><span class="n">node_size</span><span class="o">=</span><span class="mi">8</span><span class="o">*</span><span class="n">BA_degrees</span><span class="p">[</span><span class="s2">&quot;degree&quot;</span><span class="p">],</span><span class="n">node_color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -728,205 +667,116 @@ Name: degree, dtype: float64
 <img alt="../_images/degree_24_0.png" src="../_images/degree_24_0.png" />
 </div>
 </div>
-<p>Compared to selecting from all possible edges with equal probabiliy, the Barabási–Albert model is considered a more plausible idealization of how social networks form.</p>
-<div class="section" id="distance">
-<h2>Distance<a class="headerlink" href="#distance" title="Permalink to this headline">¶</a></h2>
-<p>The <strong>distance</strong> between two nodes in a connected graph is the number of edges in the shortest path between them. This concept appears in the “Bacon number” game, where actors are nodes, appearing in the same movie creates an edge between them, and one tries to find the distance between Kevin Bacon and some other designated actor.</p>
-<p>The number of pairs of nodes in our Twitch network is moderately large.</p>
+<p>Since we add <span class="math notranslate nohighlight">\(m\)</span> edges (almost) <span class="math notranslate nohighlight">\(n\)</span> times, the expected average degree is <span class="math notranslate nohighlight">\(2mn/n=2m\)</span>. When we scale the construction up to the size and average degree of the Twitch network, a power-law distribution emerges.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="s2">&quot;nodes create&quot;</span><span class="p">,(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">n</span><span class="o">//</span><span class="mi">2</span><span class="p">,</span><span class="s2">&quot;pairings&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">kbar</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">BA</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">barabasi_albert_graph</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">m</span><span class="p">,</span><span class="n">seed</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">BA_degrees</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">BA</span><span class="o">.</span><span class="n">degree</span><span class="p">,</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;node&quot;</span><span class="p">,</span><span class="s2">&quot;degree&quot;</span><span class="p">])</span>
+<span class="n">hist</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">displot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">BA_degrees</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;degree&quot;</span><span class="p">,</span><span class="n">log_scale</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">hist</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_yscale</span><span class="p">(</span><span class="s2">&quot;log&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>7126 nodes create 25386375 pairings
+<img alt="../_images/degree_26_0.png" src="../_images/degree_26_0.png" />
+</div>
+</div>
+<p>Theory predicts that the exponent of the power-law distribution in a BA graph is <span class="math notranslate nohighlight">\(-3\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y</span> <span class="o">=</span> <span class="n">BA_degrees</span><span class="p">[</span><span class="s2">&quot;degree&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+<span class="n">counts</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;degree&quot;</span><span class="p">:</span><span class="n">y</span><span class="o">.</span><span class="n">index</span><span class="p">,</span><span class="s2">&quot;count&quot;</span><span class="p">:</span><span class="n">y</span><span class="o">.</span><span class="n">values</span><span class="p">})</span>
+<span class="n">counts</span> <span class="o">=</span> <span class="n">counts</span><span class="p">[(</span><span class="n">counts</span><span class="p">[</span><span class="s2">&quot;count&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">counts</span><span class="p">[</span><span class="s2">&quot;count&quot;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">100</span><span class="p">)];</span>
+<span class="n">counts</span><span class="p">[[</span><span class="s2">&quot;log_x&quot;</span><span class="p">,</span><span class="s2">&quot;log_y&quot;</span><span class="p">]]</span> <span class="o">=</span> <span class="n">counts</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">)</span>
+<span class="n">lm</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span>
+<span class="n">lm</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">counts</span><span class="p">[[</span><span class="s2">&quot;log_x&quot;</span><span class="p">]],</span><span class="n">counts</span><span class="p">[</span><span class="s2">&quot;log_y&quot;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;exponent of power law:&quot;</span><span class="p">,</span><span class="n">lm</span><span class="o">.</span><span class="n">coef_</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>exponent of power law: -2.912997677515427
 </pre></div>
 </div>
 </div>
 </div>
-<p>It would take a while on a typical laptop to compute the distances between all such pairs. Instead, we will just randomly sample a healthy number of them.</p>
+<p>Let’s check distances and clustering, too. As a reminder, the mean distance in the Twitch network is approximately:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">numpy.random</span> <span class="kn">import</span> <span class="n">default_rng</span>
 <span class="n">rng</span> <span class="o">=</span> <span class="n">default_rng</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">pairdist</span><span class="p">(</span><span class="n">G</span><span class="p">,</span><span class="n">n</span><span class="p">):</span>
+
+<span class="k">def</span> <span class="nf">pairdist</span><span class="p">(</span><span class="n">G</span><span class="p">):</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">number_of_nodes</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
     <span class="n">i</span> <span class="o">=</span> <span class="n">j</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">integers</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">n</span><span class="p">)</span>
-    <span class="k">while</span> <span class="n">i</span><span class="o">==</span><span class="n">j</span><span class="p">:</span> <span class="n">j</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">integers</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">n</span><span class="p">)</span>
+    <span class="k">while</span> <span class="n">i</span><span class="o">==</span><span class="n">j</span><span class="p">:</span> <span class="n">j</span><span class="o">=</span><span class="n">rng</span><span class="o">.</span><span class="n">integers</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">n</span><span class="p">)</span>   <span class="c1"># get distinct nodes</span>
     <span class="k">return</span> <span class="n">nx</span><span class="o">.</span><span class="n">shortest_path_length</span><span class="p">(</span><span class="n">G</span><span class="p">,</span><span class="n">source</span><span class="o">=</span><span class="n">i</span><span class="p">,</span><span class="n">target</span><span class="o">=</span><span class="n">j</span><span class="p">)</span>
 
-<span class="n">dist</span> <span class="o">=</span> <span class="p">[</span><span class="n">pairdist</span><span class="p">(</span><span class="n">twitch</span><span class="p">,</span><span class="n">n</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100000</span><span class="p">)]</span>
-<span class="n">distances</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">dist</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">distances</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Mean distance in Twitch graph:&quot;</span><span class="p">,</span><span class="nb">sum</span><span class="p">(</span><span class="n">pairdist</span><span class="p">(</span><span class="n">twitch</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4000</span><span class="p">))</span><span class="o">/</span><span class="mi">4000</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4    42813
-3    36231
-5    12570
-2     6294
-6     1724
-7      191
-1      159
-8       17
-9        1
-dtype: int64
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mean distance in Twitch graph: 3.657
 </pre></div>
 </div>
 </div>
 </div>
-<p>With over 7100 nodes, and an average of about 10 edges per node, the average distance between nodes is less than 4:</p>
+<p>Now we repeat that for some BA graphs.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">distances</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3.67368
-</pre></div>
-</div>
-</div>
-</div>
-<p>Node distances are related to the notion of “six degrees of separation” between any two people on Earth. This is a statement about the <strong>diameter</strong>, or maximum distance, of the human friendship network. In network analysis, this notion is called the <em>small-word phenomenon</em>. It’s usually stated in terms of the mean degree, not the maximum, since the diameter can be determined by a single pair. (Even the little Twitch network above has a diameter of at least 9.) For a random network on <span class="math notranslate nohighlight">\(n\)</span> nodes that have average degree <span class="math notranslate nohighlight">\(d\)</span>, the mean distance is approximately <span class="math notranslate nohighlight">\(\ln(n)/d\)</span>. For a scale-free network, it is even less.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">numpy.random</span> <span class="kn">import</span> <span class="n">default_rng</span>
-<span class="n">rng</span> <span class="o">=</span> <span class="n">default_rng</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dbar</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">seed</span> <span class="o">=</span> <span class="mi">911</span>
+<span class="k">for</span> <span class="nb">iter</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+    <span class="n">BA</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">barabasi_albert_graph</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">m</span><span class="p">,</span><span class="n">seed</span><span class="o">=</span><span class="n">seed</span><span class="p">)</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">pairdist</span><span class="p">(</span><span class="n">BA</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">200</span><span class="p">))</span><span class="o">/</span><span class="mi">200</span>
+    <span class="n">dbar</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+    <span class="n">seed</span> <span class="o">+=</span> <span class="mi">1</span>
 
-<span class="n">distances</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="n">pairdist</span><span class="p">(</span><span class="n">bag</span><span class="p">,</span><span class="n">n</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100000</span><span class="p">)])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Mean distance in BA graphs:&quot;</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dbar</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mean distance in BA graphs: 3.5555
+</pre></div>
+</div>
+</div>
+</div>
+<p>Not bad! Now, let’s check the clustering:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Mean clustering in Twitch graph:&quot;</span><span class="p">,</span><span class="n">nx</span><span class="o">.</span><span class="n">average_clustering</span><span class="p">(</span><span class="n">twitch</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mean clustering in Twitch graph: 0.13092821901472096
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">distances</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cbar</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">seed</span> <span class="o">=</span> <span class="mi">59</span>
+<span class="k">for</span> <span class="nb">iter</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">20</span><span class="p">):</span>
+    <span class="n">BA</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">barabasi_albert_graph</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">m</span><span class="p">,</span><span class="n">seed</span><span class="o">=</span><span class="n">seed</span><span class="p">)</span>
+    <span class="n">cbar</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">average_clustering</span><span class="p">(</span><span class="n">BA</span><span class="p">))</span>
+    <span class="n">seed</span> <span class="o">+=</span> <span class="mi">1</span>
+    
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Mean clustering in BA graphs:&quot;</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">cbar</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2.99076
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mean clustering in BA graphs: 0.009219743245252128
 </pre></div>
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="clustering">
-<h2>Clustering<a class="headerlink" href="#clustering" title="Permalink to this headline">¶</a></h2>
-<p>The small-world question is related to another type of network measurement: <strong>clustering</strong>. There are many ways to assess clustering, but we will use the <strong>local clustering coefficient</strong>.</p>
-<p>Suppose that node <span class="math notranslate nohighlight">\(i\)</span> is adacent to <span class="math notranslate nohighlight">\(k\)</span> other nodes, called its <strong>neighborhood</strong> (or level-1 ego graph). The nodes in the neighborhood have <span class="math notranslate nohighlight">\(k(k-1)/2\)</span> possible edges between them. Suppose that there are <span class="math notranslate nohighlight">\(m\)</span> edges between members of the neighborhood (exclusive of node <span class="math notranslate nohighlight">\(i\)</span>). The clustering coefficient of node <span class="math notranslate nohighlight">\(i\)</span> is defined as</p>
-<div class="math notranslate nohighlight">
-\[
-c_i = \frac{2m}{k(k-1)}.
-\]</div>
-<p>If <span class="math notranslate nohighlight">\(c_i=0\)</span>, the neighborhood is starlike: none of the neighbors “talk to” (i.e., are adjacent to) each other. At the other extreme, if <span class="math notranslate nohighlight">\(c_i=1\)</span>, then the subgraph of the neighborhood is a complete graph.</p>
-<p>For example, here is the neighborhood of node 400.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nbhood</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">ego_graph</span><span class="p">(</span><span class="n">twitch</span><span class="p">,</span><span class="mi">400</span><span class="p">)</span>
-<span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">nbhood</span><span class="p">,</span><span class="n">with_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">node_size</span><span class="o">=</span><span class="mi">800</span><span class="p">,</span><span class="n">node_color</span><span class="o">=</span><span class="s2">&quot;yellow&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/degree_39_0.png" src="../_images/degree_39_0.png" />
-</div>
-</div>
-<p>The plot reveals that the neighborhood has only 3 edges aside from those linking to node 400. Since there are 9 nodes in the neighborhood, this gives a clustering of</p>
-<div class="math notranslate nohighlight">
-\[
-\frac{6}{9\cdot 8} = \frac{1}{12}.
-\]</div>
-<p>There is a function for computing this value, of course.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nx</span><span class="o">.</span><span class="n">clustering</span><span class="p">(</span><span class="n">twitch</span><span class="p">,</span><span class="mi">400</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.08333333333333333
-</pre></div>
-</div>
-</div>
-</div>
-<p>The mean clustering coefficient is one way to assess the small-worldness of a graph.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">clustering</span><span class="p">(</span><span class="n">twitch</span><span class="p">))</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.13092821901472096
-</pre></div>
-</div>
-</div>
-</div>
-<p>How do we put this number in context? The random BA graph has a much lower value.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">clustering</span><span class="p">(</span><span class="n">bag</span><span class="p">))</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.014265892136099337
-</pre></div>
-</div>
-</div>
-</div>
-<p>This confirms that the BA construction does nothing to build community structure, only hubs. A Watts–Strogatz graph, on the other hand, starts from communities and just rewires some of the edges to create shortcuts. If we start from neighborhoods of size 10, the mean clustering is high:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ws</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">watts_strogatz_graph</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">seed</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">clustering</span><span class="p">(</span><span class="n">ws</span><span class="p">))</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.6666666666666561
-</pre></div>
-</div>
-</div>
-</div>
-<p>However, the mean path length in that graph would be large, since there are no far-flung direct connections. But if we allow 40% of the links to be converted to random destinations, then the clustering is similar to the Twitch graph:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ws</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">watts_strogatz_graph</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mf">0.4</span><span class="p">,</span><span class="n">seed</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
-<span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">clustering</span><span class="p">(</span><span class="n">ws</span><span class="p">))</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.1473302277666155
-</pre></div>
-</div>
-</div>
-</div>
-<p>The mean distance is also comparable:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rng</span> <span class="o">=</span> <span class="n">default_rng</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="n">pairdist</span><span class="p">(</span><span class="n">ws</span><span class="p">,</span><span class="n">n</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">50000</span><span class="p">)])</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4.44962
-</pre></div>
-</div>
-</div>
-</div>
-<p>As we computed above, the Twitch network has an even smaller mean distance, making it a bit more efficient at connecting nodes by paths.</p>
+<p>The BA model is our closest approach so far, but it fails to produce the small-world effect that we find in the Twitch network.</p>
 </div>
 </div>
 
@@ -955,11 +805,11 @@ c_i = \frac{2m}{k(k-1)}.
             
                 <!-- Previous / next buttons -->
 <div class='prev-next-area'> 
-    <a class='left-prev' id="prev-link" href="networkx.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="small-world.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title"><span class="section-number">6.1. </span>Basics of NetworkX</p>
+            <p class="prev-next-title"><span class="section-number">6.2. </span>Small-world networks</p>
         </div>
     </a>
 </div>
