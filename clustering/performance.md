@@ -13,7 +13,9 @@ kernelspec:
 
 # Clustering performance
 
-Before we start generating clusterings, we need to decide how we will evaluate them. Recall that a clustering is simply a partitioning of the sample points into disjoint subsets. I'm going to use some nonstandard terminology that makes the definitions a bit easier to state and read.
+Before we start generating clusterings, we need to decide how we will evaluate them. Recall that a clustering is simply a partitioning of the sample points into disjoint subsets. If a classification of the samples is available, then it automatically implies a clustering: divide the samples into subsets determined by class membership.
+
+I'm going to use some nonstandard terminology that makes the definitions a bit easier to state and read.
 
 ````{prf:definition}
 :label: definition-performance-buddies
@@ -22,7 +24,7 @@ We say that two sample points in a clustering are **buddies** if they are in the
 
 ## (Adjusted) Rand index
 
-If a trusted or ground-truth clustering is available, then we can compare it to any other clustering result. This allows us to use classification datasets as proving grounds for clustering, although the problems of classification and clustering have different goals (separation versus similarity).
+If a trusted or reference clustering is available, then we can compare it to any other clustering result. This allows us to use classification datasets as proving grounds for clustering, although the problems of classification and clustering have different goals (separation versus similarity).
 
 Let $b$ be the number of pairs that are buddies in both clusterings, and let $s$ be the number of pairs that are strangers in both clusterings. Noting that there are $\binom{n}{2}$ distinct pairs of $n$ sample points, we define the **Rand index** by
 
@@ -30,15 +32,39 @@ $$
 \text{RI} = \frac{b+s}{\binom{n}{2}}.
 $$
 
-One attractive feature of the Rand index is that there is no need to find a correspondence between the clusters in the two clusterings. In fact, the clusterings need not even have the same number of clusters.
+One way to interpret the Rand index is through binary classification: if we define a positive result on a pair of samples to mean "in the same cluster" and a negative result to mean "in different clusters", then the Rand index is the accuracy of the classifier over all pairs of samples.
 
-While the Rand index is not hard to understand, it's not normalized to any obvious scale. The **adjusted Rand index** is
+::::{prf:example}
+:label: example-performance-rand
+Suppose that samples $x_1,x_2,x_4$ are classified as blue, and $x_3,x_5$ are classified as red. If we assign the clustering $A=\{x_1,x_2\}$ and $B=\{x_3,x_4,x_5\}$, what is the Rand index relative to the reference classification?
+:::{dropdown} Solution
+Here is a table showing which pairs of samples are buddies in both clusterings (indicated as TP), strangers in both (TN), or neither (F).
+
+|       | $x_1$ | $x_2$ | $x_3$ | $x_4$ | $x_5$ |
+|--|--|--|--|--|--|
+| $x_1$ |       |  TP   |  TN   |  F    |  TN   |
+| $x_2$ |       |       |  TN   |  F    |  TN   |
+| $x_3$ |       |       |       |  F    |  TP   |
+| $x_4$ |       |       |       |       |  F    |
+| $x_5$ |       |       |       |       |       |
+
+Hence the Rand index is 6/10 = 0.6.
+:::
+::::
+
+The Rand index has some attractive features:
+
+* It is symmetric in the two clusterings; it doesn't matter which is considered the "reference."
+* There is no need to find a correspondence between the clusters in the two clusterings. In fact, the clusterings need not even have the same number of clusters. 
+* The value is between 0 (complete disagreement) and 1 (complete agreement).
+
+A weakness of the Rand index is that it can be fairly close to 1 even for a random clustering. The **adjusted Rand index** is
 
 $$
 \text{ARI} = \frac{\text{RI} - E[\text{RI}]}{\text{max}(\text{RI})-E[\text{RI}]},
 $$
 
-where the mean and max operations are taken over all possible clusterings. (These values can be worked out by combinatorics.) An ARI of 0 indicates no better agreement than a random clustering, and an ARI of 1 is complete agreement. 
+where the mean and max operations are taken over all possible clusterings. (These values can be worked out exactly by combinatorics.) The value can be negative. An ARI of 0 indicates no better agreement than a random clustering, and an ARI of 1 is complete agreement. 
 
 ## Silhouettes
 
@@ -78,6 +104,8 @@ $$
 The overall score is the mean of the five values in the last column, which is about $0.229$.
 :::
 ::::
+
+The silhouette score is fairly easy to understand and use. However, it relies on distances and tends to favor convex, compact clusters.
 
 ## Toy example
 

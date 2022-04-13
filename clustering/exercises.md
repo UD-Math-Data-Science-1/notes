@@ -3,7 +3,7 @@
 1. Using only the three axioms of a distance metric, prove that $\dist(\bfx,\bfy) \ge 0$ for all vectors $\bfx$ and $\bfy$. (Hint: apply the triangle inequality to go from $\bfx$ to $\bfy$ and back again.)
 2. Prove that the angular distance between any nonzero vector and itself is zero.
 3. Find a counterexample showing that cosine distance does not satisfy the triangle inequality. (Hint: it's enough to consider some simple vectors in two dimensions.)
-4. Let $c$ be a positive number, and consider the 12 sample points $\{(\pm c,\pm j): j=1,2,3\}$. One way to cluster the sample points, which we designate as clustering $\alpha$, is to split according to the sign of $x_1$. Another way, which we designate as clustering $\beta$, is to split according to the sign of $x_2$. Compute the inertia of both clusterings. For which $c$, if any, does clustering $\alpha$ have less inertia than clustering $\beta$?
+4. Let $c$ be a positive number, and consider the 12 sample points $\{(\pm c,\pm j): j=1,2,3\}$. One way to cluster the sample points, which we designate as clustering $\alpha$, is to split according to the sign of $x_1$. Another way, which we designate as clustering $\beta$, is to split according to the sign of $x_2$. Compute the inertia of both clusterings. For which values of $c$, if any, does clustering $\alpha$ have less inertia than clustering $\beta$?
 5. Here is a distance matrix for points $\bfx_1,\ldots,\bfx_5$. 
     
     $$
