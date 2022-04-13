@@ -46,6 +46,6 @@ chapters:
   - file: network/overview
     sections:
     - file: network/networkx
+    - file: network/small-world
     - file: network/degree
-  #   - file: network/degree
-  #   - file: network/centrality
+    - file: network/community
