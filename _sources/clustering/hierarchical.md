@@ -26,12 +26,26 @@ Common ways to define the distance between two clusters $C_i$ and $C_j$ are:
 * **complete linkage** or *maximum linkage*: $\displaystyle \max_{\bfx\in C_i,\,\bfy\in C_j} \{ \norm{\bfx-\bfy} \}$
 * **average linkage**: $\displaystyle \frac{1}{|C_i|\,|C_j|} \sum_{\bfx\in C_i,\,\bfy\in C_j} \norm{ \bfx-\bfy }$
 
+The Ward linkage admits a simple formula. If $\bfmu_i$ and $\bfmu_j$ are the centroids of $C_i$ and $C_j$, then the increase in inertia for combining these clusters is 
+
+$$
+\frac{ |C_i|\,|C_j| }{|C_i| + |C_j|} \norm{\bfmu_i - \bfmu_j}_2^2.
+$$
+
+Agglomerative clustering with Ward linkage amounts to trying to minimize the increase of inertia with each merger. In that sense, it has the same objective as $k$-means. However, it is usually not as successful at minimizing inertia.
+
+Single linkage only pays attention to the gaps between clusters, not the size or spread of them. Complete linkage, on the other hand, wants to keep clusters packed tightly together. Average linkage is a compromise between these extremes. All three of these options can work with a distance matrix in lieu of the original feature matrix.
+
 ::::{prf:example}
 :label: example-hierarchical-linkages
 Given clusters $C_1=\{-3,-2,-1\}$ and $C_2=\{3,4,5\}$, find the different linkages between them.
 
 :::{dropdown} Solution
-**Ward.** The inertia of each cluster is 2, for a total of 4. If the clusters are combined, their mean is $\mu=1$, and the inertia of the supercluster is $16+9+4+4+9+16=58$. Thus the Ward linkage is $58-4=54$.
+**Ward.** The centroids of the clusters are $-2$ and $4$. So the linkage is 
+
+$$
+\frac{3\cdot 3}{3+3} \, 6^2 = 54.
+$$
 
 **Single.** The pairwise distances between members of $C_1$ and $C_2$ form a $3\times 3$ matrix:
 
@@ -49,8 +63,6 @@ The single linkage is therefore 4.
 :::
 ::::
 
-
-Absent any other considerations, Ward linkage is considered the most reliable (and is the sklearn default).
 
 ## Toy example
 
@@ -83,14 +95,94 @@ sns.clustermap(X,col_cluster=False,dendrogram_ratio=(.75,.15));
 
 The horizontal position in the dendrogram above indicates the linkage strength. Working from right to left, we see the creation of $C_1$ first, then $C_2$. These are merged into a single set before finally being merged with $\bfx_3$. (Note that the rows are reordered according to the values on the far right, in order to avoid having lines cross over one another.)
 
-In effect, we get an entire family of clusterings, by stopping at any linkage value we want. If we chose to stop at value 1.5, for instance, we would have the three clusters we derived above. Or, if we predetermine that we want $k$ clusters, we can stop after $n-k$ merges. 
+In effect, we get an entire family of clusterings, by stopping at any linkage value we want. If we chose to stop at value 1.5, for instance, we would have the three clusters we derived above. Or, if we predetermine that we want $k$ clusters, we can stop after $n-k$ merges.
+
++++
+
+## Test sets
+
+We will use three test sets to illustrate the different linkages.
+
+
+```{code-cell} ipython3
+:tags: [hide-input]
+import pandas as pd
+from sklearn.datasets import make_blobs
+from numpy.random import default_rng
+import matplotlib.pyplot as plt
+
+X,y = make_blobs(
+    n_samples=[60,50,40],
+    centers=[[-2,3],[3.5,1.5],[1,-3]],
+    cluster_std=[0.5,0.9,1.2],
+    random_state = 19716
+    )
+blobs = pd.DataFrame({"x1":X[:,0],"x2":X[:,1],"class":y})
+x1x2 = ["x1","x2"]
+
+rng = default_rng(6)
+inner = 0.8*rng.normal(size=(100,2))
+theta = rng.uniform(0,2*np.pi,size=200)
+r = rng.uniform(3,4,size=200)
+middle = np.vstack((r*np.cos(theta),r*np.sin(theta))).T
+r = rng.uniform(5,6,size=200)
+outer = np.vstack((r*np.cos(theta),r*np.sin(theta))).T
+bullseye = pd.DataFrame(np.vstack((inner,middle,outer)),columns=x1x2)
+bullseye["class"] = np.hstack(([0]*100,[1]*200,[2]*200))
+
+rng = default_rng(9)
+x1,x2,y = [],[],[]
+for i in range(3):
+    x1.extend(rng.uniform(-10,10,size=200))
+    x2.extend(2.5*i+rng.uniform(0,1,size=200))
+    y.extend([i]*200)
+stripes = pd.DataFrame({"x1":x1,"x2":x2,"class":y})
+```
+
+```{code-cell} ipython3
+from sklearn.cluster import AgglomerativeClustering
+from sklearn.metrics import silhouette_samples,silhouette_score
+
+def run_experiment(frames,link):
+    f,axes = plt.subplots(1,3,figsize=(14,8),subplot_kw=dict(aspect=1))
+    agg = AgglomerativeClustering(n_clusters=3,linkage=link)
+    for data,ax in zip(frames,axes):
+        agg.fit(data[x1x2])
+        data[link] = agg.labels_
+        sns.scatterplot(data=data,x="x1",y="x2",hue=link,ax=ax);
+    return f
+```
+
+```{code-cell} ipython3
+run_experiment([blobs,bullseye,stripes],"single");
+```
+
+```{code-cell} ipython3
+run_experiment([blobs,bullseye,stripes],"complete");
+```
+
+```{code-cell} ipython3
+run_experiment([blobs,bullseye,stripes],"ward");
+```
+
+What stands out above is that single linkage has more geometric flexibility. This is helpful when the samples are grouped into well-separated clusters that are not necessarily compact and sphere-like. However, it can also be sensitive to individual samples. Here, we add just one point to the bullseye picture and get a big change:
+
+```{code-cell} ipython3
+bullseye = pd.concat((bullseye,pd.DataFrame({"x1":[0],"x2":[2.25],"class":[0]})))
+run_experiment([blobs,bullseye,stripes],"single");
+```
+
+The other linkages pay more attention to the compactness of the cluster shapes, which is much more limiting, but they are not as affected by small changes to the interior points.
+
++++
+
+ 
 
 ## Case study: Penguins
 
 Let's try agglomerative clustering to discover the species of the penguins. First, let's recall how many of each species we have.
 
 ```{code-cell} ipython3
-import seaborn as sns
 penguins = sns.load_dataset("penguins").dropna()
 X = penguins[["bill_length_mm","bill_depth_mm","flipper_length_mm","body_mass_g"]]
 print(penguins["species"].value_counts())

@@ -65,7 +65,7 @@ $$
 \operatorname{CE}(\bfx,\bfy) = -\sum_{i=1}^d x_i \log(y_i). 
 $$
 
-A related measure is the *Kullback–Leibler diveregence*, or relative entropy,
+A related measure is the *Kullback–Leibler divergence*, or relative entropy,
 
 $$
 \operatorname{KL}(\bfx,\bfy) = \sum_{i=1}^d x_i \log\left( \frac{x_i}{y_i} \right).
@@ -73,13 +73,13 @@ $$
 
 Whenever $0\cdot \log(0)$ is encountered in the CE or KL definitions, it equals zero, in accordance with its limiting value from calculus.
 
-Neither cross-entropy nor KL divergence are symmetric in their arguments. But there is a related true metric called **information radius**, defined as
+Neither cross-entropy nor KL divergence are symmetric in their arguments. But there is a related value called **information radius**, defined as
 
 $$
 \operatorname{IR}(\bfu,\bfv) = \frac{1}{2} \left[ \operatorname{KL}(\bfu,\bfz) + \operatorname{KL}(\bfv,\bfz) \right]
 $$
 
-where $\bfz=(\bfu+\bfv)/2$. Typically one uses a base-2 logarithm, in which case IR ranges between 0 and 1. 
+where $\bfz=(\bfu+\bfv)/2$. Typically one uses a base-2 logarithm, in which case IR ranges between 0 and 1. The square root of IR is a distance metric.
 
 ::::{prf:example}
 :label: example-similarity-IR

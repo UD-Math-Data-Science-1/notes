@@ -44,7 +44,7 @@
     <script src="../_static/copybutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/sphinx-book-theme.9d8b4a8b9bb19db25eeaddc40d639ba2.js"></script>
-    <script>window.MathJax = {"tex": {"macros": {"float": ["\\mathbb{F}"], "real": ["\\mathbb{R}"], "complex": ["\\mathbb{C}"], "nat": ["\\mathbb{N}"], "integer": ["\\mathbb{Z}"], "bfa": "\\mathbf{a}", "bfe": "\\mathbf{e}", "bfx": "\\mathbf{x}", "bfX": "\\mathbf{X}", "bfu": "\\mathbf{u}", "bfv": "\\mathbf{v}", "bfw": "\\mathbf{w}", "bfy": "\\mathbf{y}", "bfz": "\\mathbf{z}", "bfzero": "\\boldsymbol{0}", "bfmu": "\\boldsymbol{\\mu}", "TP": "\\text{TP}", "TN": "\\text{TN}", "FP": "\\text{FP}", "FN": "\\text{FN}", "rmn": ["\\mathbb{R}^{#1 \\times #2}", 2], "dd": ["\\frac{d #1}{d #2}", 2], "pp": ["\\frac{\\partial #1}{\\partial #2}", 2], "norm": ["\\left\\lVert \\mathstrut #1 \\right\\rVert", 1], "abs": ["\\left\\lvert \\mathstrut #1 \\right\\rvert", 1], "twonorm": ["\\norm{#1}_2", 1], "onenorm": ["\\norm{#1}_1", 1], "infnorm": ["\\norm{#1}_\\infty", 1], "innerprod": ["\\langle #1,#2 \\rangle", 2], "pr": ["^{(#1)}", 1], "diag": ["\\operatorname{diag}"], "sign": ["\\operatorname{sign}"], "dist": ["\\operatorname{dist}"], "simil": ["\\operatorname{sim}"], "ee": ["\\times 10^"], "floor": ["\\lfloor#1\\rfloor", 1], "argmin": ["\\operatorname{argmin}"], "Cov": ["\\operatorname{Cov}"], "logit": ["\\operatorname{logit}"]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script>window.MathJax = {"tex": {"macros": {"float": ["\\mathbb{F}"], "real": ["\\mathbb{R}"], "complex": ["\\mathbb{C}"], "nat": ["\\mathbb{N}"], "integer": ["\\mathbb{Z}"], "bfa": "\\mathbf{a}", "bfe": "\\mathbf{e}", "bfx": "\\mathbf{x}", "bfX": "\\mathbf{X}", "bfA": "\\mathbf{A}", "bfW": "\\mathbf{W}", "bfp": "\\mathbf{p}", "bfu": "\\mathbf{u}", "bfv": "\\mathbf{v}", "bfw": "\\mathbf{w}", "bfy": "\\mathbf{y}", "bfz": "\\mathbf{z}", "bfzero": "\\boldsymbol{0}", "bfmu": "\\boldsymbol{\\mu}", "TP": "\\text{TP}", "TN": "\\text{TN}", "FP": "\\text{FP}", "FN": "\\text{FN}", "rmn": ["\\mathbb{R}^{#1 \\times #2}", 2], "dd": ["\\frac{d #1}{d #2}", 2], "pp": ["\\frac{\\partial #1}{\\partial #2}", 2], "norm": ["\\left\\lVert \\mathstrut #1 \\right\\rVert", 1], "abs": ["\\left\\lvert \\mathstrut #1 \\right\\rvert", 1], "twonorm": ["\\norm{#1}_2", 1], "onenorm": ["\\norm{#1}_1", 1], "infnorm": ["\\norm{#1}_\\infty", 1], "innerprod": ["\\langle #1,#2 \\rangle", 2], "pr": ["^{(#1)}", 1], "diag": ["\\operatorname{diag}"], "sign": ["\\operatorname{sign}"], "dist": ["\\operatorname{dist}"], "simil": ["\\operatorname{sim}"], "ee": ["\\times 10^"], "floor": ["\\lfloor#1\\rfloor", 1], "argmin": ["\\operatorname{argmin}"], "Cov": ["\\operatorname{Cov}"], "logit": ["\\operatorname{logit}"]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
     <script>
@@ -329,12 +329,22 @@
   <ul>
    <li class="toctree-l2">
     <a class="reference internal" href="../network/networkx.html">
-     6.1. Basics of NetworkX
+     6.1. Graphs
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../network/small-world.html">
+     6.2. Small-world networks
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../network/degree.html">
-     6.2. Degree and distance
+     6.3. Degree distributions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../network/community.html">
+     6.4. Communities
     </a>
    </li>
   </ul>
@@ -565,16 +575,16 @@ We conclude that splitting a cluster will make the total inertia decrease. In fa
 </div>
 <div class="section" id="toy-example">
 <h2>Toy example<a class="headerlink" href="#toy-example" title="Permalink to this headline">¶</a></h2>
-<p>Let’s regenerate the blobs from the previous section.</p>
+<p>Let’s generate some test blobs.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
 <span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_blobs</span>
 <span class="n">X</span><span class="p">,</span><span class="n">y</span> <span class="o">=</span> <span class="n">make_blobs</span><span class="p">(</span>
-    <span class="n">n_samples</span><span class="o">=</span><span class="p">[</span><span class="mi">40</span><span class="p">,</span><span class="mi">30</span><span class="p">,</span><span class="mi">30</span><span class="p">],</span>
-    <span class="n">centers</span><span class="o">=</span><span class="p">[[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],[</span><span class="mi">3</span><span class="p">,</span><span class="mf">1.5</span><span class="p">],[</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="p">]],</span>
-    <span class="n">cluster_std</span><span class="o">=</span><span class="p">[</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">0.9</span><span class="p">,</span><span class="mf">1.5</span><span class="p">],</span>
+    <span class="n">n_samples</span><span class="o">=</span><span class="p">[</span><span class="mi">60</span><span class="p">,</span><span class="mi">50</span><span class="p">,</span><span class="mi">40</span><span class="p">],</span>
+    <span class="n">centers</span><span class="o">=</span><span class="p">[[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],[</span><span class="mi">3</span><span class="p">,</span><span class="mf">1.5</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">3</span><span class="p">]],</span>
+    <span class="n">cluster_std</span><span class="o">=</span><span class="p">[</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">0.9</span><span class="p">,</span><span class="mf">1.2</span><span class="p">],</span>
     <span class="n">random_state</span> <span class="o">=</span> <span class="mi">19716</span>
     <span class="p">)</span>
 <span class="n">blobs</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;x1&quot;</span><span class="p">:</span><span class="n">X</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span><span class="s2">&quot;x2&quot;</span><span class="p">:</span><span class="n">X</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span><span class="s2">&quot;class&quot;</span><span class="p">:</span><span class="n">y</span><span class="p">})</span>
@@ -586,21 +596,109 @@ We conclude that splitting a cluster will make the total inertia decrease. In fa
 <img alt="../_images/k-means_1_0.png" src="../_images/k-means_1_0.png" />
 </div>
 </div>
-<p>Now we try <span class="math notranslate nohighlight">\(k\)</span>-means with <span class="math notranslate nohighlight">\(k=3\)</span>.</p>
+<p>We start <span class="math notranslate nohighlight">\(k\)</span>-means with <span class="math notranslate nohighlight">\(k=2\)</span> clusters, not presupposing prior knowledge of how the samples were created.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.cluster</span> <span class="kn">import</span> <span class="n">KMeans</span>
-<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">silhouette_samples</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">silhouette_samples</span><span class="p">,</span><span class="n">silhouette_score</span>
 
-<span class="n">km</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-<span class="n">km</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-
-<span class="n">blobs</span><span class="p">[</span><span class="s2">&quot;km3&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">km</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-<span class="n">blobs</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">km2</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">km2</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>KMeans(n_clusters=2)
+</pre></div>
+</div>
+</div>
+</div>
+<p>The fitted clustering object can tell how many iterations were required, and what the final inertia and cluster centroids are:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;k=2 took&quot;</span><span class="p">,</span><span class="n">km2</span><span class="o">.</span><span class="n">n_iter_</span><span class="p">,</span><span class="s2">&quot;iterations&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">final inertia:&quot;</span><span class="p">,</span><span class="n">km2</span><span class="o">.</span><span class="n">inertia_</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">cluster centroids:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">km2</span><span class="o">.</span><span class="n">cluster_centers_</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>k=2 took 2 iterations
+
+final inertia: 710.0834960683221
+
+cluster centroids:
+[[-2.01977462  2.86247767]
+ [ 2.01902057 -0.69722874]]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Every type of clustering object has a <code class="docutils literal notranslate"><span class="pre">labels_</span></code> property that is a list of cluster index values, indicating the cluster membership of each sample.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;cluster assignments:&quot;</span><span class="p">)</span>
+<span class="n">blobs</span><span class="p">[</span><span class="s2">&quot;km2&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">km2</span><span class="o">.</span><span class="n">labels_</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">blobs</span><span class="p">[</span><span class="s2">&quot;km2&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>cluster assignments:
+0      1
+1      1
+2      1
+3      0
+4      1
+      ..
+145    0
+146    1
+147    0
+148    0
+149    1
+Name: km2, Length: 150, dtype: int32
+</pre></div>
+</div>
+</div>
+</div>
+<p>There is also a <code class="docutils literal notranslate"><span class="pre">predict</span></code> method that can make cluster assignments for arbitrary points in feature space. In k-means, this just tells you which centroid is closest.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">km2</span><span class="o">.</span><span class="n">predict</span><span class="p">([</span> <span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span> <span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0, 1], dtype=int32)
+</pre></div>
+</div>
+</div>
+</div>
+<p>Next, we calculuate the silhouettes for the samples and plot the blobs using color to show cluster membership and dot size to indicate the silhouette value.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">blobs</span><span class="p">[</span><span class="s2">&quot;sil2&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">silhouette_samples</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">blobs</span><span class="p">[</span><span class="s2">&quot;km2&quot;</span><span class="p">])</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">relplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">blobs</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;x1&quot;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s2">&quot;x2&quot;</span><span class="p">,</span><span class="n">hue</span><span class="o">=</span><span class="s2">&quot;km2&quot;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="n">blobs</span><span class="p">[</span><span class="s2">&quot;sil2&quot;</span><span class="p">]);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/k-means_11_0.png" src="../_images/k-means_11_0.png" />
+</div>
+</div>
+<p>Here is a summary of the silhouettes:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;overall silhouette score:&quot;</span><span class="p">,</span><span class="n">blobs</span><span class="p">[</span><span class="s2">&quot;sil2&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+<span class="n">blobs</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;km2&quot;</span><span class="p">)[</span><span class="s2">&quot;sil2&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>overall silhouette score: 0.5876658515793556
+</pre></div>
+</div>
 <div class="output text_html"><div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -619,68 +717,150 @@ We conclude that splitting a cluster will make the total inertia decrease. In fa
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>x1</th>
-      <th>x2</th>
-      <th>class</th>
-      <th>km3</th>
+      <th>count</th>
+      <th>mean</th>
+      <th>std</th>
+      <th>min</th>
+      <th>25%</th>
+      <th>50%</th>
+      <th>75%</th>
+      <th>max</th>
+    </tr>
+    <tr>
+      <th>km2</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>0</th>
-      <td>1.328556</td>
-      <td>-3.036395</td>
-      <td>2</td>
-      <td>2</td>
+      <td>61.0</td>
+      <td>0.821274</td>
+      <td>0.097362</td>
+      <td>0.148612</td>
+      <td>0.819975</td>
+      <td>0.839082</td>
+      <td>0.856779</td>
+      <td>0.878424</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>-1.815547</td>
-      <td>2.585740</td>
-      <td>0</td>
-      <td>1</td>
+      <td>89.0</td>
+      <td>0.427552</td>
+      <td>0.101098</td>
+      <td>0.068622</td>
+      <td>0.392936</td>
+      <td>0.440536</td>
+      <td>0.500103</td>
+      <td>0.559821</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>It’s intuitively clear that cluster 0 is more tightly packed than cluster 1, and that comparison is borne out by the silhouettes.</p>
+<p>Next, we repeat the computation for <span class="math notranslate nohighlight">\(k=3\)</span> clusters.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">km3</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">km3</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;inertia for k=3:&quot;</span><span class="p">,</span><span class="n">km3</span><span class="o">.</span><span class="n">inertia_</span><span class="p">)</span>
+
+<span class="n">blobs</span><span class="p">[</span><span class="s2">&quot;km3&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">km3</span><span class="o">.</span><span class="n">labels_</span>
+<span class="n">blobs</span><span class="p">[</span><span class="s2">&quot;sil3&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">silhouette_samples</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">blobs</span><span class="p">[</span><span class="s2">&quot;km3&quot;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">overall silhouette score:&quot;</span><span class="p">,</span><span class="n">blobs</span><span class="p">[</span><span class="s2">&quot;sil3&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">silhouette statistics:&quot;</span><span class="p">)</span>
+<span class="n">blobs</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;km3&quot;</span><span class="p">)[</span><span class="s2">&quot;sil3&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>inertia for k=3: 203.30412157574372
+
+overall silhouette score: 0.6998700192151341
+
+silhouette statistics:
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>count</th>
+      <th>mean</th>
+      <th>std</th>
+      <th>min</th>
+      <th>25%</th>
+      <th>50%</th>
+      <th>75%</th>
+      <th>max</th>
+    </tr>
+    <tr>
+      <th>km3</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>39.0</td>
+      <td>0.608026</td>
+      <td>0.126090</td>
+      <td>0.252421</td>
+      <td>0.583289</td>
+      <td>0.645840</td>
+      <td>0.692839</td>
+      <td>0.724903</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>60.0</td>
+      <td>0.815912</td>
+      <td>0.051718</td>
+      <td>0.550642</td>
+      <td>0.795554</td>
+      <td>0.828146</td>
+      <td>0.847986</td>
+      <td>0.869913</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>3.387517</td>
-      <td>2.686224</td>
-      <td>1</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>2.348428</td>
-      <td>1.652876</td>
-      <td>1</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>-1.266983</td>
-      <td>2.792976</td>
-      <td>0</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>5</th>
-      <td>2.489843</td>
-      <td>0.682657</td>
-      <td>2</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>6</th>
-      <td>1.775981</td>
-      <td>1.854831</td>
-      <td>1</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>7</th>
-      <td>2.702074</td>
-      <td>2.752115</td>
-      <td>1</td>
-      <td>0</td>
+      <td>51.0</td>
+      <td>0.633584</td>
+      <td>0.147521</td>
+      <td>0.143121</td>
+      <td>0.554019</td>
+      <td>0.688014</td>
+      <td>0.738117</td>
+      <td>0.765192</td>
     </tr>
   </tbody>
 </table>
@@ -689,79 +869,125 @@ We conclude that splitting a cluster will make the total inertia decrease. In fa
 <p>Here we show the points using color to indicate cluster membership and size for the silhouette value:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">blobs</span><span class="p">[</span><span class="s2">&quot;sil&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">silhouette_samples</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">blobs</span><span class="p">[</span><span class="s2">&quot;km3&quot;</span><span class="p">])</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">relplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">blobs</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;x1&quot;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s2">&quot;x2&quot;</span><span class="p">,</span><span class="n">hue</span><span class="o">=</span><span class="s2">&quot;km3&quot;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="n">blobs</span><span class="p">[</span><span class="s2">&quot;sil&quot;</span><span class="p">]);</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">blobs</span><span class="p">[</span><span class="s2">&quot;sil3&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">silhouette_samples</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">blobs</span><span class="p">[</span><span class="s2">&quot;km3&quot;</span><span class="p">])</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">relplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">blobs</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;x1&quot;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s2">&quot;x2&quot;</span><span class="p">,</span><span class="n">hue</span><span class="o">=</span><span class="s2">&quot;km3&quot;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="n">blobs</span><span class="p">[</span><span class="s2">&quot;sil3&quot;</span><span class="p">]);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/k-means_5_0.png" src="../_images/k-means_5_0.png" />
+<img alt="../_images/k-means_17_0.png" src="../_images/k-means_17_0.png" />
 </div>
 </div>
 <p>Intuitively, this is at least comparable to the original classification. The silhouettes show a modest reduction for the better clusters, but improvement for the problematic one.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;scores for original classes:&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">blobs</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;class&quot;</span><span class="p">)[</span><span class="s2">&quot;sil&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">())</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">km4</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">km4</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;inertia for k=4:&quot;</span><span class="p">,</span><span class="n">km4</span><span class="o">.</span><span class="n">inertia_</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">scores for 3 k-means clusters:&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">blobs</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;km3&quot;</span><span class="p">)[</span><span class="s2">&quot;sil&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">())</span>
+<span class="n">blobs</span><span class="p">[</span><span class="s2">&quot;km4&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">km4</span><span class="o">.</span><span class="n">labels_</span>
+<span class="n">blobs</span><span class="p">[</span><span class="s2">&quot;sil4&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">silhouette_samples</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">blobs</span><span class="p">[</span><span class="s2">&quot;km4&quot;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">overall silhouette score:&quot;</span><span class="p">,</span><span class="n">blobs</span><span class="p">[</span><span class="s2">&quot;sil4&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">silhouette statistics:&quot;</span><span class="p">)</span>
+<span class="n">blobs</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;km4&quot;</span><span class="p">)[</span><span class="s2">&quot;sil4&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>scores for original classes:
-class
-2    0.364877
-1    0.537780
-0    0.810844
-Name: sil, dtype: float64
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>inertia for k=4: 164.41597001588985
 
-scores for 3 k-means clusters:
-km3
-2    0.401121
-0    0.493170
-1    0.793501
-Name: sil, dtype: float64
-</pre></div>
-</div>
-</div>
-</div>
-<p>What happens when we ask for just <span class="math notranslate nohighlight">\(k=2\)</span> clusters?</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">km</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">km</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+overall silhouette score: 0.592866414828605
 
-<span class="n">blobs</span><span class="p">[</span><span class="s2">&quot;km2&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">km</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-<span class="n">blobs</span><span class="p">[</span><span class="s2">&quot;sil&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">silhouette_samples</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">blobs</span><span class="p">[</span><span class="s2">&quot;km2&quot;</span><span class="p">])</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">relplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">blobs</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;x1&quot;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s2">&quot;x2&quot;</span><span class="p">,</span><span class="n">hue</span><span class="o">=</span><span class="s2">&quot;km2&quot;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="n">blobs</span><span class="p">[</span><span class="s2">&quot;sil&quot;</span><span class="p">]);</span>
+silhouette statistics:
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/k-means_9_0.png" src="../_images/k-means_9_0.png" />
-</div>
-</div>
-<p>This result is arguably superior to the reference classification.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;scores for 2 k-means clusters:&quot;</span><span class="p">)</span>
-<span class="n">blobs</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;km2&quot;</span><span class="p">)[</span><span class="s2">&quot;sil&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>scores for 2 k-means clusters:
-</pre></div>
-</div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>km2
-1    0.456869
-0    0.813098
-Name: sil, dtype: float64
-</pre></div>
-</div>
-</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>count</th>
+      <th>mean</th>
+      <th>std</th>
+      <th>min</th>
+      <th>25%</th>
+      <th>50%</th>
+      <th>75%</th>
+      <th>max</th>
+    </tr>
+    <tr>
+      <th>km4</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>60.0</td>
+      <td>0.794159</td>
+      <td>0.062096</td>
+      <td>0.464228</td>
+      <td>0.771340</td>
+      <td>0.810883</td>
+      <td>0.830889</td>
+      <td>0.855336</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>22.0</td>
+      <td>0.402566</td>
+      <td>0.151978</td>
+      <td>-0.048902</td>
+      <td>0.326023</td>
+      <td>0.438774</td>
+      <td>0.520349</td>
+      <td>0.564896</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>39.0</td>
+      <td>0.551024</td>
+      <td>0.160895</td>
+      <td>0.046713</td>
+      <td>0.533722</td>
+      <td>0.608902</td>
+      <td>0.658702</td>
+      <td>0.691462</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>29.0</td>
+      <td>0.377035</td>
+      <td>0.157174</td>
+      <td>0.030664</td>
+      <td>0.273385</td>
+      <td>0.426251</td>
+      <td>0.504303</td>
+      <td>0.556805</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 <p>The outlier points in the generated blobs are perhaps best seen as noisy examples, at least for the purposes of clustering.</p>
 </div>
@@ -786,8 +1012,8 @@ Name: sil, dtype: float64
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">km</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="n">km</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-<span class="n">digits</span><span class="p">[</span><span class="s2">&quot;kmeans3&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">km</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-<span class="n">digits</span><span class="p">[[</span><span class="s2">&quot;target&quot;</span><span class="p">,</span><span class="s2">&quot;kmeans3&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">digits</span><span class="p">[</span><span class="s2">&quot;kmeans3&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">km</span><span class="o">.</span><span class="n">labels_</span>
+<span class="n">digits</span><span class="p">[[</span><span class="s2">&quot;target&quot;</span><span class="p">,</span><span class="s2">&quot;kmeans3&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">9</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -823,12 +1049,12 @@ Name: sil, dtype: float64
     <tr>
       <th>5</th>
       <td>5</td>
-      <td>1</td>
+      <td>0</td>
     </tr>
     <tr>
       <th>6</th>
       <td>6</td>
-      <td>0</td>
+      <td>1</td>
     </tr>
     <tr>
       <th>14</th>
@@ -838,12 +1064,12 @@ Name: sil, dtype: float64
     <tr>
       <th>15</th>
       <td>5</td>
-      <td>1</td>
+      <td>0</td>
     </tr>
     <tr>
       <th>16</th>
       <td>6</td>
-      <td>0</td>
+      <td>1</td>
     </tr>
     <tr>
       <th>24</th>
@@ -853,13 +1079,18 @@ Name: sil, dtype: float64
     <tr>
       <th>25</th>
       <td>5</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>6</td>
       <td>1</td>
     </tr>
   </tbody>
 </table>
 </div></div></div>
 </div>
-<p>The adjusted Rand index suggests that we have reproduced the classification well:</p>
+<p>The adjusted Rand index suggests that we have reproduced the classification very well:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">adjusted_rand_score</span>
@@ -874,19 +1105,19 @@ Name: sil, dtype: float64
 </div>
 </div>
 </div>
-<p>However, that conclusion benefits from our prior knowledge. What if we did not know how many clusters to look for? One option is to try many different values of <span class="math notranslate nohighlight">\(k\)</span>, keeping track of some metric. Here, we record the final total inertia and the mean silhouette score.</p>
+<p>However, that conclusion benefits from our prior knowledge. What if we did not know how many clusters to look for? Let’s look over a range of <span class="math notranslate nohighlight">\(k\)</span> values, recording the final total inertia and the mean silhouette score for each</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">silhouette_score</span>
-<span class="n">results</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;k&quot;</span><span class="p">:[],</span><span class="s2">&quot;inertia&quot;</span><span class="p">:[],</span><span class="s2">&quot;mean silhouette&quot;</span><span class="p">:[]})</span>
-<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">9</span><span class="p">):</span>
-    <span class="n">km</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="n">k</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">8</span><span class="p">):</span>
+    <span class="n">km</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="n">k</span><span class="p">,</span><span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
     <span class="n">km</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
 
     <span class="n">I</span> <span class="o">=</span> <span class="n">km</span><span class="o">.</span><span class="n">inertia_</span>
-    <span class="n">sil</span> <span class="o">=</span> <span class="n">silhouette_score</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">km</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">))</span>
-    <span class="n">results</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;k&quot;</span><span class="p">:[</span><span class="n">k</span><span class="p">],</span><span class="s2">&quot;inertia&quot;</span><span class="p">:[</span><span class="n">I</span><span class="p">],</span><span class="s2">&quot;mean silhouette&quot;</span><span class="p">:[</span><span class="n">sil</span><span class="p">]}),</span><span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">results</span>
+    <span class="n">sil</span> <span class="o">=</span> <span class="n">silhouette_score</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">km</span><span class="o">.</span><span class="n">labels_</span><span class="p">)</span>
+    <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">k</span><span class="p">,</span><span class="n">I</span><span class="p">,</span><span class="n">sil</span><span class="p">])</span>
+
+<span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">results</span><span class="p">,</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;k&quot;</span><span class="p">,</span><span class="s2">&quot;inertia&quot;</span><span class="p">,</span><span class="s2">&quot;mean silhouette&quot;</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
@@ -917,51 +1148,45 @@ Name: sil, dtype: float64
   <tbody>
     <tr>
       <th>0</th>
-      <td>2.0</td>
+      <td>2</td>
       <td>446601.467620</td>
       <td>0.226800</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>3.0</td>
+      <td>3</td>
       <td>360547.755566</td>
       <td>0.251904</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>4.0</td>
-      <td>325210.020058</td>
-      <td>0.245860</td>
+      <td>4</td>
+      <td>325232.684483</td>
+      <td>0.245855</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>5.0</td>
-      <td>297558.275700</td>
-      <td>0.234854</td>
+      <td>5</td>
+      <td>297525.087772</td>
+      <td>0.235199</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>6.0</td>
-      <td>280563.005048</td>
-      <td>0.188237</td>
+      <td>6</td>
+      <td>280632.563349</td>
+      <td>0.188324</td>
     </tr>
     <tr>
       <th>5</th>
-      <td>7.0</td>
-      <td>269773.137148</td>
-      <td>0.169136</td>
-    </tr>
-    <tr>
-      <th>6</th>
-      <td>8.0</td>
-      <td>259294.113156</td>
-      <td>0.186038</td>
+      <td>7</td>
+      <td>270388.673287</td>
+      <td>0.170556</td>
     </tr>
   </tbody>
 </table>
 </div></div></div>
 </div>
-<p>The inertia continues to decrease as <span class="math notranslate nohighlight">\(k\)</span> increases, although the rate of decrease slows somewhat. But the silhouette score is maximized at <span class="math notranslate nohighlight">\(k=3\)</span>, which could be considered a reason to choose 3 clusters.</p>
+<p>The inertia continues to decrease as <span class="math notranslate nohighlight">\(k\)</span> increases, although the rate of decrease slows somewhat. The silhouette score is maximized at <span class="math notranslate nohighlight">\(k=3\)</span>, which could be considered a reason to choose 3 clusters, although the difference between 3 and 4 clusters is not large.</p>
 </div>
 </div>
 

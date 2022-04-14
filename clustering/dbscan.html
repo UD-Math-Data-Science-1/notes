@@ -44,7 +44,7 @@
     <script src="../_static/copybutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/sphinx-book-theme.9d8b4a8b9bb19db25eeaddc40d639ba2.js"></script>
-    <script>window.MathJax = {"tex": {"macros": {"float": ["\\mathbb{F}"], "real": ["\\mathbb{R}"], "complex": ["\\mathbb{C}"], "nat": ["\\mathbb{N}"], "integer": ["\\mathbb{Z}"], "bfa": "\\mathbf{a}", "bfe": "\\mathbf{e}", "bfx": "\\mathbf{x}", "bfX": "\\mathbf{X}", "bfu": "\\mathbf{u}", "bfv": "\\mathbf{v}", "bfw": "\\mathbf{w}", "bfy": "\\mathbf{y}", "bfz": "\\mathbf{z}", "bfzero": "\\boldsymbol{0}", "bfmu": "\\boldsymbol{\\mu}", "TP": "\\text{TP}", "TN": "\\text{TN}", "FP": "\\text{FP}", "FN": "\\text{FN}", "rmn": ["\\mathbb{R}^{#1 \\times #2}", 2], "dd": ["\\frac{d #1}{d #2}", 2], "pp": ["\\frac{\\partial #1}{\\partial #2}", 2], "norm": ["\\left\\lVert \\mathstrut #1 \\right\\rVert", 1], "abs": ["\\left\\lvert \\mathstrut #1 \\right\\rvert", 1], "twonorm": ["\\norm{#1}_2", 1], "onenorm": ["\\norm{#1}_1", 1], "infnorm": ["\\norm{#1}_\\infty", 1], "innerprod": ["\\langle #1,#2 \\rangle", 2], "pr": ["^{(#1)}", 1], "diag": ["\\operatorname{diag}"], "sign": ["\\operatorname{sign}"], "dist": ["\\operatorname{dist}"], "simil": ["\\operatorname{sim}"], "ee": ["\\times 10^"], "floor": ["\\lfloor#1\\rfloor", 1], "argmin": ["\\operatorname{argmin}"], "Cov": ["\\operatorname{Cov}"], "logit": ["\\operatorname{logit}"]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script>window.MathJax = {"tex": {"macros": {"float": ["\\mathbb{F}"], "real": ["\\mathbb{R}"], "complex": ["\\mathbb{C}"], "nat": ["\\mathbb{N}"], "integer": ["\\mathbb{Z}"], "bfa": "\\mathbf{a}", "bfe": "\\mathbf{e}", "bfx": "\\mathbf{x}", "bfX": "\\mathbf{X}", "bfA": "\\mathbf{A}", "bfW": "\\mathbf{W}", "bfp": "\\mathbf{p}", "bfu": "\\mathbf{u}", "bfv": "\\mathbf{v}", "bfw": "\\mathbf{w}", "bfy": "\\mathbf{y}", "bfz": "\\mathbf{z}", "bfzero": "\\boldsymbol{0}", "bfmu": "\\boldsymbol{\\mu}", "TP": "\\text{TP}", "TN": "\\text{TN}", "FP": "\\text{FP}", "FN": "\\text{FN}", "rmn": ["\\mathbb{R}^{#1 \\times #2}", 2], "dd": ["\\frac{d #1}{d #2}", 2], "pp": ["\\frac{\\partial #1}{\\partial #2}", 2], "norm": ["\\left\\lVert \\mathstrut #1 \\right\\rVert", 1], "abs": ["\\left\\lvert \\mathstrut #1 \\right\\rvert", 1], "twonorm": ["\\norm{#1}_2", 1], "onenorm": ["\\norm{#1}_1", 1], "infnorm": ["\\norm{#1}_\\infty", 1], "innerprod": ["\\langle #1,#2 \\rangle", 2], "pr": ["^{(#1)}", 1], "diag": ["\\operatorname{diag}"], "sign": ["\\operatorname{sign}"], "dist": ["\\operatorname{dist}"], "simil": ["\\operatorname{sim}"], "ee": ["\\times 10^"], "floor": ["\\lfloor#1\\rfloor", 1], "argmin": ["\\operatorname{argmin}"], "Cov": ["\\operatorname{Cov}"], "logit": ["\\operatorname{logit}"]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
     <script>
@@ -340,6 +340,11 @@
    <li class="toctree-l2">
     <a class="reference internal" href="../network/degree.html">
      6.3. Degree distributions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../network/community.html">
+     6.4. Communities
     </a>
    </li>
   </ul>
@@ -759,17 +764,16 @@ Name: target, dtype: int64
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">silhouette_score</span><span class="p">,</span><span class="n">silhouette_samples</span>
-<span class="n">result</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;eps&quot;</span><span class="p">:[],</span><span class="s2">&quot;clusters&quot;</span><span class="p">:[],</span><span class="s2">&quot;noise&quot;</span><span class="p">:[]})</span>
-<span class="k">for</span> <span class="n">eps</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">26</span><span class="p">,</span><span class="mf">0.25</span><span class="p">):</span>
-    <span class="n">dbs</span> <span class="o">=</span> <span class="n">DBSCAN</span><span class="p">(</span><span class="n">eps</span><span class="o">=</span><span class="n">eps</span><span class="p">,</span><span class="n">min_samples</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">eps</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">26</span><span class="p">,</span><span class="mf">0.1</span><span class="p">):</span>
+    <span class="n">dbs</span> <span class="o">=</span> <span class="n">DBSCAN</span><span class="p">(</span><span class="n">eps</span><span class="o">=</span><span class="n">eps</span><span class="p">,</span><span class="n">min_samples</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
     <span class="n">dbs</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
     <span class="n">c</span> <span class="o">=</span> <span class="n">dbs</span><span class="o">.</span><span class="n">labels_</span>
     <span class="n">k</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="n">c</span><span class="o">!=-</span><span class="mi">1</span><span class="p">]))</span>  <span class="c1"># remove the &quot;noise&quot; label before counting</span>
-    <span class="n">result</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">((</span><span class="n">result</span><span class="p">,</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
-        <span class="p">{</span><span class="s2">&quot;eps&quot;</span><span class="p">:[</span><span class="n">eps</span><span class="p">],</span><span class="s2">&quot;clusters&quot;</span><span class="p">:</span><span class="n">k</span><span class="p">,</span><span class="s2">&quot;noise&quot;</span><span class="p">:</span><span class="nb">sum</span><span class="p">(</span><span class="n">c</span><span class="o">==-</span><span class="mi">1</span><span class="p">)}</span>
-                                 <span class="p">)),</span><span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    
-<span class="n">sns</span><span class="o">.</span><span class="n">relplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">result</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;eps&quot;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s2">&quot;noise&quot;</span><span class="p">,</span><span class="n">hue</span><span class="o">=</span><span class="s2">&quot;clusters&quot;</span><span class="p">);</span>
+    <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">eps</span><span class="p">,</span><span class="n">k</span><span class="p">,</span><span class="nb">sum</span><span class="p">(</span><span class="n">c</span><span class="o">==-</span><span class="mi">1</span><span class="p">)])</span> 
+
+<span class="n">results</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">results</span><span class="p">,</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;eps&quot;</span><span class="p">,</span><span class="s2">&quot;clusters&quot;</span><span class="p">,</span><span class="s2">&quot;noise&quot;</span><span class="p">])</span>    
+<span class="n">sns</span><span class="o">.</span><span class="n">relplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">results</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;eps&quot;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s2">&quot;noise&quot;</span><span class="p">,</span><span class="n">hue</span><span class="o">=</span><span class="s2">&quot;clusters&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -777,25 +781,25 @@ Name: target, dtype: int64
 <img alt="../_images/dbscan_26_0.png" src="../_images/dbscan_26_0.png" />
 </div>
 </div>
-<p>We could argue that the long stretch in which there are 3 clusters with reasonably low noise makes <span class="math notranslate nohighlight">\(k=3\)</span> clusters the best choice. We will use the <span class="math notranslate nohighlight">\(\epsilon\)</span> that minimizes noise with <span class="math notranslate nohighlight">\(k=3\)</span>.</p>
+<p>We could argue that the long stretch in which there are 3 clusters with reasonably low noise makes <span class="math notranslate nohighlight">\(k=3\)</span> clusters the best choice. (However, 2 clusters also seems like a defensible choice.) We will use the <span class="math notranslate nohighlight">\(\epsilon\)</span> that minimizes noise with <span class="math notranslate nohighlight">\(k=3\)</span>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">result</span><span class="p">[</span><span class="s2">&quot;clusters&quot;</span><span class="p">]</span><span class="o">==</span><span class="mi">3</span><span class="p">]</span>
-<span class="n">i</span> <span class="o">=</span><span class="n">result</span><span class="p">[</span><span class="s2">&quot;noise&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">argmin</span><span class="p">()</span>
-<span class="n">eps_best</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s2">&quot;eps&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">results</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">results</span><span class="p">[</span><span class="s2">&quot;clusters&quot;</span><span class="p">]</span><span class="o">==</span><span class="mi">3</span><span class="p">]</span>
+<span class="n">i_best</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="s2">&quot;noise&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">argmin</span><span class="p">()</span>
+<span class="n">eps_best</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="s2">&quot;eps&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i_best</span><span class="p">]</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;best eps:&quot;</span><span class="p">,</span><span class="n">eps_best</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>best eps: 23.75
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>best eps: 23.800000000000054
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dbs</span> <span class="o">=</span> <span class="n">DBSCAN</span><span class="p">(</span><span class="n">eps</span><span class="o">=</span><span class="n">eps_best</span><span class="p">,</span><span class="n">min_samples</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dbs</span> <span class="o">=</span> <span class="n">DBSCAN</span><span class="p">(</span><span class="n">eps</span><span class="o">=</span><span class="n">eps_best</span><span class="p">,</span><span class="n">min_samples</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 <span class="n">dbs</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
 <span class="n">y_hat</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">dbs</span><span class="o">.</span><span class="n">labels_</span><span class="p">,</span><span class="n">index</span><span class="o">=</span><span class="n">y</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
 <span class="n">y_hat</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
@@ -803,10 +807,10 @@ Name: target, dtype: int64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 1    178
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 1    179
+ 2    172
  0    170
- 2    169
--1     27
+-1     23
 dtype: int64
 </pre></div>
 </div>
@@ -821,12 +825,11 @@ dtype: int64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.9189992711211001
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.9304246793248612
 </pre></div>
 </div>
 </div>
 </div>
-<p>This is a relatively easy classification problem, but nevertheless this is good performance for a method that has no prior knowledge of the labels, or even how many classes there are.</p>
 <p>Let’s take a look at some of the samples that were labeled as noise.</p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">

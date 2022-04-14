@@ -44,7 +44,7 @@
     <script src="../_static/copybutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/sphinx-book-theme.9d8b4a8b9bb19db25eeaddc40d639ba2.js"></script>
-    <script>window.MathJax = {"tex": {"macros": {"float": ["\\mathbb{F}"], "real": ["\\mathbb{R}"], "complex": ["\\mathbb{C}"], "nat": ["\\mathbb{N}"], "integer": ["\\mathbb{Z}"], "bfa": "\\mathbf{a}", "bfe": "\\mathbf{e}", "bfx": "\\mathbf{x}", "bfX": "\\mathbf{X}", "bfu": "\\mathbf{u}", "bfv": "\\mathbf{v}", "bfw": "\\mathbf{w}", "bfy": "\\mathbf{y}", "bfz": "\\mathbf{z}", "bfzero": "\\boldsymbol{0}", "bfmu": "\\boldsymbol{\\mu}", "TP": "\\text{TP}", "TN": "\\text{TN}", "FP": "\\text{FP}", "FN": "\\text{FN}", "rmn": ["\\mathbb{R}^{#1 \\times #2}", 2], "dd": ["\\frac{d #1}{d #2}", 2], "pp": ["\\frac{\\partial #1}{\\partial #2}", 2], "norm": ["\\left\\lVert \\mathstrut #1 \\right\\rVert", 1], "abs": ["\\left\\lvert \\mathstrut #1 \\right\\rvert", 1], "twonorm": ["\\norm{#1}_2", 1], "onenorm": ["\\norm{#1}_1", 1], "infnorm": ["\\norm{#1}_\\infty", 1], "innerprod": ["\\langle #1,#2 \\rangle", 2], "pr": ["^{(#1)}", 1], "diag": ["\\operatorname{diag}"], "sign": ["\\operatorname{sign}"], "dist": ["\\operatorname{dist}"], "simil": ["\\operatorname{sim}"], "ee": ["\\times 10^"], "floor": ["\\lfloor#1\\rfloor", 1], "argmin": ["\\operatorname{argmin}"], "Cov": ["\\operatorname{Cov}"], "logit": ["\\operatorname{logit}"]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script>window.MathJax = {"tex": {"macros": {"float": ["\\mathbb{F}"], "real": ["\\mathbb{R}"], "complex": ["\\mathbb{C}"], "nat": ["\\mathbb{N}"], "integer": ["\\mathbb{Z}"], "bfa": "\\mathbf{a}", "bfe": "\\mathbf{e}", "bfx": "\\mathbf{x}", "bfX": "\\mathbf{X}", "bfA": "\\mathbf{A}", "bfW": "\\mathbf{W}", "bfp": "\\mathbf{p}", "bfu": "\\mathbf{u}", "bfv": "\\mathbf{v}", "bfw": "\\mathbf{w}", "bfy": "\\mathbf{y}", "bfz": "\\mathbf{z}", "bfzero": "\\boldsymbol{0}", "bfmu": "\\boldsymbol{\\mu}", "TP": "\\text{TP}", "TN": "\\text{TN}", "FP": "\\text{FP}", "FN": "\\text{FN}", "rmn": ["\\mathbb{R}^{#1 \\times #2}", 2], "dd": ["\\frac{d #1}{d #2}", 2], "pp": ["\\frac{\\partial #1}{\\partial #2}", 2], "norm": ["\\left\\lVert \\mathstrut #1 \\right\\rVert", 1], "abs": ["\\left\\lvert \\mathstrut #1 \\right\\rvert", 1], "twonorm": ["\\norm{#1}_2", 1], "onenorm": ["\\norm{#1}_1", 1], "infnorm": ["\\norm{#1}_\\infty", 1], "innerprod": ["\\langle #1,#2 \\rangle", 2], "pr": ["^{(#1)}", 1], "diag": ["\\operatorname{diag}"], "sign": ["\\operatorname{sign}"], "dist": ["\\operatorname{dist}"], "simil": ["\\operatorname{sim}"], "ee": ["\\times 10^"], "floor": ["\\lfloor#1\\rfloor", 1], "argmin": ["\\operatorname{argmin}"], "Cov": ["\\operatorname{Cov}"], "logit": ["\\operatorname{logit}"]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
     <script>
@@ -329,12 +329,22 @@
   <ul>
    <li class="toctree-l2">
     <a class="reference internal" href="../network/networkx.html">
-     6.1. Basics of NetworkX
+     6.1. Graphs
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../network/small-world.html">
+     6.2. Small-world networks
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../network/degree.html">
-     6.2. Degree and distance
+     6.3. Degree distributions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../network/community.html">
+     6.4. Communities
     </a>
    </li>
   </ul>
@@ -440,6 +450,11 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#test-sets">
+   Test sets
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#case-study-penguins">
    Case study: Penguins
   </a>
@@ -470,6 +485,11 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#test-sets">
+   Test sets
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#case-study-penguins">
    Case study: Penguins
   </a>
@@ -495,6 +515,13 @@
 <li><p><strong>complete linkage</strong> or <em>maximum linkage</em>: <span class="math notranslate nohighlight">\(\displaystyle \max_{\bfx\in C_i,\,\bfy\in C_j} \{ \norm{\bfx-\bfy} \}\)</span></p></li>
 <li><p><strong>average linkage</strong>: <span class="math notranslate nohighlight">\(\displaystyle \frac{1}{|C_i|\,|C_j|} \sum_{\bfx\in C_i,\,\bfy\in C_j} \norm{ \bfx-\bfy }\)</span></p></li>
 </ul>
+<p>The Ward linkage admits a simple formula. If <span class="math notranslate nohighlight">\(\bfmu_i\)</span> and <span class="math notranslate nohighlight">\(\bfmu_j\)</span> are the centroids of <span class="math notranslate nohighlight">\(C_i\)</span> and <span class="math notranslate nohighlight">\(C_j\)</span>, then the increase in inertia for combining these clusters is</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{ |C_i|\,|C_j| }{|C_i| + |C_j|} \norm{\bfmu_i - \bfmu_j}_2^2.
+\]</div>
+<p>Agglomerative clustering with Ward linkage amounts to trying to minimize the increase of inertia with each merger. In that sense, it has the same objective as <span class="math notranslate nohighlight">\(k\)</span>-means. However, it is usually not as successful at minimizing inertia.</p>
+<p>Single linkage only pays attention to the gaps between clusters, not the size or spread of them. Complete linkage, on the other hand, wants to keep clusters packed tightly together. Average linkage is a compromise between these extremes. All three of these options can work with a distance matrix in lieu of the original feature matrix.</p>
 <div class="proof example admonition" id="example-hierarchical-linkages">
 <p class="admonition-title"><span class="caption-number">Example 5.4.1 </span></p>
 <div class="example-content section" id="proof-content">
@@ -506,7 +533,11 @@ Solution<div class="summary-down docutils">
 <div class="summary-up docutils">
 <svg version="1.1" width="24" height="24" class="octicon octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
 </summary><div class="summary-content card-body docutils">
-<p class="card-text"><strong>Ward.</strong> The inertia of each cluster is 2, for a total of 4. If the clusters are combined, their mean is <span class="math notranslate nohighlight">\(\mu=1\)</span>, and the inertia of the supercluster is <span class="math notranslate nohighlight">\(16+9+4+4+9+16=58\)</span>. Thus the Ward linkage is <span class="math notranslate nohighlight">\(58-4=54\)</span>.</p>
+<p class="card-text"><strong>Ward.</strong> The centroids of the clusters are <span class="math notranslate nohighlight">\(-2\)</span> and <span class="math notranslate nohighlight">\(4\)</span>. So the linkage is</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{3\cdot 3}{3+3} \, 6^2 = 54.
+\]</div>
 <p class="card-text"><strong>Single.</strong> The pairwise distances between members of <span class="math notranslate nohighlight">\(C_1\)</span> and <span class="math notranslate nohighlight">\(C_2\)</span> form a <span class="math notranslate nohighlight">\(3\times 3\)</span> matrix:</p>
 <table class="colwidths-auto table">
 <thead>
@@ -539,8 +570,7 @@ Solution<div class="summary-down docutils">
 <p class="card-text"><strong>Average.</strong> The average value of the matrix entries is <span class="math notranslate nohighlight">\(54/9\)</span>, which is 6.</p>
 </div>
 </details></div>
-</div><p>Absent any other considerations, Ward linkage is considered the most reliable (and is the sklearn default).</p>
-<div class="section" id="toy-example">
+</div><div class="section" id="toy-example">
 <h2>Toy example<a class="headerlink" href="#toy-example" title="Permalink to this headline">¶</a></h2>
 <p>Let’s use 5 sample points in the plane, and agglomerate them by single linkage. The <code class="docutils literal notranslate"><span class="pre">pairwise_distances</span></code> function converts sample points into a distance matrix.</p>
 <div class="cell docutils container">
@@ -597,13 +627,113 @@ Solution<div class="summary-down docutils">
 <p>The horizontal position in the dendrogram above indicates the linkage strength. Working from right to left, we see the creation of <span class="math notranslate nohighlight">\(C_1\)</span> first, then <span class="math notranslate nohighlight">\(C_2\)</span>. These are merged into a single set before finally being merged with <span class="math notranslate nohighlight">\(\bfx_3\)</span>. (Note that the rows are reordered according to the values on the far right, in order to avoid having lines cross over one another.)</p>
 <p>In effect, we get an entire family of clusterings, by stopping at any linkage value we want. If we chose to stop at value 1.5, for instance, we would have the three clusters we derived above. Or, if we predetermine that we want <span class="math notranslate nohighlight">\(k\)</span> clusters, we can stop after <span class="math notranslate nohighlight">\(n-k\)</span> merges.</p>
 </div>
+<div class="section" id="test-sets">
+<h2>Test sets<a class="headerlink" href="#test-sets" title="Permalink to this headline">¶</a></h2>
+<p>We will use three test sets to illustrate the different linkages.</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_blobs</span>
+<span class="kn">from</span> <span class="nn">numpy.random</span> <span class="kn">import</span> <span class="n">default_rng</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">X</span><span class="p">,</span><span class="n">y</span> <span class="o">=</span> <span class="n">make_blobs</span><span class="p">(</span>
+    <span class="n">n_samples</span><span class="o">=</span><span class="p">[</span><span class="mi">60</span><span class="p">,</span><span class="mi">50</span><span class="p">,</span><span class="mi">40</span><span class="p">],</span>
+    <span class="n">centers</span><span class="o">=</span><span class="p">[[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],[</span><span class="mf">3.5</span><span class="p">,</span><span class="mf">1.5</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">3</span><span class="p">]],</span>
+    <span class="n">cluster_std</span><span class="o">=</span><span class="p">[</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">0.9</span><span class="p">,</span><span class="mf">1.2</span><span class="p">],</span>
+    <span class="n">random_state</span> <span class="o">=</span> <span class="mi">19716</span>
+    <span class="p">)</span>
+<span class="n">blobs</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;x1&quot;</span><span class="p">:</span><span class="n">X</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span><span class="s2">&quot;x2&quot;</span><span class="p">:</span><span class="n">X</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span><span class="s2">&quot;class&quot;</span><span class="p">:</span><span class="n">y</span><span class="p">})</span>
+<span class="n">x1x2</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;x1&quot;</span><span class="p">,</span><span class="s2">&quot;x2&quot;</span><span class="p">]</span>
+
+<span class="n">rng</span> <span class="o">=</span> <span class="n">default_rng</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
+<span class="n">inner</span> <span class="o">=</span> <span class="mf">0.8</span><span class="o">*</span><span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">theta</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+<span class="n">middle</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">r</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">),</span><span class="n">r</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)))</span><span class="o">.</span><span class="n">T</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+<span class="n">outer</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">r</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">),</span><span class="n">r</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)))</span><span class="o">.</span><span class="n">T</span>
+<span class="n">bullseye</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">inner</span><span class="p">,</span><span class="n">middle</span><span class="p">,</span><span class="n">outer</span><span class="p">)),</span><span class="n">columns</span><span class="o">=</span><span class="n">x1x2</span><span class="p">)</span>
+<span class="n">bullseye</span><span class="p">[</span><span class="s2">&quot;class&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">(([</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="mi">100</span><span class="p">,[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="mi">200</span><span class="p">,[</span><span class="mi">2</span><span class="p">]</span><span class="o">*</span><span class="mi">200</span><span class="p">))</span>
+
+<span class="n">rng</span> <span class="o">=</span> <span class="n">default_rng</span><span class="p">(</span><span class="mi">9</span><span class="p">)</span>
+<span class="n">x1</span><span class="p">,</span><span class="n">x2</span><span class="p">,</span><span class="n">y</span> <span class="o">=</span> <span class="p">[],[],[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+    <span class="n">x1</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">rng</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="mi">200</span><span class="p">))</span>
+    <span class="n">x2</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="mf">2.5</span><span class="o">*</span><span class="n">i</span><span class="o">+</span><span class="n">rng</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="mi">200</span><span class="p">))</span>
+    <span class="n">y</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="mi">200</span><span class="p">)</span>
+<span class="n">stripes</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;x1&quot;</span><span class="p">:</span><span class="n">x1</span><span class="p">,</span><span class="s2">&quot;x2&quot;</span><span class="p">:</span><span class="n">x2</span><span class="p">,</span><span class="s2">&quot;class&quot;</span><span class="p">:</span><span class="n">y</span><span class="p">})</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.cluster</span> <span class="kn">import</span> <span class="n">AgglomerativeClustering</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">silhouette_samples</span><span class="p">,</span><span class="n">silhouette_score</span>
+
+<span class="k">def</span> <span class="nf">run_experiment</span><span class="p">(</span><span class="n">frames</span><span class="p">,</span><span class="n">link</span><span class="p">):</span>
+    <span class="n">f</span><span class="p">,</span><span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span><span class="mi">8</span><span class="p">),</span><span class="n">subplot_kw</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">aspect</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+    <span class="n">agg</span> <span class="o">=</span> <span class="n">AgglomerativeClustering</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span><span class="n">linkage</span><span class="o">=</span><span class="n">link</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">data</span><span class="p">,</span><span class="n">ax</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">frames</span><span class="p">,</span><span class="n">axes</span><span class="p">):</span>
+        <span class="n">agg</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">x1x2</span><span class="p">])</span>
+        <span class="n">data</span><span class="p">[</span><span class="n">link</span><span class="p">]</span> <span class="o">=</span> <span class="n">agg</span><span class="o">.</span><span class="n">labels_</span>
+        <span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;x1&quot;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s2">&quot;x2&quot;</span><span class="p">,</span><span class="n">hue</span><span class="o">=</span><span class="n">link</span><span class="p">,</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">f</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">run_experiment</span><span class="p">([</span><span class="n">blobs</span><span class="p">,</span><span class="n">bullseye</span><span class="p">,</span><span class="n">stripes</span><span class="p">],</span><span class="s2">&quot;single&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/hierarchical_10_0.png" src="../_images/hierarchical_10_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">run_experiment</span><span class="p">([</span><span class="n">blobs</span><span class="p">,</span><span class="n">bullseye</span><span class="p">,</span><span class="n">stripes</span><span class="p">],</span><span class="s2">&quot;complete&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/hierarchical_11_0.png" src="../_images/hierarchical_11_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">run_experiment</span><span class="p">([</span><span class="n">blobs</span><span class="p">,</span><span class="n">bullseye</span><span class="p">,</span><span class="n">stripes</span><span class="p">],</span><span class="s2">&quot;ward&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/hierarchical_12_0.png" src="../_images/hierarchical_12_0.png" />
+</div>
+</div>
+<p>What stands out above is that single linkage has more geometric flexibility. This is helpful when the samples are grouped into well-separated clusters that are not necessarily compact and sphere-like. However, it can also be sensitive to individual samples. Here, we add just one point to the bullseye picture and get a big change:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bullseye</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">((</span><span class="n">bullseye</span><span class="p">,</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;x1&quot;</span><span class="p">:[</span><span class="mi">0</span><span class="p">],</span><span class="s2">&quot;x2&quot;</span><span class="p">:[</span><span class="mf">2.25</span><span class="p">],</span><span class="s2">&quot;class&quot;</span><span class="p">:[</span><span class="mi">0</span><span class="p">]})))</span>
+<span class="n">run_experiment</span><span class="p">([</span><span class="n">blobs</span><span class="p">,</span><span class="n">bullseye</span><span class="p">,</span><span class="n">stripes</span><span class="p">],</span><span class="s2">&quot;single&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/hierarchical_14_0.png" src="../_images/hierarchical_14_0.png" />
+</div>
+</div>
+<p>The other linkages pay more attention to the compactness of the cluster shapes, which is much more limiting, but they are not as affected by small changes to the interior points.</p>
+</div>
 <div class="section" id="case-study-penguins">
 <h2>Case study: Penguins<a class="headerlink" href="#case-study-penguins" title="Permalink to this headline">¶</a></h2>
 <p>Let’s try agglomerative clustering to discover the species of the penguins. First, let’s recall how many of each species we have.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="n">penguins</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">load_dataset</span><span class="p">(</span><span class="s2">&quot;penguins&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">penguins</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">load_dataset</span><span class="p">(</span><span class="s2">&quot;penguins&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
 <span class="n">X</span> <span class="o">=</span> <span class="n">penguins</span><span class="p">[[</span><span class="s2">&quot;bill_length_mm&quot;</span><span class="p">,</span><span class="s2">&quot;bill_depth_mm&quot;</span><span class="p">,</span><span class="s2">&quot;flipper_length_mm&quot;</span><span class="p">,</span><span class="s2">&quot;body_mass_g&quot;</span><span class="p">]]</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">penguins</span><span class="p">[</span><span class="s2">&quot;species&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">())</span>
 </pre></div>
@@ -814,7 +944,7 @@ Name: ward, dtype: int64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/hierarchical_19_0.png" src="../_images/hierarchical_19_0.png" />
+<img alt="../_images/hierarchical_29_0.png" src="../_images/hierarchical_29_0.png" />
 </div>
 </div>
 </div>

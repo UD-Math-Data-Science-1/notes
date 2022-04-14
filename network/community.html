@@ -1,0 +1,839 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>6.4. Communities &#8212; Data Science 1</title>
+    
+  <link href="../_static/css/theme.css" rel="stylesheet">
+  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=84ace793992934648b4de8eed757e5a2" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.9d8b4a8b9bb19db25eeaddc40d639ba2.js"></script>
+    <script>window.MathJax = {"tex": {"macros": {"float": ["\\mathbb{F}"], "real": ["\\mathbb{R}"], "complex": ["\\mathbb{C}"], "nat": ["\\mathbb{N}"], "integer": ["\\mathbb{Z}"], "bfa": "\\mathbf{a}", "bfe": "\\mathbf{e}", "bfx": "\\mathbf{x}", "bfX": "\\mathbf{X}", "bfA": "\\mathbf{A}", "bfW": "\\mathbf{W}", "bfp": "\\mathbf{p}", "bfu": "\\mathbf{u}", "bfv": "\\mathbf{v}", "bfw": "\\mathbf{w}", "bfy": "\\mathbf{y}", "bfz": "\\mathbf{z}", "bfzero": "\\boldsymbol{0}", "bfmu": "\\boldsymbol{\\mu}", "TP": "\\text{TP}", "TN": "\\text{TN}", "FP": "\\text{FP}", "FN": "\\text{FN}", "rmn": ["\\mathbb{R}^{#1 \\times #2}", 2], "dd": ["\\frac{d #1}{d #2}", 2], "pp": ["\\frac{\\partial #1}{\\partial #2}", 2], "norm": ["\\left\\lVert \\mathstrut #1 \\right\\rVert", 1], "abs": ["\\left\\lvert \\mathstrut #1 \\right\\rvert", 1], "twonorm": ["\\norm{#1}_2", 1], "onenorm": ["\\norm{#1}_1", 1], "infnorm": ["\\norm{#1}_\\infty", 1], "innerprod": ["\\langle #1,#2 \\rangle", 2], "pr": ["^{(#1)}", 1], "diag": ["\\operatorname{diag}"], "sign": ["\\operatorname{sign}"], "dist": ["\\operatorname{dist}"], "simil": ["\\operatorname{sim}"], "ee": ["\\times 10^"], "floor": ["\\lfloor#1\\rfloor", 1], "argmin": ["\\operatorname{argmin}"], "Cov": ["\\operatorname{Cov}"], "logit": ["\\operatorname{logit}"]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script>
+        const thebe_selector = ".thebe,.cell"
+        const thebe_selector_input = "pre,.cell_input div.highlight"
+        const thebe_selector_output = ".output,.cell_output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="6.3. Degree distributions" href="degree.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<div class="col-12 col-md-3 bd-sidebar site-navigation " id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Data Science 1</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   Data Science 1 @ UD Math
+  </a>
+ </li>
+</ul>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../representation/overview.html">
+   1. Representation of data
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../representation/data-types.html">
+     1.1. Types of data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../representation/numpy.html">
+     1.2. Introduction to numpy
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../representation/pandas.html">
+     1.3. Introduction to pandas
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../representation/seaborn.html">
+     1.4. Introduction to seaborn
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../statistics/overview.html">
+   2. Descriptive statistics
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../statistics/summary.html">
+     2.1. Summary statistics
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../statistics/split-apply-combine.html">
+     2.2. Split–apply–combine
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../statistics/outliers.html">
+     2.3. Outliers
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../statistics/correlation.html">
+     2.4. Correlation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../statistics/exercises.html">
+     2.5. Exercises
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../classification/overview.html">
+   3. Classification
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../classification/sklearn.html">
+     3.1. Using scikit-learn
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../classification/performance.html">
+     3.2. Classifier performance
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../classification/decision-trees.html">
+     3.3. Decision trees
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../classification/nearest-neighbors.html">
+     3.4. Nearest neighbors
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../classification/svm.html">
+     3.5. Support vector machine
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../classification/overfitting.html">
+     3.6. Overfitting
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../classification/model-selection.html">
+     3.7. Model selection
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../classification/exercises.html">
+     3.8. Exercises
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../regression/overview.html">
+   4. Regression
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../regression/linear.html">
+     4.1. Linear regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../regression/multilinear.html">
+     4.2. Multilinear and polynomial regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../regression/regularization.html">
+     4.3. Regularization
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../regression/nonlinear.html">
+     4.4. Nonlinear regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../regression/prob_class.html">
+     4.5. Probabilistic classification
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../regression/logistic.html">
+     4.6. Logistic regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../regression/exercises.html">
+     4.7. Exercises
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../clustering/overview.html">
+   5. Clustering
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <label for="toctree-checkbox-5">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../clustering/similarity.html">
+     5.1. Similarity and distance
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../clustering/performance.html">
+     5.2. Clustering performance
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../clustering/k-means.html">
+     5.3. k-means
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../clustering/hierarchical.html">
+     5.4. Hierarchical
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../clustering/dbscan.html">
+     5.5. DBSCAN
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../clustering/exercises.html">
+     5.6. Exercises
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="overview.html">
+   6. Networks
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+  <label for="toctree-checkbox-6">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="networkx.html">
+     6.1. Graphs
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="small-world.html">
+     6.2. Small-world networks
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="degree.html">
+     6.3. Degree distributions
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     6.4. Communities
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<!-- This is an invisible pixel that we watch to see if we've scrolled. -->
+<div class="sbt-scroll-pixel-helper"></div>
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            <div class="topbar-left">
+                
+                <label class="nav-toggle-button" for="__navigation">
+                    <div class="visually-hidden">Toggle navigation</div>
+                    <i class="fas fa-bars"></i>
+                </label>
+                
+            </div>
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        <a class="dropdown-buttons"
+            href="../_sources/network/community.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download notebook file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/network/community.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/UD-Math-Data-Science-1/notes/main?urlpath=tree/network/community.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+        <button type="button" class="btn btn-secondary topbarbtn"
+            onclick="initThebeSBT()" title="Launch Thebe" data-toggle="tooltip" data-placement="left"><i
+                class="fas fa-play"></i><span style="margin-left: .4em;">Live Code</span></button>
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#simulating-the-random-walk">
+   Simulating the random walk
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#label-propagation">
+   Label propagation
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Communities</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#simulating-the-random-walk">
+   Simulating the random walk
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#label-propagation">
+   Label propagation
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            
+              <div>
+                
+  <div class="tex2jax_ignore mathjax_ignore section" id="communities">
+<h1><span class="section-number">6.4. </span>Communities<a class="headerlink" href="#communities" title="Permalink to this headline">¶</a></h1>
+<p>In applications, one may want to identify <em>communities</em> within a network. There are many ways to define this concept precisely. We will choose a <strong>random-walk</strong> model.</p>
+<p>Imagine that a bunny sits on node <span class="math notranslate nohighlight">\(i\)</span>. In one second, the bunny hops to one of <span class="math notranslate nohighlight">\(i\)</span>’s neighbors, chosen randomly. In the next second, the bunny hops to another node chosen randomly from the neighbors of the one it is sitting on, etc. This is a random walk on the nodes of the graph.</p>
+<p>Now imagine that we place another bunny on node <span class="math notranslate nohighlight">\(i\)</span> and track its path as it hops around the graph. Then we place another bunny, etc., so that we have an ensemble of walks. We can now reason about the <em>probability</em> of the location of the walk after any number of hops. Initially, the probability of node <span class="math notranslate nohighlight">\(i\)</span> is 100%. If <span class="math notranslate nohighlight">\(i\)</span> has <span class="math notranslate nohighlight">\(m\)</span> neighbors, then each of them will have probability <span class="math notranslate nohighlight">\(1/m\)</span> after one hop, and all the other nodes (including <span class="math notranslate nohighlight">\(i\)</span> itself) have zero probability.</p>
+<p>Let’s keep track of the probabilities for this simple wheel graph:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">wheel_graph</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">G</span><span class="p">,</span><span class="n">node_size</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span><span class="n">with_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">node_color</span><span class="o">=</span><span class="s2">&quot;yellow&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/community_2_0.png" src="../_images/community_2_0.png" />
+</div>
+</div>
+<p>We start at node 4. This corresponds to the probability vector</p>
+<div class="math notranslate nohighlight">
+\[
+\bfp = [0,0,0,0,1].
+\]</div>
+<p>On the first hop, we are equally likely to visit each of the nodes 0, 1, or 3. This implies the probability distribution</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{q} = \left[\tfrac{1}{3},\tfrac{1}{3},0,\tfrac{1}{3},0\right].
+\]</div>
+<p>Let’s now find the probability of standing on node 0 after the next hop. The two possible histories are 4-1-0 and 4-3-0, with total probability</p>
+<div class="math notranslate nohighlight">
+\[
+\underbrace{\frac{1}{3}}_{\text{to 1}} \cdot \underbrace{\frac{1}{3}}_{\text{to 0}} + \underbrace{\frac{1}{3}}_{\text{to 3}} \cdot \underbrace{\frac{1}{3}}_{\text{to 0}} = \frac{2}{9}.
+\]</div>
+<p>What about node 2 after two hops? The viable paths are 4-0-2, 4-1-2, and 4-3-2. Keeping in mind that node 0 has 4 neighbors, we get</p>
+<div class="math notranslate nohighlight">
+\[
+\underbrace{\frac{1}{3}}_{\text{to 0}} \cdot \underbrace{\frac{1}{4}}_{\text{to 2}} + \underbrace{\frac{1}{3}}_{\text{to 1}} \cdot \underbrace{\frac{1}{3}}_{\text{to 2}} + \underbrace{\frac{1}{3}}_{\text{to 3}} \cdot \underbrace{\frac{1}{3}}_{\text{to 2}}= \frac{11}{36}.
+\]</div>
+<p>This quantity is actually an inner product between the vector <span class="math notranslate nohighlight">\(\mathbf{q}\)</span> (probabilities of the prior location) and</p>
+<div class="math notranslate nohighlight">
+\[
+\bfw_2 = \left[ \tfrac{1}{4},\, \tfrac{1}{3},\, 0,\, \tfrac{1}{3},\, 0 \right],
+\]</div>
+<p>which encodes the chance of hopping directly to node 2 from anywhere. In fact, the entire next vector of probabilities is just</p>
+<div class="math notranslate nohighlight">
+\[
+\bigl[ \bfw_1^T \mathbf{q},\, \bfw_2^T \mathbf{q},\, \bfw_3^T \mathbf{q},\, \bfw_4^T \mathbf{q},\, \bfw_5^T \mathbf{q} \bigr] = \bfW \mathbf{q},
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\bfW\)</span> is the <span class="math notranslate nohighlight">\(n\times n\)</span> matrix whose rows are <span class="math notranslate nohighlight">\(\bfw_1,\bfw_2,\ldots.\)</span> In terms of matrix-vector multiplications, we have the easy statement that the probability vectors after each hop are</p>
+<div class="math notranslate nohighlight">
+\[
+\bfp, \bfW\bfp, \bfW(\bfW\bfp), \ldots.
+\]</div>
+<p>Explicitly, the matrix <span class="math notranslate nohighlight">\(\bfW\)</span> is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\bfW = \begin{bmatrix} 
+0 &amp; \tfrac{1}{3}  &amp; \tfrac{1}{3}  &amp; \tfrac{1}{3}  &amp; \tfrac{1}{3} \\
+\tfrac{1}{4} &amp; 0 &amp; \tfrac{1}{3}  &amp; 0  &amp; \tfrac{1}{3} \\
+\tfrac{1}{4} &amp; \tfrac{1}{3} &amp; 0 &amp; \tfrac{1}{3} &amp; 0 \\
+\tfrac{1}{4} &amp; 0 &amp; \tfrac{1}{3} &amp; 0 &amp; \tfrac{1}{3} \\
+\tfrac{1}{4} &amp; \tfrac{1}{3} &amp; 0 &amp; \tfrac{1}{3} &amp; 0
+\end{bmatrix}.
+\end{split}\]</div>
+<p>This has a lot of resemblance to the adjacency matrix</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\bfA = \begin{bmatrix} 
+0 &amp; 1  &amp; 1  &amp; 1  &amp; 1 \\
+1 &amp; 0 &amp; 1 &amp; 0  &amp; 1 \\
+1 &amp; 1 &amp; 0 &amp; 1 &amp; 0 \\
+1 &amp; 0 &amp; 1 &amp; 0 &amp; 1 \\
+1 &amp; 1 &amp; 0 &amp; 1 &amp; 0
+\end{bmatrix}.
+\end{split}\]</div>
+<p>The only difference is that each column has to be normalized by the number of options outgoing at that node, i.e., the degree of the node. Thus,</p>
+<div class="math notranslate nohighlight">
+\[
+W_{ij} = \frac{1}{\operatorname{deg}(j)}\,A_{ij}.
+\]</div>
+<div class="section" id="simulating-the-random-walk">
+<h2>Simulating the random walk<a class="headerlink" href="#simulating-the-random-walk" title="Permalink to this headline">¶</a></h2>
+<p>Let’s do a simulation for a more interesting graph:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">WS</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">watts_strogatz_graph</span><span class="p">(</span><span class="mi">40</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mf">0.04</span><span class="p">,</span><span class="n">seed</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+<span class="n">pos</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">spring_layout</span><span class="p">(</span><span class="n">WS</span><span class="p">,</span><span class="n">k</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span><span class="n">seed</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">iterations</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+<span class="n">style</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span><span class="n">with_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">node_color</span><span class="o">=</span><span class="s2">&quot;pink&quot;</span><span class="p">,</span><span class="n">edge_color</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">)</span>
+
+<span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">WS</span><span class="p">,</span><span class="n">node_size</span><span class="o">=</span><span class="mi">240</span><span class="p">,</span><span class="o">**</span><span class="n">style</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/community_4_0.png" src="../_images/community_4_0.png" />
+</div>
+</div>
+<p>First, we construct the random-walk matrix <span class="math notranslate nohighlight">\(\bfW\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="n">WS</span><span class="o">.</span><span class="n">number_of_nodes</span><span class="p">()</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">adjacency_matrix</span><span class="p">(</span><span class="n">WS</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+<span class="n">degree</span> <span class="o">=</span> <span class="p">[</span><span class="n">WS</span><span class="o">.</span><span class="n">degree</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">WS</span><span class="o">.</span><span class="n">nodes</span><span class="p">()]</span>
+
+<span class="n">W</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="n">W</span><span class="p">[:,</span><span class="n">j</span><span class="p">]</span> <span class="o">/=</span> <span class="n">degree</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">W</span><span class="o">.</span><span class="n">toarray</span><span class="p">())</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/community_6_0.png" src="../_images/community_6_0.png" />
+</div>
+</div>
+<p>We set up a probability vector to start at node 0, and then use <code class="docutils literal notranslate"><span class="pre">W.dot</span></code> to compute the first hop. The result is to end up at 5 other nodes with equal probability:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">init</span> <span class="o">=</span> <span class="mi">33</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="n">p</span><span class="p">[</span><span class="n">init</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">W</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+<span class="n">sz</span> <span class="o">=</span> <span class="mi">3000</span><span class="o">*</span><span class="n">p</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total probability after 1 hop:&quot;</span><span class="p">,</span><span class="n">p</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">WS</span><span class="p">,</span><span class="n">node_size</span><span class="o">=</span><span class="n">sz</span><span class="p">,</span><span class="o">**</span><span class="n">style</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Total probability after 1 hop: 1.0
+</pre></div>
+</div>
+<img alt="../_images/community_8_1.png" src="../_images/community_8_1.png" />
+</div>
+</div>
+<p>After the next hop, there will again be a substantial probability of being at node 33. But we could also be at some second-generation nodes as well.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">p</span> <span class="o">=</span> <span class="n">W</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total probability after 2 hops:&quot;</span><span class="p">,</span><span class="n">p</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">WS</span><span class="p">,</span><span class="n">node_size</span><span class="o">=</span><span class="mi">3000</span><span class="o">*</span><span class="n">p</span><span class="p">,</span><span class="o">**</span><span class="n">style</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Total probability after 2 hops: 1.0
+</pre></div>
+</div>
+<img alt="../_images/community_10_1.png" src="../_images/community_10_1.png" />
+</div>
+</div>
+<p>We’ll take 3 more hops. That lets us penetrate a little into the distant nodes.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">W</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total probability after 5 hops:&quot;</span><span class="p">,</span><span class="n">p</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">WS</span><span class="p">,</span><span class="n">node_size</span><span class="o">=</span><span class="mi">3000</span><span class="o">*</span><span class="n">p</span><span class="p">,</span><span class="o">**</span><span class="n">style</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Total probability after 5 hops: 1.0
+</pre></div>
+</div>
+<img alt="../_images/community_12_1.png" src="../_images/community_12_1.png" />
+</div>
+</div>
+<p>In the long run, the probabilities even out, as long as the graph is connected.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">200</span><span class="p">):</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">W</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">WS</span><span class="p">,</span><span class="n">node_size</span><span class="o">=</span><span class="mi">3000</span><span class="o">*</span><span class="n">p</span><span class="p">,</span><span class="o">**</span><span class="n">style</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/community_14_0.png" src="../_images/community_14_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="label-propagation">
+<h2>Label propagation<a class="headerlink" href="#label-propagation" title="Permalink to this headline">¶</a></h2>
+<p>The random walk brings us to a type of algorithm known as <strong>label propagation</strong>. We start off by “labelling” one or several nodes whose community we want to identify. This is equivalent to initializing the probability vector <span class="math notranslate nohighlight">\(\bfp\)</span>. Then, we take a running total over the entire history of the random walk:</p>
+<div class="math notranslate nohighlight">
+\[
+\hat{\bfx} = \lambda \bfp_1  + \lambda^2 \bfp_2 +  \lambda^3 \bfp_3 + \cdots,
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(0 &lt; \lambda &lt; 1\)</span> is a damping parameter, and</p>
+<div class="math notranslate nohighlight">
+\[
+\bfp_1 = \bfW \bfp, \, \bfp_2 = \bfW \bfp_1, \, \bfp_3 = \bfW \bfp_2,\, \ldots. 
+\]</div>
+<!-- 
+. It's irresistible (and legit linear algebra) to write $\bfW (\bfW \bfp) = \bfW^2\bfp$ and so on for future iterations. Hence,
+
+$$
+\hat{\bfx} = \sum_{k=1}^\infty \lambda^k \bfW^k \bfp.
+$$ 
+-->
+<p>In practice, we terminate the sum once <span class="math notranslate nohighlight">\(\lambda^k\)</span> is sufficiently small. The resulting <span class="math notranslate nohighlight">\(\hat{\bfx}\)</span> can be normalized to a probability distribution,</p>
+<div class="math notranslate nohighlight">
+\[
+\bfx = \frac{\hat{\bfx}}{\norm{\hat{\bfx}}_1}.
+\]</div>
+<p>The value <span class="math notranslate nohighlight">\(x_i\)</span> can be interpreted as the probability of membership in the community.</p>
+<p>Let’s try looking for a community of node 0 in the WS graph above.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="n">p</span><span class="p">[</span><span class="n">init</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">lam</span> <span class="o">=</span> <span class="mf">0.8</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We will compute <span class="math notranslate nohighlight">\(\bfx\)</span> by accumulating terms in a loop. Note that there is no need to keep track of the entire history of random-walk probabilities; we just use one generation at a time.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="n">mult</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">200</span><span class="p">):</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">W</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+    <span class="n">mult</span> <span class="o">*=</span> <span class="n">lam</span>
+    <span class="n">x</span> <span class="o">+=</span> <span class="n">mult</span><span class="o">*</span><span class="n">p</span>
+
+<span class="n">x</span> <span class="o">/=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>  <span class="c1"># normalize to probability distribution</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The probabilities tend to be distributed logarithmically:</p>
+<p>In the following rendering, any node <span class="math notranslate nohighlight">\(i\)</span> with a value of <span class="math notranslate nohighlight">\(x_i &lt; 10^{-2}\)</span> gets a node size of 0. (You can ignore the warning below. It happens because we have negative node sizes.)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="p">[</span><span class="n">x</span><span class="o">&lt;</span><span class="mf">0.01</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">style</span><span class="p">[</span><span class="s2">&quot;node_color&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;lightblue&quot;</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">WS</span><span class="p">,</span><span class="n">node_size</span><span class="o">=</span><span class="mi">4000</span><span class="o">*</span><span class="n">x</span><span class="p">,</span><span class="o">**</span><span class="n">style</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/community_22_0.png" src="../_images/community_22_0.png" />
+</div>
+</div>
+<p>The parameter <span class="math notranslate nohighlight">\(\lambda\)</span> controls how quickly the random-walk process is faded out. A smaller value puts more weight on the early iterations, generally localizing the community more strictly.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="n">p</span><span class="p">[</span><span class="n">init</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">lam</span> <span class="o">=</span> <span class="mf">0.4</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="n">mult</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">200</span><span class="p">):</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">W</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+    <span class="n">mult</span> <span class="o">*=</span> <span class="n">lam</span>
+    <span class="n">x</span> <span class="o">+=</span> <span class="n">mult</span><span class="o">*</span><span class="n">p</span>
+
+<span class="n">x</span> <span class="o">/=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>  
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="p">[</span><span class="n">x</span><span class="o">&lt;</span><span class="mf">0.01</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">WS</span><span class="p">,</span><span class="n">node_size</span><span class="o">=</span><span class="mi">4000</span><span class="o">*</span><span class="n">x</span><span class="p">,</span><span class="o">**</span><span class="n">style</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/community_25_0.png" src="../_images/community_25_0.png" />
+</div>
+</div>
+<p>In practice, we could define a threshold cutoff on the probabilities, or set a community size and take the highest-ranking nodes. Then a new node could be selected and a community identified for it, etc. If communities are not allowed to overlap, then it might make more sense to use a method based on clustering or other criteria.</p>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "UD-Math-Data-Science-1/notes",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./network"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            
+                <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="degree.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title"><span class="section-number">6.3. </span>Degree distributions</p>
+        </div>
+    </a>
+</div>
+            
+        </div>
+    </div>
+    <footer class="footer">
+  <p>
+    
+      By Tobin A. Driscoll<br/>
+    
+        &copy; Copyright 2022.<br/>
+      <div class="extra_footer">
+        <img alt='UD logo' src='_static/UDlogo-small.png'>
+      </div>
+  </p>
+</footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+
+  </body>
+</html>

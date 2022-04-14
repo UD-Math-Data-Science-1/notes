@@ -146,12 +146,12 @@ for iter in range(500):
         cbar.append(nx.average_clustering(ER))        
 
 print("average distances:")
-sns.displot(x=dbar,bins=15);
+sns.displot(x=dbar,bins=13);
 ```
 
 ```{code-cell} ipython3
 print("average clustering:")
-sns.displot(x=cbar,bins=15);
+sns.displot(x=cbar,bins=13);
 ```
 
 Hence, when the graph is connected, the local clustering is close to zero; there is no special affinity for friendship among one's friends.

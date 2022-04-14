@@ -82,68 +82,104 @@ While Lloyd's algorithm will find a local minimum of total inertia, in the sense
 
 ## Toy example
 
-Let's regenerate the blobs from the previous section.
+Let's generate some test blobs.
 
 ```{code-cell} ipython3
 import pandas as pd
 import seaborn as sns
 from sklearn.datasets import make_blobs
 X,y = make_blobs(
-    n_samples=[40,30,30],
-    centers=[[-2,3],[3,1.5],[2,-2]],
-    cluster_std=[0.5,0.9,1.5],
+    n_samples=[60,50,40],
+    centers=[[-2,3],[3,1.5],[1,-3]],
+    cluster_std=[0.5,0.9,1.2],
     random_state = 19716
     )
 blobs = pd.DataFrame({"x1":X[:,0],"x2":X[:,1],"class":y})
 sns.relplot(data=blobs,x="x1",y="x2",hue="class");
 ```
 
-Now we try $k$-means with $k=3$.
+We start $k$-means with $k=2$ clusters, not presupposing prior knowledge of how the samples were created.
 
 ```{code-cell} ipython3
 from sklearn.cluster import KMeans
-from sklearn.metrics import silhouette_samples
+from sklearn.metrics import silhouette_samples,silhouette_score
 
-km = KMeans(n_clusters=3)
-km.fit(X)
+km2 = KMeans(n_clusters=2)
+km2.fit(X)
+```
 
-blobs["km3"] = km.predict(X)
-blobs.head(8)
+The fitted clustering object can tell how many iterations were required, and what the final inertia and cluster centroids are:
+
+```{code-cell} ipython3
+print("k=2 took",km2.n_iter_,"iterations")
+print("\nfinal inertia:",km2.inertia_)
+print("\ncluster centroids:")
+print(km2.cluster_centers_)
+```
+
+Every type of clustering object has a `labels_` property that is a list of cluster index values, indicating the cluster membership of each sample.
+
+```{code-cell} ipython3
+print("cluster assignments:")
+blobs["km2"] = km2.labels_
+print(blobs["km2"])
+```
+
+There is also a `predict` method that can make cluster assignments for arbitrary points in feature space. In k-means, this just tells you which centroid is closest.
+
+```{code-cell} ipython3
+km2.predict([ [-2,-1],[1,2] ])
+```
+
+Next, we calculuate the silhouettes for the samples and plot the blobs using color to show cluster membership and dot size to indicate the silhouette value.
+
+```{code-cell} ipython3
+blobs["sil2"] = silhouette_samples(X,blobs["km2"])
+sns.relplot(data=blobs,x="x1",y="x2",hue="km2",size=blobs["sil2"]);
+```
+
+Here is a summary of the silhouettes:
+
+```{code-cell} ipython3
+print("overall silhouette score:",blobs["sil2"].mean())
+blobs.groupby("km2")["sil2"].describe()
+```
+
+It's intuitively clear that cluster 0 is more tightly packed than cluster 1, and that comparison is borne out by the silhouettes.
+
+Next, we repeat the computation for $k=3$ clusters.
+
+```{code-cell} ipython3
+km3 = KMeans(n_clusters=3)
+km3.fit(X)
+print("inertia for k=3:",km3.inertia_)
+
+blobs["km3"] = km3.labels_
+blobs["sil3"] = silhouette_samples(X,blobs["km3"])
+print("\noverall silhouette score:",blobs["sil3"].mean())
+print("\nsilhouette statistics:")
+blobs.groupby("km3")["sil3"].describe()
 ```
 
 Here we show the points using color to indicate cluster membership and size for the silhouette value:
 
 ```{code-cell} ipython3
-blobs["sil"] = silhouette_samples(X,blobs["km3"])
-sns.relplot(data=blobs,x="x1",y="x2",hue="km3",size=blobs["sil"]);
+blobs["sil3"] = silhouette_samples(X,blobs["km3"])
+sns.relplot(data=blobs,x="x1",y="x2",hue="km3",size=blobs["sil3"]);
 ```
 
 Intuitively, this is at least comparable to the original classification. The silhouettes show a modest reduction for the better clusters, but improvement for the problematic one.
 
 ```{code-cell} ipython3
-print("scores for original classes:")
-print(blobs.groupby("class")["sil"].mean().sort_values())
+km4 = KMeans(n_clusters=4)
+km4.fit(X)
+print("inertia for k=4:",km4.inertia_)
 
-print("\nscores for 3 k-means clusters:")
-print(blobs.groupby("km3")["sil"].mean().sort_values())
-```
-
-What happens when we ask for just $k=2$ clusters?
-
-```{code-cell} ipython3
-km = KMeans(n_clusters=2)
-km.fit(X)
-
-blobs["km2"] = km.predict(X)
-blobs["sil"] = silhouette_samples(X,blobs["km2"])
-sns.relplot(data=blobs,x="x1",y="x2",hue="km2",size=blobs["sil"]);
-```
-
-This result is arguably superior to the reference classification.
-
-```{code-cell} ipython3
-print("scores for 2 k-means clusters:")
-blobs.groupby("km2")["sil"].mean().sort_values()
+blobs["km4"] = km4.labels_
+blobs["sil4"] = silhouette_samples(X,blobs["km4"])
+print("\noverall silhouette score:",blobs["sil4"].mean())
+print("\nsilhouette statistics:")
+blobs.groupby("km4")["sil4"].describe()
 ```
 
 The outlier points in the generated blobs are perhaps best seen as noisy examples, at least for the purposes of clustering. 
@@ -167,11 +203,11 @@ We fit 3 clusters to the feature matrix:
 ```{code-cell} ipython3
 km = KMeans(n_clusters=3)
 km.fit(X)
-digits["kmeans3"] = km.predict(X)
-digits[["target","kmeans3"]].head(8)
+digits["kmeans3"] = km.labels_
+digits[["target","kmeans3"]].head(9)
 ```
 
-The adjusted Rand index suggests that we have reproduced the classification well:
+The adjusted Rand index suggests that we have reproduced the classification very well:
 
 ```{code-cell} ipython3
 from sklearn.metrics import adjusted_rand_score
@@ -179,19 +215,19 @@ ARI = adjusted_rand_score(y,digits["kmeans3"])
 print("ARI:",ARI)
 ```
 
-However, that conclusion benefits from our prior knowledge. What if we did not know how many clusters to look for? One option is to try many different values of $k$, keeping track of some metric. Here, we record the final total inertia and the mean silhouette score.
+However, that conclusion benefits from our prior knowledge. What if we did not know how many clusters to look for? Let's look over a range of $k$ values, recording the final total inertia and the mean silhouette score for each
 
 ```{code-cell} ipython3
-from sklearn.metrics import silhouette_score
-results = pd.DataFrame({"k":[],"inertia":[],"mean silhouette":[]})
-for k in range(2,9):
-    km = KMeans(n_clusters=k)
+results = []
+for k in range(2,8):
+    km = KMeans(n_clusters=k,random_state=0)
     km.fit(X)
 
     I = km.inertia_
-    sil = silhouette_score(X,km.predict(X))
-    results = results.append(pd.DataFrame({"k":[k],"inertia":[I],"mean silhouette":[sil]}),ignore_index=True)
-results
+    sil = silhouette_score(X,km.labels_)
+    results.append([k,I,sil])
+
+pd.DataFrame(results,columns=["k","inertia","mean silhouette"])
 ```
 
-The inertia continues to decrease as $k$ increases, although the rate of decrease slows somewhat. But the silhouette score is maximized at $k=3$, which could be considered a reason to choose 3 clusters.
+The inertia continues to decrease as $k$ increases, although the rate of decrease slows somewhat. The silhouette score is maximized at $k=3$, which could be considered a reason to choose 3 clusters, although the difference between 3 and 4 clusters is not large.
