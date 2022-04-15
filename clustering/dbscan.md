@@ -179,7 +179,6 @@ df["is_border"] = ~(df["is_core"]) & (df["cluster"]!=-1)   # not core and not no
 sns.relplot(data=df,x="x1",y="x2",style="cluster",hue="is_border",palette="colorblind");
 ```
 
-
 ## Case study: digits
 
 We return to the handwritten digits data, keeping only the written 4s, 5s, and 6s.
@@ -199,30 +198,29 @@ Noise points aren't meant to be a cluster, so including them in the score can be
 
 ```{code-cell} ipython3
 from sklearn.metrics import silhouette_score,silhouette_samples
-result = pd.DataFrame({"eps":[],"clusters":[],"noise":[]})
-for eps in np.arange(20,26,0.25):
-    dbs = DBSCAN(eps=eps,min_samples=5)
+results = []
+for eps in np.arange(20,26,0.1):
+    dbs = DBSCAN(eps=eps,min_samples=4)
     dbs.fit(X)
     c = dbs.labels_
     k = len(set(c[c!=-1]))  # remove the "noise" label before counting
-    result = pd.concat((result,pd.DataFrame(
-        {"eps":[eps],"clusters":k,"noise":sum(c==-1)}
-                                 )),ignore_index=True)
-    
-sns.relplot(data=result,x="eps",y="noise",hue="clusters");
+    results.append([eps,k,sum(c==-1)]) 
+
+results = pd.DataFrame(results,columns=["eps","clusters","noise"])    
+sns.relplot(data=results,x="eps",y="noise",hue="clusters");
 ```
 
-We could argue that the long stretch in which there are 3 clusters with reasonably low noise makes $k=3$ clusters the best choice. We will use the $\epsilon$ that minimizes noise with $k=3$.
+We could argue that the long stretch in which there are 3 clusters with reasonably low noise makes $k=3$ clusters the best choice. (However, 2 clusters also seems like a defensible choice.) We will use the $\epsilon$ that minimizes noise with $k=3$.
 
 ```{code-cell} ipython3
-result = result.loc[result["clusters"]==3]
-i =result["noise"].argmin()
-eps_best = result["eps"].iloc[i]
+results = results.loc[results["clusters"]==3]
+i_best = results["noise"].argmin()
+eps_best = results["eps"].iloc[i_best]
 print("best eps:",eps_best)
 ```
 
 ```{code-cell} ipython3
-dbs = DBSCAN(eps=eps_best,min_samples=5)
+dbs = DBSCAN(eps=eps_best,min_samples=4)
 dbs.fit(X)
 y_hat = pd.Series(dbs.labels_,index=y.index)
 y_hat.value_counts()
@@ -234,8 +232,6 @@ The three clusters have nearly equal size, which is encouraging. We can compare 
 from sklearn.metrics import adjusted_rand_score
 adjusted_rand_score(y,y_hat)
 ```
-
-This is a relatively easy classification problem, but nevertheless this is good performance for a method that has no prior knowledge of the labels, or even how many classes there are. 
 
 Let's take a look at some of the samples that were labeled as noise.
 
