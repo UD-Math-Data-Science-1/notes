@@ -131,7 +131,7 @@ There is also a `predict` method that can make cluster assignments for arbitrary
 km2.predict([ [-2,-1],[1,2] ])
 ```
 
-Next, we calculuate the silhouettes for the samples and plot the blobs using color to show cluster membership and dot size to indicate the silhouette value.
+Next, we calculate the silhouettes for the samples and plot the blobs using color to show cluster membership and dot size to indicate the silhouette value.
 
 ```{code-cell} ipython3
 blobs["sil2"] = silhouette_samples(X,blobs["km2"])
@@ -231,3 +231,5 @@ pd.DataFrame(results,columns=["k","inertia","mean silhouette"])
 ```
 
 The inertia continues to decrease as $k$ increases, although the rate of decrease slows somewhat. The silhouette score is maximized at $k=3$, which could be considered a reason to choose 3 clusters, although the difference between 3 and 4 clusters is not large.
+
+<div style="max-width:400px"><div style="position:relative;padding-bottom:71.25%"><iframe id="kaltura_player" src="https://cdnapisec.kaltura.com/p/2358381/sp/235838100/embedIframeJs/uiconf_id/43030021/partner_id/2358381?iframeembed=true&playerId=kaltura_player&entry_id=1_8qjp92ut&flashvars[streamerType]=auto&amp;flashvars[localizationCode]=en&amp;flashvars[leadWithHTML5]=true&amp;flashvars[sideBarContainer.plugin]=true&amp;flashvars[sideBarContainer.position]=left&amp;flashvars[sideBarContainer.clickToClose]=true&amp;flashvars[chapters.plugin]=true&amp;flashvars[chapters.layout]=vertical&amp;flashvars[chapters.thumbnailRotator]=false&amp;flashvars[streamSelector.plugin]=true&amp;flashvars[EmbedPlayer.SpinnerTarget]=videoHolder&amp;flashvars[dualScreen.plugin]=true&amp;flashvars[Kaltura.addCrossoriginToIframe]=true&amp;&wid=1_h4xcxibr" width="400" height="285" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen *; encrypted-media *" sandbox="allow-forms allow-same-origin allow-scripts allow-top-navigation allow-pointer-lock allow-popups allow-modals allow-orientation-lock allow-popups-to-escape-sandbox allow-presentation allow-top-navigation-by-user-activation" frameborder="0" title="Kaltura Player" style="position:absolute;top:0;left:0;width:100%;height:100%"></iframe></div></div>
