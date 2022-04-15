@@ -114,9 +114,9 @@ We create an artificial data set with two features and three predefined clusters
 ```{code-cell} ipython3
 from sklearn.datasets import make_blobs
 X,y = make_blobs(
-    n_samples=[40,30,30],
-    centers=[[-2,3],[3,1.5],[2,-2]],
-    cluster_std=[0.5,0.9,1.5],   # std dev in each cluster
+    n_samples=[60,50,40],
+    centers=[[-2,3],[3,1.5],[1,-3]],
+    cluster_std=[0.5,0.9,1.2],
     random_state = 19716
     )
 
@@ -180,11 +180,10 @@ sklearn has a well-known dataset that contains labeled handwritten digits. Let's
 ```{code-cell} ipython3
 from sklearn import datasets
 digits = datasets.load_digits(as_frame=True)["frame"]
+keep = digits["target"].isin([4,5,6])
+digits = digits[keep]
 X = digits.drop("target",axis=1)
 y = digits.target
-keep = (y==4) | (y==5) | (y==6)
-X = X[keep]
-y = y[keep]
 print(y.value_counts())
 ```
 
@@ -211,17 +210,18 @@ A clustering method won't be able to learn from the ground truth labels. In orde
 
 ```{code-cell} ipython3
 from sklearn.metrics import silhouette_samples
-X["sil"] = silhouette_samples(X,y)
-X["label"] = y.astype("category")
-X.groupby("label")["sil"].mean()
+digits["sil"] = silhouette_samples(X,y)
+digits.groupby("target")["sil"].mean()
 ```
 
 As usual, means can tell us only so much. A look at the distributions of the values reveals more details:
 
 ```{code-cell} ipython3
-sns.catplot(data=X,x="label",y="sil",kind="violin");
+sns.catplot(data=digits,x="target",y="sil",kind="violin");
 ```
 
 The values are mostly positive, which indicates nearly all of the samples for a digit are at least somewhat closer to each other than to the other samples. The 6s are the most distinct. The existence of values close to and below zero suggest that a clustering algorithm might reconstruct the classification to some extent, but the ground truth may represent something more than geometric distances in feature space.
 
 It's important to keep in mind that while classification just requires us to separate different classes of examples, clustering is more demanding: examples in a cluster need to be more like each other, or the "average" cluster member, than they are like members of other clusters. We should expect that edge cases, even within the training data, will look ambiguous.
+
+<div style="max-width:400px"><div style="position:relative;padding-bottom:71.25%"><iframe id="kaltura_player" src="https://cdnapisec.kaltura.com/p/2358381/sp/235838100/embedIframeJs/uiconf_id/43030021/partner_id/2358381?iframeembed=true&playerId=kaltura_player&entry_id=1_gko56dr2&flashvars[streamerType]=auto&amp;flashvars[localizationCode]=en&amp;flashvars[leadWithHTML5]=true&amp;flashvars[sideBarContainer.plugin]=true&amp;flashvars[sideBarContainer.position]=left&amp;flashvars[sideBarContainer.clickToClose]=true&amp;flashvars[chapters.plugin]=true&amp;flashvars[chapters.layout]=vertical&amp;flashvars[chapters.thumbnailRotator]=false&amp;flashvars[streamSelector.plugin]=true&amp;flashvars[EmbedPlayer.SpinnerTarget]=videoHolder&amp;flashvars[dualScreen.plugin]=true&amp;flashvars[Kaltura.addCrossoriginToIframe]=true&amp;&wid=1_j90y97ct" width="400" height="285" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen *; encrypted-media *" sandbox="allow-forms allow-same-origin allow-scripts allow-top-navigation allow-pointer-lock allow-popups allow-modals allow-orientation-lock allow-popups-to-escape-sandbox allow-presentation allow-top-navigation-by-user-activation" frameborder="0" title="Kaltura Player" style="position:absolute;top:0;left:0;width:100%;height:100%"></iframe></div></div>

@@ -65,7 +65,7 @@ $$
 \operatorname{CE}(\bfx,\bfy) = -\sum_{i=1}^d x_i \log(y_i). 
 $$
 
-A related measure is the *Kullback–Leibler diveregence*, or relative entropy,
+A related measure is the *Kullback–Leibler divergence*, or relative entropy,
 
 $$
 \operatorname{KL}(\bfx,\bfy) = \sum_{i=1}^d x_i \log\left( \frac{x_i}{y_i} \right).
@@ -73,13 +73,13 @@ $$
 
 Whenever $0\cdot \log(0)$ is encountered in the CE or KL definitions, it equals zero, in accordance with its limiting value from calculus.
 
-Neither cross-entropy nor KL divergence are symmetric in their arguments. But there is a related true metric called **information radius**, defined as
+Neither cross-entropy nor KL divergence are symmetric in their arguments. But there is a related value called **information radius**, defined as
 
 $$
 \operatorname{IR}(\bfu,\bfv) = \frac{1}{2} \left[ \operatorname{KL}(\bfu,\bfz) + \operatorname{KL}(\bfv,\bfz) \right]
 $$
 
-where $\bfz=(\bfu+\bfv)/2$. Typically one uses a base-2 logarithm, in which case IR ranges between 0 and 1. 
+where $\bfz=(\bfu+\bfv)/2$. Typically one uses a base-2 logarithm, in which case IR ranges between 0 and 1. The square root of IR is a distance metric.
 
 ::::{prf:example}
 :label: example-similarity-IR
@@ -155,6 +155,5 @@ where each $x_i$ is chosen randomly in $[-1,1]$, becomes ever harder to satisfy 
 
 There are other, similar mathematical results demonstrating the unexpectedness of distances in high-dimensional space. These go under the colorful name *curse of dimensionality*, and the advice given in response to them is sometimes stated as, "Don't use distance metrics in high-dimensional space." But that advice is easy to overstate. The curse is essentially about *randomly* chosen points, and it is correct that dimensions of noisy or irrelevant features will make many learning algorithms less effective. But if features carry useful information, adding them usually makes matters better, not worse.
 
-```{code-cell} ipython3
 
-```
+<div style="max-width:400px"><div style="position:relative;padding-bottom:71.25%"><iframe id="kaltura_player" src="https://cdnapisec.kaltura.com/p/2358381/sp/235838100/embedIframeJs/uiconf_id/43030021/partner_id/2358381?iframeembed=true&playerId=kaltura_player&entry_id=1_ch3se4hk&flashvars[streamerType]=auto&amp;flashvars[localizationCode]=en&amp;flashvars[leadWithHTML5]=true&amp;flashvars[sideBarContainer.plugin]=true&amp;flashvars[sideBarContainer.position]=left&amp;flashvars[sideBarContainer.clickToClose]=true&amp;flashvars[chapters.plugin]=true&amp;flashvars[chapters.layout]=vertical&amp;flashvars[chapters.thumbnailRotator]=false&amp;flashvars[streamSelector.plugin]=true&amp;flashvars[EmbedPlayer.SpinnerTarget]=videoHolder&amp;flashvars[dualScreen.plugin]=true&amp;flashvars[Kaltura.addCrossoriginToIframe]=true&amp;&wid=1_x7vnms1y" width="400" height="285" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen *; encrypted-media *" sandbox="allow-forms allow-same-origin allow-scripts allow-top-navigation allow-pointer-lock allow-popups allow-modals allow-orientation-lock allow-popups-to-escape-sandbox allow-presentation allow-top-navigation-by-user-activation" frameborder="0" title="Kaltura Player" style="position:absolute;top:0;left:0;width:100%;height:100%"></iframe></div></div>
