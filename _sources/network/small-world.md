@@ -6,7 +6,7 @@ jupytext:
     format_version: 0.13
     jupytext_version: 1.11.5
 kernelspec:
-  display_name: Python 3 (ipykernel)
+  display_name: Python 3
   language: python
   name: python3
 ---
@@ -65,46 +65,47 @@ print("average distance:",D.sum()/(7*6))
 Intuitively, the idea behind clustering is that your friends tend to be friends of one another. There are various ways to quantify this precisely, but the easiest is the **local clustering coefficient**, defined for a node $i$ as
 
 $$
-C_i = \frac{ 2 T_i }{k_i(k_i-1)}.
+C(i) = \frac{ 2 T(i) }{k_i(k_i-1)}.
 $$
 
-In this formula, $k_i$ is the degree of the node and $T_i$ is the number of edges between node $i$'s neighbors. Equivalently, $T_i$ is the number of triangles in the graph that pass through node $i$. Because the subgraph of the friend nodes has
+In this formula, $k_i$ is the degree of the node and $T(i)$ is the number of edges between node $i$'s neighbors. Equivalently, $T(i)$ is the number of triangles in the graph that pass through node $i$. Because the subgraph of the friend nodes has
 
 $$
 \binom{k_i}{2}
 $$
 
-possible edges, the maximum of $C_i$ is 1.
+possible edges, the maximum of $C(i)$ is 1.
 
-For example, let's continue with the wheel graph above.
-
-+++
-
+::::{prf:example}
+:label: example-small-world-clustering
+Find the clustering coefficient for each node in the wheel graph drawn above.
+:::{dropdown} Solution
 Node 0 in this graph is adjacent to 6 other nodes, and there are 6 triangles passing through it. Thus, its clustering coefficient is
 
 $$
-C_0 = \frac{6}{6 \cdot 5 / 2} = \frac{2}{5}.
+C(0) = \frac{6}{6 \cdot 5 / 2} = \frac{2}{5}.
 $$
-
-```{code-cell} ipython3
-nx.clustering(W,0)
-```
 
 Every other node has 3 friends and 2 triangles, so they each have
 
 $$
-C = \frac{2}{3 \cdot 2 / 2} = \frac{2}{3}.
+C(i) = \frac{2}{3 \cdot 2 / 2} = \frac{2}{3}, \quad i\neq 0.
 $$
+:::
+::::
+
+The `clustering` function in NetworkX computes $C(i)$ for any single node or all the nodes in a graph.
 
 ```{code-cell} ipython3
-:tags: []
-
-nx.clustering(W,1)
+print("node 0 clustering:",nx.clustering(W,0))
+print("all nodes clustering:",nx.clustering(W))
 ```
+
++++
 
 ## ER graphs
 
-Let's look at distance and clustering within ER random graphs. We quickly run into a problem: the ER graph may not have a path between all pairs of points. We say that such a graph is not **connected**.
+If we want to compute distance and clustering within ER random graphs, we quickly run into a problem: an ER graph may not have a path between every pair of nodes. We say that such a graph is not **connected**.
 
 ```{code-cell} ipython3
 n,p = 101,1/25
@@ -116,9 +117,9 @@ nx.is_connected(ER)
 nx.draw(ER,node_size=50)
 ```
 
-The most sensible definition of distance to the lone node is infinity, and averages including infinity are themselves infinite. We have the same problem when it comes to clustering, since the degree of the isolated node is zero. 
+When no path exists between nodes, the only sensible definition of distance is infinity, and averages that include infinity are themselves infinite. We may have the same problem when it comes to clustering, since the degree of an isolated node is zero. 
 
-At this point, let's ask how often this happens. For  $n=251$, $p=1/50$, the expected $\bar{k}$ is $5$.
+How often does this happen in ER graphs? The answer depends on the number of nodes $n$ and the edge inclusion probability $p$. For  $n=251$, $p=1/50$, the expected $\bar{k}$ is $5$, and a minority of instances are connected:
 
 ```{code-cell} ipython3
 n,p = 251,1/50
@@ -126,15 +127,15 @@ is_connected = sum( nx.is_connected(nx.erdos_renyi_graph(n,p,seed=iter+1)) for i
 print(f"{is_connected/500:.1%} are connected")
 ```
 
-Let's crank up the expected $\bar{k}$ to 10.
+If we increase the expected $\bar{k}$, then almost all of the instances are connected.
 
 ```{code-cell} ipython3
 n,p = 251,1/25
-is_connected = sum( nx.is_connected(nx.erdos_renyi_graph(n,p,seed=iter+10)) for iter in range(1000) )
+is_connected = sum( nx.is_connected(nx.erdos_renyi_graph(n,p,seed=iter+11)) for iter in range(500) )
 print(f"{is_connected/500:.1%} are connected")
 ```
 
-Let's cut a little slack at this point and look at what the distance and clustering are for those ER graphs which are connected.
+Let's cut a little slack at this point and compute the distance and clustering for those ER graphs which happen to be connected.
 
 ```{code-cell} ipython3
 n,p = 251,1/25
@@ -149,12 +150,23 @@ print("average distances:")
 sns.displot(x=dbar,bins=13);
 ```
 
+The average distances above might seem surprisingly small for a randomly assembled graph on 250 nodes. The chances are good that any message could be passed along in three hops or fewer. But in fact, theory states that the mean distance in ER graphs is expected to be approximately 
+
+```{math}
+:label: eq-small-world-ERdistance
+\frac{\ln(n)}{\ln(\bar{k})}
+```
+
+as $n\to\infty$. For $n=251$ and $\bar{k}=10$ as in the experiment above, this value is about 2.4.
+
+Among connected ER graphs, the local clustering is close to zero:
+
 ```{code-cell} ipython3
 print("average clustering:")
 sns.displot(x=cbar,bins=13);
 ```
 
-Hence, when the graph is connected, the local clustering is close to zero; there is no special affinity for friendship among one's friends.
+This happens because there is no special affinity for friendship among one's friends. Since every edge appears with probability $p$, the expected fraction of edges in the ego network of a node is also $p$, and that is the expected value for the clustering coefficient at each node as well.
 
 +++
 
@@ -172,7 +184,7 @@ print(n,"nodes and",E,"edges")
 print(f"average degree is {kbar:.3f}")
 ```
 
-This graph is far from complete: the average degree of 9.9 is a far cry from 7,125. Computing the distances between all pairs of nodes in this graph would take a rather long time, so we will estimate the average distance by sampling.
+Computing the distances between all pairs of nodes in this graph would take a rather long time, so we will estimate the average distance by sampling.
 
 ```{code-cell} ipython3
 :tags: []
@@ -197,7 +209,7 @@ print("\nEstimated mean distance:",distances.mean())
 
 +++ {"tags": []}
 
-This may seem surprisingly small. More on that in a moment. First, let's also look at the clustering coefficients:
+Here are the clustering coefficients:
 
 ```{code-cell} ipython3
 cluster_coeffs = pd.Series([ nx.clustering(twitch,i) for i in twitch.nodes ])
@@ -212,7 +224,7 @@ The distribution above casts some doubt about using the mean as a summary, but f
 cluster_coeffs.mean()
 ```
 
-Let's compare these results to ER graphs with the same size and average degree. It's time-consuming to sample enough graphs to be statistically meaningful, so we do just a few here to get a taste.
+Let's compare these results to ER graphs with the same size and average degree, implying $p=\bar{k}/(n-1)$. It's time-consuming to sample enough graphs to be statistically meaningful, so we do just a few here to get a taste.
 
 ```{code-cell} ipython3
 p = kbar/(n-1)
@@ -222,7 +234,7 @@ cbar = []
 for iter in range(4):
     ER = nx.erdos_renyi_graph(n,p,seed=iter)
     if nx.is_connected(ER):
-        dist = [pairdist(ER) for _ in range(100)]
+        dist = [pairdist(ER) for _ in range(80)]
         dbar.append(np.mean(dist))
         cbar.append(nx.average_clustering(ER))        
 
@@ -231,25 +243,15 @@ print("Average of mean distance:",np.mean(dbar))
 print("Average of mean clustering:",np.mean(cbar))
 ```
 
-In fact, theory states that the mean distance in ER graphs is expected to be approximately 
-
-$$
-\frac{\ln(n)}{\ln(\bar{k})}
-$$
-
-as $n\to\infty$.
+Equation {eq}`eq-small-world-ERdistance`, applied with $n$ and $\bar{k}$ from the Twitch network, predicts a mean distance of
 
 ```{code-cell} ipython3
-np.log(n)/np.log(kbar)
+print("ER graphs mean distance:",np.log(n)/np.log(kbar))
 ```
 
-Either way, the average distance in an ER graph is not so different from the Twitch network. However, ER graphs show essentially no local clustering, unlike the Twitch network. In fact, since all edges in an ER graph appear with probability $p$, then we expect the local clustering to be $p=\bar{k}/(n-1)$ as well.
+This value is a bit smaller than the one observed above, but in any case, the values are not much different from those for the Twitch network. 
 
-```{code-cell} ipython3
-p
-```
-
-It's reasonable to conclude that this social network has greater likelihood of "my friends are also friends of each other" than a random ER graph has.
+Unlike the Twitch network, though, ER graphs show essentially no local clustering. This was true experimentally above, and the theoretical expected value is $p\approx 0.0014.$ It's clear that the Twitch social network has a much greater likelihood of "my friends are also friends of each other" than a random ER graph has.
 
 +++
 
@@ -322,4 +324,4 @@ for iter in range(30):
 print("mean distance in WS:",np.mean(dbar))
 ```
 
-At this point it's inconclusive whether the WS construction can explain the Twitch network. In the next section, we will see that it is lacking in an important way.
+At this point it's inconclusive whether the WS construction can explain the Twitch network. In the next section, we will see that it is lacking in at least one other important way.

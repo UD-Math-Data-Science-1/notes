@@ -302,7 +302,7 @@
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../clustering/hierarchical.html">
-     5.4. Hierarchical
+     5.4. Hierarchical clustering
     </a>
    </li>
    <li class="toctree-l2">
@@ -345,6 +345,16 @@
    <li class="toctree-l2">
     <a class="reference internal" href="community.html">
      6.4. Communities
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="centrality.html">
+     6.5. Centrality
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="exercises.html">
+     6.6. Exercises
     </a>
    </li>
   </ul>
@@ -606,45 +616,48 @@
 <p>Intuitively, the idea behind clustering is that your friends tend to be friends of one another. There are various ways to quantify this precisely, but the easiest is the <strong>local clustering coefficient</strong>, defined for a node <span class="math notranslate nohighlight">\(i\)</span> as</p>
 <div class="math notranslate nohighlight">
 \[
-C_i = \frac{ 2 T_i }{k_i(k_i-1)}.
+C(i) = \frac{ 2 T(i) }{k_i(k_i-1)}.
 \]</div>
-<p>In this formula, <span class="math notranslate nohighlight">\(k_i\)</span> is the degree of the node and <span class="math notranslate nohighlight">\(T_i\)</span> is the number of edges between node <span class="math notranslate nohighlight">\(i\)</span>’s neighbors. Equivalently, <span class="math notranslate nohighlight">\(T_i\)</span> is the number of triangles in the graph that pass through node <span class="math notranslate nohighlight">\(i\)</span>. Because the subgraph of the friend nodes has</p>
+<p>In this formula, <span class="math notranslate nohighlight">\(k_i\)</span> is the degree of the node and <span class="math notranslate nohighlight">\(T(i)\)</span> is the number of edges between node <span class="math notranslate nohighlight">\(i\)</span>’s neighbors. Equivalently, <span class="math notranslate nohighlight">\(T(i)\)</span> is the number of triangles in the graph that pass through node <span class="math notranslate nohighlight">\(i\)</span>. Because the subgraph of the friend nodes has</p>
 <div class="math notranslate nohighlight">
 \[
 \binom{k_i}{2}
 \]</div>
-<p>possible edges, the maximum of <span class="math notranslate nohighlight">\(C_i\)</span> is 1.</p>
-<p>For example, let’s continue with the wheel graph above.</p>
-<p>Node 0 in this graph is adjacent to 6 other nodes, and there are 6 triangles passing through it. Thus, its clustering coefficient is</p>
+<p>possible edges, the maximum of <span class="math notranslate nohighlight">\(C(i)\)</span> is 1.</p>
+<div class="proof example admonition" id="example-small-world-clustering">
+<p class="admonition-title"><span class="caption-number">Example 6.2.1 </span></p>
+<div class="example-content section" id="proof-content">
+<p>Find the clustering coefficient for each node in the wheel graph drawn above.</p>
+<details class="sphinx-bs dropdown card mb-3">
+<summary class="summary-title card-header">
+Solution<div class="summary-down docutils">
+<svg version="1.1" width="24" height="24" class="octicon octicon-chevron-down" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 8.72a.75.75 0 000 1.06l6.25 6.25a.75.75 0 001.06 0l6.25-6.25a.75.75 0 00-1.06-1.06L12 14.44 6.28 8.72a.75.75 0 00-1.06 0z"></path></svg></div>
+<div class="summary-up docutils">
+<svg version="1.1" width="24" height="24" class="octicon octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
+</summary><div class="summary-content card-body docutils">
+<p class="card-text">Node 0 in this graph is adjacent to 6 other nodes, and there are 6 triangles passing through it. Thus, its clustering coefficient is</p>
 <div class="math notranslate nohighlight">
 \[
-C_0 = \frac{6}{6 \cdot 5 / 2} = \frac{2}{5}.
+C(0) = \frac{6}{6 \cdot 5 / 2} = \frac{2}{5}.
 \]</div>
+<p class="card-text">Every other node has 3 friends and 2 triangles, so they each have</p>
+<div class="math notranslate nohighlight">
+\[
+C(i) = \frac{2}{3 \cdot 2 / 2} = \frac{2}{3}, \quad i\neq 0.
+\]</div>
+</div>
+</details></div>
+</div><p>The <code class="docutils literal notranslate"><span class="pre">clustering</span></code> function in NetworkX computes <span class="math notranslate nohighlight">\(C(i)\)</span> for any single node or all the nodes in a graph.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nx</span><span class="o">.</span><span class="n">clustering</span><span class="p">(</span><span class="n">W</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;node 0 clustering:&quot;</span><span class="p">,</span><span class="n">nx</span><span class="o">.</span><span class="n">clustering</span><span class="p">(</span><span class="n">W</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;all nodes clustering:&quot;</span><span class="p">,</span><span class="n">nx</span><span class="o">.</span><span class="n">clustering</span><span class="p">(</span><span class="n">W</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.4
-</pre></div>
-</div>
-</div>
-</div>
-<p>Every other node has 3 friends and 2 triangles, so they each have</p>
-<div class="math notranslate nohighlight">
-\[
-C = \frac{2}{3 \cdot 2 / 2} = \frac{2}{3}.
-\]</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nx</span><span class="o">.</span><span class="n">clustering</span><span class="p">(</span><span class="n">W</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.6666666666666666
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>node 0 clustering: 0.4
+all nodes clustering: {0: 0.4, 1: 0.6666666666666666, 2: 0.6666666666666666, 3: 0.6666666666666666, 4: 0.6666666666666666, 5: 0.6666666666666666, 6: 0.6666666666666666}
 </pre></div>
 </div>
 </div>
@@ -652,7 +665,7 @@ C = \frac{2}{3 \cdot 2 / 2} = \frac{2}{3}.
 </div>
 <div class="section" id="er-graphs">
 <h2>ER graphs<a class="headerlink" href="#er-graphs" title="Permalink to this headline">¶</a></h2>
-<p>Let’s look at distance and clustering within ER random graphs. We quickly run into a problem: the ER graph may not have a path between all pairs of points. We say that such a graph is not <strong>connected</strong>.</p>
+<p>If we want to compute distance and clustering within ER random graphs, we quickly run into a problem: an ER graph may not have a path between every pair of nodes. We say that such a graph is not <strong>connected</strong>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n</span><span class="p">,</span><span class="n">p</span> <span class="o">=</span> <span class="mi">101</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="mi">25</span>
@@ -674,11 +687,11 @@ C = \frac{2}{3 \cdot 2 / 2} = \frac{2}{3}.
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/small-world_19_0.png" src="../_images/small-world_19_0.png" />
+<img alt="../_images/small-world_16_0.png" src="../_images/small-world_16_0.png" />
 </div>
 </div>
-<p>The most sensible definition of distance to the lone node is infinity, and averages including infinity are themselves infinite. We have the same problem when it comes to clustering, since the degree of the isolated node is zero.</p>
-<p>At this point, let’s ask how often this happens. For  <span class="math notranslate nohighlight">\(n=251\)</span>, <span class="math notranslate nohighlight">\(p=1/50\)</span>, the expected <span class="math notranslate nohighlight">\(\bar{k}\)</span> is <span class="math notranslate nohighlight">\(5\)</span>.</p>
+<p>When no path exists between nodes, the only sensible definition of distance is infinity, and averages that include infinity are themselves infinite. We may have the same problem when it comes to clustering, since the degree of an isolated node is zero.</p>
+<p>How often does this happen in ER graphs? The answer depends on the number of nodes <span class="math notranslate nohighlight">\(n\)</span> and the edge inclusion probability <span class="math notranslate nohighlight">\(p\)</span>. For  <span class="math notranslate nohighlight">\(n=251\)</span>, <span class="math notranslate nohighlight">\(p=1/50\)</span>, the expected <span class="math notranslate nohighlight">\(\bar{k}\)</span> is <span class="math notranslate nohighlight">\(5\)</span>, and a minority of instances are connected:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n</span><span class="p">,</span><span class="n">p</span> <span class="o">=</span> <span class="mi">251</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="mi">50</span>
@@ -693,22 +706,22 @@ C = \frac{2}{3 \cdot 2 / 2} = \frac{2}{3}.
 </div>
 </div>
 </div>
-<p>Let’s crank up the expected <span class="math notranslate nohighlight">\(\bar{k}\)</span> to 10.</p>
+<p>If we increase the expected <span class="math notranslate nohighlight">\(\bar{k}\)</span>, then almost all of the instances are connected.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n</span><span class="p">,</span><span class="n">p</span> <span class="o">=</span> <span class="mi">251</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="mi">25</span>
-<span class="n">is_connected</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span> <span class="n">nx</span><span class="o">.</span><span class="n">is_connected</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">erdos_renyi_graph</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">p</span><span class="p">,</span><span class="n">seed</span><span class="o">=</span><span class="nb">iter</span><span class="o">+</span><span class="mi">10</span><span class="p">))</span> <span class="k">for</span> <span class="nb">iter</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span> <span class="p">)</span>
+<span class="n">is_connected</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span> <span class="n">nx</span><span class="o">.</span><span class="n">is_connected</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">erdos_renyi_graph</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">p</span><span class="p">,</span><span class="n">seed</span><span class="o">=</span><span class="nb">iter</span><span class="o">+</span><span class="mi">11</span><span class="p">))</span> <span class="k">for</span> <span class="nb">iter</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">500</span><span class="p">)</span> <span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">is_connected</span><span class="o">/</span><span class="mi">500</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2"> are connected&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>198.0% are connected
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>98.6% are connected
 </pre></div>
 </div>
 </div>
 </div>
-<p>Let’s cut a little slack at this point and look at what the distance and clustering are for those ER graphs which are connected.</p>
+<p>Let’s cut a little slack at this point and compute the distance and clustering for those ER graphs which happen to be connected.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n</span><span class="p">,</span><span class="n">p</span> <span class="o">=</span> <span class="mi">251</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="mi">25</span>
@@ -728,9 +741,14 @@ C = \frac{2}{3 \cdot 2 / 2} = \frac{2}{3}.
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>average distances:
 </pre></div>
 </div>
-<img alt="../_images/small-world_25_1.png" src="../_images/small-world_25_1.png" />
+<img alt="../_images/small-world_22_1.png" src="../_images/small-world_22_1.png" />
 </div>
 </div>
+<p>The average distances above might seem surprisingly small for a randomly assembled graph on 250 nodes. The chances are good that any message could be passed along in three hops or fewer. But in fact, theory states that the mean distance in ER graphs is expected to be approximately</p>
+<div class="math notranslate nohighlight" id="equation-eq-small-world-erdistance">
+<span class="eqno">(6.2.1)<a class="headerlink" href="#equation-eq-small-world-erdistance" title="Permalink to this equation">¶</a></span>\[\frac{\ln(n)}{\ln(\bar{k})}\]</div>
+<p>as <span class="math notranslate nohighlight">\(n\to\infty\)</span>. For <span class="math notranslate nohighlight">\(n=251\)</span> and <span class="math notranslate nohighlight">\(\bar{k}=10\)</span> as in the experiment above, this value is about 2.4.</p>
+<p>Among connected ER graphs, the local clustering is close to zero:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;average clustering:&quot;</span><span class="p">)</span>
@@ -742,10 +760,10 @@ C = \frac{2}{3 \cdot 2 / 2} = \frac{2}{3}.
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>average clustering:
 </pre></div>
 </div>
-<img alt="../_images/small-world_26_1.png" src="../_images/small-world_26_1.png" />
+<img alt="../_images/small-world_24_1.png" src="../_images/small-world_24_1.png" />
 </div>
 </div>
-<p>Hence, when the graph is connected, the local clustering is close to zero; there is no special affinity for friendship among one’s friends.</p>
+<p>This happens because there is no special affinity for friendship among one’s friends. Since every edge appears with probability <span class="math notranslate nohighlight">\(p\)</span>, the expected fraction of edges in the ego network of a node is also <span class="math notranslate nohighlight">\(p\)</span>, and that is the expected value for the clustering coefficient at each node as well.</p>
 </div>
 <div class="section" id="twitch-network">
 <h2>Twitch network<a class="headerlink" href="#twitch-network" title="Permalink to this headline">¶</a></h2>
@@ -767,7 +785,7 @@ average degree is 9.914
 </div>
 </div>
 </div>
-<p>This graph is far from complete: the average degree of 9.9 is a far cry from 7,125. Computing the distances between all pairs of nodes in this graph would take a rather long time, so we will estimate the average distance by sampling.</p>
+<p>Computing the distances between all pairs of nodes in this graph would take a rather long time, so we will estimate the average distance by sampling.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">numpy.random</span> <span class="kn">import</span> <span class="n">default_rng</span>
@@ -808,7 +826,7 @@ Estimated mean distance: 3.67368
 </div>
 </div>
 </div>
-<p>This may seem surprisingly small. More on that in a moment. First, let’s also look at the clustering coefficients:</p>
+<p>Here are the clustering coefficients:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cluster_coeffs</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span> <span class="n">nx</span><span class="o">.</span><span class="n">clustering</span><span class="p">(</span><span class="n">twitch</span><span class="p">,</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">twitch</span><span class="o">.</span><span class="n">nodes</span> <span class="p">])</span>
@@ -817,7 +835,7 @@ Estimated mean distance: 3.67368
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/small-world_34_0.png" src="../_images/small-world_34_0.png" />
+<img alt="../_images/small-world_32_0.png" src="../_images/small-world_32_0.png" />
 </div>
 </div>
 <p>The distribution above casts some doubt about using the mean as a summary, but for the record, the value is</p>
@@ -833,7 +851,7 @@ Estimated mean distance: 3.67368
 </div>
 </div>
 </div>
-<p>Let’s compare these results to ER graphs with the same size and average degree. It’s time-consuming to sample enough graphs to be statistically meaningful, so we do just a few here to get a taste.</p>
+<p>Let’s compare these results to ER graphs with the same size and average degree, implying <span class="math notranslate nohighlight">\(p=\bar{k}/(n-1)\)</span>. It’s time-consuming to sample enough graphs to be statistically meaningful, so we do just a few here to get a taste.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">p</span> <span class="o">=</span> <span class="n">kbar</span><span class="o">/</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
@@ -843,7 +861,7 @@ Estimated mean distance: 3.67368
 <span class="k">for</span> <span class="nb">iter</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
     <span class="n">ER</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">erdos_renyi_graph</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">p</span><span class="p">,</span><span class="n">seed</span><span class="o">=</span><span class="nb">iter</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">nx</span><span class="o">.</span><span class="n">is_connected</span><span class="p">(</span><span class="n">ER</span><span class="p">):</span>
-        <span class="n">dist</span> <span class="o">=</span> <span class="p">[</span><span class="n">pairdist</span><span class="p">(</span><span class="n">ER</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">)]</span>
+        <span class="n">dist</span> <span class="o">=</span> <span class="p">[</span><span class="n">pairdist</span><span class="p">(</span><span class="n">ER</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">80</span><span class="p">)]</span>
         <span class="n">dbar</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dist</span><span class="p">))</span>
         <span class="n">cbar</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">average_clustering</span><span class="p">(</span><span class="n">ER</span><span class="p">))</span>        
 
@@ -855,44 +873,27 @@ Estimated mean distance: 3.67368
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>For ER graphs:
-Average of mean distance: 4.14
+Average of mean distance: 4.1375
 Average of mean clustering: 0.001434606204988957
 </pre></div>
 </div>
 </div>
 </div>
-<p>In fact, theory states that the mean distance in ER graphs is expected to be approximately</p>
-<div class="math notranslate nohighlight">
-\[
-\frac{\ln(n)}{\ln(\bar{k})}
-\]</div>
-<p>as <span class="math notranslate nohighlight">\(n\to\infty\)</span>.</p>
+<p>Equation <a class="reference internal" href="#equation-eq-small-world-erdistance">(6.2.1)</a>, applied with <span class="math notranslate nohighlight">\(n\)</span> and <span class="math notranslate nohighlight">\(\bar{k}\)</span> from the Twitch network, predicts a mean distance of</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">kbar</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ER graphs mean distance:&quot;</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">kbar</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3.8673326382368893
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ER graphs mean distance: 3.8673326382368893
 </pre></div>
 </div>
 </div>
 </div>
-<p>Either way, the average distance in an ER graph is not so different from the Twitch network. However, ER graphs show essentially no local clustering, unlike the Twitch network. In fact, since all edges in an ER graph appear with probability <span class="math notranslate nohighlight">\(p\)</span>, then we expect the local clustering to be <span class="math notranslate nohighlight">\(p=\bar{k}/(n-1)\)</span> as well.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">p</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.0013914550620165345
-</pre></div>
-</div>
-</div>
-</div>
-<p>It’s reasonable to conclude that this social network has greater likelihood of “my friends are also friends of each other” than a random ER graph has.</p>
+<p>This value is a bit smaller than the one observed above, but in any case, the values are not much different from those for the Twitch network.</p>
+<p>Unlike the Twitch network, though, ER graphs show essentially no local clustering. This was true experimentally above, and the theoretical expected value is <span class="math notranslate nohighlight">\(p\approx 0.0014.\)</span> It’s clear that the Twitch social network has a much greater likelihood of “my friends are also friends of each other” than a random ER graph has.</p>
 </div>
 <div class="section" id="wattsstrogatz-graphs">
 <h2>Watts–Strogatz graphs<a class="headerlink" href="#wattsstrogatz-graphs" title="Permalink to this headline">¶</a></h2>
@@ -906,7 +907,7 @@ Average of mean clustering: 0.001434606204988957
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/small-world_45_0.png" src="../_images/small-world_45_0.png" />
+<img alt="../_images/small-world_41_0.png" src="../_images/small-world_41_0.png" />
 </div>
 </div>
 <p>For <span class="math notranslate nohighlight">\(q&lt;1\)</span>, a WS graph has a mean clustering coefficient that is significantly above zero.</p>
@@ -939,7 +940,7 @@ Average of mean clustering: 0.001434606204988957
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mean clustering in WS graphs on 60 nodes:
 </pre></div>
 </div>
-<img alt="../_images/small-world_48_1.png" src="../_images/small-world_48_1.png" />
+<img alt="../_images/small-world_44_1.png" src="../_images/small-world_44_1.png" />
 </div>
 </div>
 <p>Let’s scale the experiment up to the size of the Twitch network.</p>
@@ -972,7 +973,7 @@ Average of mean clustering: 0.001434606204988957
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mean clustering in WS graphs on 7126 nodes:
 </pre></div>
 </div>
-<img alt="../_images/small-world_51_1.png" src="../_images/small-world_51_1.png" />
+<img alt="../_images/small-world_47_1.png" src="../_images/small-world_47_1.png" />
 </div>
 </div>
 <p>The mean clustering resembles the value of 0.13 for the Twitch network at around <span class="math notranslate nohighlight">\(q=0.4\)</span>. However, that leaves the mean distance a bit too large:</p>
@@ -991,12 +992,12 @@ Average of mean clustering: 0.001434606204988957
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>mean distance in WS: 4.44774193548387
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>mean distance in WS: 4.443145161290323
 </pre></div>
 </div>
 </div>
 </div>
-<p>At this point it’s inconclusive whether the WS construction can explain the Twitch network. In the next section, we will see that it is lacking in an important way.</p>
+<p>At this point it’s inconclusive whether the WS construction can explain the Twitch network. In the next section, we will see that it is lacking in at least one other important way.</p>
 </div>
 </div>
 

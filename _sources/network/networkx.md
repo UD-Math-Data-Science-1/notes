@@ -174,7 +174,7 @@ The reason for the two-step process in making the plot above is that computing t
 
 ## Degree and average degree
 
-The **degree** of a node is the number of edges that have the node as an endpoint. Equivalently, it is the number of nodes in its ego graph, minus the original node itself. Tthe **average degree** of a graph is the mean of the degrees of all of its nodes. 
+The **degree** of a node is the number of edges that have the node as an endpoint. Equivalently, it is the number of nodes in its ego graph, minus the original node itself. The **average degree** of a graph is the mean of the degrees of all of its nodes. 
 
 The `degree` property of a graph gives a list of all nodes with their degrees.
 
