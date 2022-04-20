@@ -30,7 +30,7 @@ kernelspec:
     :align: center
     ```
 
-2. Give the adjacency matrix for the graph in Exercise 1(c).
+2. Give the adjacency matrix for the graph in Exercise 1 (parts (a) and (b) only).
 
 3. For the graph below, draw the ego graph of **(a)** node 4 and **(b)** node 8.
 
@@ -62,20 +62,20 @@ kernelspec:
 
 8. A star graph with $n$ nodes and $n-1$ edges has a central node that has an edge to each other node. In terms of $n$, find **(a)** the clustering coefficient and **(b)** the betweenness centrality of the central node of the star graph. 
 
-9. Recall that the complete graph $K_n$ contains every possible edge on $n$ nodes. Prove that the vector $\bfx=[1,1,\ldots,1]$ is an eigenvector of the adjacency matrix of $K_n$. (Therefore, the eigenvector centrality is uniform over the nodes.)
-
-10. Prove that for the star graph on $n$ nodes as described in Exercise 8, the vector 
-
-    $$
-    \bfx = [ \sqrt{n-1},1,1,\ldots,1 ]
-    $$
-
-    is an eigenvector of the adjacency matrix, where the central node corresponds to the first element of the vector.
-
-11. (Tough one!) The Watts–Strogatz construction starts with a *ring lattice* in which the nodes are arranged in a circle and each is connected to its $k$ nearest neighbors (i.e., $k/2$ on each side). Show that the clustering coefficient of an arbitrary node in the ring lattice is 
+9. (Tough one!) The Watts–Strogatz construction starts with a *ring lattice* in which the nodes are arranged in a circle and each is connected to its $k$ nearest neighbors (i.e., $k/2$ on each side). Show that the clustering coefficient of an arbitrary node in the ring lattice is 
 
     $$ \frac{3(k-2)}{4(k-1)}. $$
 
     (Hint: Count up all the edges between the neighbors on one side of the node of interest, then all the edges between neighbors on the other side, and finally, the edges going from a neighbor on one side to a neighbor on the other side.)
+
+10. Recall that the complete graph $K_n$ contains every possible edge on $n$ nodes. Prove that the vector $\bfx=[1,1,\ldots,1]$ is an eigenvector of the adjacency matrix of $K_n$. (Therefore, the eigenvector centrality is uniform over the nodes.)
+
+11. Prove that for the star graph on $n$ nodes as described in Exercise 8, the vector 
+
+    $$
+    \bfx = \bigl[ \sqrt{n-1},1,1,\ldots,1 \bigr]
+    $$
+
+    is an eigenvector of the adjacency matrix, where the central node corresponds to the first element of the vector.
 
 12. Prove the friendship paradox, i.e., inequality {eq}`eq-centrality-friendship-paradox`. (Hint: Start with {eq}`eq-similarity-angle` using $\bfu=\mathbf{d}$ and $\bfv$ equal to a vector of all ones. Simplify the inner product, then write an equivalent inequality involving $\onenorm{\mathbf{d}}$ and $\twonorm{\mathbf{d}}$. Square both sides and show that it can be rearranged into {eq}`eq-centrality-friendship-paradox`.)

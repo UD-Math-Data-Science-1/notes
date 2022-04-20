@@ -472,7 +472,7 @@ const thebe_selector_output = ".output, .cell_output"
 <p><strong>(c)</strong></p>
 <a class="reference internal image-reference" href="../_images/ladder.svg"><img alt="ladder graph" class="align-center" src="../_images/ladder.svg" width="300px" /></a>
 </li>
-<li><p>Give the adjacency matrix for the graph in Exercise 1(c).</p></li>
+<li><p>Give the adjacency matrix for the graph in Exercise 1 (parts (a) and (b) only).</p></li>
 <li><p>For the graph below, draw the ego graph of <strong>(a)</strong> node 4 and <strong>(b)</strong> node 8.</p>
 <a class="reference internal image-reference" href="../_images/ba.svg"><img alt="BA graph" class="align-center" src="../_images/ba.svg" width="350px" /></a>
 </li>
@@ -489,18 +489,18 @@ const thebe_selector_output = ".output, .cell_output"
 <a class="reference internal image-reference" href="../_images/lolly.svg"><img alt="Lollipop graph" class="align-center" src="../_images/lolly.svg" width="350px" /></a>
 </li>
 <li><p>A star graph with <span class="math notranslate nohighlight">\(n\)</span> nodes and <span class="math notranslate nohighlight">\(n-1\)</span> edges has a central node that has an edge to each other node. In terms of <span class="math notranslate nohighlight">\(n\)</span>, find <strong>(a)</strong> the clustering coefficient and <strong>(b)</strong> the betweenness centrality of the central node of the star graph.</p></li>
-<li><p>Recall that the complete graph <span class="math notranslate nohighlight">\(K_n\)</span> contains every possible edge on <span class="math notranslate nohighlight">\(n\)</span> nodes. Prove that the vector <span class="math notranslate nohighlight">\(\bfx=[1,1,\ldots,1]\)</span> is an eigenvector of the adjacency matrix of <span class="math notranslate nohighlight">\(K_n\)</span>. (Therefore, the eigenvector centrality is uniform over the nodes.)</p></li>
-<li><p>Prove that for the star graph on <span class="math notranslate nohighlight">\(n\)</span> nodes as described in Exercise 8, the vector</p>
-<div class="math notranslate nohighlight">
-\[
-    \bfx = [ \sqrt{n-1},1,1,\ldots,1 ]
-    \]</div>
-<p>is an eigenvector of the adjacency matrix, where the central node corresponds to the first element of the vector.</p>
-</li>
 <li><p>(Tough one!) The Watts–Strogatz construction starts with a <em>ring lattice</em> in which the nodes are arranged in a circle and each is connected to its <span class="math notranslate nohighlight">\(k\)</span> nearest neighbors (i.e., <span class="math notranslate nohighlight">\(k/2\)</span> on each side). Show that the clustering coefficient of an arbitrary node in the ring lattice is</p>
 <div class="math notranslate nohighlight">
 \[ \frac{3(k-2)}{4(k-1)}. \]</div>
 <p>(Hint: Count up all the edges between the neighbors on one side of the node of interest, then all the edges between neighbors on the other side, and finally, the edges going from a neighbor on one side to a neighbor on the other side.)</p>
+</li>
+<li><p>Recall that the complete graph <span class="math notranslate nohighlight">\(K_n\)</span> contains every possible edge on <span class="math notranslate nohighlight">\(n\)</span> nodes. Prove that the vector <span class="math notranslate nohighlight">\(\bfx=[1,1,\ldots,1]\)</span> is an eigenvector of the adjacency matrix of <span class="math notranslate nohighlight">\(K_n\)</span>. (Therefore, the eigenvector centrality is uniform over the nodes.)</p></li>
+<li><p>Prove that for the star graph on <span class="math notranslate nohighlight">\(n\)</span> nodes as described in Exercise 8, the vector</p>
+<div class="math notranslate nohighlight">
+\[
+    \bfx = \bigl[ \sqrt{n-1},1,1,\ldots,1 \bigr]
+    \]</div>
+<p>is an eigenvector of the adjacency matrix, where the central node corresponds to the first element of the vector.</p>
 </li>
 <li><p>Prove the friendship paradox, i.e., inequality <a class="reference internal" href="centrality.html#equation-eq-centrality-friendship-paradox">(6.5.1)</a>. (Hint: Start with <a class="reference internal" href="../clustering/similarity.html#equation-eq-similarity-angle">(5.1.1)</a> using <span class="math notranslate nohighlight">\(\bfu=\mathbf{d}\)</span> and <span class="math notranslate nohighlight">\(\bfv\)</span> equal to a vector of all ones. Simplify the inner product, then write an equivalent inequality involving <span class="math notranslate nohighlight">\(\onenorm{\mathbf{d}}\)</span> and <span class="math notranslate nohighlight">\(\twonorm{\mathbf{d}}\)</span>. Square both sides and show that it can be rearranged into <a class="reference internal" href="centrality.html#equation-eq-centrality-friendship-paradox">(6.5.1)</a>.)</p></li>
 </ol>
