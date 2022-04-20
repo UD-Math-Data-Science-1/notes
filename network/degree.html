@@ -23,7 +23,7 @@
 
     
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=84ace793992934648b4de8eed757e5a2" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
@@ -39,20 +39,22 @@
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../_static/sphinx-book-theme.9d8b4a8b9bb19db25eeaddc40d639ba2.js"></script>
+    <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
     <script>window.MathJax = {"tex": {"macros": {"float": ["\\mathbb{F}"], "real": ["\\mathbb{R}"], "complex": ["\\mathbb{C}"], "nat": ["\\mathbb{N}"], "integer": ["\\mathbb{Z}"], "bfa": "\\mathbf{a}", "bfe": "\\mathbf{e}", "bfx": "\\mathbf{x}", "bfX": "\\mathbf{X}", "bfA": "\\mathbf{A}", "bfW": "\\mathbf{W}", "bfp": "\\mathbf{p}", "bfu": "\\mathbf{u}", "bfv": "\\mathbf{v}", "bfw": "\\mathbf{w}", "bfy": "\\mathbf{y}", "bfz": "\\mathbf{z}", "bfzero": "\\boldsymbol{0}", "bfmu": "\\boldsymbol{\\mu}", "TP": "\\text{TP}", "TN": "\\text{TN}", "FP": "\\text{FP}", "FN": "\\text{FN}", "rmn": ["\\mathbb{R}^{#1 \\times #2}", 2], "dd": ["\\frac{d #1}{d #2}", 2], "pp": ["\\frac{\\partial #1}{\\partial #2}", 2], "norm": ["\\left\\lVert \\mathstrut #1 \\right\\rVert", 1], "abs": ["\\left\\lvert \\mathstrut #1 \\right\\rvert", 1], "twonorm": ["\\norm{#1}_2", 1], "onenorm": ["\\norm{#1}_1", 1], "infnorm": ["\\norm{#1}_\\infty", 1], "innerprod": ["\\langle #1,#2 \\rangle", 2], "pr": ["^{(#1)}", 1], "diag": ["\\operatorname{diag}"], "sign": ["\\operatorname{sign}"], "dist": ["\\operatorname{dist}"], "simil": ["\\operatorname{sim}"], "ee": ["\\times 10^"], "floor": ["\\lfloor#1\\rfloor", 1], "argmin": ["\\operatorname{argmin}"], "Cov": ["\\operatorname{Cov}"], "logit": ["\\operatorname{logit}"]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
-    <script>
-        const thebe_selector = ".thebe,.cell"
-        const thebe_selector_input = "pre,.cell_input div.highlight"
-        const thebe_selector_output = ".output,.cell_output"
-    </script>
-    <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -74,12 +76,7 @@
     <div class="container-xl">
       <div class="row">
           
-<!-- Checkboxes to toggle the left sidebar -->
-<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
-<label class="overlay" for="__navigation">
-    <div class="visually-hidden">Toggle navigation sidebar</div>
-</label>
-<div class="col-12 col-md-3 bd-sidebar site-navigation " id="site-navigation">
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
     
         <div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../index.html">
@@ -375,22 +372,22 @@
 
 
           
-<!-- This is an invisible pixel that we watch to see if we've scrolled. -->
-<div class="sbt-scroll-pixel-helper"></div>
 <main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
     
     <div class="topbar container-xl fixed-top">
     <div class="topbar-contents row">
         <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
         <div class="col pl-md-4 topbar-main">
-            <div class="topbar-left">
-                
-                <label class="nav-toggle-button" for="__navigation">
-                    <div class="visually-hidden">Toggle navigation</div>
-                    <i class="fas fa-bars"></i>
-                </label>
-                
-            </div>
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
             
 <div class="dropdown-buttons-trigger">
     <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
@@ -433,7 +430,6 @@
                 data-placement="left"><img class="binder-button-logo"
                     src="../_static/images/logo_binder.svg"
                     alt="Interact on binder">Binder</button></a>
-        
         
         
         
@@ -553,7 +549,7 @@ Name: degree, Length: 130, dtype: int64
 </div>
 </div>
 </div>
-<p>These “gregarious nodes” or <em>hubs</em> create the long tail in the degree distribution.</p>
+<p>These “gregarious nodes” or <em>hubs</em> create the heavy tail in the degree distribution.</p>
 <p>We can find the average degree of this network and create an ER graph with the same expected average degree.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -571,7 +567,7 @@ Name: degree, Length: 130, dtype: int64
 </div>
 </div>
 <p>We already know that ER fails to replicate the clustering of the Twitch network. The dramatic difference in degree distributions confirms its unsuitability as a model.</p>
-<p>A WS graph likewise lacks the proper long tail in the Twitch degree distribution:</p>
+<p>A WS graph likewise lacks the proper heavy tail in the Twitch degree distribution:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">k</span><span class="p">,</span><span class="n">q</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span><span class="mf">0.4</span>
@@ -609,8 +605,8 @@ Name: degree, Length: 130, dtype: int64
 \[
 y \approx B x^{-a},
 \]</div>
-<p>for some <span class="math notranslate nohighlight">\(a &gt; 0\)</span>. This relationship is known as a <strong>power law</strong>. Many social networks seem to follow a power-law distrubution of node degrees, to some extent. (The precise extent is a subject of hot debate.)</p>
-<p>Note that the decay of <span class="math notranslate nohighlight">\(x^{-a}\)</span> as <span class="math notranslate nohighlight">\(x\to\infty\)</span> is much slower than, say, the normal distribution’s <span class="math notranslate nohighlight">\(e^{-x^2/2}\)</span>. This is a manifestation of the long tail. One effect is that there is a significant disparity between the mean and median values of the node degrees:</p>
+<p>for some <span class="math notranslate nohighlight">\(a &gt; 0\)</span>. This relationship is known as a <strong>power law</strong>. Many social networks seem to follow a power-law distribution of node degrees, to some extent. (The precise extent is a subject of hot debate.)</p>
+<p>Note that the decay of <span class="math notranslate nohighlight">\(x^{-a}\)</span> to zero as <span class="math notranslate nohighlight">\(x\to\infty\)</span> is much slower than, say, the normal distribution’s <span class="math notranslate nohighlight">\(e^{-x^2/2}\)</span>, or even just an exponential <span class="math notranslate nohighlight">\(e^{-cx}\)</span>. This last comparison is how a <em>heavy-tailed distribution</em> is usually defined. One effect is that there is a significant disparity between the mean and median values of the node degrees:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">twitch_degrees</span><span class="p">[</span><span class="s2">&quot;degree&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
@@ -670,7 +666,7 @@ Name: degree, dtype: float64
 </div>
 <div class="section" id="barabasialbert-graphs">
 <h2>Barabási–Albert graphs<a class="headerlink" href="#barabasialbert-graphs" title="Permalink to this headline">¶</a></h2>
-<p>A random <strong>Barabási–Albert</strong> graph (BA graph) is constructed by starting with a small seed network and connecting one node at a time with <span class="math notranslate nohighlight">\(m\)</span> new edges to it. Edges are added randomly, but preference is given to connect to nodes that already have higher degree (i.e., are more “popular”). Because of this rule, there is a natural tendency to develop a few hubs of high degree.</p>
+<p>A random <strong>Barabási–Albert</strong> graph (BA graph) is constructed by starting with a small seed network and connecting one node at a time with <span class="math notranslate nohighlight">\(m\)</span> new edges to it. Edges are added randomly, but higher probability is given to connect to nodes that already have higher degree (i.e., are more “popular”), a concept known as <em>preferential attachment</em>. Because of this rule, there is a natural tendency to develop a few hubs of high degree.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">BA</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">barabasi_albert_graph</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="n">seed</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
