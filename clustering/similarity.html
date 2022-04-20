@@ -563,10 +563,8 @@ const thebe_selector_output = ".output, .cell_output"
 \]</div>
 <p>for any vector norm.</p>
 <p>Another proper distance metric is <strong>angular distance</strong>. Generalizing from 2D and 3D vector geometry, we define the angle <span class="math notranslate nohighlight">\(\theta\)</span> between vectors <span class="math notranslate nohighlight">\(\bfu\)</span> and <span class="math notranslate nohighlight">\(\bfv\)</span> in <span class="math notranslate nohighlight">\(\real^d\)</span> by</p>
-<div class="math notranslate nohighlight">
-\[
-\cos(\theta) = \frac{\mathbf{u}^T\mathbf{v}}{\twonorm{\mathbf{u}} \, \twonorm{\mathbf{v}}}.
-\]</div>
+<div class="math notranslate nohighlight" id="equation-eq-similarity-angle">
+<span class="eqno">(5.1.1)<a class="headerlink" href="#equation-eq-similarity-angle" title="Permalink to this equation">¶</a></span>\[\cos(\theta) = \frac{\mathbf{u}^T\mathbf{v}}{\twonorm{\mathbf{u}} \, \twonorm{\mathbf{v}}}.\]</div>
 <p>Then the quantity <span class="math notranslate nohighlight">\(\theta/\pi\)</span> is a distance metric. Because arccos is a relatively expensive computational operation, though, it’s common to use <strong>cosine similarity</strong>, defined as <span class="math notranslate nohighlight">\(\cos(\theta)\)</span>, and the related <strong>cosine distance</strong> <span class="math notranslate nohighlight">\(\tfrac{1}{2}[1-\cos(\theta)]\)</span>, even though the latter does not satisfy the triangle inequality.</p>
 <p>Categorical variables can be included in distance measures. An ordinal variable is easily converted to equally spaced numerical values, which then may get a standard treatment. Nominal features are often compared using <strong>Hamming distance</strong>, which is just the total number of features that have different values in the two vectors.</p>
 </div>

@@ -10,6 +10,7 @@ kernelspec:
   language: python
   name: python3
 ---
+
 # Centrality
 
 +++
@@ -228,3 +229,63 @@ nx.draw(G,node_size=600*centrality["eigen"],**style)
 ```
 
 This undesirable aspect of eigenvector centrality can be fixed through an extra normalization by the node degree, so that the hub node divides its "attention" into smaller parts. Such thinking leads to the *PageRank* algorithm, which is what put Google on the map for web searches.
+
+## Friendship paradox
+
+A surprising fact about social networks is that on average, your friends have more friends than you do, a fact that is called the **friendship paradox**. Let $\mathbf{d}$ be an $n$-vector whose components are the degrees of the nodes in the network. On average, the number of "friends" (i.e., adjacent nodes) is the average degree, which is equal to
+
+$$
+\frac{\onenorm{\mathbf{d}}}{n}. 
+$$
+
+Now imagine that we create a list as follows: for each node $i$, add to the list the number of friends of each of $i$'s friends. The mean value of this list is the average number of "friends of friends." 
+
+For example, consider the following graph:
+
+```{code-cell} ipython3
+L = nx.lollipop_graph(4,1)
+nx.draw(L,with_labels=True,node_color="lightblue")
+```
+
+The average degree is $(3+3+3+4+1)/5=14/5$. Here are the entries in our friends-of-friends list contributed by each node:
+
+* Node 0: 3 (from node 1), 3 (from node 2), 4 (from node 3)
+* Node 1: 3 (from node 0), 3 (from node 2), 4 (from node 3)
+* Node 2: 3 (from node 0), 3 (from node 1), 4 (from node 3)
+* Node 3: 3 (from node 0), 3 (from node 1), 3 (from node 2), 1 (from node 4)
+* Node 4: 4 (from node 3)
+
+The average value of this list, i.e., the average number of friends' friends, is $44/14=3.143$, which is indeed larger than the average degree.
+
+There is an easy way to calculate this value in general. Node $i$ contributes $d_i$ terms to the list, so the total number of terms is $\onenorm{\mathbf{d}}$. We observe that node $i$ appears $d_i$ times in the list, each time contributing the value $d_i$, so the sum of the entire list must be 
+
+$$
+\sum_{i=1}^n d_i^2 = \twonorm{\mathbf{d}}^2 = \mathbf{d}^T \mathbf{d}. 
+$$
+
+Hence the mathematical statement of the friendship paradox is
+
+::::{math}
+:label: eq-centrality-friendship-paradox
+\frac{\onenorm{\mathbf{d}}}{n} \le \frac{\mathbf{d}^T \mathbf{d}}{\onenorm{\mathbf{d}}}.
+::::
+
+You are asked to prove this inequality in the exercises. The friendship paradox generalizes to eigenvector centrality: the average centrality of all nodes is less than the average of the centrality of all nodes' friends. The mathematical statement is 
+
+::::{math}
+:label: eq-centrality-eigen-paradox
+\frac{\onenorm{\mathbf{x}}}{n} \le \frac{\mathbf{x}^T \mathbf{d}}{\onenorm{\mathbf{d}}},
+::::
+
+where $\bfx$ is the eigenvector defining centrality of the nodes.
+
+```{code-cell} ipython3
+n = G.number_of_nodes()
+x = centrality["eigen"]
+d = centrality["degree"]*n
+xbar = sum(x)/n
+xbar_friends = sum(x[i]*d[i] for i in range(n))/sum(d)
+print(xbar,"is less than",xbar_friends)
+```
+
+In fact, the inequality for any vector $\bfx$ is equivalent to $\bfx$ having nonnegative correlation with the degree vector.
