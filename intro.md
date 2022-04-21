@@ -11,19 +11,35 @@
 
 Here are places around the web with data available for download.
 
-* [World Bank](https://datacatalog.worldbank.org/home) Focuses on economic and development data.
-* [World Health Organization](https://www.who.int/gho/database/en/) Information on health and disease.
-* [Registry of Open Data on AWS](https://registry.opendata.aws/) Access to datasets used by governments and researchers that happen to be stored on Amazon's servers. Skewed toward large sets, and a bit of a grab-bag.
+### Packaged
+
+These feature datasets that are essentially already packaged as CSV or Excel files, plus descriptions.
+
 * [Five Thirty-Eight](https://data.fivethirtyeight.com/) Data used to support the site's journalism, mainly in politics and sports. 
-* [U.S. Census Bureau](https://data.census.gov/cedsci/) Tons of demographic data about the U.S.
-* [Data.gov](https://www.data.gov/) Home for all open U.S. government data.
 * [Delaware Open Data](https://data.delaware.gov) Publicly available data from the state government.
-* [UNICEF Portal](https://open.unicef.org) Worldwide data about child welfare.
-* [Kaggle](https://www.kaggle.com/datasets) Long-time host of data science competitions. 
-* [UCI Machine Learning Repository](https://archive.ics.uci.edu/ml/index.php) Long-standing site for datasets that have been used extensively in machine learning research.
+* [Kaggle](https://www.kaggle.com/datasets) Long-time host of data science competitions. The formal competitions are well-curated, but user contributions vary widely.
+* [UCI Machine Learning Repository](https://archive.ics.uci.edu/ml/index.php) Long-standing site for datasets that have been used extensively in machine learning research, but also recent contributions.
 * [Open ML](https://www.openml.org/search?type=data&from=300&q=qualities.NumberOfClasses%3A%3E2) Sort of abandoned years ago, but lots of eclectic datasets remain.
 * [IMDB Datasets](https://www.imdb.com/interfaces/) Information about movies and TVs. (Big files!)
 * [Stanford Network Analysis Project](https://snap.stanford.edu/index.html) Datasets presented as networks.
+
+### Open-ended
+
+These require you to navigate an interface to select data from a large pool. Typically, you can make selections, preview the dataset, and then download in CSV or Excel format.
+
+* [U.S. Census Bureau](https://data.census.gov/cedsci/) Tons of demographic data about the U.S.
+* [Data.gov](https://www.data.gov/) Home for all open U.S. government data.
+* [UNICEF Portal](https://open.unicef.org) Worldwide data about child welfare.
+* [World Bank](https://datacatalog.worldbank.org/home) Focuses on economic and development data.
+* [World Health Organization](https://www.who.int/gho/database/en/) Information on health and disease.
+
+### Search engines
+
+These point to a lot of other resources.
+
+* [Google Dataset Search](https://datasetsearch.research.google.com)
+* [Registry of Open Data on AWS](https://registry.opendata.aws/) Access to datasets used by governments and researchers that happen to be stored on Amazon's servers. Skewed toward large sets, and a bit of a grab-bag.
+
 
 ## Glossary
 
