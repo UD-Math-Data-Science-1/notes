@@ -11,7 +11,7 @@ kernelspec:
   name: python3
 ---
 
-# Hierarchical
+# Hierarchical clustering
 
 The idea behind hierarchical clustering is to organize all the sample points into a tree structure called a **dendrogram**. At the root of the tree is the entire sample set, while each leaf of the tree is a single sample vector. Groups of similar samples are connected as nearby relatives in the tree, with less-similar groups located as more distant relatives.
 
@@ -21,16 +21,16 @@ The algorithm begins with $n$ singleton clusters, i.e., $C_i=\{\bfx_i\}$. Then, 
 
 Common ways to define the distance between two clusters $C_i$ and $C_j$ are:
 
-* **Ward linkage**: the increase in inertia resulting from merging them
 * **single linkage** or *minimum linkage*: $\displaystyle \min_{\bfx\in C_i,\,\bfy\in C_j} \{ \norm{\bfx-\bfy } \}$
 * **complete linkage** or *maximum linkage*: $\displaystyle \max_{\bfx\in C_i,\,\bfy\in C_j} \{ \norm{\bfx-\bfy} \}$
 * **average linkage**: $\displaystyle \frac{1}{|C_i|\,|C_j|} \sum_{\bfx\in C_i,\,\bfy\in C_j} \norm{ \bfx-\bfy }$
+* **Ward linkage**: The increase in inertia resulting from merging $C_i$ and $C_j$, equal to
 
-The Ward linkage admits a simple formula. If $\bfmu_i$ and $\bfmu_j$ are the centroids of $C_i$ and $C_j$, then the increase in inertia for combining these clusters is 
+    $$
+    \frac{ |C_i|\,|C_j| }{|C_i| + |C_j|} \norm{\bfmu_i - \bfmu_j}_2^2,
+    $$
 
-$$
-\frac{ |C_i|\,|C_j| }{|C_i| + |C_j|} \norm{\bfmu_i - \bfmu_j}_2^2.
-$$
+    where $\bfmu_i$ and $\bfmu_j$ are the centroids of $C_i$ and $C_j$.
 
 Agglomerative clustering with Ward linkage amounts to trying to minimize the increase of inertia with each merger. In that sense, it has the same objective as $k$-means. However, it is usually not as successful at minimizing inertia.
 
@@ -72,30 +72,38 @@ Let's use 5 sample points in the plane, and agglomerate them by single linkage. 
 from sklearn.metrics import pairwise_distances
 import numpy as np
 
-X = np.array([[-2,-1],[1,-1],[1,0],[0,2],[-1,0]])
-D2 = pairwise_distances(X,metric="euclidean")
-D2
+X = np.array([[-2,-1],[2,-2],[1,0.5],[0,2],[-1,1]])
+D = pairwise_distances(X,metric="euclidean")
+D
 ```
 
-The minimum value in the lower triangle of the distance matrix is in row 2, column 1 (starting index at 0). So our first merge results in the set $C_1=\{\bfx_1,\bfx_2\}$. Then, the minimum linkages between this cluster and the other sample points are
+The minimum value in the upper triangle of the distance matrix is in row 3, column 4 (starting index at 0). So our first merge results in the cluster $C_1=\{\bfx_3,\bfx_4\}$. The next-smallest entry in the upper triangle is at position $(2,3)$, so we want to merge those samples together next, resulting in
 
-```{code-cell} ipython3
-from numpy.linalg import norm
-C1 = X[[1,2]]
-for x in X[[0,3,4]]:
-    print(min(norm(x-y) for y in C1))
-```
+$$
+C_1=\{\bfx_2,\bfx_3,\bfx_4\},\, C_2 = \{\bfx_0\},\, C_3=\{\bfx_1\}.
+$$
 
-Comparing these to the pairwise point distances already calculated, the minimum value is 1.414, between points 0 and 4. So we now have clusters $C_1$, $C_2=\{\bfx_0,\bfx_4\}$, $C_3=\{\bfx_3\}$, and there are three pairwise distances to compare, etc. The entire dendrogram can be visualized with seaborn:
+The next-smallest element in the matrix is at $(2,4)$, but those points are already merged, so we move on to position $(0,4)$. Now we have 
+
+$$
+C_1=\{\bfx_0,\bfx_2,\bfx_3,\bfx_4\},\, C_2 = \{\bfx_1\}. 
+$$
+
+The final merge is to combine these. 
+
+
++++
+
+The entire dendrogram can be visualized with seaborn:
 
 ```{code-cell} ipython3
 import seaborn as sns
 sns.clustermap(X,col_cluster=False,dendrogram_ratio=(.75,.15));
 ```
 
-The horizontal position in the dendrogram above indicates the linkage strength. Working from right to left, we see the creation of $C_1$ first, then $C_2$. These are merged into a single set before finally being merged with $\bfx_3$. (Note that the rows are reordered according to the values on the far right, in order to avoid having lines cross over one another.)
+The horizontal position in the dendrogram above indicates the linkage strength. Note on the right that the ordering of the samples has been changed (so that the lines won't cross each other). The two colored columns show a heatmap of the two features of the sample points. Working from right to left, we see the merger of samples 3 and 4, which are then merged with sample 2, etc. 
 
-In effect, we get an entire family of clusterings, by stopping at any linkage value we want. If we chose to stop at value 1.5, for instance, we would have the three clusters we derived above. Or, if we predetermine that we want $k$ clusters, we can stop after $n-k$ merges.
+In effect, we get an entire family of clusterings by stopping at any linkage value we want. If we chose to stop at value 2.5, for instance, we would have two clusters of size 4 and 1. Or, if we predetermine that we want $k$ clusters, we can stop after $n-k$ merge steps.
 
 +++
 
@@ -103,9 +111,9 @@ In effect, we get an entire family of clusterings, by stopping at any linkage va
 
 We will use three test sets to illustrate the different linkages.
 
-
 ```{code-cell} ipython3
 :tags: [hide-input]
+
 import pandas as pd
 from sklearn.datasets import make_blobs
 from numpy.random import default_rng
@@ -141,7 +149,6 @@ stripes = pd.DataFrame({"x1":x1,"x2":x2,"class":y})
 
 ```{code-cell} ipython3
 from sklearn.cluster import AgglomerativeClustering
-from sklearn.metrics import silhouette_samples,silhouette_score
 
 def run_experiment(frames,link):
     f,axes = plt.subplots(1,3,figsize=(14,8),subplot_kw=dict(aspect=1))
@@ -246,3 +253,5 @@ y_hat = penguins["ward"].replace({1:"Adelie",0:"Gentoo",2:"Chinstrap"})
 
 ConfusionMatrixDisplay(confusion_matrix(y,y_hat),display_labels=y.unique()).plot();
 ```
+
+<div style="max-width:608px"><div style="position:relative;padding-bottom:66.118421052632%"><iframe id="kaltura_player" src="https://cdnapisec.kaltura.com/p/2358381/sp/235838100/embedIframeJs/uiconf_id/43030021/partner_id/2358381?iframeembed=true&playerId=kaltura_player&entry_id=1_1zv4cc9l&flashvars[streamerType]=auto&amp;flashvars[localizationCode]=en&amp;flashvars[leadWithHTML5]=true&amp;flashvars[sideBarContainer.plugin]=true&amp;flashvars[sideBarContainer.position]=left&amp;flashvars[sideBarContainer.clickToClose]=true&amp;flashvars[chapters.plugin]=true&amp;flashvars[chapters.layout]=vertical&amp;flashvars[chapters.thumbnailRotator]=false&amp;flashvars[streamSelector.plugin]=true&amp;flashvars[EmbedPlayer.SpinnerTarget]=videoHolder&amp;flashvars[dualScreen.plugin]=true&amp;flashvars[Kaltura.addCrossoriginToIframe]=true&amp;&wid=1_0wtxt9if" width="608" height="402" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen *; encrypted-media *" sandbox="allow-forms allow-same-origin allow-scripts allow-top-navigation allow-pointer-lock allow-popups allow-modals allow-orientation-lock allow-popups-to-escape-sandbox allow-presentation allow-top-navigation-by-user-activation" frameborder="0" title="Kaltura Player" style="position:absolute;top:0;left:0;width:100%;height:100%"></iframe></div></div>

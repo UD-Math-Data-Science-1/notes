@@ -169,7 +169,7 @@ dbs.fit(df)
 df["cluster"] = pd.Series(dbs.labels_)
 sns.relplot(data=df,x="x1",y="x2",hue="cluster",palette="colorblind");
 ```
-
+<!-- 
 A fitted DBSCAN clusterer has a property `core_sample_indices_` that holds the indices of all the core points. We use that here to find and highlight the border points.
 
 ```{code-cell} ipython3
@@ -177,7 +177,8 @@ df["is_core"] = False    # create a column of Falses
 df.loc[dbs.core_sample_indices_,"is_core"] = True
 df["is_border"] = ~(df["is_core"]) & (df["cluster"]!=-1)   # not core and not noise
 sns.relplot(data=df,x="x1",y="x2",style="cluster",hue="is_border",palette="colorblind");
-```
+``` 
+-->
 
 ## Case study: digits
 
@@ -188,13 +189,12 @@ from sklearn import datasets
 digits = datasets.load_digits(as_frame=True)["frame"]
 digits = digits.loc[digits["target"].isin([4,5,6])]
 X = digits.drop("target",axis=1)
+X.index = range(len(X))
 y = digits.target
 y.value_counts()
 ```
 
-Without a good sense for optimal hyperparameters, we do a quick search over $\epsilon$. We want to simulate not having any ground truth labels, but silhouette score is a bit tricky to use with DBSCAN because of the noise samples. 
-
-Noise points aren't meant to be a cluster, so including them in the score can be misleading. However, leaving them out completely just incentivizes designating more samples as noise. Let's look at the distribution of clusters and noise samples as a function of the parameter $\epsilon$.
+Without a good sense for optimal hyperparameters, we do a quick search over $\epsilon$. We want to simulate not having any ground truth labels, but silhouette score is a bit tricky to use with DBSCAN because of the noise samples. Noise points aren't meant to be a cluster, so including them in the score can be misleading. In the following experiment, we leave out the noise points when calculating the mean silhouette score, and record the numbers of clusters and noise points as well.
 
 ```{code-cell} ipython3
 from sklearn.metrics import silhouette_score,silhouette_samples
@@ -202,18 +202,26 @@ results = []
 for eps in np.arange(20,26,0.1):
     dbs = DBSCAN(eps=eps,min_samples=4)
     dbs.fit(X)
-    c = dbs.labels_
-    k = len(set(c[c!=-1]))  # remove the "noise" label before counting
-    results.append([eps,k,sum(c==-1)]) 
+    c = pd.Series(dbs.labels_)
+    noise = c==-1
+    k = max(c) + 1  # the number of clusters
+    if k==1:
+        # This would cause an error in silhouette_score.
+        sil = np.NaN   
+    else:
+        # Exclude noise points from silhouette values.
+        sil = silhouette_score(X.loc[~noise],c[~noise])
+    results.append([eps,k,sum(c==-1),sil]) 
 
-results = pd.DataFrame(results,columns=["eps","clusters","noise"])    
-sns.relplot(data=results,x="eps",y="noise",hue="clusters");
+results = pd.DataFrame(results,columns=["eps","clusters","noise","silhouette"]) 
+sns.relplot(data=results,x="eps",y="silhouette",hue="clusters",size="noise");
 ```
-
-We could argue that the long stretch in which there are 3 clusters with reasonably low noise makes $k=3$ clusters the best choice. (However, 2 clusters also seems like a defensible choice.) We will use the $\epsilon$ that minimizes noise with $k=3$.
+As always, increasing $\epsilon$ tends to decrease $k$ (the number of clusters) and the number of noise points. The longest stretch has $k=3$, and transitions to 4 and 2 clusters are marked by downward jumps in the mean silhouette. These observations support choosing $k=3$, which we know to be ideal in this dataset. The slow decrease in silhouettes as $\epsilon$ increases is due to former noise points being assigned to clusters; since they fit more poorly than the average cluster member, the mean score decreases. We will favor having as few noise points as possible when $k=3$. 
 
 ```{code-cell} ipython3
-results = results.loc[results["clusters"]==3]
+# Limit the scope to k=3:
+results = results.loc[results["clusters"]==3]  
+# Find the row with minimum noise point count:
 i_best = results["noise"].argmin()
 eps_best = results["eps"].iloc[i_best]
 print("best eps:",eps_best)
@@ -226,7 +234,7 @@ y_hat = pd.Series(dbs.labels_,index=y.index)
 y_hat.value_counts()
 ```
 
-The three clusters have nearly equal size, which is encouraging. We can compare to the true labels via the Rand score:
+The three clusters have nearly equal size, which reflects the dataset well. We can compare to the true labels via the Rand score:
 
 ```{code-cell} ipython3
 from sklearn.metrics import adjusted_rand_score
@@ -256,4 +264,6 @@ def plot_digits(X):
 plot_digits(X[dbs.labels_==-1])
 ```
 
-Some of these images are ambiguous to a human, but in other cases the failure to be clustered with the right class is harder to explain immediately.
+Some of these images are ambiguous to a human as well, but in other cases the failure to be clustered with the right class is harder to explain immediately.
+
+<div style="max-width:608px"><div style="position:relative;padding-bottom:66.118421052632%"><iframe id="kaltura_player" src="https://cdnapisec.kaltura.com/p/2358381/sp/235838100/embedIframeJs/uiconf_id/43030021/partner_id/2358381?iframeembed=true&playerId=kaltura_player&entry_id=1_8w2ld5o2&flashvars[streamerType]=auto&amp;flashvars[localizationCode]=en&amp;flashvars[leadWithHTML5]=true&amp;flashvars[sideBarContainer.plugin]=true&amp;flashvars[sideBarContainer.position]=left&amp;flashvars[sideBarContainer.clickToClose]=true&amp;flashvars[chapters.plugin]=true&amp;flashvars[chapters.layout]=vertical&amp;flashvars[chapters.thumbnailRotator]=false&amp;flashvars[streamSelector.plugin]=true&amp;flashvars[EmbedPlayer.SpinnerTarget]=videoHolder&amp;flashvars[dualScreen.plugin]=true&amp;flashvars[Kaltura.addCrossoriginToIframe]=true&amp;&wid=1_o0nn809i" width="608" height="402" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen *; encrypted-media *" sandbox="allow-forms allow-same-origin allow-scripts allow-top-navigation allow-pointer-lock allow-popups allow-modals allow-orientation-lock allow-popups-to-escape-sandbox allow-presentation allow-top-navigation-by-user-activation" frameborder="0" title="Kaltura Player" style="position:absolute;top:0;left:0;width:100%;height:100%"></iframe></div></div>
