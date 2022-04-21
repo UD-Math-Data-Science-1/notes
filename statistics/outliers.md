@@ -75,7 +75,7 @@ plt.axvline(q3+1.5*(q3-q1),color='k')
 plt.axvline(q1-1.5*(q3-q1),color='k');
 ```
 
-For asymmetric distributions, or those with a fat tail, these criteria might show greater differences.
+For asymmetric distributions, or those with a heavy tail, these criteria might show greater differences.
 
 ## Removing outliers
 
