@@ -30,7 +30,7 @@ kernelspec:
     :align: center
     ```
 
-2. Give the adjacency matrix for the graph in Exercise 1 (parts (a) and (b) only).
+2. Give the adjacency matrix for the graphs in Exercise 1 (parts (a) and (b) only).
 
 3. For the graph below, draw the ego graph of **(a)** node 4 and **(b)** node 8.
 
@@ -66,7 +66,7 @@ kernelspec:
 
     $$ \frac{3(k-2)}{4(k-1)}. $$
 
-    (Hint: Count up all the edges between the neighbors on one side of the node of interest, then all the edges between neighbors on the other side, and finally, the edges going from a neighbor on one side to a neighbor on the other side.)
+    (Hint: Count up all the edges between the neighbors on one side of the node of interest, then all the edges between neighbors on the other side, and finally, the edges going from a neighbor on one side to a neighbor on the other side. It might be easier to work with $m=k/2$ and then eliminate $m$ at the end.)
 
 10. Recall that the complete graph $K_n$ contains every possible edge on $n$ nodes. Prove that the vector $\bfx=[1,1,\ldots,1]$ is an eigenvector of the adjacency matrix of $K_n$. (Therefore, the eigenvector centrality is uniform over the nodes.)
 
@@ -78,4 +78,4 @@ kernelspec:
 
     is an eigenvector of the adjacency matrix, where the central node corresponds to the first element of the vector.
 
-12. Prove the friendship paradox, i.e., inequality {eq}`eq-centrality-friendship-paradox`. (Hint: Start with {eq}`eq-similarity-angle` using $\bfu=\mathbf{d}$ and $\bfv$ equal to a vector of all ones. Simplify the inner product, then write an equivalent inequality involving $\onenorm{\mathbf{d}}$ and $\twonorm{\mathbf{d}}$. Square both sides and show that it can be rearranged into {eq}`eq-centrality-friendship-paradox`.)
+12. Prove the friendship paradox, i.e., inequality {eq}`eq-centrality-friendship-paradox`. (Hint: Start with {eq}`eq-similarity-angle` using $\bfu=\mathbf{d}$ and $\bfv$ equal to a vector of all ones. Convert from equality to inequality to get rid of the angle $\theta$. Simplify the inner product, square both sides, and show that it can be rearranged into {eq}`eq-centrality-friendship-paradox`.)
