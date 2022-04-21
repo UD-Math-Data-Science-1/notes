@@ -49,3 +49,5 @@ chapters:
     - file: network/small-world
     - file: network/degree
     - file: network/community
+    - file: network/centrality
+    - file: network/exercises
