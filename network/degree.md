@@ -39,7 +39,7 @@ friend_counts = twitch_degrees["degree"].value_counts()
 friend_counts.sort_values()
 ```
 
-These "gregarious nodes" or *hubs* create the long tail in the degree distribution. 
+These "gregarious nodes" or *hubs* create the heavy tail in the degree distribution. 
 
 +++
 
@@ -58,7 +58,7 @@ hist = sns.displot(data=degrees,x="degree")
 
 We already know that ER fails to replicate the clustering of the Twitch network. The dramatic difference in degree distributions confirms its unsuitability as a model.
 
-A WS graph likewise lacks the proper long tail in the Twitch degree distribution:
+A WS graph likewise lacks the proper heavy tail in the Twitch degree distribution:
 
 ```{code-cell} ipython3
 k,q = 10,0.4
@@ -88,9 +88,9 @@ $$
 y \approx B x^{-a},
 $$
 
-for some $a > 0$. This relationship is known as a **power law**. Many social networks seem to follow a power-law distrubution of node degrees, to some extent. (The precise extent is a subject of hot debate.)
+for some $a > 0$. This relationship is known as a **power law**. Many social networks seem to follow a power-law distribution of node degrees, to some extent. (The precise extent is a subject of hot debate.)
 
-Note that the decay of $x^{-a}$ as $x\to\infty$ is much slower than, say, the normal distribution's $e^{-x^2/2}$. This is a manifestation of the long tail. One effect is that there is a significant disparity between the mean and median values of the node degrees:
+Note that the decay of $x^{-a}$ to zero as $x\to\infty$ is much slower than, say, the normal distribution's $e^{-x^2/2}$, or even just an exponential $e^{-cx}$. This last comparison is how a *heavy-tailed distribution* is usually defined. One effect is that there is a significant disparity between the mean and median values of the node degrees:
 
 ```{code-cell} ipython3
 twitch_degrees["degree"].describe()
@@ -129,7 +129,7 @@ The first value, which is both the slope of the line and the exponent of $x$ the
 
 ## Barabási–Albert graphs
 
-A random **Barabási–Albert** graph (BA graph) is constructed by starting with a small seed network and connecting one node at a time with $m$ new edges to it. Edges are added randomly, but preference is given to connect to nodes that already have higher degree (i.e., are more "popular"). Because of this rule, there is a natural tendency to develop a few hubs of high degree.
+A random **Barabási–Albert** graph (BA graph) is constructed by starting with a small seed network and connecting one node at a time with $m$ new edges to it. Edges are added randomly, but higher probability is given to connect to nodes that already have higher degree (i.e., are more "popular"), a concept known as *preferential attachment*. Because of this rule, there is a natural tendency to develop a few hubs of high degree.
 
 ```{code-cell} ipython3
 BA = nx.barabasi_albert_graph(100,2,seed=0)

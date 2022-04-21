@@ -21,15 +21,10 @@ Now imagine that we place another bunny on node $i$ and track its path as it hop
 
 Let's keep track of the probabilities for this simple wheel graph:
 
-
-
-using a vector $\bfp$ of length $n$, where $n$ is the number of nodes in the graph. Initially, $\bfp$ has all zero entries, except that $p_i=1$.
-
 ```{code-cell} ipython3
 import networkx as nx
 import numpy as np
 import seaborn as sns
-import pandas as pd
 ```
 
 ```{code-cell} ipython3
@@ -43,15 +38,13 @@ $$
 \bfp = [0,0,0,0,1].
 $$
 
-On the first hop, we are equally likely to visit each of the nodes 0, 1, or 3. This is the vector
+On the first hop, we are equally likely to visit each of the nodes 0, 1, or 3. This implies the probability distribution
 
 $$
 \mathbf{q} = \left[\tfrac{1}{3},\tfrac{1}{3},0,\tfrac{1}{3},0\right].
 $$
 
-+++
-
-Let's now ask, what is the probability of standing on node 0 after the next hop? The two possible histories are 4-1-0 and 4-3-0, with total probability
+Let's now find the probability of standing on node 0 after the next hop. The two possible histories are 4-1-0 and 4-3-0, with total probability
 
 $$
 \underbrace{\frac{1}{3}}_{\text{to 1}} \cdot \underbrace{\frac{1}{3}}_{\text{to 0}} + \underbrace{\frac{1}{3}}_{\text{to 3}} \cdot \underbrace{\frac{1}{3}}_{\text{to 0}} = \frac{2}{9}.
@@ -69,7 +62,7 @@ $$
 \bfw_2 = \left[ \tfrac{1}{4},\, \tfrac{1}{3},\, 0,\, \tfrac{1}{3},\, 0 \right],
 $$
 
-which encodes the chance of hopping directly to node 2 from anywhere. In fact, the next vector of probabilities is just
+which encodes the chance of hopping directly to node 2 from anywhere. In fact, the entire next vector of probabilities is just
 
 $$
 \bigl[ \bfw_1^T \mathbf{q},\, \bfw_2^T \mathbf{q},\, \bfw_3^T \mathbf{q},\, \bfw_4^T \mathbf{q},\, \bfw_5^T \mathbf{q} \bigr] = \bfW \mathbf{q},
@@ -117,9 +110,11 @@ $$
 Let's do a simulation for a more interesting graph:
 
 ```{code-cell} ipython3
-WS = nx.watts_strogatz_graph(50,2,0.1,seed=3)
-pos = nx.spring_layout(WS)
-nx.draw(WS,pos=pos,node_size=240,with_labels=True,node_color="lightblue")
+WS = nx.watts_strogatz_graph(40,4,0.04,seed=11)
+pos = nx.spring_layout(WS,k=0.25,seed=1,iterations=200)
+style = dict(pos=pos,with_labels=True,node_color="pink",edge_color="gray")
+
+nx.draw(WS,node_size=240,**style)
 ```
 
 First, we construct the random-walk matrix $\bfW$.
@@ -136,63 +131,68 @@ for j in range(n):
 sns.heatmap(W.toarray()).set_aspect(1);
 ```
 
-We set up a probability vector to start at node 0, and then use `W.dot` to compute the first hop. The result is to end up at three other nodes with equal probability:
+We set up a probability vector to start at node 0, and then use `W.dot` to compute the first hop. The result is to end up at 5 other nodes with equal probability:
 
 ```{code-cell} ipython3
 :tags: []
 
+init = 33
 p = np.zeros(n)
-p[0] = 1
+p[init] = 1
 p = W.dot(p)
-sz = 1000*p
+sz = 3000*p
 print("Total probability after 1 hop:",p.sum())
-nx.draw(WS,pos=pos,node_size=sz,with_labels=True,node_color="lightblue")
+nx.draw(WS,node_size=sz,**style)
 ```
 
-After the next hop, there will again be a substantial probability of being at node 0. But we could also be at some farther-flung nodes, as well.
+After the next hop, there will again be a substantial probability of being at node 33. But we could also be at some second-generation nodes as well.
 
 ```{code-cell} ipython3
 :tags: []
 
 p = W.dot(p)
 print("Total probability after 2 hops:",p.sum())
-nx.draw(WS,pos=pos,node_size=1000*p,with_labels=True,node_color="lightblue")
+nx.draw(WS,node_size=3000*p,**style)
 ```
 
-We'll take 21 more hops. That lets us penetrate a little into the distant branches, but the probability is still concentrated near 0.
+We'll take 3 more hops. That lets us penetrate a little into the distant nodes.
 
 ```{code-cell} ipython3
-for k in range(21):
+for k in range(3):
     p = W.dot(p)
-print("Total probability after 21 more hops:",p.sum())
-nx.draw(WS,pos=pos,node_size=1000*p,with_labels=True,node_color="lightblue")
+print("Total probability after 5 hops:",p.sum())
+nx.draw(WS,node_size=3000*p,**style)
 ```
 
-In the long run, the probabilities start to even out.
+In the long run, the probabilities even out, as long as the graph is connected.
 
 ```{code-cell} ipython3
 for k in range(200):
     p = W.dot(p)
-nx.draw(WS,pos=pos,node_size=1000*p,with_labels=True,node_color="lightblue")
+nx.draw(WS,node_size=3000*p,**style)
 ```
-
-There is a parity effect here: the probabilities can be different for even and odd numbers of hops. That would be less noticeable on a more highly connected graph, and we could get rid of it by allowing the bunny to sit still on each turn. But it won't much affect what we do next, anyway.
-
-+++
 
 ## Label propagation
 
 The random walk brings us to a type of algorithm known as **label propagation**. We start off by "labelling" one or several nodes whose community we want to identify. This is equivalent to initializing the probability vector $\bfp$. Then, we take a running total over the entire history of the random walk:
 
 $$
-\hat{\bfx} = \lambda \bfW \bfp + \lambda^2 (\bfW (\bfW \bfp)) +  \lambda^3 \bfW\bigl((\bfW (\bfW \bfp))\bigr) + \cdots,
+\hat{\bfx} = \lambda \bfp_1  + \lambda^2 \bfp_2 +  \lambda^3 \bfp_3 + \cdots,
 $$
 
-where $0 < \lambda < 1$ is a damping parameter. It's irresistable (and legit linear algebra) to write $\bfW (\bfW \bfp) = \bfW^2\bfp$ and so on for future iterations. Hence,
+where $0 < \lambda < 1$ is a damping parameter, and
+
+$$
+\bfp_1 = \bfW \bfp, \, \bfp_2 = \bfW \bfp_1, \, \bfp_3 = \bfW \bfp_2,\, \ldots. 
+$$
+
+<!-- 
+. It's irresistible (and legit linear algebra) to write $\bfW (\bfW \bfp) = \bfW^2\bfp$ and so on for future iterations. Hence,
 
 $$
 \hat{\bfx} = \sum_{k=1}^\infty \lambda^k \bfW^k \bfp.
-$$
+$$ 
+-->
 
 In practice, we terminate the sum once $\lambda^k$ is sufficiently small. The resulting $\hat{\bfx}$ can be normalized to a probability distribution,
 
@@ -200,30 +200,22 @@ $$
 \bfx = \frac{\hat{\bfx}}{\norm{\hat{\bfx}}_1}.
 $$
 
-The value $x_i$ can be interpreted as the probability of membership in the community. 
+The value $x_i$ can be interpreted as the probability of membership in the community.
 
 +++
 
 Let's try looking for a community of node 0 in the WS graph above.
 
 ```{code-cell} ipython3
-idx = 0
 p = np.zeros(n)
-p[idx] = 1
-lam = 0.75
+p[init] = 1
+lam = 0.8
 ```
 
-We will compute $\bfx$ by accumulating terms in a loop. We will start with tiny nonzero values, because we will take logs in the future, and $\log(0)$ is undefined.
+We will compute $\bfx$ by accumulating terms in a loop. Note that there is no need to keep track of the entire history of random-walk probabilities; we just use one generation at a time.
 
 ```{code-cell} ipython3
-:tags: []
-
-x = np.zeros(n) + 1e-14
-```
-
-Here is the accumulation loop. Note that there is no need to keep track of the entire history of random-walk probabilities.
-
-```{code-cell} ipython3
+x = np.zeros(n)
 mult = 1
 for k in range(200):
     p = W.dot(p)
@@ -235,33 +227,39 @@ x /= np.sum(x)  # normalize to probability distribution
 
 The probabilities tend to be distributed logarithmically:
 
-```{code-cell} ipython3
-sns.displot(x=x,log_scale=True);
-```
++++
 
 In the following rendering, any node $i$ with a value of $x_i < 10^{-2}$ gets a node size of 0. (You can ignore the warning below. It happens because we have negative node sizes.)
 
 ```{code-cell} ipython3
-nx.draw(WS,node_size=200*(2+np.log10(x)),pos=pos,with_labels=True,node_color="lightblue")
+x[x<0.01] = 0
+style["node_color"] = "lightblue"
+nx.draw(WS,node_size=4000*x,**style)
 ```
 
-The parameter $\lambda$ controls how quickly the random-walk process is faded out. A smaller value generally serves to localize the community more strictly.
+The parameter $\lambda$ controls how quickly the random-walk process is faded out. A smaller value puts more weight on the early iterations, generally localizing the community more strictly.
 
 ```{code-cell} ipython3
-idx = 0
 p = np.zeros(n)
-p[idx] = 1
-lam = 0.2
-x = np.zeros(n) + 1e-14
+p[init] = 1
+lam = 0.4
+x = np.zeros(n)
 mult = 1
 for k in range(200):
     p = W.dot(p)
     mult *= lam
     x += mult*p
 
-x /= np.sum(x)  # normalize to probability distribution
+x /= np.sum(x)  
 ```
 
 ```{code-cell} ipython3
-nx.draw(WS,node_size=200*(2+np.log10(x)),pos=pos,with_labels=True,node_color="lightblue")
+x[x<0.01] = 0
+nx.draw(WS,node_size=4000*x,**style)
+```
+
+In practice, we could define a threshold cutoff on the probabilities, or set a community size and take the highest-ranking nodes. Then a new node could be selected and a community identified for it, etc. If communities are not allowed to overlap, then it might make more sense to use a method based on clustering or other criteria.
+
+```{code-cell} ipython3
+
 ```
