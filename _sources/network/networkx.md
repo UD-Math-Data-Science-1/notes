@@ -28,6 +28,7 @@ The best-known Python package for working with networks is NetworkX.
 ```{code-cell} ipython3
 import networkx as nx
 import seaborn as sns
+import pandas as pd
 ```
 
 One way to create a graph is from a list of edges.
@@ -40,14 +41,30 @@ nx.draw(star,with_labels=True,node_color="lightblue")
 Another way to create a graph is to give the start and end nodes of the edges as columns in a data frame.
 
 ```{code-cell} ipython3
-import pandas as pd
-df = pd.DataFrame( {'from':[1,2,3,4,5,6],'to':[2,3,4,5,6,1]} )
-print(df)
-H = nx.from_pandas_edgelist(df,'from','to')
+network = pd.DataFrame( {'from':[1,2,3,4,5,6],'to':[2,3,4,5,6,1]} )
+print(network)
+H = nx.from_pandas_edgelist(network,'from','to')
 nx.draw(H,with_labels=True,node_color="lightblue")
 ```
 
-There are functions that generate different well-studied types of graphs. For instance, the graph above is a **cycle graph** or *ring lattice*.
+We can conversely deconstruct a graph object into its nodes and edges. The results have special types that may need to be converted into sets, lists, or other objects.
+
+```{code-cell}
+print("Nodes as a list:")
+print( list(star.nodes) )
+print("\nNodes as an Index:")
+print( pd.Index(star.nodes) )
+```
+
+It's also easy to find out which nodes are **adjacent** to a given node, i.e., connected to it by an edge. The result is that node's list of **neighbors**.
+
+```{code-cell}
+print("Neighbors of node 3 in graph H:",list(H[3]))
+```
+
+## Common graph types
+
+There are functions that generate different well-studied types of graphs. The first graph constructed above is a **star graph**, and the graph `H` above is a **cycle graph**.
 
 ```{code-cell} ipython3
 nx.draw(nx.cycle_graph(9))
@@ -69,12 +86,10 @@ $$
 
 unique pairs of distinct nodes. Hence, that is the number of edges in the undirected complete graph on $n$ nodes.
 
-+++
-
 A **lattice graph** has a regular structure, like graph paper.
 
 ```{code-cell} ipython3
-lat = nx.grid_graph((6,4))
+lat = nx.grid_graph((5,4))
 print(lat.number_of_nodes(),"nodes,",lat.number_of_edges(),"edges")
 nx.draw(lat,node_size=100)
 ```
@@ -87,25 +102,17 @@ $$
 
 edges altogether.
 
-+++ {"tags": []}
-
 There are different ways to draw a particular graph in the plane, as determined by the positions of the nodes. The default is to imagine that the edges are springs pulling on the nodes. But there are alternatives that may be useful at times.
 
 ```{code-cell} ipython3
 nx.draw_circular(lat)
 ```
 
-+++ {"tags": []}
-
-As you can see, it's not easy to tell how similar two graphs are by comparing their plots.
-
-+++
+As you can see, it's not easy to tell how similar two graphs are by comparing renderings of them.
 
 ## Adjacency matrix
 
-+++
-
-Two nodes are said to be **adjacent** if there is an edge between them. Every graph can be associated with an **adjacency matrix**. Suppose the nodes are numbered from $0$ to $n-1$. The adjacency matrix is $n\times n$ and has a 1 at position $(i,j)$ if node $i$ and node $j$ are adjacent, and a 0 otherwise.
+Every graph can be associated with an **adjacency matrix**. Suppose the nodes are numbered from $0$ to $n-1$. The adjacency matrix is $n\times n$ and has a 1 at position $(i,j)$ if node $i$ and node $j$ are adjacent, and a 0 otherwise.
 
 ```{code-cell} ipython3
 A = nx.adjacency_matrix(star)
@@ -124,81 +131,66 @@ We can easily convert `A` to a standard array, if it is not too large to fit in 
 A.toarray()
 ```
 
-+++ {"tags": []}
-
 In an undirected graph, we have $A_{ij}=A_{ji}$ everywhere, and we say that $A$ is *symmetric*.
-
-+++ {"tags": []}
 
 ## Importing networks
 
-There are many ways to read graphs from (and write them to) files. For example, here is a friend network among Twitch users. The file has a pair of nodes representing one edge on each line.
+There are many ways to read graphs from (and write them to) files. For example, here is a friend network among Twitch users. 
 
 ```{code-cell} ipython3
-:tags: []
-
 twitch = nx.read_edgelist("musae_edges.csv",delimiter=',',nodetype=int)
 ```
 
-```{code-cell} ipython3
-:tags: []
+The file just imported has a pair of nodes representing one edge on each line. The nodes can have any names at all; by default they are interpreted as strings, which we overrode above to get integer node labels.
 
-twitch.number_of_nodes(),twitch.number_of_edges()
+```{code-cell} ipython3
+print("Twitch network has",twitch.number_of_nodes(),"nodes and",twitch.number_of_edges(),"edges")
 ```
 
-This graph is difficult to draw in its entirety. We can zoom in on a subset by selecting a node and its **ego graph**, which includes its adjacent nodes along with all edges between these nodes.
+This graph is difficult to draw in its entirety. We can zoom in on a subset by selecting a node and its **ego graph**, which includes its neighbors along with all edges between the captured nodes.
 
 ```{code-cell} ipython3
 ego = nx.ego_graph(twitch,400)
 nx.draw(ego,with_labels=True,node_size=800,node_color="yellow")
 ```
 
-+++ {"tags": []}
-
-Notice that the nodes of the ego network have the same labels as they did in the original graph that it was taken from.
-
-We can widen the ego graph to include the ego graphs of all the neighbors:
+Notice that the nodes of the ego network have the same labels as they did in the graph that it was taken from. We can widen the ego graph to include the ego graphs of all the neighbors:
 
 ```{code-cell} ipython3
-:tags: []
-
 big_ego = nx.ego_graph(twitch,400,radius=2)
 print(big_ego.number_of_nodes(),"nodes and",big_ego.number_of_edges(),"edges")
+
 pos = nx.spring_layout(big_ego,iterations=60)
 nx.draw(big_ego,pos=pos,width=0.2,node_size=10,node_color="purple")
 ```
 
-The reason for the two-step process in making the plot above is that computing the node positions via springs takes a hidden computational iteration. By calling that iteration explicitly, we were able to stop if early and save time.
-
-+++
+The reason for the two-step process in making the drawing above is that computing the node positions via springs takes a hidden computational iteration. By calling that iteration explicitly, we were able to stop it early and save time.
 
 ## Degree and average degree
 
 The **degree** of a node is the number of edges that have the node as an endpoint. Equivalently, it is the number of nodes in its ego graph, minus the original node itself. The **average degree** of a graph is the mean of the degrees of all of its nodes. 
 
-The `degree` property of a graph gives a list of all nodes with their degrees.
+The `degree` property of a graph gives a dictionary-style object of all nodes with their degrees.
 
 ```{code-cell} ipython3
 ego.degree
 ```
 
-The result here can be a bit awkward to work with; it's actually a *generator* of a list, rather than the list itself. (This "lazy" attitude is useful when dealing with very large networks.) So, for instance, we can collect the list as ordered tuples using a comprehension:
+The result here can be a bit awkward to work with; it's actually a *generator* of a list, rather than the list itself. (This "lazy" attitude is useful when dealing with very large networks.) So, for instance, we can collect it into a list of ordered tuples:
 
 ```{code-cell} ipython3
-[d for d in ego.degree]
+list(ego.degree)
 ```
 
-To compute the average degree, we can do a sum over the generator instead.
+It can be convenient to use a series or frame to keep track of quantities like degree that are associated with nodes.
 
 ```{code-cell} ipython3
-def average_degree(g):
-    return sum(d[1] for d in g.degree)/g.number_of_nodes()
-
-print("average degree of K5 complete graph:",average_degree(K5))
-print("average degree of Twitch network:",average_degree(twitch))
+nodes = pd.Index(ego.nodes)
+degrees = pd.Series([ego.degree[i] for i in nodes],index=nodes)
+print("average degree of ego graph:",degrees.mean())
 ```
 
-There's a much easier way to compute this quantity, however. If we sum the degrees of all the nodes in a graph, we must get twice the number of edges in the graph.
+There's a much easier way to compute this particular quantity, however. If we sum the degrees of all the nodes in a graph, we must get twice the number of edges in the graph. For $n$ nodes and $e$ edges, the average degree is therefore $2m/n$.
 
 ```{code-cell} ipython3
 def average_degree(g):
@@ -246,10 +238,10 @@ There are two senses of "average" going on here: in each graph instance, you fin
 n,p = 41,0.1
 kbar = []
 for iter in range(10000):
-    ER = nx.erdos_renyi_graph(n,p,seed=iter+1)
+    ER = nx.erdos_renyi_graph(n,p,seed=iter+1001)
     kbar.append(average_degree(ER))
 
-sns.displot(x=kbar,bins=19);
+sns.displot(x=kbar,bins=16);
 ```
 <!-- 
 ## Connectedness

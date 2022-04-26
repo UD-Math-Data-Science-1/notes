@@ -580,27 +580,46 @@
 <p>No node is more than two hops away from another, if the first hop is to node 0, so the diameter of this graph is 2. The average distance is somewhat smaller. This graph is so small that we can easily find the entire matrix of pairwise distances.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">D</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span> <span class="p">[</span><span class="n">nx</span><span class="o">.</span><span class="n">shortest_path_length</span><span class="p">(</span><span class="n">W</span><span class="p">,</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">)</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">7</span><span class="p">)]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span> <span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nodes</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">W</span><span class="o">.</span><span class="n">nodes</span><span class="p">)</span>
+<span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">nodes</span><span class="p">)</span>
+<span class="n">D</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n</span><span class="p">,</span><span class="n">n</span><span class="p">),</span><span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">D</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">shortest_path_length</span><span class="p">(</span><span class="n">W</span><span class="p">,</span><span class="n">nodes</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">nodes</span><span class="p">[</span><span class="n">j</span><span class="p">])</span> 
+
 <span class="nb">print</span><span class="p">(</span><span class="n">D</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[0 1 1 1 1 1 1]
- [1 0 1 2 2 2 1]
- [1 1 0 1 2 2 2]
- [1 2 1 0 1 2 2]
- [1 2 2 1 0 1 2]
- [1 2 2 2 1 0 1]
- [1 1 2 2 2 1 0]]
+ [0 0 1 2 2 2 1]
+ [0 0 0 1 2 2 2]
+ [0 0 0 0 1 2 2]
+ [0 0 0 0 0 1 2]
+ [0 0 0 0 0 0 1]
+ [0 0 0 0 0 0 0]]
 </pre></div>
 </div>
 </div>
 </div>
-<p>Only the entries in the upper triangle need to be averaged. However, by the symmetry, we can sum over all the entries and divide by <span class="math notranslate nohighlight">\(2\binom{n}{2}\)</span>:</p>
+<p>The actual distance matrix is symmetric, but it’s only necessary to compute its upper triangle. To get the average distance, we can sum over all the entries and divide by <span class="math notranslate nohighlight">\(\binom{n}{2}\)</span>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;average distance:&quot;</span><span class="p">,</span><span class="n">D</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">/</span><span class="p">(</span><span class="mi">7</span><span class="o">*</span><span class="mi">6</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;average distance:&quot;</span><span class="p">,</span><span class="mi">2</span><span class="o">*</span><span class="n">D</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">/</span><span class="p">(</span><span class="n">n</span><span class="o">*</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>average distance: 1.4285714285714286
+</pre></div>
+</div>
+</div>
+</div>
+<p>There is a convenience function for computing this average. (It becomes slow as <span class="math notranslate nohighlight">\(n\)</span> grows, though.)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;average distance:&quot;</span><span class="p">,</span><span class="n">nx</span><span class="o">.</span><span class="n">average_shortest_path_length</span><span class="p">(</span><span class="n">W</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -616,12 +635,12 @@
 <p>Intuitively, the idea behind clustering is that your friends tend to be friends of one another. There are various ways to quantify this precisely, but the easiest is the <strong>local clustering coefficient</strong>, defined for a node <span class="math notranslate nohighlight">\(i\)</span> as</p>
 <div class="math notranslate nohighlight">
 \[
-C(i) = \frac{ 2 T(i) }{k_i(k_i-1)}.
+C(i) = \frac{ 2 T(i) }{d_i(d_i-1)}.
 \]</div>
-<p>In this formula, <span class="math notranslate nohighlight">\(k_i\)</span> is the degree of the node and <span class="math notranslate nohighlight">\(T(i)\)</span> is the number of edges between node <span class="math notranslate nohighlight">\(i\)</span>’s neighbors. Equivalently, <span class="math notranslate nohighlight">\(T(i)\)</span> is the number of triangles in the graph that pass through node <span class="math notranslate nohighlight">\(i\)</span>. Because the subgraph of the friend nodes has</p>
+<p>In this formula, <span class="math notranslate nohighlight">\(d_i\)</span> is the degree of the node and <span class="math notranslate nohighlight">\(T(i)\)</span> is the number of edges between node <span class="math notranslate nohighlight">\(i\)</span>’s neighbors. Equivalently, <span class="math notranslate nohighlight">\(T(i)\)</span> is the number of triangles in the graph that pass through node <span class="math notranslate nohighlight">\(i\)</span>. Because the subgraph of the friend nodes has</p>
 <div class="math notranslate nohighlight">
 \[
-\binom{k_i}{2}
+\binom{d_i}{2}
 \]</div>
 <p>possible edges, the maximum of <span class="math notranslate nohighlight">\(C(i)\)</span> is 1.</p>
 <div class="proof example admonition" id="example-small-world-clustering">
@@ -647,17 +666,41 @@ C(i) = \frac{2}{3 \cdot 2 / 2} = \frac{2}{3}, \quad i\neq 0.
 \]</div>
 </div>
 </details></div>
-</div><p>The <code class="docutils literal notranslate"><span class="pre">clustering</span></code> function in NetworkX computes <span class="math notranslate nohighlight">\(C(i)\)</span> for any single node or all the nodes in a graph.</p>
+</div><p>In NetworkX, we can manually count the number of edges among neighbors of node 0 by examining their subgraph:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nbrhood</span> <span class="o">=</span> <span class="n">W</span><span class="o">.</span><span class="n">subgraph</span><span class="p">(</span><span class="n">W</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">nbrhood</span><span class="o">.</span><span class="n">number_of_edges</span><span class="p">(),</span><span class="s2">&quot;edges among neighbors of node 1&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2 edges among neighbors of node 1
+</pre></div>
+</div>
+</div>
+</div>
+<p>More directly, though, the <code class="docutils literal notranslate"><span class="pre">clustering</span></code> function in NetworkX computes <span class="math notranslate nohighlight">\(C(i)\)</span> for any single node, or for all the nodes in a graph.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;node 0 clustering:&quot;</span><span class="p">,</span><span class="n">nx</span><span class="o">.</span><span class="n">clustering</span><span class="p">(</span><span class="n">W</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;all nodes clustering:&quot;</span><span class="p">,</span><span class="n">nx</span><span class="o">.</span><span class="n">clustering</span><span class="p">(</span><span class="n">W</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">all nodes clustering:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">clustering</span><span class="p">(</span><span class="n">W</span><span class="p">),</span><span class="n">index</span><span class="o">=</span><span class="n">W</span><span class="o">.</span><span class="n">nodes</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>node 0 clustering: 0.4
-all nodes clustering: {0: 0.4, 1: 0.6666666666666666, 2: 0.6666666666666666, 3: 0.6666666666666666, 4: 0.6666666666666666, 5: 0.6666666666666666, 6: 0.6666666666666666}
+
+all nodes clustering:
+0    0.400000
+1    0.666667
+2    0.666667
+3    0.666667
+4    0.666667
+5    0.666667
+6    0.666667
+dtype: float64
 </pre></div>
 </div>
 </div>
@@ -687,36 +730,71 @@ all nodes clustering: {0: 0.4, 1: 0.6666666666666666, 2: 0.6666666666666666, 3: 
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/small-world_16_0.png" src="../_images/small-world_16_0.png" />
+<img alt="../_images/small-world_20_0.png" src="../_images/small-world_20_0.png" />
 </div>
 </div>
-<p>When no path exists between nodes, the only sensible definition of distance is infinity, and averages that include infinity are themselves infinite. We may have the same problem when it comes to clustering, since the degree of an isolated node is zero.</p>
-<p>How often does this happen in ER graphs? The answer depends on the number of nodes <span class="math notranslate nohighlight">\(n\)</span> and the edge inclusion probability <span class="math notranslate nohighlight">\(p\)</span>. For  <span class="math notranslate nohighlight">\(n=251\)</span>, <span class="math notranslate nohighlight">\(p=1/50\)</span>, the expected <span class="math notranslate nohighlight">\(\bar{k}\)</span> is <span class="math notranslate nohighlight">\(5\)</span>, and a minority of instances are connected:</p>
+<p>When no path exists between two nodes, the only sensible definition of distance is infinity, and averages that include infinity are themselves infinite. In fact, NetworkX will give an error if we try to compute the average distance in a disconnected graph:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n</span><span class="p">,</span><span class="n">p</span> <span class="o">=</span> <span class="mi">251</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="mi">50</span>
-<span class="n">is_connected</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span> <span class="n">nx</span><span class="o">.</span><span class="n">is_connected</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">erdos_renyi_graph</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">p</span><span class="p">,</span><span class="n">seed</span><span class="o">=</span><span class="nb">iter</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span> <span class="k">for</span> <span class="nb">iter</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">500</span><span class="p">)</span> <span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">is_connected</span><span class="o">/</span><span class="mi">500</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2"> are connected&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nx</span><span class="o">.</span><span class="n">average_shortest_path_length</span><span class="p">(</span><span class="n">ER</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>19.2% are connected
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NetworkXError</span><span class="g g-Whitespace">                             </span>Traceback (most recent call last)
+<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="n">cn</span><span class="o">/</span><span class="mi">8</span><span class="n">w40979d27x0kv2wsnx7zgvm0000gp</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_63466</span><span class="o">/</span><span class="mf">477834076.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">nx</span><span class="o">.</span><span class="n">average_shortest_path_length</span><span class="p">(</span><span class="n">ER</span><span class="p">)</span>
+
+<span class="nn">~/anaconda3/lib/python3.8/site-packages/networkx/algorithms/shortest_paths/generic.py</span> in <span class="ni">average_shortest_path_length</span><span class="nt">(G, weight, method)</span>
+<span class="g g-Whitespace">    </span><span class="mi">387</span>         <span class="k">raise</span> <span class="n">nx</span><span class="o">.</span><span class="n">NetworkXError</span><span class="p">(</span><span class="s2">&quot;Graph is not weakly connected.&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">388</span>     <span class="k">if</span> <span class="ow">not</span> <span class="n">G</span><span class="o">.</span><span class="n">is_directed</span><span class="p">()</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">nx</span><span class="o">.</span><span class="n">is_connected</span><span class="p">(</span><span class="n">G</span><span class="p">):</span>
+<span class="ne">--&gt; </span><span class="mi">389</span>         <span class="k">raise</span> <span class="n">nx</span><span class="o">.</span><span class="n">NetworkXError</span><span class="p">(</span><span class="s2">&quot;Graph is not connected.&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">390</span> 
+<span class="g g-Whitespace">    </span><span class="mi">391</span>     <span class="c1"># Compute all-pairs shortest paths.</span>
+
+<span class="ne">NetworkXError</span>: Graph is not connected.
 </pre></div>
 </div>
 </div>
 </div>
-<p>If we increase the expected <span class="math notranslate nohighlight">\(\bar{k}\)</span>, then almost all of the instances are connected.</p>
+<p>We are also unable to compute the clustering coefficient at a node of degree zero.</p>
+<p>One way to cope with this eventuality is to decompose the graph into <strong>connected components</strong>, a disjoint separation of the nodes into connected subgraphs. We can use <code class="docutils literal notranslate"><span class="pre">nx.connected_components</span></code> to get node sets for each component.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n</span><span class="p">,</span><span class="n">p</span> <span class="o">=</span> <span class="mi">251</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="mi">25</span>
-<span class="n">is_connected</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span> <span class="n">nx</span><span class="o">.</span><span class="n">is_connected</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">erdos_renyi_graph</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">p</span><span class="p">,</span><span class="n">seed</span><span class="o">=</span><span class="nb">iter</span><span class="o">+</span><span class="mi">11</span><span class="p">))</span> <span class="k">for</span> <span class="nb">iter</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">500</span><span class="p">)</span> <span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">is_connected</span><span class="o">/</span><span class="mi">500</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2"> are connected&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">cc</span><span class="p">)</span> <span class="k">for</span> <span class="n">cc</span> <span class="ow">in</span> <span class="n">nx</span><span class="o">.</span><span class="n">connected_components</span><span class="p">(</span><span class="n">ER</span><span class="p">)]</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>98.6% are connected
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[100, 1]
+</pre></div>
+</div>
+</div>
+</div>
+<p>The result above tells us that removing the lone unconnected node in the ER graph leaves us with a connected component. We can always get the largest component with the following:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ER_sub</span> <span class="o">=</span> <span class="n">ER</span><span class="o">.</span><span class="n">subgraph</span><span class="p">(</span> <span class="nb">max</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">connected_components</span><span class="p">(</span><span class="n">ER</span><span class="p">),</span> <span class="n">key</span><span class="o">=</span><span class="nb">len</span><span class="p">)</span> <span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ER_sub</span><span class="o">.</span><span class="n">number_of_nodes</span><span class="p">(),</span><span class="s2">&quot;nodes in largest component&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100 nodes in largest component
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now the average path length is a valid computation.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nx</span><span class="o">.</span><span class="n">average_shortest_path_length</span><span class="p">(</span><span class="n">ER_sub</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3.3082828282828283
 </pre></div>
 </div>
 </div>
@@ -724,31 +802,31 @@ all nodes clustering: {0: 0.4, 1: 0.6666666666666666, 2: 0.6666666666666666, 3: 
 <p>Let’s cut a little slack at this point and compute the distance and clustering for those ER graphs which happen to be connected.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n</span><span class="p">,</span><span class="n">p</span> <span class="o">=</span> <span class="mi">251</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="mi">25</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n</span><span class="p">,</span><span class="n">p</span> <span class="o">=</span> <span class="mi">121</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="mi">20</span>
 <span class="n">dbar</span><span class="p">,</span><span class="n">cbar</span> <span class="o">=</span> <span class="p">[],[]</span>
-<span class="k">for</span> <span class="nb">iter</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">500</span><span class="p">):</span>
-    <span class="n">ER</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">erdos_renyi_graph</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">p</span><span class="p">,</span><span class="n">seed</span><span class="o">=</span><span class="nb">iter</span><span class="o">+</span><span class="mi">5</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">nx</span><span class="o">.</span><span class="n">is_connected</span><span class="p">(</span><span class="n">ER</span><span class="p">):</span>
-        <span class="n">dbar</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">average_shortest_path_length</span><span class="p">(</span><span class="n">ER</span><span class="p">))</span>
-        <span class="n">cbar</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">average_clustering</span><span class="p">(</span><span class="n">ER</span><span class="p">))</span>        
+<span class="k">for</span> <span class="nb">iter</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">):</span>
+    <span class="n">ER</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">erdos_renyi_graph</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">p</span><span class="p">,</span><span class="n">seed</span><span class="o">=</span><span class="nb">iter</span><span class="o">+</span><span class="mi">5000</span><span class="p">)</span>
+    <span class="n">ER_sub</span> <span class="o">=</span> <span class="n">ER</span><span class="o">.</span><span class="n">subgraph</span><span class="p">(</span> <span class="nb">max</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">connected_components</span><span class="p">(</span><span class="n">ER</span><span class="p">),</span> <span class="n">key</span><span class="o">=</span><span class="nb">len</span><span class="p">)</span> <span class="p">)</span>
+    <span class="n">dbar</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">average_shortest_path_length</span><span class="p">(</span><span class="n">ER_sub</span><span class="p">))</span>
+    <span class="n">cbar</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">average_clustering</span><span class="p">(</span><span class="n">ER_sub</span><span class="p">))</span>        
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;average distances:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;average distances in the largest component:&quot;</span><span class="p">)</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">displot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">dbar</span><span class="p">,</span><span class="n">bins</span><span class="o">=</span><span class="mi">13</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>average distances:
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>average distances in the largest component:
 </pre></div>
 </div>
-<img alt="../_images/small-world_22_1.png" src="../_images/small-world_22_1.png" />
+<img alt="../_images/small-world_30_1.png" src="../_images/small-world_30_1.png" />
 </div>
 </div>
-<p>The average distances above might seem surprisingly small for a randomly assembled graph on 250 nodes. The chances are good that any message could be passed along in three hops or fewer. But in fact, theory states that the mean distance in ER graphs is expected to be approximately</p>
+<p>The chances are good that any message could be passed along in three hops or fewer. In fact, theory states that as <span class="math notranslate nohighlight">\(n\to\infty\)</span>, the mean distance in ER graphs is expected to be approximately</p>
 <div class="math notranslate nohighlight" id="equation-eq-small-world-erdistance">
-<span class="eqno">(6.2.1)<a class="headerlink" href="#equation-eq-small-world-erdistance" title="Permalink to this equation">¶</a></span>\[\frac{\ln(n)}{\ln(\bar{k})}\]</div>
-<p>as <span class="math notranslate nohighlight">\(n\to\infty\)</span>. For <span class="math notranslate nohighlight">\(n=251\)</span> and <span class="math notranslate nohighlight">\(\bar{k}=10\)</span> as in the experiment above, this value is about 2.4.</p>
-<p>Among connected ER graphs, the local clustering is close to zero:</p>
+<span class="eqno">(6.2.1)<a class="headerlink" href="#equation-eq-small-world-erdistance" title="Permalink to this equation">¶</a></span>\[\frac{\ln(n)}{\ln(\bar{k})}.\]</div>
+<p>For <span class="math notranslate nohighlight">\(n=121\)</span> and <span class="math notranslate nohighlight">\(\bar{k}=6\)</span> as in the experiment above, this value is about 2.68.</p>
+<p>Meanwhile, the local clustering in these ER graphs is close to zero:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;average clustering:&quot;</span><span class="p">)</span>
@@ -760,7 +838,7 @@ all nodes clustering: {0: 0.4, 1: 0.6666666666666666, 2: 0.6666666666666666, 3: 
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>average clustering:
 </pre></div>
 </div>
-<img alt="../_images/small-world_24_1.png" src="../_images/small-world_24_1.png" />
+<img alt="../_images/small-world_32_1.png" src="../_images/small-world_32_1.png" />
 </div>
 </div>
 <p>This happens because there is no special affinity for friendship among one’s friends. Since every edge appears with probability <span class="math notranslate nohighlight">\(p\)</span>, the expected fraction of edges in the ego network of a node is also <span class="math notranslate nohighlight">\(p\)</span>, and that is the expected value for the clustering coefficient at each node as well.</p>
@@ -771,9 +849,9 @@ all nodes clustering: {0: 0.4, 1: 0.6666666666666666, 2: 0.6666666666666666, 3: 
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">twitch</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">read_edgelist</span><span class="p">(</span><span class="s2">&quot;musae_edges.csv&quot;</span><span class="p">,</span><span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">,</span><span class="n">nodetype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
-<span class="n">n</span><span class="p">,</span><span class="n">E</span> <span class="o">=</span> <span class="n">twitch</span><span class="o">.</span><span class="n">number_of_nodes</span><span class="p">(),</span><span class="n">twitch</span><span class="o">.</span><span class="n">number_of_edges</span><span class="p">()</span>
-<span class="n">kbar</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">E</span><span class="o">/</span><span class="n">n</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="s2">&quot;nodes and&quot;</span><span class="p">,</span><span class="n">E</span><span class="p">,</span><span class="s2">&quot;edges&quot;</span><span class="p">)</span>
+<span class="n">n</span><span class="p">,</span><span class="n">e</span> <span class="o">=</span> <span class="n">twitch</span><span class="o">.</span><span class="n">number_of_nodes</span><span class="p">(),</span><span class="n">twitch</span><span class="o">.</span><span class="n">number_of_edges</span><span class="p">()</span>
+<span class="n">kbar</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">e</span><span class="o">/</span><span class="n">n</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="s2">&quot;nodes and&quot;</span><span class="p">,</span><span class="n">e</span><span class="p">,</span><span class="s2">&quot;edges&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;average degree is </span><span class="si">{</span><span class="n">kbar</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -829,24 +907,31 @@ Estimated mean distance: 3.67368
 <p>Here are the clustering coefficients:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cluster_coeffs</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span> <span class="n">nx</span><span class="o">.</span><span class="n">clustering</span><span class="p">(</span><span class="n">twitch</span><span class="p">,</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">twitch</span><span class="o">.</span><span class="n">nodes</span> <span class="p">])</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">displot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">cluster_coeffs</span><span class="p">);</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cluster_coeffs</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">clustering</span><span class="p">(</span><span class="n">twitch</span><span class="p">),</span><span class="n">index</span><span class="o">=</span><span class="n">twitch</span><span class="o">.</span><span class="n">nodes</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">displot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">cluster_coeffs</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/small-world_32_0.png" src="../_images/small-world_32_0.png" />
+<img alt="../_images/small-world_40_0.png" src="../_images/small-world_40_0.png" />
 </div>
 </div>
-<p>The distribution above casts some doubt about using the mean as a summary, but for the record, the value is</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cluster_coeffs</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cluster_coeffs</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.13092821901472096
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>count    7126.000000
+mean        0.130928
+std         0.206261
+min         0.000000
+25%         0.000000
+50%         0.057143
+75%         0.166667
+max         1.000000
+dtype: float64
 </pre></div>
 </div>
 </div>
@@ -856,14 +941,13 @@ Estimated mean distance: 3.67368
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">p</span> <span class="o">=</span> <span class="n">kbar</span><span class="o">/</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
 
-<span class="n">dbar</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="n">cbar</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">dbar</span><span class="p">,</span><span class="n">cbar</span> <span class="o">=</span> <span class="p">[],[]</span>
 <span class="k">for</span> <span class="nb">iter</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
-    <span class="n">ER</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">erdos_renyi_graph</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">p</span><span class="p">,</span><span class="n">seed</span><span class="o">=</span><span class="nb">iter</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">nx</span><span class="o">.</span><span class="n">is_connected</span><span class="p">(</span><span class="n">ER</span><span class="p">):</span>
-        <span class="n">dist</span> <span class="o">=</span> <span class="p">[</span><span class="n">pairdist</span><span class="p">(</span><span class="n">ER</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">80</span><span class="p">)]</span>
-        <span class="n">dbar</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dist</span><span class="p">))</span>
-        <span class="n">cbar</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">average_clustering</span><span class="p">(</span><span class="n">ER</span><span class="p">))</span>        
+    <span class="n">ER</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">erdos_renyi_graph</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">p</span><span class="p">,</span><span class="n">seed</span><span class="o">=</span><span class="nb">iter</span><span class="o">+</span><span class="mi">789</span><span class="p">)</span>
+    <span class="n">ER_sub</span> <span class="o">=</span> <span class="n">ER</span><span class="o">.</span><span class="n">subgraph</span><span class="p">(</span> <span class="nb">max</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">connected_components</span><span class="p">(</span><span class="n">ER</span><span class="p">),</span> <span class="n">key</span><span class="o">=</span><span class="nb">len</span><span class="p">)</span> <span class="p">)</span>
+    <span class="n">dist</span> <span class="o">=</span> <span class="p">[</span><span class="n">pairdist</span><span class="p">(</span><span class="n">ER_sub</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">80</span><span class="p">)]</span>
+    <span class="n">dbar</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dist</span><span class="p">))</span>
+    <span class="n">cbar</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">average_clustering</span><span class="p">(</span><span class="n">ER_sub</span><span class="p">))</span>        
 
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;For ER graphs:&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Average of mean distance:&quot;</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dbar</span><span class="p">))</span>
@@ -873,8 +957,8 @@ Estimated mean distance: 3.67368
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>For ER graphs:
-Average of mean distance: 4.1375
-Average of mean clustering: 0.001434606204988957
+Average of mean distance: 4.1125
+Average of mean clustering: 0.0014539580305994474
 </pre></div>
 </div>
 </div>
@@ -907,7 +991,7 @@ Average of mean clustering: 0.001434606204988957
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/small-world_41_0.png" src="../_images/small-world_41_0.png" />
+<img alt="../_images/small-world_48_0.png" src="../_images/small-world_48_0.png" />
 </div>
 </div>
 <p>For <span class="math notranslate nohighlight">\(q&lt;1\)</span>, a WS graph has a mean clustering coefficient that is significantly above zero.</p>
@@ -940,7 +1024,7 @@ Average of mean clustering: 0.001434606204988957
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mean clustering in WS graphs on 60 nodes:
 </pre></div>
 </div>
-<img alt="../_images/small-world_44_1.png" src="../_images/small-world_44_1.png" />
+<img alt="../_images/small-world_51_1.png" src="../_images/small-world_51_1.png" />
 </div>
 </div>
 <p>Let’s scale the experiment up to the size of the Twitch network.</p>
@@ -973,7 +1057,7 @@ Average of mean clustering: 0.001434606204988957
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mean clustering in WS graphs on 7126 nodes:
 </pre></div>
 </div>
-<img alt="../_images/small-world_47_1.png" src="../_images/small-world_47_1.png" />
+<img alt="../_images/small-world_54_1.png" src="../_images/small-world_54_1.png" />
 </div>
 </div>
 <p>The mean clustering resembles the value of 0.13 for the Twitch network at around <span class="math notranslate nohighlight">\(q=0.4\)</span>. However, that leaves the mean distance a bit too large:</p>
@@ -992,7 +1076,7 @@ Average of mean clustering: 0.001434606204988957
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>mean distance in WS: 4.443145161290323
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>mean distance in WS: 4.404411764705882
 </pre></div>
 </div>
 </div>

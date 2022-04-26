@@ -20,14 +20,15 @@ import numpy as np
 import seaborn as sns
 ```
 
-As we know, means of distributions do not always tell the entire story. For example, here is the distribution of the degrees of all the nodes in our Twitch network example.
+As we know, means of distributions do not always tell the entire story. For example, here is the distribution of the degrees of all the nodes in our Twitch network.
 
 ```{code-cell} ipython3
 :tags: []
 
 twitch = nx.read_edgelist("musae_edges.csv",delimiter=',',nodetype=int)
-twitch_degrees = pd.DataFrame(twitch.degree,columns=["node","degree"])
-hist = sns.displot(data=twitch_degrees,x="degree")
+twitch_degrees = pd.Series(dict(twitch.degree),index=twitch.nodes)
+print("Twitch network degree distribution:")
+sns.displot(data=twitch_degrees);
 ```
 
 A few nodes in the network have hundreds of friends:
@@ -35,36 +36,44 @@ A few nodes in the network have hundreds of friends:
 ```{code-cell} ipython3
 :tags: []
 
-friend_counts = twitch_degrees["degree"].value_counts()
-friend_counts.sort_values()
+friend_counts = twitch_degrees.value_counts()  # histogram heights
+friend_counts.sort_index(ascending=False)
 ```
 
-These "gregarious nodes" or *hubs* create the heavy tail in the degree distribution. 
+These "gregarious nodes" or *hubs* create the heavy tail in the degree distribution.
 
 +++
 
-We can find the average degree of this network and create an ER graph with the same expected average degree.
+We can compare the above distribution to those in a collection of ER graphs with the same size and expected average degree.
 
 ```{code-cell} ipython3
-n = twitch.number_of_nodes()
-kbar = 2*twitch.number_of_edges()/n
+n,e = twitch.number_of_nodes(),twitch.number_of_edges()
+kbar = 2*e/n
 p = kbar/(n-1)
-ER = nx.erdos_renyi_graph(n,p,seed=100)
-degrees = pd.DataFrame(ER.degree,columns=["node","degree"])
-hist = sns.displot(data=degrees,x="degree")
+degrees = []
+for iter in range(3):
+    ER = nx.erdos_renyi_graph(n,p,seed=111+iter)
+    degrees.extend([ER.degree(i) for i in ER.nodes])
+
+print("ER graphs degree distribution:")
+sns.displot(data=degrees,discrete=True);
 ```
 
 +++ {"tags": []}
 
-We already know that ER fails to replicate the clustering of the Twitch network. The dramatic difference in degree distributions confirms its unsuitability as a model.
+Theory proves that the plot above converges to a *binomial distribution*. This is yet another indicator that the ER model does not explain the Twitch network well.
 
 A WS graph likewise lacks the proper heavy tail in the Twitch degree distribution:
 
 ```{code-cell} ipython3
-k,q = 10,0.4
-WS = nx.watts_strogatz_graph(n,k,q,seed=1000)
-degrees = pd.DataFrame(WS.degree,columns=["node","degree"])
-hist = sns.displot(data=degrees,x="degree")
+k,q = 10,0.42
+degrees = []
+for iter in range(3):
+    WS = nx.watts_strogatz_graph(n,k,q,seed=222+iter)
+    degrees.extend([WS.degree(i) for i in WS.nodes])
+
+print("WS graphs degree distribution:")
+sns.displot(data=degrees,discrete=True);
 ```
 
 ## Power-law distribution
@@ -72,7 +81,7 @@ hist = sns.displot(data=degrees,x="degree")
 The behavior of the Twitch degree distribution gets very interesting when the axes are transformed to use log scales:
 
 ```{code-cell} ipython3
-hist = sns.displot(data=twitch_degrees,x="degree",log_scale=True)
+hist = sns.displot(data=twitch_degrees,log_scale=True)
 hist.axes[0,0].set_yscale("log")
 ```
 
@@ -93,7 +102,7 @@ for some $a > 0$. This relationship is known as a **power law**. Many social net
 Note that the decay of $x^{-a}$ to zero as $x\to\infty$ is much slower than, say, the normal distribution's $e^{-x^2/2}$, or even just an exponential $e^{-cx}$. This last comparison is how a *heavy-tailed distribution* is usually defined. One effect is that there is a significant disparity between the mean and median values of the node degrees:
 
 ```{code-cell} ipython3
-twitch_degrees["degree"].describe()
+twitch_degrees.describe()
 ```
 
 The summary above also shows that the standard deviation is much larger than the mean. This is another indication that the degree distribution is widely dispersed over orders of magnitude.
@@ -103,15 +112,16 @@ The summary above also shows that the standard deviation is much larger than the
 We can get a fair estimate of the constants $B$ and $a$ in the power law by doing a least-squares fit on the logs of $x$ and $y$. First, we need the counts:
 
 ```{code-cell} ipython3
-y = twitch_degrees["degree"].value_counts()
+y = twitch_degrees.value_counts()
 counts = pd.DataFrame({"degree":y.index,"count":y.values})
 counts = counts[(counts["count"] > 10) & (counts["count"] < 200)];
+counts.head(6)
 ```
 
 Now we will get additional columns by log transformations. (Note: the `np.log` function is the natural logarithm.)
 
 ```{code-cell} ipython3
-counts[["log_x","log_y"]] = counts.transform(np.log)
+counts[["log_degree","log_count"]] = counts.transform(np.log)
 ```
 
 Now we use `sklearn` for a linear regression.
@@ -119,11 +129,11 @@ Now we use `sklearn` for a linear regression.
 ```{code-cell} ipython3
 from sklearn.linear_model import LinearRegression
 lm = LinearRegression()
-lm.fit(counts[["log_x"]],counts["log_y"])
+lm.fit(counts[["log_degree"]],counts["log_count"])
 lm.coef_[0],lm.intercept_
 ```
 
-The first value, which is both the slope of the line and the exponent of $x$ the power law, is the most interesting part. It estimates that the degree counts vary as $Bx^{-2.1}$ over a wide range of degrees.
+The first value, which is both the slope of the line and the exponent of $x$ in the power law, is the most interesting part. It estimates that the degree counts vary as $Bx^{-2.1}$ over a wide range of degrees.
 
 +++
 
@@ -133,8 +143,8 @@ A random **Barabási–Albert** graph (BA graph) is constructed by starting with
 
 ```{code-cell} ipython3
 BA = nx.barabasi_albert_graph(100,2,seed=0)
-BA_degrees = pd.DataFrame(BA.degree,columns=["node","degree"])
-nx.draw(BA,node_size=8*BA_degrees["degree"],node_color="red")
+BA_degrees = pd.Series(dict(BA.degree),index=BA.nodes)
+nx.draw(BA,node_size=8*BA_degrees,node_color="red")
 ```
 
 Since we add $m$ edges (almost) $n$ times, the expected average degree is $2mn/n=2m$. When we scale the construction up to the size and average degree of the Twitch network, a power-law distribution emerges.
@@ -144,20 +154,20 @@ Since we add $m$ edges (almost) $n$ times, the expected average degree is $2mn/n
 
 m = round(kbar/2)
 BA = nx.barabasi_albert_graph(n,m,seed=5)
-BA_degrees = pd.DataFrame(BA.degree,columns=["node","degree"])
-hist = sns.displot(data=BA_degrees,x="degree",log_scale=True)
+BA_degrees = pd.Series(dict(BA.degree),index=BA.nodes)
+hist = sns.displot(data=BA_degrees,log_scale=True)
 hist.axes[0,0].set_yscale("log")
 ```
 
 Theory predicts that the exponent of the power-law distribution in a BA graph is $-3$.
 
 ```{code-cell} ipython3
-y = BA_degrees["degree"].value_counts()
+y = BA_degrees.value_counts()
 counts = pd.DataFrame({"degree":y.index,"count":y.values})
 counts = counts[(counts["count"] > 10) & (counts["count"] < 100)];
-counts[["log_x","log_y"]] = counts.transform(np.log)
+counts[["log_degree","log_count"]] = counts.transform(np.log)
 lm = LinearRegression()
-lm.fit(counts[["log_x"]],counts["log_y"])
+lm.fit(counts[["log_degree"]],counts["log_count"])
 print("exponent of power law:",lm.coef_[0])
 ```
 
@@ -190,11 +200,13 @@ for iter in range(10):
 print("Mean distance in BA graphs:",np.mean(dbar))
 ```
 
-Not bad! Now, let's check the clustering:
+Not bad! Now, let's check the clustering. For Twitch, we have:
 
 ```{code-cell} ipython3
 print("Mean clustering in Twitch graph:",nx.average_clustering(twitch))
 ```
+
+And for BA, we get
 
 ```{code-cell} ipython3
 cbar = []
@@ -207,4 +219,4 @@ for iter in range(20):
 print("Mean clustering in BA graphs:",np.mean(cbar))
 ```
 
-The BA model is our closest approach so far, but it fails to produce the small-world effect that we find in the Twitch network.
+The BA model is our closest approach so far, but it fails to produce the close-knit neighbor subgraphs that we find in the Twitch network and the WS model.

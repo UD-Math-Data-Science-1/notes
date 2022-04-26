@@ -6,7 +6,7 @@ jupytext:
     format_version: 0.13
     jupytext_version: 1.11.5
 kernelspec:
-  display_name: Python 3
+  display_name: Python 3 (ipykernel)
   language: python
   name: python3
 ---
@@ -50,14 +50,26 @@ nx.draw(W,with_labels=True,node_color="lightblue")
 No node is more than two hops away from another, if the first hop is to node 0, so the diameter of this graph is 2. The average distance is somewhat smaller. This graph is so small that we can easily find the entire matrix of pairwise distances.
 
 ```{code-cell} ipython3
-D = np.array([ [nx.shortest_path_length(W,i,j) for j in range(7)] for i in range(7) ])
+nodes = list(W.nodes)
+n = len(nodes)
+D = np.zeros((n,n),dtype=int)
+for i in range(n):
+    for j in range(i+1,n):
+        D[i,j] = nx.shortest_path_length(W,nodes[i],nodes[j]) 
+
 print(D)
 ```
 
-Only the entries in the upper triangle need to be averaged. However, by the symmetry, we can sum over all the entries and divide by $2\binom{n}{2}$:
+The actual distance matrix is symmetric, but it's only necessary to compute its upper triangle. To get the average distance, we can sum over all the entries and divide by $\binom{n}{2}$:
 
 ```{code-cell} ipython3
-print("average distance:",D.sum()/(7*6))
+print("average distance:",2*D.sum()/(n*(n-1)))
+```
+
+There is a convenience function for computing this average. (It becomes slow as $n$ grows, though.)
+
+```{code-cell} ipython3
+print("average distance:",nx.average_shortest_path_length(W))
 ```
 
 ## Clustering
@@ -65,13 +77,13 @@ print("average distance:",D.sum()/(7*6))
 Intuitively, the idea behind clustering is that your friends tend to be friends of one another. There are various ways to quantify this precisely, but the easiest is the **local clustering coefficient**, defined for a node $i$ as
 
 $$
-C(i) = \frac{ 2 T(i) }{k_i(k_i-1)}.
+C(i) = \frac{ 2 T(i) }{d_i(d_i-1)}.
 $$
 
-In this formula, $k_i$ is the degree of the node and $T(i)$ is the number of edges between node $i$'s neighbors. Equivalently, $T(i)$ is the number of triangles in the graph that pass through node $i$. Because the subgraph of the friend nodes has
+In this formula, $d_i$ is the degree of the node and $T(i)$ is the number of edges between node $i$'s neighbors. Equivalently, $T(i)$ is the number of triangles in the graph that pass through node $i$. Because the subgraph of the friend nodes has
 
 $$
-\binom{k_i}{2}
+\binom{d_i}{2}
 $$
 
 possible edges, the maximum of $C(i)$ is 1.
@@ -94,14 +106,20 @@ $$
 :::
 ::::
 
-The `clustering` function in NetworkX computes $C(i)$ for any single node or all the nodes in a graph.
+In NetworkX, we can manually count the number of edges among neighbors of node 0 by examining their subgraph:
+
+```{code-cell} ipython3
+nbrhood = W.subgraph(W[1])
+print(nbrhood.number_of_edges(),"edges among neighbors of node 1")
+```
+
+More directly, though, the `clustering` function in NetworkX computes $C(i)$ for any single node, or for all the nodes in a graph.
 
 ```{code-cell} ipython3
 print("node 0 clustering:",nx.clustering(W,0))
-print("all nodes clustering:",nx.clustering(W))
+print("\nall nodes clustering:")
+print(pd.Series(nx.clustering(W),index=W.nodes))
 ```
-
-+++
 
 ## ER graphs
 
@@ -117,49 +135,58 @@ nx.is_connected(ER)
 nx.draw(ER,node_size=50)
 ```
 
-When no path exists between nodes, the only sensible definition of distance is infinity, and averages that include infinity are themselves infinite. We may have the same problem when it comes to clustering, since the degree of an isolated node is zero. 
-
-How often does this happen in ER graphs? The answer depends on the number of nodes $n$ and the edge inclusion probability $p$. For  $n=251$, $p=1/50$, the expected $\bar{k}$ is $5$, and a minority of instances are connected:
+When no path exists between two nodes, the only sensible definition of distance is infinity, and averages that include infinity are themselves infinite. In fact, NetworkX will give an error if we try to compute the average distance in a disconnected graph:
 
 ```{code-cell} ipython3
-n,p = 251,1/50
-is_connected = sum( nx.is_connected(nx.erdos_renyi_graph(n,p,seed=iter+1)) for iter in range(500) )
-print(f"{is_connected/500:.1%} are connected")
+nx.average_shortest_path_length(ER)
 ```
 
-If we increase the expected $\bar{k}$, then almost all of the instances are connected.
+We are also unable to compute the clustering coefficient at a node of degree zero.
+
+One way to cope with this eventuality is to decompose the graph into **connected components**, a disjoint separation of the nodes into connected subgraphs. We can use `nx.connected_components` to get node sets for each component.
 
 ```{code-cell} ipython3
-n,p = 251,1/25
-is_connected = sum( nx.is_connected(nx.erdos_renyi_graph(n,p,seed=iter+11)) for iter in range(500) )
-print(f"{is_connected/500:.1%} are connected")
+[len(cc) for cc in nx.connected_components(ER)]
+```
+
+The result above tells us that removing the lone unconnected node in the ER graph leaves us with a connected component. We can always get the largest component with the following:
+
+```{code-cell} ipython3
+ER_sub = ER.subgraph( max(nx.connected_components(ER), key=len) )
+print(ER_sub.number_of_nodes(),"nodes in largest component")
+```
+
+Now the average path length is a valid computation.
+
+```{code-cell} ipython3
+nx.average_shortest_path_length(ER_sub)
 ```
 
 Let's cut a little slack at this point and compute the distance and clustering for those ER graphs which happen to be connected.
 
 ```{code-cell} ipython3
-n,p = 251,1/25
+n,p = 121,1/20
 dbar,cbar = [],[]
-for iter in range(500):
-    ER = nx.erdos_renyi_graph(n,p,seed=iter+5)
-    if nx.is_connected(ER):
-        dbar.append(nx.average_shortest_path_length(ER))
-        cbar.append(nx.average_clustering(ER))        
+for iter in range(100):
+    ER = nx.erdos_renyi_graph(n,p,seed=iter+5000)
+    ER_sub = ER.subgraph( max(nx.connected_components(ER), key=len) )
+    dbar.append(nx.average_shortest_path_length(ER_sub))
+    cbar.append(nx.average_clustering(ER_sub))        
 
-print("average distances:")
+print("average distances in the largest component:")
 sns.displot(x=dbar,bins=13);
 ```
 
-The average distances above might seem surprisingly small for a randomly assembled graph on 250 nodes. The chances are good that any message could be passed along in three hops or fewer. But in fact, theory states that the mean distance in ER graphs is expected to be approximately 
+The chances are good that any message could be passed along in three hops or fewer. In fact, theory states that as $n\to\infty$, the mean distance in ER graphs is expected to be approximately 
 
 ```{math}
 :label: eq-small-world-ERdistance
-\frac{\ln(n)}{\ln(\bar{k})}
+\frac{\ln(n)}{\ln(\bar{k})}.
 ```
 
-as $n\to\infty$. For $n=251$ and $\bar{k}=10$ as in the experiment above, this value is about 2.4.
+For $n=121$ and $\bar{k}=6$ as in the experiment above, this value is about 2.68.
 
-Among connected ER graphs, the local clustering is close to zero:
+Meanwhile, the local clustering in these ER graphs is close to zero:
 
 ```{code-cell} ipython3
 print("average clustering:")
@@ -178,9 +205,9 @@ Let's consider the Twitch network again.
 
 ```{code-cell} ipython3
 twitch = nx.read_edgelist("musae_edges.csv",delimiter=',',nodetype=int)
-n,E = twitch.number_of_nodes(),twitch.number_of_edges()
-kbar = 2*E/n
-print(n,"nodes and",E,"edges")
+n,e = twitch.number_of_nodes(),twitch.number_of_edges()
+kbar = 2*e/n
+print(n,"nodes and",e,"edges")
 print(f"average degree is {kbar:.3f}")
 ```
 
@@ -212,16 +239,14 @@ print("\nEstimated mean distance:",distances.mean())
 Here are the clustering coefficients:
 
 ```{code-cell} ipython3
-cluster_coeffs = pd.Series([ nx.clustering(twitch,i) for i in twitch.nodes ])
-sns.displot(x=cluster_coeffs);
+cluster_coeffs = pd.Series(nx.clustering(twitch),index=twitch.nodes)
+sns.displot(data=cluster_coeffs);
 ```
-
-The distribution above casts some doubt about using the mean as a summary, but for the record, the value is
 
 ```{code-cell} ipython3
 :tags: []
 
-cluster_coeffs.mean()
+cluster_coeffs.describe()
 ```
 
 Let's compare these results to ER graphs with the same size and average degree, implying $p=\bar{k}/(n-1)$. It's time-consuming to sample enough graphs to be statistically meaningful, so we do just a few here to get a taste.
@@ -229,14 +254,13 @@ Let's compare these results to ER graphs with the same size and average degree, 
 ```{code-cell} ipython3
 p = kbar/(n-1)
 
-dbar = []
-cbar = []
+dbar,cbar = [],[]
 for iter in range(4):
-    ER = nx.erdos_renyi_graph(n,p,seed=iter)
-    if nx.is_connected(ER):
-        dist = [pairdist(ER) for _ in range(80)]
-        dbar.append(np.mean(dist))
-        cbar.append(nx.average_clustering(ER))        
+    ER = nx.erdos_renyi_graph(n,p,seed=iter+789)
+    ER_sub = ER.subgraph( max(nx.connected_components(ER), key=len) )
+    dist = [pairdist(ER_sub) for _ in range(80)]
+    dbar.append(np.mean(dist))
+    cbar.append(nx.average_clustering(ER_sub))        
 
 print("For ER graphs:")
 print("Average of mean distance:",np.mean(dbar))

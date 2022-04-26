@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>6.5. Centrality &#8212; Data Science 1</title>
+    <title>6.6. Centrality &#8212; Data Science 1</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet">
   <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -56,8 +56,8 @@
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="6.6. Exercises" href="exercises.html" />
-    <link rel="prev" title="6.4. Communities" href="community.html" />
+    <link rel="next" title="6.7. Exercises" href="exercises.html" />
+    <link rel="prev" title="6.5. Communities" href="community.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -333,28 +333,33 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="small-world.html">
-     6.2. Small-world networks
+    <a class="reference internal" href="clustering.html">
+     6.2. Clustering
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="distance.html">
+     6.3. Small-world networks
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="degree.html">
-     6.3. Degree distributions
+     6.4. Degree distributions
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="community.html">
-     6.4. Communities
+     6.5. Communities
     </a>
    </li>
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
-     6.5. Centrality
+     6.6. Centrality
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="exercises.html">
-     6.6. Exercises
+     6.7. Exercises
     </a>
    </li>
   </ul>
@@ -534,12 +539,13 @@
               <div>
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="centrality">
-<h1><span class="section-number">6.5. </span>Centrality<a class="headerlink" href="#centrality" title="Permalink to this headline">¶</a></h1>
+<h1><span class="section-number">6.6. </span>Centrality<a class="headerlink" href="#centrality" title="Permalink to this headline">¶</a></h1>
 <p>In some applications we might want to know which nodes of a network are the most important. For instance, we might want to find influential members of a social network, or nodes that are critical for efficient connections within the network. These traits go under the general name of <strong>centrality</strong>.</p>
 <p>An easy candidate for measuring the centrality of a node is its degree. Usually this is normalized by the number of nodes in the graph and called <strong>degree centrality</strong>. While it can yield useful infortmation in some networks, it is not always a reliable measuring stick. For example, consider the following Watts–Strogatz graph:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
 </pre></div>
@@ -562,7 +568,7 @@
 <p>There is little variation in the degrees of the nodes. In fact, there are only 3 unique values of the degree centrality:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">centrality</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;degree&quot;</span><span class="p">:</span><span class="n">nx</span><span class="o">.</span><span class="n">degree_centrality</span><span class="p">(</span><span class="n">G</span><span class="p">)})</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">centrality</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;degree&quot;</span><span class="p">:</span><span class="n">nx</span><span class="o">.</span><span class="n">degree_centrality</span><span class="p">(</span><span class="n">G</span><span class="p">)},</span><span class="n">index</span><span class="o">=</span><span class="n">G</span><span class="o">.</span><span class="n">nodes</span><span class="p">)</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">displot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">centrality</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;degree&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
@@ -581,7 +587,7 @@ c_B(k) = \frac{1}{\binom{n-1}{2}}\, \displaystyle\sum_{\substack{\text{all pairs
 \end{split}\]</div>
 <p>Each term in the sum is less than or equal to 1, and the number of terms in the sum is <span class="math notranslate nohighlight">\(\binom{n-1}{2}\)</span>, so <span class="math notranslate nohighlight">\(0\le c_B \le 1\)</span> for any node. The definition requires an expensive computation if the number of nodes is more than a few hundred, so the <span class="math notranslate nohighlight">\(\sigma\)</span> values are often estimated by sampling.</p>
 <div class="proof example admonition" id="example-centrality-between">
-<p class="admonition-title"><span class="caption-number">Example 6.5.1 </span></p>
+<p class="admonition-title"><span class="caption-number">Example 6.6.1 </span></p>
 <div class="example-content section" id="proof-content">
 <p>Find the betweenness centrality of the following <em>barbell graph</em>:</p>
 <a class="reference internal image-reference" href="../_images/barbell.svg"><img alt="barbell graph" class="align-center" src="../_images/barbell.svg" width="360px" /></a>
@@ -609,7 +615,7 @@ c_B(2) = \frac{1}{15} \cdot (2\cdot 4) = \frac{8}{15}.
 </div><p>The <code class="docutils literal notranslate"><span class="pre">betweenness_centrality</span></code> function returns a dictionary with nodes as keys and <span class="math notranslate nohighlight">\(c_B\)</span> as values.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">centrality</span><span class="p">[</span><span class="s2">&quot;between&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">betweenness_centrality</span><span class="p">(</span><span class="n">G</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">centrality</span><span class="p">[</span><span class="s2">&quot;between&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">betweenness_centrality</span><span class="p">(</span><span class="n">G</span><span class="p">))</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">displot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">centrality</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;between&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
@@ -645,7 +651,7 @@ x_i \stackrel{?}{=} \sum_{j=1}^n A_{ij} x_j, \quad i=1,\ldots,n.
 \]</div>
 <p>for a number <span class="math notranslate nohighlight">\(\lambda\)</span>. This is an <strong>eigenvalue equation</strong>, one of the fundamental problems in linear algebra.</p>
 <div class="proof example admonition" id="example-centrality-eigenvector">
-<p class="admonition-title"><span class="caption-number">Example 6.5.2 </span></p>
+<p class="admonition-title"><span class="caption-number">Example 6.6.2 </span></p>
 <div class="example-content section" id="proof-content">
 <p>Consider the complete graph <span class="math notranslate nohighlight">\(K_3\)</span>, which is just a triangle. Its adjacency matrix is</p>
 <div class="math notranslate nohighlight">
@@ -670,7 +676,7 @@ x_i \stackrel{?}{=} \sum_{j=1}^n A_{ij} x_j, \quad i=1,\ldots,n.
 <p>NetworkX has two functions for computing eigenvector centrality. Here we use the one that calls on numpy to solve the eigenvalue problem. As with betweenness centrality, the return value is a dictionary with nodes as the keys.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">centrality</span><span class="p">[</span><span class="s2">&quot;eigen&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">eigenvector_centrality_numpy</span><span class="p">(</span><span class="n">G</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">centrality</span><span class="p">[</span><span class="s2">&quot;eigen&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">eigenvector_centrality_numpy</span><span class="p">(</span><span class="n">G</span><span class="p">))</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">displot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">centrality</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;eigen&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
@@ -948,7 +954,7 @@ x_i \stackrel{?}{=} \sum_{j=1}^n A_{ij} x_j, \quad i=1,\ldots,n.
 <p>Degree centrality certainly notices the gregarious node 0:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">centrality</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;degree&quot;</span><span class="p">:</span><span class="n">nx</span><span class="o">.</span><span class="n">degree_centrality</span><span class="p">(</span><span class="n">G</span><span class="p">)})</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">centrality</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;degree&quot;</span><span class="p">:</span><span class="n">nx</span><span class="o">.</span><span class="n">degree_centrality</span><span class="p">(</span><span class="n">G</span><span class="p">)},</span><span class="n">index</span><span class="o">=</span><span class="n">G</span><span class="o">.</span><span class="n">nodes</span><span class="p">)</span>
 <span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">G</span><span class="p">,</span><span class="n">node_size</span><span class="o">=</span><span class="mi">1000</span><span class="o">*</span><span class="n">centrality</span><span class="p">[</span><span class="s2">&quot;degree&quot;</span><span class="p">],</span><span class="o">**</span><span class="n">style</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -960,7 +966,7 @@ x_i \stackrel{?}{=} \sum_{j=1}^n A_{ij} x_j, \quad i=1,\ldots,n.
 <p>However, as you see above, the secondary hubs do not stand out much. Betweenness centrality highlights them quite nicely here:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">centrality</span><span class="p">[</span><span class="s2">&quot;between&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">betweenness_centrality</span><span class="p">(</span><span class="n">G</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">centrality</span><span class="p">[</span><span class="s2">&quot;between&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">betweenness_centrality</span><span class="p">(</span><span class="n">G</span><span class="p">))</span>
 <span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">G</span><span class="p">,</span><span class="n">node_size</span><span class="o">=</span><span class="mi">600</span><span class="o">*</span><span class="n">centrality</span><span class="p">[</span><span class="s2">&quot;between&quot;</span><span class="p">],</span><span class="o">**</span><span class="n">style</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -972,7 +978,7 @@ x_i \stackrel{?}{=} \sum_{j=1}^n A_{ij} x_j, \quad i=1,\ldots,n.
 <p>On the other hand, eigenvector centrality puts a lot of emphasis on the friends of node 0, even the ones that are dead ends, at the expense of the secondary hubs:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">centrality</span><span class="p">[</span><span class="s2">&quot;eigen&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">eigenvector_centrality_numpy</span><span class="p">(</span><span class="n">G</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">centrality</span><span class="p">[</span><span class="s2">&quot;eigen&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">eigenvector_centrality_numpy</span><span class="p">(</span><span class="n">G</span><span class="p">))</span>
 <span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">G</span><span class="p">,</span><span class="n">node_size</span><span class="o">=</span><span class="mi">600</span><span class="o">*</span><span class="n">centrality</span><span class="p">[</span><span class="s2">&quot;eigen&quot;</span><span class="p">],</span><span class="o">**</span><span class="n">style</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1019,29 +1025,45 @@ x_i \stackrel{?}{=} \sum_{j=1}^n A_{ij} x_j, \quad i=1,\ldots,n.
 \]</div>
 <p>Hence the mathematical statement of the friendship paradox is</p>
 <div class="math notranslate nohighlight" id="equation-eq-centrality-friendship-paradox">
-<span class="eqno">(6.5.1)<a class="headerlink" href="#equation-eq-centrality-friendship-paradox" title="Permalink to this equation">¶</a></span>\[\frac{\onenorm{\mathbf{d}}}{n} \le \frac{\mathbf{d}^T \mathbf{d}}{\onenorm{\mathbf{d}}}.\]</div>
-<p>You are asked to prove this inequality in the exercises. The friendship paradox generalizes to eigenvector centrality: the average centrality of all nodes is less than the average of the centrality of all nodes’ friends. The mathematical statement is</p>
-<div class="math notranslate nohighlight" id="equation-eq-centrality-eigen-paradox">
-<span class="eqno">(6.5.2)<a class="headerlink" href="#equation-eq-centrality-eigen-paradox" title="Permalink to this equation">¶</a></span>\[\frac{\onenorm{\mathbf{x}}}{n} \le \frac{\mathbf{x}^T \mathbf{d}}{\onenorm{\mathbf{d}}},\]</div>
-<p>where <span class="math notranslate nohighlight">\(\bfx\)</span> is the eigenvector defining centrality of the nodes.</p>
+<span class="eqno">(6.6.1)<a class="headerlink" href="#equation-eq-centrality-friendship-paradox" title="Permalink to this equation">¶</a></span>\[\frac{\onenorm{\mathbf{d}}}{n} \le \frac{\mathbf{d}^T \mathbf{d}}{\onenorm{\mathbf{d}}}.\]</div>
+<p>You are asked to prove this inequality in the exercises. Here is a verification for the BA graph above:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="n">G</span><span class="o">.</span><span class="n">number_of_nodes</span><span class="p">()</span>
-<span class="n">x</span> <span class="o">=</span> <span class="n">centrality</span><span class="p">[</span><span class="s2">&quot;eigen&quot;</span><span class="p">]</span>
-<span class="n">d</span> <span class="o">=</span> <span class="n">centrality</span><span class="p">[</span><span class="s2">&quot;degree&quot;</span><span class="p">]</span><span class="o">*</span><span class="n">n</span>
-<span class="n">xbar</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">/</span><span class="n">n</span>
-<span class="n">xbar_friends</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">d</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">))</span><span class="o">/</span><span class="nb">sum</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+<span class="n">d</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">G</span><span class="o">.</span><span class="n">degree</span><span class="p">),</span><span class="n">index</span><span class="o">=</span><span class="n">G</span><span class="o">.</span><span class="n">nodes</span><span class="p">)</span>
+<span class="n">dbar</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">dbar_friends</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">d</span><span class="p">,</span><span class="n">d</span><span class="p">)</span><span class="o">/</span><span class="n">d</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">dbar</span><span class="p">,</span><span class="s2">&quot;is less than&quot;</span><span class="p">,</span><span class="n">dbar_friends</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.9666666666666666 is less than 4.389830508474576
+</pre></div>
+</div>
+</div>
+</div>
+<p>The friendship paradox generalizes to eigenvector centrality: the average centrality of all nodes is less than the average of the centrality of all nodes’ friends. The mathematical statement is</p>
+<div class="math notranslate nohighlight" id="equation-eq-centrality-eigen-paradox">
+<span class="eqno">(6.6.2)<a class="headerlink" href="#equation-eq-centrality-eigen-paradox" title="Permalink to this equation">¶</a></span>\[\frac{\onenorm{\mathbf{x}}}{n} \le \frac{\mathbf{x}^T \mathbf{d}}{\onenorm{\mathbf{d}}},\]</div>
+<p>where <span class="math notranslate nohighlight">\(\bfx\)</span> is the eigenvector defining centrality of the nodes.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">centrality</span><span class="p">[</span><span class="s2">&quot;eigen&quot;</span><span class="p">]</span>
+<span class="n">xbar</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">xbar_friends</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">d</span><span class="p">)</span><span class="o">/</span><span class="nb">sum</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">xbar</span><span class="p">,</span><span class="s2">&quot;is less than&quot;</span><span class="p">,</span><span class="n">xbar_friends</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.0758393626586202 is less than 0.15936510918420213
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.07583936265862014 is less than 0.15936510918420188
 </pre></div>
 </div>
 </div>
 </div>
-<p>In fact, the inequality for any vector <span class="math notranslate nohighlight">\(\bfx\)</span> is equivalent to <span class="math notranslate nohighlight">\(\bfx\)</span> having nonnegative correlation with the degree vector.</p>
+<p>In fact, the friendship paradox inequality for any vector <span class="math notranslate nohighlight">\(\bfx\)</span> is equivalent to <span class="math notranslate nohighlight">\(\bfx\)</span> having nonnegative correlation with the degree vector.</p>
 </div>
 </div>
 
@@ -1074,13 +1096,13 @@ x_i \stackrel{?}{=} \sum_{j=1}^n A_{ij} x_j, \quad i=1,\ldots,n.
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title"><span class="section-number">6.4. </span>Communities</p>
+            <p class="prev-next-title"><span class="section-number">6.5. </span>Communities</p>
         </div>
     </a>
     <a class='right-next' id="next-link" href="exercises.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">6.6. </span>Exercises</p>
+        <p class="prev-next-title"><span class="section-number">6.7. </span>Exercises</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

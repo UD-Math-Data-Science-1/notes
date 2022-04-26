@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>6.3. Degree distributions &#8212; Data Science 1</title>
+    <title>6.4. Degree distributions &#8212; Data Science 1</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet">
   <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -56,8 +56,8 @@
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="6.4. Communities" href="community.html" />
-    <link rel="prev" title="6.2. Small-world networks" href="small-world.html" />
+    <link rel="next" title="6.5. Communities" href="community.html" />
+    <link rel="prev" title="6.3. Distance" href="distance.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -333,28 +333,33 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="small-world.html">
-     6.2. Small-world networks
+    <a class="reference internal" href="clustering.html">
+     6.2. Clustering
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="distance.html">
+     6.3. Distance
     </a>
    </li>
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
-     6.3. Degree distributions
+     6.4. Degree distributions
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="community.html">
-     6.4. Communities
+     6.5. Communities
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="centrality.html">
-     6.5. Centrality
+     6.6. Centrality
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="exercises.html">
-     6.6. Exercises
+     6.7. Exercises
     </a>
    </li>
   </ul>
@@ -504,7 +509,7 @@
               <div>
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="degree-distributions">
-<h1><span class="section-number">6.3. </span>Degree distributions<a class="headerlink" href="#degree-distributions" title="Permalink to this headline">¶</a></h1>
+<h1><span class="section-number">6.4. </span>Degree distributions<a class="headerlink" href="#degree-distributions" title="Permalink to this headline">¶</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
@@ -515,74 +520,92 @@
 </div>
 </div>
 </div>
-<p>As we know, means of distributions do not always tell the entire story. For example, here is the distribution of the degrees of all the nodes in our Twitch network example.</p>
+<p>As we know, means of distributions do not always tell the entire story. For example, here is the distribution of the degrees of all the nodes in our Twitch network.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">twitch</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">read_edgelist</span><span class="p">(</span><span class="s2">&quot;musae_edges.csv&quot;</span><span class="p">,</span><span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">,</span><span class="n">nodetype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
-<span class="n">twitch_degrees</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">twitch</span><span class="o">.</span><span class="n">degree</span><span class="p">,</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;node&quot;</span><span class="p">,</span><span class="s2">&quot;degree&quot;</span><span class="p">])</span>
-<span class="n">hist</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">displot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">twitch_degrees</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;degree&quot;</span><span class="p">)</span>
+<span class="n">twitch_degrees</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">twitch</span><span class="o">.</span><span class="n">degree</span><span class="p">),</span><span class="n">index</span><span class="o">=</span><span class="n">twitch</span><span class="o">.</span><span class="n">nodes</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Twitch network degree distribution:&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">displot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">twitch_degrees</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/degree_3_0.png" src="../_images/degree_3_0.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Twitch network degree distribution:
+</pre></div>
+</div>
+<img alt="../_images/degree_3_1.png" src="../_images/degree_3_1.png" />
 </div>
 </div>
 <p>A few nodes in the network have hundreds of friends:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">friend_counts</span> <span class="o">=</span> <span class="n">twitch_degrees</span><span class="p">[</span><span class="s2">&quot;degree&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
-<span class="n">friend_counts</span><span class="o">.</span><span class="n">sort_values</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">friend_counts</span> <span class="o">=</span> <span class="n">twitch_degrees</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>  <span class="c1"># histogram heights</span>
+<span class="n">friend_counts</span><span class="o">.</span><span class="n">sort_index</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>86        1
-79        1
-135       1
-186       1
-154       1
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>720       1
+691       1
+465       1
+378       1
+352       1
        ... 
 5       458
 4       605
 3       761
 2       979
 1      1161
-Name: degree, Length: 130, dtype: int64
+Length: 130, dtype: int64
 </pre></div>
 </div>
 </div>
 </div>
 <p>These “gregarious nodes” or <em>hubs</em> create the heavy tail in the degree distribution.</p>
-<p>We can find the average degree of this network and create an ER graph with the same expected average degree.</p>
+<p>We can compare the above distribution to those in a collection of ER graphs with the same size and expected average degree.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="n">twitch</span><span class="o">.</span><span class="n">number_of_nodes</span><span class="p">()</span>
-<span class="n">kbar</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">twitch</span><span class="o">.</span><span class="n">number_of_edges</span><span class="p">()</span><span class="o">/</span><span class="n">n</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n</span><span class="p">,</span><span class="n">e</span> <span class="o">=</span> <span class="n">twitch</span><span class="o">.</span><span class="n">number_of_nodes</span><span class="p">(),</span><span class="n">twitch</span><span class="o">.</span><span class="n">number_of_edges</span><span class="p">()</span>
+<span class="n">kbar</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">e</span><span class="o">/</span><span class="n">n</span>
 <span class="n">p</span> <span class="o">=</span> <span class="n">kbar</span><span class="o">/</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">ER</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">erdos_renyi_graph</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">p</span><span class="p">,</span><span class="n">seed</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
-<span class="n">degrees</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">ER</span><span class="o">.</span><span class="n">degree</span><span class="p">,</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;node&quot;</span><span class="p">,</span><span class="s2">&quot;degree&quot;</span><span class="p">])</span>
-<span class="n">hist</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">displot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">degrees</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;degree&quot;</span><span class="p">)</span>
+<span class="n">degrees</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="nb">iter</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+    <span class="n">ER</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">erdos_renyi_graph</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">p</span><span class="p">,</span><span class="n">seed</span><span class="o">=</span><span class="mi">111</span><span class="o">+</span><span class="nb">iter</span><span class="p">)</span>
+    <span class="n">degrees</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">ER</span><span class="o">.</span><span class="n">degree</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">ER</span><span class="o">.</span><span class="n">nodes</span><span class="p">])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ER graphs degree distribution:&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">displot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">degrees</span><span class="p">,</span><span class="n">discrete</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/degree_8_0.png" src="../_images/degree_8_0.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ER graphs degree distribution:
+</pre></div>
+</div>
+<img alt="../_images/degree_8_1.png" src="../_images/degree_8_1.png" />
 </div>
 </div>
-<p>We already know that ER fails to replicate the clustering of the Twitch network. The dramatic difference in degree distributions confirms its unsuitability as a model.</p>
+<p>Theory proves that the plot above converges to a <em>binomial distribution</em>. This is yet another indicator that the ER model does not explain the Twitch network well.</p>
 <p>A WS graph likewise lacks the proper heavy tail in the Twitch degree distribution:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">k</span><span class="p">,</span><span class="n">q</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span><span class="mf">0.4</span>
-<span class="n">WS</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">watts_strogatz_graph</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">k</span><span class="p">,</span><span class="n">q</span><span class="p">,</span><span class="n">seed</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
-<span class="n">degrees</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">WS</span><span class="o">.</span><span class="n">degree</span><span class="p">,</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;node&quot;</span><span class="p">,</span><span class="s2">&quot;degree&quot;</span><span class="p">])</span>
-<span class="n">hist</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">displot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">degrees</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;degree&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">k</span><span class="p">,</span><span class="n">q</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span><span class="mf">0.42</span>
+<span class="n">degrees</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="nb">iter</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+    <span class="n">WS</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">watts_strogatz_graph</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">k</span><span class="p">,</span><span class="n">q</span><span class="p">,</span><span class="n">seed</span><span class="o">=</span><span class="mi">222</span><span class="o">+</span><span class="nb">iter</span><span class="p">)</span>
+    <span class="n">degrees</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">WS</span><span class="o">.</span><span class="n">degree</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">WS</span><span class="o">.</span><span class="n">nodes</span><span class="p">])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;WS graphs degree distribution:&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">displot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">degrees</span><span class="p">,</span><span class="n">discrete</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/degree_10_0.png" src="../_images/degree_10_0.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>WS graphs degree distribution:
+</pre></div>
+</div>
+<img alt="../_images/degree_10_1.png" src="../_images/degree_10_1.png" />
 </div>
 </div>
 <div class="section" id="power-law-distribution">
@@ -590,7 +613,7 @@ Name: degree, Length: 130, dtype: int64
 <p>The behavior of the Twitch degree distribution gets very interesting when the axes are transformed to use log scales:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hist</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">displot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">twitch_degrees</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;degree&quot;</span><span class="p">,</span><span class="n">log_scale</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hist</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">displot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">twitch_degrees</span><span class="p">,</span><span class="n">log_scale</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">hist</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_yscale</span><span class="p">(</span><span class="s2">&quot;log&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -613,7 +636,7 @@ y \approx B x^{-a},
 <p>Note that the decay of <span class="math notranslate nohighlight">\(x^{-a}\)</span> to zero as <span class="math notranslate nohighlight">\(x\to\infty\)</span> is much slower than, say, the normal distribution’s <span class="math notranslate nohighlight">\(e^{-x^2/2}\)</span>, or even just an exponential <span class="math notranslate nohighlight">\(e^{-cx}\)</span>. This last comparison is how a <em>heavy-tailed distribution</em> is usually defined. One effect is that there is a significant disparity between the mean and median values of the node degrees:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">twitch_degrees</span><span class="p">[</span><span class="s2">&quot;degree&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">twitch_degrees</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -626,7 +649,7 @@ min         1.000000
 50%         5.000000
 75%        11.000000
 max       720.000000
-Name: degree, dtype: float64
+dtype: float64
 </pre></div>
 </div>
 </div>
@@ -635,17 +658,75 @@ Name: degree, dtype: float64
 <p>We can get a fair estimate of the constants <span class="math notranslate nohighlight">\(B\)</span> and <span class="math notranslate nohighlight">\(a\)</span> in the power law by doing a least-squares fit on the logs of <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span>. First, we need the counts:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y</span> <span class="o">=</span> <span class="n">twitch_degrees</span><span class="p">[</span><span class="s2">&quot;degree&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y</span> <span class="o">=</span> <span class="n">twitch_degrees</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
 <span class="n">counts</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;degree&quot;</span><span class="p">:</span><span class="n">y</span><span class="o">.</span><span class="n">index</span><span class="p">,</span><span class="s2">&quot;count&quot;</span><span class="p">:</span><span class="n">y</span><span class="o">.</span><span class="n">values</span><span class="p">})</span>
 <span class="n">counts</span> <span class="o">=</span> <span class="n">counts</span><span class="p">[(</span><span class="n">counts</span><span class="p">[</span><span class="s2">&quot;count&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">counts</span><span class="p">[</span><span class="s2">&quot;count&quot;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">200</span><span class="p">)];</span>
+<span class="n">counts</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>degree</th>
+      <th>count</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>10</th>
+      <td>11</td>
+      <td>193</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>12</td>
+      <td>155</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>13</td>
+      <td>131</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>14</td>
+      <td>122</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>15</td>
+      <td>103</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>17</td>
+      <td>83</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 <p>Now we will get additional columns by log transformations. (Note: the <code class="docutils literal notranslate"><span class="pre">np.log</span></code> function is the natural logarithm.)</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">counts</span><span class="p">[[</span><span class="s2">&quot;log_x&quot;</span><span class="p">,</span><span class="s2">&quot;log_y&quot;</span><span class="p">]]</span> <span class="o">=</span> <span class="n">counts</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">counts</span><span class="p">[[</span><span class="s2">&quot;log_degree&quot;</span><span class="p">,</span><span class="s2">&quot;log_count&quot;</span><span class="p">]]</span> <span class="o">=</span> <span class="n">counts</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -655,7 +736,7 @@ Name: degree, dtype: float64
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LinearRegression</span>
 <span class="n">lm</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span>
-<span class="n">lm</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">counts</span><span class="p">[[</span><span class="s2">&quot;log_x&quot;</span><span class="p">]],</span><span class="n">counts</span><span class="p">[</span><span class="s2">&quot;log_y&quot;</span><span class="p">])</span>
+<span class="n">lm</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">counts</span><span class="p">[[</span><span class="s2">&quot;log_degree&quot;</span><span class="p">]],</span><span class="n">counts</span><span class="p">[</span><span class="s2">&quot;log_count&quot;</span><span class="p">])</span>
 <span class="n">lm</span><span class="o">.</span><span class="n">coef_</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">lm</span><span class="o">.</span><span class="n">intercept_</span>
 </pre></div>
 </div>
@@ -666,7 +747,7 @@ Name: degree, dtype: float64
 </div>
 </div>
 </div>
-<p>The first value, which is both the slope of the line and the exponent of <span class="math notranslate nohighlight">\(x\)</span> the power law, is the most interesting part. It estimates that the degree counts vary as <span class="math notranslate nohighlight">\(Bx^{-2.1}\)</span> over a wide range of degrees.</p>
+<p>The first value, which is both the slope of the line and the exponent of <span class="math notranslate nohighlight">\(x\)</span> in the power law, is the most interesting part. It estimates that the degree counts vary as <span class="math notranslate nohighlight">\(Bx^{-2.1}\)</span> over a wide range of degrees.</p>
 </div>
 <div class="section" id="barabasialbert-graphs">
 <h2>Barabási–Albert graphs<a class="headerlink" href="#barabasialbert-graphs" title="Permalink to this headline">¶</a></h2>
@@ -674,8 +755,8 @@ Name: degree, dtype: float64
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">BA</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">barabasi_albert_graph</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="n">seed</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">BA_degrees</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">BA</span><span class="o">.</span><span class="n">degree</span><span class="p">,</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;node&quot;</span><span class="p">,</span><span class="s2">&quot;degree&quot;</span><span class="p">])</span>
-<span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">BA</span><span class="p">,</span><span class="n">node_size</span><span class="o">=</span><span class="mi">8</span><span class="o">*</span><span class="n">BA_degrees</span><span class="p">[</span><span class="s2">&quot;degree&quot;</span><span class="p">],</span><span class="n">node_color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">)</span>
+<span class="n">BA_degrees</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">BA</span><span class="o">.</span><span class="n">degree</span><span class="p">),</span><span class="n">index</span><span class="o">=</span><span class="n">BA</span><span class="o">.</span><span class="n">nodes</span><span class="p">)</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">BA</span><span class="p">,</span><span class="n">node_size</span><span class="o">=</span><span class="mi">8</span><span class="o">*</span><span class="n">BA_degrees</span><span class="p">,</span><span class="n">node_color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -688,8 +769,8 @@ Name: degree, dtype: float64
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">kbar</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
 <span class="n">BA</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">barabasi_albert_graph</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">m</span><span class="p">,</span><span class="n">seed</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
-<span class="n">BA_degrees</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">BA</span><span class="o">.</span><span class="n">degree</span><span class="p">,</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;node&quot;</span><span class="p">,</span><span class="s2">&quot;degree&quot;</span><span class="p">])</span>
-<span class="n">hist</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">displot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">BA_degrees</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;degree&quot;</span><span class="p">,</span><span class="n">log_scale</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">BA_degrees</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">BA</span><span class="o">.</span><span class="n">degree</span><span class="p">),</span><span class="n">index</span><span class="o">=</span><span class="n">BA</span><span class="o">.</span><span class="n">nodes</span><span class="p">)</span>
+<span class="n">hist</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">displot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">BA_degrees</span><span class="p">,</span><span class="n">log_scale</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">hist</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_yscale</span><span class="p">(</span><span class="s2">&quot;log&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -701,12 +782,12 @@ Name: degree, dtype: float64
 <p>Theory predicts that the exponent of the power-law distribution in a BA graph is <span class="math notranslate nohighlight">\(-3\)</span>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y</span> <span class="o">=</span> <span class="n">BA_degrees</span><span class="p">[</span><span class="s2">&quot;degree&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y</span> <span class="o">=</span> <span class="n">BA_degrees</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
 <span class="n">counts</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;degree&quot;</span><span class="p">:</span><span class="n">y</span><span class="o">.</span><span class="n">index</span><span class="p">,</span><span class="s2">&quot;count&quot;</span><span class="p">:</span><span class="n">y</span><span class="o">.</span><span class="n">values</span><span class="p">})</span>
 <span class="n">counts</span> <span class="o">=</span> <span class="n">counts</span><span class="p">[(</span><span class="n">counts</span><span class="p">[</span><span class="s2">&quot;count&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">counts</span><span class="p">[</span><span class="s2">&quot;count&quot;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">100</span><span class="p">)];</span>
-<span class="n">counts</span><span class="p">[[</span><span class="s2">&quot;log_x&quot;</span><span class="p">,</span><span class="s2">&quot;log_y&quot;</span><span class="p">]]</span> <span class="o">=</span> <span class="n">counts</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">)</span>
+<span class="n">counts</span><span class="p">[[</span><span class="s2">&quot;log_degree&quot;</span><span class="p">,</span><span class="s2">&quot;log_count&quot;</span><span class="p">]]</span> <span class="o">=</span> <span class="n">counts</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">)</span>
 <span class="n">lm</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span>
-<span class="n">lm</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">counts</span><span class="p">[[</span><span class="s2">&quot;log_x&quot;</span><span class="p">]],</span><span class="n">counts</span><span class="p">[</span><span class="s2">&quot;log_y&quot;</span><span class="p">])</span>
+<span class="n">lm</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">counts</span><span class="p">[[</span><span class="s2">&quot;log_degree&quot;</span><span class="p">]],</span><span class="n">counts</span><span class="p">[</span><span class="s2">&quot;log_count&quot;</span><span class="p">])</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;exponent of power law:&quot;</span><span class="p">,</span><span class="n">lm</span><span class="o">.</span><span class="n">coef_</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 </pre></div>
 </div>
@@ -760,7 +841,7 @@ Name: degree, dtype: float64
 </div>
 </div>
 </div>
-<p>Not bad! Now, let’s check the clustering:</p>
+<p>Not bad! Now, let’s check the clustering. For Twitch, we have:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Mean clustering in Twitch graph:&quot;</span><span class="p">,</span><span class="n">nx</span><span class="o">.</span><span class="n">average_clustering</span><span class="p">(</span><span class="n">twitch</span><span class="p">))</span>
@@ -773,6 +854,7 @@ Name: degree, dtype: float64
 </div>
 </div>
 </div>
+<p>And for BA, we get</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cbar</span> <span class="o">=</span> <span class="p">[]</span>
@@ -792,7 +874,7 @@ Name: degree, dtype: float64
 </div>
 </div>
 </div>
-<p>The BA model is our closest approach so far, but it fails to produce the small-world effect that we find in the Twitch network.</p>
+<p>The BA model is our closest approach so far, but it fails to produce the close-knit neighbor subgraphs that we find in the Twitch network and the WS model.</p>
 </div>
 </div>
 
@@ -821,17 +903,17 @@ Name: degree, dtype: float64
             
                 <!-- Previous / next buttons -->
 <div class='prev-next-area'> 
-    <a class='left-prev' id="prev-link" href="small-world.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="distance.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title"><span class="section-number">6.2. </span>Small-world networks</p>
+            <p class="prev-next-title"><span class="section-number">6.3. </span>Distance</p>
         </div>
     </a>
     <a class='right-next' id="next-link" href="community.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">6.4. </span>Communities</p>
+        <p class="prev-next-title"><span class="section-number">6.5. </span>Communities</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
