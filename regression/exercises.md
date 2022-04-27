@@ -43,13 +43,13 @@
 
     Let $f(x_1,x_2)$ be a kNN regressor with $k=4$, Euclidean metric, and mean averaging. Carefully sketch a one-dimensional plot of $f$ along the given line.
 
-    **(a)** $f(1.2,t)$ for $-3\le t \le 3$
+    **(a)** $f(1.2,t)$ for $2\le t \le 2$
     
-    **(b)** $f(t,-0.75)$ for $-3\le t \le 3$
+    **(b)** $f(t,-0.75)$ for $2\le t \le 2$
     
-    **(c)** $f(t,1.6)$ for $-3\le t \le 3$
+    **(c)** $f(t,1.6)$ for $2\le t \le 2$
     
-    **(d)** $f(-0.25,t)$ for $-3\le t \le 3$
+    **(d)** $f(-0.25,t)$ for $2\le t \le 2$
 
 10. Here are blue/orange labels on an integer lattice.
 
@@ -58,13 +58,13 @@
 
     Let $f(x_1,x_2)$ be a kNN probabilistic classifier with $k=4$, Euclidean metric, and mean averaging. Carefully sketch a one-dimensional plot of the probability of the blue class along the given line.
 
-    **(a)** $f(1.2,t)$ for $-3\le t \le 3$
+    **(a)** $f(1.2,t)$ for $2\le t \le 2$
     
-    **(b)** $f(t,-0.75)$ for $-3\le t \le 3$
+    **(b)** $f(t,-0.75)$ for $2\le t \le 2$
     
-    **(c)** $f(t,1.6)$ for $-3\le t \le 3$
+    **(c)** $f(t,1.6)$ for $2\le t \le 2$
     
-    **(d)** $f(-0.25,t)$ for $-3\le t \le 3$
+    **(d)** $f(-0.25,t)$ for $2\le t \le 2$
 
 11. Here are some label values and probabilistic predicted categories for them.
 
