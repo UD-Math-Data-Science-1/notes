@@ -6,7 +6,7 @@ jupytext:
     format_version: 0.13
     jupytext_version: 1.11.5
 kernelspec:
-  display_name: Python 3
+  display_name: Python 3 (ipykernel)
   language: python
   name: python3
 ---
@@ -21,6 +21,7 @@ An easy candidate for measuring the centrality of a node is its degree. Usually 
 
 ```{code-cell} ipython3
 import networkx as nx
+import numpy as np
 import pandas as pd
 import seaborn as sns
 ```
@@ -37,7 +38,7 @@ There is little variation in the degrees of the nodes. In fact, there are only 3
 ```{code-cell} ipython3
 :tags: []
 
-centrality = pd.DataFrame({"degree":nx.degree_centrality(G)})
+centrality = pd.DataFrame({"degree":nx.degree_centrality(G)},index=G.nodes)
 sns.displot(data=centrality,x="degree");
 ```
 
@@ -86,7 +87,7 @@ All the other nodes play no role in any shortest paths. For instance, any path p
 The `betweenness_centrality` function returns a dictionary with nodes as keys and $c_B$ as values.
 
 ```{code-cell} ipython3
-centrality["between"] = nx.betweenness_centrality(G).values()
+centrality["between"] = pd.Series(nx.betweenness_centrality(G))
 sns.displot(data=centrality,x="between");
 ```
 
@@ -153,7 +154,7 @@ Every $n\times n$ matrix has at least one nonzero solution to the eigenvalue equ
 NetworkX has two functions for computing eigenvector centrality. Here we use the one that calls on numpy to solve the eigenvalue problem. As with betweenness centrality, the return value is a dictionary with nodes as the keys.
 
 ```{code-cell} ipython3
-centrality["eigen"] = nx.eigenvector_centrality_numpy(G).values()
+centrality["eigen"] = pd.Series(nx.eigenvector_centrality_numpy(G))
 sns.displot(data=centrality,x="eigen");
 ```
 
@@ -210,21 +211,21 @@ nx.draw(G,**style,node_size=120)
 Degree centrality certainly notices the gregarious node 0:
 
 ```{code-cell} ipython3
-centrality = pd.DataFrame({"degree":nx.degree_centrality(G)})
+centrality = pd.DataFrame({"degree":nx.degree_centrality(G)},index=G.nodes)
 nx.draw(G,node_size=1000*centrality["degree"],**style)
 ```
 
 However, as you see above, the secondary hubs do not stand out much. Betweenness centrality highlights them quite nicely here:
 
 ```{code-cell} ipython3
-centrality["between"] = nx.betweenness_centrality(G).values()
+centrality["between"] = pd.Series(nx.betweenness_centrality(G))
 nx.draw(G,node_size=600*centrality["between"],**style)
 ```
 
 On the other hand, eigenvector centrality puts a lot of emphasis on the friends of node 0, even the ones that are dead ends, at the expense of the secondary hubs:
 
 ```{code-cell} ipython3
-centrality["eigen"] = nx.eigenvector_centrality_numpy(G).values()
+centrality["eigen"] = pd.Series(nx.eigenvector_centrality_numpy(G))
 nx.draw(G,node_size=600*centrality["eigen"],**style)
 ```
 
@@ -270,7 +271,18 @@ Hence the mathematical statement of the friendship paradox is
 \frac{\onenorm{\mathbf{d}}}{n} \le \frac{\mathbf{d}^T \mathbf{d}}{\onenorm{\mathbf{d}}}.
 ::::
 
-You are asked to prove this inequality in the exercises. The friendship paradox generalizes to eigenvector centrality: the average centrality of all nodes is less than the average of the centrality of all nodes' friends. The mathematical statement is 
+You are asked to prove this inequality in the exercises. Here is a verification for the BA graph above:
+
+```{code-cell} ipython3
+n = G.number_of_nodes()
+d = pd.Series(dict(G.degree),index=G.nodes)
+dbar = d.mean()
+dbar_friends = np.dot(d,d)/d.sum()
+
+print(dbar,"is less than",dbar_friends)
+```
+
+The friendship paradox generalizes to eigenvector centrality: the average centrality of all nodes is less than the average of the centrality of all nodes' friends. The mathematical statement is 
 
 ::::{math}
 :label: eq-centrality-eigen-paradox
@@ -280,12 +292,10 @@ You are asked to prove this inequality in the exercises. The friendship paradox 
 where $\bfx$ is the eigenvector defining centrality of the nodes.
 
 ```{code-cell} ipython3
-n = G.number_of_nodes()
 x = centrality["eigen"]
-d = centrality["degree"]*n
-xbar = sum(x)/n
-xbar_friends = sum(x[i]*d[i] for i in range(n))/sum(d)
+xbar = x.mean()
+xbar_friends = np.dot(x,d)/sum(d)
 print(xbar,"is less than",xbar_friends)
 ```
 
-In fact, the inequality for any vector $\bfx$ is equivalent to $\bfx$ having nonnegative correlation with the degree vector.
+In fact, the friendship paradox inequality for any vector $\bfx$ is equivalent to $\bfx$ having nonnegative correlation with the degree vector.
