@@ -147,7 +147,13 @@ BA_degrees = pd.Series(dict(BA.degree),index=BA.nodes)
 nx.draw(BA,node_size=8*BA_degrees,node_color="red")
 ```
 
-Since we add $m$ edges (almost) $n$ times, the expected average degree is $2mn/n=2m$. When we scale the construction up to the size and average degree of the Twitch network, a power-law distribution emerges.
+When we match these graphs to the size and average degree of the Twitch network, a power-law distribution emerges.
+Since we add $m$ edges (almost) $n$ times, the expected average degree is $2mn/n=2m$. Therefore, in the BA construction we want to choose 
+
+$$
+m \approx \frac{\bar{k}}{2}. 
+$$
+
 
 ```{code-cell} ipython3
 :tags: []
