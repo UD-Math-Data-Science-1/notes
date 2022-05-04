@@ -26,7 +26,7 @@ The **distance** between two nodes in a connected graph is the number of edges i
 
 ```{code-cell} ipython3
 K5 = nx.complete_graph(5)
-dist = [ nx.shortest_path_length(K5,0,i) for i in K5.nodes ]
+dist = pd.Series(nx.shortest_path_length(K5,0),index=K5.nodes)
 print("Distance from node 0:",dist)
 ```
 
@@ -113,7 +113,7 @@ print("average distance in the big component of ER graphs:")
 sns.displot(x=dbar,bins=13);
 ```
 
-The chances are good, therefore that any message could be passed along in three hops or fewer (within the big component). In fact, theory states that as $n\to\infty$, the mean distance in ER graphs is expected to be approximately 
+The chances are good, therefore, that any message could be passed along in three hops or fewer (within the big component). In fact, theory states that as $n\to\infty$, the mean distance in ER graphs is expected to be approximately 
 
 ```{math}
 :label: eq-small-world-ERdistance

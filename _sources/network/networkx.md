@@ -4,9 +4,9 @@ jupytext:
     extension: .md
     format_name: myst
     format_version: 0.13
-    jupytext_version: 1.11.5
+    jupytext_version: 1.13.8
 kernelspec:
-  display_name: Python 3 (ipykernel)
+  display_name: Python 3
   language: python
   name: python3
 ---
@@ -49,7 +49,7 @@ nx.draw(H,with_labels=True,node_color="lightblue")
 
 We can conversely deconstruct a graph object into its nodes and edges. The results have special types that may need to be converted into sets, lists, or other objects.
 
-```{code-cell}
+```{code-cell} ipython3
 print("Nodes as a list:")
 print( list(star.nodes) )
 print("\nNodes as an Index:")
@@ -58,7 +58,7 @@ print( pd.Index(star.nodes) )
 
 It's also easy to find out which nodes are **adjacent** to a given node, i.e., connected to it by an edge. The result is that node's list of **neighbors**.
 
-```{code-cell}
+```{code-cell} ipython3
 print("Neighbors of node 3 in graph H:",list(H[3]))
 ```
 
@@ -68,6 +68,12 @@ There are functions that generate different well-studied types of graphs. The fi
 
 ```{code-cell} ipython3
 nx.draw(nx.cycle_graph(9))
+```
+
+A cross between the star and the cycle is a **wheel graph**.
+
+```{code-cell} ipython3
+nx.draw(nx.wheel_graph(9))
 ```
 
 A **complete graph** is one that has every possible edge.
@@ -84,7 +90,7 @@ $$
 \binom{n}{2} = \frac{n!}{(n-2)!2!} = \frac{n(n-1)}{2}
 $$
 
-unique pairs of distinct nodes. Hence, that is the number of edges in the undirected complete graph on $n$ nodes.
+unique pairs of distinct nodes. Hence, there are $\binom{n}{2}$ edges in the undirected complete graph on $n$ nodes.
 
 A **lattice graph** has a regular structure, like graph paper.
 
@@ -119,7 +125,7 @@ A = nx.adjacency_matrix(star)
 A
 ```
 
-Observe that `A` is not stored in the format we have been used to. In a large network we would expect most of its entries to be zero, so it makes more sense to store it as a *sparse matrix*, where we keep track of only the nonzero entries:
+The matrix `A` is not stored in the format we have been used to. In a large network we would expect most of its entries to be zero, so it makes more sense to store it as a *sparse matrix*, where we keep track of only the nonzero entries.
 
 ```{code-cell} ipython3
 print(A)
@@ -135,7 +141,7 @@ In an undirected graph, we have $A_{ij}=A_{ji}$ everywhere, and we say that $A$ 
 
 ## Importing networks
 
-There are many ways to read graphs from (and write them to) files. For example, here is a friend network among Twitch users. 
+There are many ways to read graphs from (and write them to) files. For example, here is a friend network among Twitch users.
 
 ```{code-cell} ipython3
 twitch = nx.read_edgelist("musae_edges.csv",delimiter=',',nodetype=int)
@@ -186,7 +192,7 @@ It can be convenient to use a series or frame to keep track of quantities like d
 
 ```{code-cell} ipython3
 nodes = pd.Index(ego.nodes)
-degrees = pd.Series([ego.degree[i] for i in nodes],index=nodes)
+degrees = pd.Series(dict(ego.degree),index=nodes)
 print("average degree of ego graph:",degrees.mean())
 ```
 
@@ -243,6 +249,7 @@ for iter in range(10000):
 
 sns.displot(x=kbar,bins=16);
 ```
+
 <div style="max-width:608px"><div style="position:relative;padding-bottom:66.118421052632%"><iframe id="kaltura_player" src="https://cdnapisec.kaltura.com/p/2358381/sp/235838100/embedIframeJs/uiconf_id/43030021/partner_id/2358381?iframeembed=true&playerId=kaltura_player&entry_id=1_0jts2mos&flashvars[streamerType]=auto&amp;flashvars[localizationCode]=en&amp;flashvars[leadWithHTML5]=true&amp;flashvars[sideBarContainer.plugin]=true&amp;flashvars[sideBarContainer.position]=left&amp;flashvars[sideBarContainer.clickToClose]=true&amp;flashvars[chapters.plugin]=true&amp;flashvars[chapters.layout]=vertical&amp;flashvars[chapters.thumbnailRotator]=false&amp;flashvars[streamSelector.plugin]=true&amp;flashvars[EmbedPlayer.SpinnerTarget]=videoHolder&amp;flashvars[dualScreen.plugin]=true&amp;flashvars[Kaltura.addCrossoriginToIframe]=true&amp;&wid=1_sra0i78m" width="608" height="402" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen *; encrypted-media *" sandbox="allow-forms allow-same-origin allow-scripts allow-top-navigation allow-pointer-lock allow-popups allow-modals allow-orientation-lock allow-popups-to-escape-sandbox allow-presentation allow-top-navigation-by-user-activation" frameborder="0" title="Kaltura Player" style="position:absolute;top:0;left:0;width:100%;height:100%"></iframe></div></div>
 
 <!-- 
