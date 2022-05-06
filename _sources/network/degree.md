@@ -20,13 +20,17 @@ import numpy as np
 import seaborn as sns
 ```
 
-As we know, means of distributions do not always tell the entire story. For example, here is the distribution of the degrees of all the nodes in our Twitch network.
+As we know, means of distributions do not always tell the entire story. For example, the distribution of the degrees of all the nodes in our Twitch network has some surprising features.
 
 ```{code-cell} ipython3
-:tags: []
-
 twitch = nx.read_edgelist("musae_edges.csv",delimiter=',',nodetype=int)
 twitch_degrees = pd.Series(dict(twitch.degree),index=twitch.nodes)
+twitch_degrees.describe()
+```
+
+Observe above that that there is a significant disparity between the mean and median values of the degree distribution, and that the standard deviation is much larger than the mean. A histogram plot confirms that the degree distribution is widely dispersed:
+
+```{code-cell} ipython3
 print("Twitch network degree distribution:")
 sns.displot(data=twitch_degrees);
 ```
@@ -40,11 +44,11 @@ friend_counts = twitch_degrees.value_counts()  # histogram heights
 friend_counts.sort_index(ascending=False)
 ```
 
-These "gregarious nodes" or *hubs* create the heavy tail in the degree distribution.
+These "gregarious nodes" or *hubs* are characteristic of many social and other real-world networks.
 
 +++
 
-We can compare the above distribution to those in a collection of ER graphs with the same size and expected average degree.
+We can compare the above distribution to that in a collection of ER graphs with the same size and expected average degree.
 
 ```{code-cell} ipython3
 n,e = twitch.number_of_nodes(),twitch.number_of_edges()
@@ -61,9 +65,7 @@ sns.displot(data=degrees,discrete=True);
 
 +++ {"tags": []}
 
-Theory proves that the plot above converges to a *binomial distribution*. This is yet another indicator that the ER model does not explain the Twitch network well.
-
-A WS graph likewise lacks the proper heavy tail in the Twitch degree distribution:
+Theory proves that the plot above converges to a *binomial distribution*. This is yet another indicator that the ER model does not explain the Twitch network well. A WS graph has a similar distribution:
 
 ```{code-cell} ipython3
 k,q = 10,0.42
@@ -99,13 +101,7 @@ $$
 
 for some $a > 0$. This relationship is known as a **power law**. Many social networks seem to follow a power-law distribution of node degrees, to some extent. (The precise extent is a subject of hot debate.)
 
-Note that the decay of $x^{-a}$ to zero as $x\to\infty$ is much slower than, say, the normal distribution's $e^{-x^2/2}$, or even just an exponential $e^{-cx}$. This last comparison is how a *heavy-tailed distribution* is usually defined. One effect is that there is a significant disparity between the mean and median values of the node degrees:
-
-```{code-cell} ipython3
-twitch_degrees.describe()
-```
-
-The summary above also shows that the standard deviation is much larger than the mean. This is another indication that the degree distribution is widely dispersed over orders of magnitude.
+Note that the decay of $x^{-a}$ to zero as $x\to\infty$ is much slower than, say, the normal distribution's $e^{-x^2/2}$, or even just an exponential $e^{-cx}$. This last comparison is how a *heavy-tailed distribution* is usually defined. 
 
 +++
 
@@ -114,14 +110,14 @@ We can get a fair estimate of the constants $B$ and $a$ in the power law by doin
 ```{code-cell} ipython3
 y = twitch_degrees.value_counts()
 counts = pd.DataFrame({"degree":y.index,"count":y.values})
-counts = counts[(counts["count"] > 10) & (counts["count"] < 200)];
+counts = counts[(counts["degree"] > 10) & (counts["degree"] < 200)];
 counts.head(6)
 ```
 
 Now we will get additional columns by log transformations. (Note: the `np.log` function is the natural logarithm.)
 
 ```{code-cell} ipython3
-counts[["log_degree","log_count"]] = counts.transform(np.log)
+logcounts = counts.transform(np.log)
 ```
 
 Now we use `sklearn` for a linear regression.
@@ -129,7 +125,7 @@ Now we use `sklearn` for a linear regression.
 ```{code-cell} ipython3
 from sklearn.linear_model import LinearRegression
 lm = LinearRegression()
-lm.fit(counts[["log_degree"]],counts["log_count"])
+lm.fit(logcounts[["degree"]],logcounts["count"])
 lm.coef_[0],lm.intercept_
 ```
 
@@ -170,10 +166,9 @@ Theory predicts that the exponent of the power-law distribution in a BA graph is
 ```{code-cell} ipython3
 y = BA_degrees.value_counts()
 counts = pd.DataFrame({"degree":y.index,"count":y.values})
-counts = counts[(counts["count"] > 10) & (counts["count"] < 100)];
-counts[["log_degree","log_count"]] = counts.transform(np.log)
-lm = LinearRegression()
-lm.fit(counts[["log_degree"]],counts["log_count"])
+counts = counts[(counts["degree"] > 5) & (counts["degree"] < 80)];
+logcounts = counts.transform(np.log)
+lm.fit(logcounts[["degree"]],logcounts["count"])
 print("exponent of power law:",lm.coef_[0])
 ```
 

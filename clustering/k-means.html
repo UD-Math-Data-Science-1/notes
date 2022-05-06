@@ -23,7 +23,7 @@
 
     
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=84ace793992934648b4de8eed757e5a2" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
@@ -39,22 +39,20 @@
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
-    <script>let toggleHintShow = 'Click to show';</script>
-    <script>let toggleHintHide = 'Click to hide';</script>
-    <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script src="../_static/sphinx-book-theme.9d8b4a8b9bb19db25eeaddc40d639ba2.js"></script>
     <script>window.MathJax = {"tex": {"macros": {"float": ["\\mathbb{F}"], "real": ["\\mathbb{R}"], "complex": ["\\mathbb{C}"], "nat": ["\\mathbb{N}"], "integer": ["\\mathbb{Z}"], "bfa": "\\mathbf{a}", "bfe": "\\mathbf{e}", "bfx": "\\mathbf{x}", "bfX": "\\mathbf{X}", "bfA": "\\mathbf{A}", "bfW": "\\mathbf{W}", "bfp": "\\mathbf{p}", "bfu": "\\mathbf{u}", "bfv": "\\mathbf{v}", "bfw": "\\mathbf{w}", "bfy": "\\mathbf{y}", "bfz": "\\mathbf{z}", "bfzero": "\\boldsymbol{0}", "bfmu": "\\boldsymbol{\\mu}", "TP": "\\text{TP}", "TN": "\\text{TN}", "FP": "\\text{FP}", "FN": "\\text{FN}", "rmn": ["\\mathbb{R}^{#1 \\times #2}", 2], "dd": ["\\frac{d #1}{d #2}", 2], "pp": ["\\frac{\\partial #1}{\\partial #2}", 2], "norm": ["\\left\\lVert \\mathstrut #1 \\right\\rVert", 1], "abs": ["\\left\\lvert \\mathstrut #1 \\right\\rvert", 1], "twonorm": ["\\norm{#1}_2", 1], "onenorm": ["\\norm{#1}_1", 1], "infnorm": ["\\norm{#1}_\\infty", 1], "innerprod": ["\\langle #1,#2 \\rangle", 2], "pr": ["^{(#1)}", 1], "diag": ["\\operatorname{diag}"], "sign": ["\\operatorname{sign}"], "dist": ["\\operatorname{dist}"], "simil": ["\\operatorname{sim}"], "ee": ["\\times 10^"], "floor": ["\\lfloor#1\\rfloor", 1], "argmin": ["\\operatorname{argmin}"], "Cov": ["\\operatorname{Cov}"], "logit": ["\\operatorname{logit}"]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script>
+        const thebe_selector = ".thebe,.cell"
+        const thebe_selector_input = "pre,.cell_input div.highlight"
+        const thebe_selector_output = ".output,.cell_output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -76,7 +74,12 @@ const thebe_selector_output = ".output, .cell_output"
     <div class="container-xl">
       <div class="row">
           
-<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<div class="col-12 col-md-3 bd-sidebar site-navigation " id="site-navigation">
     
         <div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../index.html">
@@ -377,22 +380,22 @@ const thebe_selector_output = ".output, .cell_output"
 
 
           
+<!-- This is an invisible pixel that we watch to see if we've scrolled. -->
+<div class="sbt-scroll-pixel-helper"></div>
 <main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
     
     <div class="topbar container-xl fixed-top">
     <div class="topbar-contents row">
         <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
         <div class="col pl-md-4 topbar-main">
-            
-            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
-                <i class="fas fa-bars"></i>
-                <i class="fas fa-arrow-left"></i>
-                <i class="fas fa-arrow-up"></i>
-            </button>
-            
+            <div class="topbar-left">
+                
+                <label class="nav-toggle-button" for="__navigation">
+                    <div class="visually-hidden">Toggle navigation</div>
+                    <i class="fas fa-bars"></i>
+                </label>
+                
+            </div>
             
 <div class="dropdown-buttons-trigger">
     <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
@@ -435,6 +438,7 @@ const thebe_selector_output = ".output, .cell_output"
                 data-placement="left"><img class="binder-button-logo"
                     src="../_static/images/logo_binder.svg"
                     alt="Interact on binder">Binder</button></a>
+        
         
         
         
@@ -640,8 +644,8 @@ We conclude that splitting a cluster will make the total inertia decrease. In fa
 final inertia: 710.0834960683221
 
 cluster centroids:
-[[-2.01977462  2.86247767]
- [ 2.01902057 -0.69722874]]
+[[ 2.01902057 -0.69722874]
+ [-2.01977462  2.86247767]]
 </pre></div>
 </div>
 </div>
@@ -657,17 +661,17 @@ cluster centroids:
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>cluster assignments:
-0      1
-1      1
-2      1
-3      0
-4      1
+0      0
+1      0
+2      0
+3      1
+4      0
       ..
-145    0
-146    1
-147    0
-148    0
-149    1
+145    1
+146    0
+147    1
+148    1
+149    0
 Name: km2, Length: 150, dtype: int32
 </pre></div>
 </div>
@@ -681,7 +685,7 @@ Name: km2, Length: 150, dtype: int32
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0, 1], dtype=int32)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([1, 0], dtype=int32)
 </pre></div>
 </div>
 </div>
@@ -752,17 +756,6 @@ Name: km2, Length: 150, dtype: int32
   <tbody>
     <tr>
       <th>0</th>
-      <td>61.0</td>
-      <td>0.821274</td>
-      <td>0.097362</td>
-      <td>0.148612</td>
-      <td>0.819975</td>
-      <td>0.839082</td>
-      <td>0.856779</td>
-      <td>0.878424</td>
-    </tr>
-    <tr>
-      <th>1</th>
       <td>89.0</td>
       <td>0.427552</td>
       <td>0.101098</td>
@@ -771,6 +764,17 @@ Name: km2, Length: 150, dtype: int32
       <td>0.440536</td>
       <td>0.500103</td>
       <td>0.559821</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>61.0</td>
+      <td>0.821274</td>
+      <td>0.097362</td>
+      <td>0.148612</td>
+      <td>0.819975</td>
+      <td>0.839082</td>
+      <td>0.856779</td>
+      <td>0.878424</td>
     </tr>
   </tbody>
 </table>
@@ -793,7 +797,7 @@ Name: km2, Length: 150, dtype: int32
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>inertia for k=3: 203.30412157574375
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>inertia for k=3: 203.30412157574372
 
 overall silhouette score: 0.6998700192151341
 
@@ -905,9 +909,9 @@ silhouette statistics:
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>inertia for k=4: 164.391814996702
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>inertia for k=4: 164.41597001588985
 
-overall silhouette score: 0.595999447128127
+overall silhouette score: 0.592866414828605
 
 silhouette statistics:
 </pre></div>
@@ -954,47 +958,47 @@ silhouette statistics:
   <tbody>
     <tr>
       <th>0</th>
-      <td>21.0</td>
-      <td>0.418371</td>
-      <td>0.126162</td>
-      <td>0.082891</td>
-      <td>0.351500</td>
-      <td>0.445146</td>
-      <td>0.528694</td>
-      <td>0.568619</td>
+      <td>60.0</td>
+      <td>0.794159</td>
+      <td>0.062096</td>
+      <td>0.464228</td>
+      <td>0.771340</td>
+      <td>0.810883</td>
+      <td>0.830889</td>
+      <td>0.855336</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>60.0</td>
-      <td>0.795515</td>
-      <td>0.061484</td>
-      <td>0.469210</td>
-      <td>0.772766</td>
-      <td>0.811955</td>
-      <td>0.831872</td>
-      <td>0.856250</td>
+      <td>29.0</td>
+      <td>0.377035</td>
+      <td>0.157174</td>
+      <td>0.030664</td>
+      <td>0.273385</td>
+      <td>0.426251</td>
+      <td>0.504303</td>
+      <td>0.556805</td>
     </tr>
     <tr>
       <th>2</th>
       <td>39.0</td>
-      <td>0.552206</td>
-      <td>0.159800</td>
-      <td>0.053503</td>
-      <td>0.534857</td>
-      <td>0.608952</td>
-      <td>0.659587</td>
-      <td>0.692206</td>
+      <td>0.551024</td>
+      <td>0.160895</td>
+      <td>0.046713</td>
+      <td>0.533722</td>
+      <td>0.608902</td>
+      <td>0.658702</td>
+      <td>0.691462</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>30.0</td>
-      <td>0.378241</td>
-      <td>0.159276</td>
-      <td>0.046288</td>
-      <td>0.235643</td>
-      <td>0.430824</td>
-      <td>0.511360</td>
-      <td>0.559574</td>
+      <td>22.0</td>
+      <td>0.402566</td>
+      <td>0.151978</td>
+      <td>-0.048902</td>
+      <td>0.326023</td>
+      <td>0.438774</td>
+      <td>0.520349</td>
+      <td>0.564896</td>
     </tr>
   </tbody>
 </table>
@@ -1055,47 +1059,47 @@ silhouette statistics:
     <tr>
       <th>4</th>
       <td>4</td>
-      <td>0</td>
+      <td>1</td>
     </tr>
     <tr>
       <th>5</th>
       <td>5</td>
-      <td>2</td>
+      <td>0</td>
     </tr>
     <tr>
       <th>6</th>
       <td>6</td>
-      <td>1</td>
+      <td>2</td>
     </tr>
     <tr>
       <th>14</th>
       <td>4</td>
-      <td>0</td>
+      <td>1</td>
     </tr>
     <tr>
       <th>15</th>
       <td>5</td>
-      <td>2</td>
+      <td>0</td>
     </tr>
     <tr>
       <th>16</th>
       <td>6</td>
-      <td>1</td>
+      <td>2</td>
     </tr>
     <tr>
       <th>24</th>
       <td>4</td>
-      <td>0</td>
+      <td>1</td>
     </tr>
     <tr>
       <th>25</th>
       <td>5</td>
-      <td>2</td>
+      <td>0</td>
     </tr>
     <tr>
       <th>26</th>
       <td>6</td>
-      <td>1</td>
+      <td>2</td>
     </tr>
   </tbody>
 </table>
