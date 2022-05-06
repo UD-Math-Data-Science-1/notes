@@ -4,9 +4,9 @@ jupytext:
     extension: .md
     format_name: myst
     format_version: 0.13
-    jupytext_version: 1.11.5
+    jupytext_version: 1.13.8
 kernelspec:
-  display_name: Python 3 (ipykernel)
+  display_name: Python 3
   language: python
   name: python3
 ---
@@ -122,7 +122,7 @@ First, we construct the random-walk matrix $\bfW$.
 ```{code-cell} ipython3
 n = WS.number_of_nodes()
 A = nx.adjacency_matrix(WS).astype(float)
-degree = [WS.degree[i] for i in WS.nodes()]
+degree = [WS.degree[i] for i in WS.nodes] 
 
 W = A.copy()
 for j in range(n):
@@ -258,8 +258,21 @@ x[x<0.01] = 0
 nx.draw(WS,node_size=4000*x,**style)
 ```
 
-In practice, we could define a threshold cutoff on the probabilities, or set a community size and take the highest-ranking nodes. Then a new node could be selected and a community identified for it, etc. If communities are not allowed to overlap, then it might make more sense to use a method based on clustering or other criteria.
+In practice, we could define a threshold cutoff on the probabilities, or set a community size and take the highest-ranking nodes. Then a new node could be selected and a community identified for it in the subgraph without the first community, etc.
+
+A more sophisticated version of the label propagation algorithm (and many other community detection methods) is offered in a special module.
 
 ```{code-cell} ipython3
+from networkx.algorithms.community import label_propagation_communities
+comm = label_propagation_communities(WS)
+[print(c) for c in comm];
+```
 
+```{code-cell} ipython3
+color = np.array(["lightblue","pink","yellow","lightgreen","purple","orange","red","lightgray"])
+color_index = [0]*n
+for i,S in enumerate(comm):
+    for k in S:
+        color_index[k] = i
+nx.draw(WS,node_size=100,pos=pos,node_color=color[color_index])
 ```

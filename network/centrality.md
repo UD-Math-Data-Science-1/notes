@@ -87,7 +87,7 @@ All the other nodes play no role in any shortest paths. For instance, any path p
 The `betweenness_centrality` function returns a dictionary with nodes as keys and $c_B$ as values.
 
 ```{code-cell} ipython3
-centrality["between"] = pd.Series(nx.betweenness_centrality(G))
+centrality["between"] = pd.Series(nx.betweenness_centrality(G),index=G.nodes)
 sns.displot(data=centrality,x="between");
 ```
 
@@ -154,7 +154,7 @@ Every $n\times n$ matrix has at least one nonzero solution to the eigenvalue equ
 NetworkX has two functions for computing eigenvector centrality. Here we use the one that calls on numpy to solve the eigenvalue problem. As with betweenness centrality, the return value is a dictionary with nodes as the keys.
 
 ```{code-cell} ipython3
-centrality["eigen"] = pd.Series(nx.eigenvector_centrality_numpy(G))
+centrality["eigen"] = pd.Series(nx.eigenvector_centrality_numpy(G),index=G.nodes)
 sns.displot(data=centrality,x="eigen");
 ```
 
