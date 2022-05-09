@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>6.1. Graphs &#8212; Data Science 1</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet">
@@ -23,7 +24,7 @@
 
     
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=84ace793992934648b4de8eed757e5a2" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
@@ -39,20 +40,22 @@
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../_static/sphinx-book-theme.9d8b4a8b9bb19db25eeaddc40d639ba2.js"></script>
+    <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
     <script>window.MathJax = {"tex": {"macros": {"float": ["\\mathbb{F}"], "real": ["\\mathbb{R}"], "complex": ["\\mathbb{C}"], "nat": ["\\mathbb{N}"], "integer": ["\\mathbb{Z}"], "bfa": "\\mathbf{a}", "bfe": "\\mathbf{e}", "bfx": "\\mathbf{x}", "bfX": "\\mathbf{X}", "bfA": "\\mathbf{A}", "bfW": "\\mathbf{W}", "bfp": "\\mathbf{p}", "bfu": "\\mathbf{u}", "bfv": "\\mathbf{v}", "bfw": "\\mathbf{w}", "bfy": "\\mathbf{y}", "bfz": "\\mathbf{z}", "bfzero": "\\boldsymbol{0}", "bfmu": "\\boldsymbol{\\mu}", "TP": "\\text{TP}", "TN": "\\text{TN}", "FP": "\\text{FP}", "FN": "\\text{FN}", "rmn": ["\\mathbb{R}^{#1 \\times #2}", 2], "dd": ["\\frac{d #1}{d #2}", 2], "pp": ["\\frac{\\partial #1}{\\partial #2}", 2], "norm": ["\\left\\lVert \\mathstrut #1 \\right\\rVert", 1], "abs": ["\\left\\lvert \\mathstrut #1 \\right\\rvert", 1], "twonorm": ["\\norm{#1}_2", 1], "onenorm": ["\\norm{#1}_1", 1], "infnorm": ["\\norm{#1}_\\infty", 1], "innerprod": ["\\langle #1,#2 \\rangle", 2], "pr": ["^{(#1)}", 1], "diag": ["\\operatorname{diag}"], "sign": ["\\operatorname{sign}"], "dist": ["\\operatorname{dist}"], "simil": ["\\operatorname{sim}"], "ee": ["\\times 10^"], "floor": ["\\lfloor#1\\rfloor", 1], "argmin": ["\\operatorname{argmin}"], "Cov": ["\\operatorname{Cov}"], "logit": ["\\operatorname{logit}"]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
-    <script>
-        const thebe_selector = ".thebe,.cell"
-        const thebe_selector_input = "pre,.cell_input div.highlight"
-        const thebe_selector_output = ".output,.cell_output"
-    </script>
-    <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -74,12 +77,7 @@
     <div class="container-xl">
       <div class="row">
           
-<!-- Checkboxes to toggle the left sidebar -->
-<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
-<label class="overlay" for="__navigation">
-    <div class="visually-hidden">Toggle navigation sidebar</div>
-</label>
-<div class="col-12 col-md-3 bd-sidebar site-navigation " id="site-navigation">
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
     
         <div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../index.html">
@@ -380,22 +378,22 @@
 
 
           
-<!-- This is an invisible pixel that we watch to see if we've scrolled. -->
-<div class="sbt-scroll-pixel-helper"></div>
 <main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
     
     <div class="topbar container-xl fixed-top">
     <div class="topbar-contents row">
         <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
         <div class="col pl-md-4 topbar-main">
-            <div class="topbar-left">
-                
-                <label class="nav-toggle-button" for="__navigation">
-                    <div class="visually-hidden">Toggle navigation</div>
-                    <i class="fas fa-bars"></i>
-                </label>
-                
-            </div>
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
             
 <div class="dropdown-buttons-trigger">
     <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
@@ -438,7 +436,6 @@
                 data-placement="left"><img class="binder-button-logo"
                     src="../_static/images/logo_binder.svg"
                     alt="Interact on binder">Binder</button></a>
-        
         
         
         
@@ -548,11 +545,11 @@
             
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="graphs">
+  <section class="tex2jax_ignore mathjax_ignore" id="graphs">
 <h1><span class="section-number">6.1. </span>Graphs<a class="headerlink" href="#graphs" title="Permalink to this headline">¶</a></h1>
 <p>In mathematics, a network is represented as a <strong>graph</strong>. A graph is a collection of <strong>nodes</strong> (also called <em>vertices</em>) and <strong>edges</strong> that connect pairs of nodes. A basic distinction in graph theory is between an <strong>undirected graph</strong>, in which the edge <span class="math notranslate nohighlight">\((a,b)\)</span> is identical to <span class="math notranslate nohighlight">\((b,a)\)</span>, and a <strong>directed graph</strong> or <strong>digraph</strong>, in which <span class="math notranslate nohighlight">\((a,b)\)</span> and <span class="math notranslate nohighlight">\((b,a)\)</span> are different potential edges. In either type of graph, each edge might be labeled with a numerical value, which results in a <strong>weighted graph</strong>.</p>
 <p>Undirected, unweighted graphs will give us plenty to handle, and we will not seek to go beyond them. We also will not consider graphs that allow a node to link to itself.</p>
-<div class="section" id="networkx">
+<section id="networkx">
 <h2>NetworkX<a class="headerlink" href="#networkx" title="Permalink to this headline">¶</a></h2>
 <p>The best-known Python package for working with networks is NetworkX.</p>
 <div class="cell docutils container">
@@ -632,8 +629,8 @@ Int64Index([1, 2, 3, 4, 5, 6], dtype=&#39;int64&#39;)
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="common-graph-types">
+</section>
+<section id="common-graph-types">
 <h2>Common graph types<a class="headerlink" href="#common-graph-types" title="Permalink to this headline">¶</a></h2>
 <p>There are functions that generate different well-studied types of graphs. The first graph constructed above is a <strong>star graph</strong>, and the graph <code class="docutils literal notranslate"><span class="pre">H</span></code> above is a <strong>cycle graph</strong>.</p>
 <div class="cell docutils container">
@@ -713,8 +710,8 @@ Int64Index([1, 2, 3, 4, 5, 6], dtype=&#39;int64&#39;)
 </div>
 </div>
 <p>As you can see, it’s not easy to tell how similar two graphs are by comparing renderings of them.</p>
-</div>
-<div class="section" id="adjacency-matrix">
+</section>
+<section id="adjacency-matrix">
 <h2>Adjacency matrix<a class="headerlink" href="#adjacency-matrix" title="Permalink to this headline">¶</a></h2>
 <p>Every graph can be associated with an <strong>adjacency matrix</strong>. Suppose the nodes are numbered from <span class="math notranslate nohighlight">\(0\)</span> to <span class="math notranslate nohighlight">\(n-1\)</span>. The adjacency matrix is <span class="math notranslate nohighlight">\(n\times n\)</span> and has a 1 at position <span class="math notranslate nohighlight">\((i,j)\)</span> if node <span class="math notranslate nohighlight">\(i\)</span> and node <span class="math notranslate nohighlight">\(j\)</span> are adjacent, and a 0 otherwise.</p>
 <div class="cell docutils container">
@@ -772,8 +769,8 @@ Int64Index([1, 2, 3, 4, 5, 6], dtype=&#39;int64&#39;)
 </div>
 </div>
 <p>In an undirected graph, we have <span class="math notranslate nohighlight">\(A_{ij}=A_{ji}\)</span> everywhere, and we say that <span class="math notranslate nohighlight">\(A\)</span> is <em>symmetric</em>.</p>
-</div>
-<div class="section" id="importing-networks">
+</section>
+<section id="importing-networks">
 <h2>Importing networks<a class="headerlink" href="#importing-networks" title="Permalink to this headline">¶</a></h2>
 <p>There are many ways to read graphs from (and write them to) files. For example, here is a friend network among Twitch users.</p>
 <div class="cell docutils container">
@@ -827,8 +824,8 @@ Int64Index([1, 2, 3, 4, 5, 6], dtype=&#39;int64&#39;)
 </div>
 </div>
 <p>The reason for the two-step process in making the drawing above is that computing the node positions via springs takes a hidden computational iteration. By calling that iteration explicitly, we were able to stop it early and save time.</p>
-</div>
-<div class="section" id="degree-and-average-degree">
+</section>
+<section id="degree-and-average-degree">
 <h2>Degree and average degree<a class="headerlink" href="#degree-and-average-degree" title="Permalink to this headline">¶</a></h2>
 <p>The <strong>degree</strong> of a node is the number of edges that have the node as an endpoint. Equivalently, it is the number of nodes in its ego graph, minus the original node itself. The <strong>average degree</strong> of a graph is the mean of the degrees of all of its nodes.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">degree</span></code> property of a graph gives a dictionary-style object of all nodes with their degrees.</p>
@@ -897,8 +894,8 @@ Int64Index([1, 2, 3, 4, 5, 6], dtype=&#39;int64&#39;)
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="random-graphs">
+</section>
+<section id="random-graphs">
 <h2>Random graphs<a class="headerlink" href="#random-graphs" title="Permalink to this headline">¶</a></h2>
 <p>One way of understanding a real-world network is by comparing it to ones that are constructed randomly, but according to relatively simple rules. The idea is that if the real network behaves similarly to members of some random family, then perhaps it is constructed according to similar principles.</p>
 <p>An <strong>Erdős-Rényi graph</strong> (ER graph) includes each individual possible edge with a fixed probability <span class="math notranslate nohighlight">\(p\)</span>. That is, if you have a weighted coin that comes up heads (100p)% of the time, then you toss the coin for each possible pair of vertices and include their edge if it is heads.</p>
@@ -984,8 +981,8 @@ t2 = twitch.copy()
 t2.remove_node(ap[0])
 nx.number_connected_components(t2)
 ```
- --></div>
-</div>
+ --></section>
+</section>
 
     <script type="text/x-thebe-config">
     {

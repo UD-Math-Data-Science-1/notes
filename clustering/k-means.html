@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>5.3. k-means &#8212; Data Science 1</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet">
@@ -23,7 +24,7 @@
 
     
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=84ace793992934648b4de8eed757e5a2" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
@@ -39,20 +40,22 @@
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../_static/sphinx-book-theme.9d8b4a8b9bb19db25eeaddc40d639ba2.js"></script>
+    <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
     <script>window.MathJax = {"tex": {"macros": {"float": ["\\mathbb{F}"], "real": ["\\mathbb{R}"], "complex": ["\\mathbb{C}"], "nat": ["\\mathbb{N}"], "integer": ["\\mathbb{Z}"], "bfa": "\\mathbf{a}", "bfe": "\\mathbf{e}", "bfx": "\\mathbf{x}", "bfX": "\\mathbf{X}", "bfA": "\\mathbf{A}", "bfW": "\\mathbf{W}", "bfp": "\\mathbf{p}", "bfu": "\\mathbf{u}", "bfv": "\\mathbf{v}", "bfw": "\\mathbf{w}", "bfy": "\\mathbf{y}", "bfz": "\\mathbf{z}", "bfzero": "\\boldsymbol{0}", "bfmu": "\\boldsymbol{\\mu}", "TP": "\\text{TP}", "TN": "\\text{TN}", "FP": "\\text{FP}", "FN": "\\text{FN}", "rmn": ["\\mathbb{R}^{#1 \\times #2}", 2], "dd": ["\\frac{d #1}{d #2}", 2], "pp": ["\\frac{\\partial #1}{\\partial #2}", 2], "norm": ["\\left\\lVert \\mathstrut #1 \\right\\rVert", 1], "abs": ["\\left\\lvert \\mathstrut #1 \\right\\rvert", 1], "twonorm": ["\\norm{#1}_2", 1], "onenorm": ["\\norm{#1}_1", 1], "infnorm": ["\\norm{#1}_\\infty", 1], "innerprod": ["\\langle #1,#2 \\rangle", 2], "pr": ["^{(#1)}", 1], "diag": ["\\operatorname{diag}"], "sign": ["\\operatorname{sign}"], "dist": ["\\operatorname{dist}"], "simil": ["\\operatorname{sim}"], "ee": ["\\times 10^"], "floor": ["\\lfloor#1\\rfloor", 1], "argmin": ["\\operatorname{argmin}"], "Cov": ["\\operatorname{Cov}"], "logit": ["\\operatorname{logit}"]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
-    <script>
-        const thebe_selector = ".thebe,.cell"
-        const thebe_selector_input = "pre,.cell_input div.highlight"
-        const thebe_selector_output = ".output,.cell_output"
-    </script>
-    <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -74,12 +77,7 @@
     <div class="container-xl">
       <div class="row">
           
-<!-- Checkboxes to toggle the left sidebar -->
-<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
-<label class="overlay" for="__navigation">
-    <div class="visually-hidden">Toggle navigation sidebar</div>
-</label>
-<div class="col-12 col-md-3 bd-sidebar site-navigation " id="site-navigation">
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
     
         <div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../index.html">
@@ -380,22 +378,22 @@
 
 
           
-<!-- This is an invisible pixel that we watch to see if we've scrolled. -->
-<div class="sbt-scroll-pixel-helper"></div>
 <main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
     
     <div class="topbar container-xl fixed-top">
     <div class="topbar-contents row">
         <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
         <div class="col pl-md-4 topbar-main">
-            <div class="topbar-left">
-                
-                <label class="nav-toggle-button" for="__navigation">
-                    <div class="visually-hidden">Toggle navigation</div>
-                    <i class="fas fa-bars"></i>
-                </label>
-                
-            </div>
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
             
 <div class="dropdown-buttons-trigger">
     <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
@@ -438,7 +436,6 @@
                 data-placement="left"><img class="binder-button-logo"
                     src="../_static/images/logo_binder.svg"
                     alt="Interact on binder">Binder</button></a>
-        
         
         
         
@@ -528,7 +525,7 @@
             
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="k-means">
+  <section class="tex2jax_ignore mathjax_ignore" id="k-means">
 <h1><span class="section-number">5.3. </span>k-means<a class="headerlink" href="#k-means" title="Permalink to this headline">¶</a></h1>
 <p>The <span class="math notranslate nohighlight">\(k\)</span>-means algorithm is one of the best-known and most widely used clustering methods, although it has some serious limitations and drawbacks.</p>
 <p>Given a sample matrix <span class="math notranslate nohighlight">\(\bfX\)</span> with <span class="math notranslate nohighlight">\(n\)</span> rows <span class="math notranslate nohighlight">\(\bfx_i\)</span>, the algorithm divides the sample points into disjoint sets <span class="math notranslate nohighlight">\(C_1,\ldots,C_k\)</span>, where <span class="math notranslate nohighlight">\(k\)</span> is a preselected hyperparameter. Cluster <span class="math notranslate nohighlight">\(j\)</span> has a <strong>centroid</strong> <span class="math notranslate nohighlight">\(\bfmu_j\)</span>, which is the mean of the points in <span class="math notranslate nohighlight">\(C_j\)</span>. Define the <strong>inertia</strong> of <span class="math notranslate nohighlight">\(C_j\)</span> as</p>
@@ -551,7 +548,7 @@ $$
 We conclude that splitting a cluster will make the total inertia decrease. In fact, if each sample point is put into its own cluster, the inertia is 0.  -->
 <div class="proof example admonition" id="example-k-means-inertia">
 <p class="admonition-title"><span class="caption-number">Example 5.3.1 </span></p>
-<div class="example-content section" id="proof-content">
+<section class="example-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(k=2\)</span>. Given the values <span class="math notranslate nohighlight">\(-3,-2,-1,2,5,7\)</span>, we might cluster <span class="math notranslate nohighlight">\(\{-3,-2,-1\}\)</span> and <span class="math notranslate nohighlight">\(\{2,5,7\}\)</span>. The total inertia is then</p>
 <div class="math notranslate nohighlight">
 \[
@@ -562,9 +559,9 @@ We conclude that splitting a cluster will make the total inertia decrease. In fa
 \[
 \left[  (-3+1)^2 + (-2+1)^2 + (-1+1)^2  + (2+1)^2 \right]  + \left[   (5-6)^2 + (7-6)^2   \right] = 14 + 2 = 16.
 \]</div>
-</div>
+</section>
 </div><p>Finding the minimum inertia among all possible <span class="math notranslate nohighlight">\(k\)</span>-clusterings is an infeasible problem to solve exactly at any practical size. Instead, the approach is to iteratively improve from a starting clustering.</p>
-<div class="section" id="lloyd-s-algorithm">
+<section id="lloyd-s-algorithm">
 <h2>Lloyd’s algorithm<a class="headerlink" href="#lloyd-s-algorithm" title="Permalink to this headline">¶</a></h2>
 <p>The standard method is known as <strong>Lloyd’s algorithm</strong>. Starting with values for the <span class="math notranslate nohighlight">\(k\)</span> centroids, there is an iteration consisting of two steps:</p>
 <ul class="simple">
@@ -577,8 +574,8 @@ We conclude that splitting a cluster will make the total inertia decrease. In fa
 \]</div>
 <p>The algorithm stops when the assignment step does not change any of the clusters. In practice, this almost always happens quickly. Here is a demonstration:</p>
 <video width=640 controls src="../_static/kmeans_demo.mp4"></video><p>While Lloyd’s algorithm will find a local minimum of total inertia, in the sense that small changes cannot decrease it, there is no guarantee of converging to the global minimum.</p>
-</div>
-<div class="section" id="practical-issues">
+</section>
+<section id="practical-issues">
 <h2>Practical issues<a class="headerlink" href="#practical-issues" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p><strong>Initialization</strong>. The performance of <span class="math notranslate nohighlight">\(k\)</span>-means depends a great deal on the initial set of centroids. Traditionally, the centroids were chosen as random members of the sample set, but better/more reliable heuristics, such as <em><span class="math notranslate nohighlight">\(k\)</span>-means++</em>, have since become more dominant.</p></li>
@@ -587,8 +584,8 @@ We conclude that splitting a cluster will make the total inertia decrease. In fa
 <li><p><strong>Distance metric</strong>. The Lloyd algorithm often fails to converge for norms other than the 2-norm, and must be modified if another norm is preferred.</p></li>
 <li><p><strong>Shape effects</strong>. Because of the dependence on the norm, the inertia criterion disfavors long, skinny clusters and clusters of unequal dispersion. Basically, it wants to find spherical blobs (as defined by the metric) of roughly equal size.</p></li>
 </ul>
-</div>
-<div class="section" id="toy-example">
+</section>
+<section id="toy-example">
 <h2>Toy example<a class="headerlink" href="#toy-example" title="Permalink to this headline">¶</a></h2>
 <p>Let’s generate some test blobs.</p>
 <div class="cell docutils container">
@@ -1005,8 +1002,8 @@ silhouette statistics:
 </div></div></div>
 </div>
 <p>The outlier points in the generated blobs are perhaps best seen as noisy examples, at least for the purposes of clustering.</p>
-</div>
-<div class="section" id="case-study-digits">
+</section>
+<section id="case-study-digits">
 <h2>Case study: digits<a class="headerlink" href="#case-study-digits" title="Permalink to this headline">¶</a></h2>
 <p>We can return to the handwriting recognition dataset. Again we keep only the samples labeled 4, 5, or 6.</p>
 <div class="cell docutils container">
@@ -1202,8 +1199,8 @@ silhouette statistics:
 </div></div></div>
 </div>
 <p>The inertia continues to decrease as <span class="math notranslate nohighlight">\(k\)</span> increases, although the rate of decrease slows somewhat. The silhouette score is maximized at <span class="math notranslate nohighlight">\(k=3\)</span>, which could be considered a reason to choose 3 clusters, although the difference between 3 and 4 clusters is not large.</p>
-<div style="max-width:400px"><div style="position:relative;padding-bottom:71.25%"><iframe id="kaltura_player" src="https://cdnapisec.kaltura.com/p/2358381/sp/235838100/embedIframeJs/uiconf_id/43030021/partner_id/2358381?iframeembed=true&playerId=kaltura_player&entry_id=1_8qjp92ut&flashvars[streamerType]=auto&amp;flashvars[localizationCode]=en&amp;flashvars[leadWithHTML5]=true&amp;flashvars[sideBarContainer.plugin]=true&amp;flashvars[sideBarContainer.position]=left&amp;flashvars[sideBarContainer.clickToClose]=true&amp;flashvars[chapters.plugin]=true&amp;flashvars[chapters.layout]=vertical&amp;flashvars[chapters.thumbnailRotator]=false&amp;flashvars[streamSelector.plugin]=true&amp;flashvars[EmbedPlayer.SpinnerTarget]=videoHolder&amp;flashvars[dualScreen.plugin]=true&amp;flashvars[Kaltura.addCrossoriginToIframe]=true&amp;&wid=1_h4xcxibr" width="400" height="285" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen *; encrypted-media *" sandbox="allow-forms allow-same-origin allow-scripts allow-top-navigation allow-pointer-lock allow-popups allow-modals allow-orientation-lock allow-popups-to-escape-sandbox allow-presentation allow-top-navigation-by-user-activation" frameborder="0" title="Kaltura Player" style="position:absolute;top:0;left:0;width:100%;height:100%"></iframe></div></div></div>
-</div>
+<div style="max-width:400px"><div style="position:relative;padding-bottom:71.25%"><iframe id="kaltura_player" src="https://cdnapisec.kaltura.com/p/2358381/sp/235838100/embedIframeJs/uiconf_id/43030021/partner_id/2358381?iframeembed=true&playerId=kaltura_player&entry_id=1_8qjp92ut&flashvars[streamerType]=auto&amp;flashvars[localizationCode]=en&amp;flashvars[leadWithHTML5]=true&amp;flashvars[sideBarContainer.plugin]=true&amp;flashvars[sideBarContainer.position]=left&amp;flashvars[sideBarContainer.clickToClose]=true&amp;flashvars[chapters.plugin]=true&amp;flashvars[chapters.layout]=vertical&amp;flashvars[chapters.thumbnailRotator]=false&amp;flashvars[streamSelector.plugin]=true&amp;flashvars[EmbedPlayer.SpinnerTarget]=videoHolder&amp;flashvars[dualScreen.plugin]=true&amp;flashvars[Kaltura.addCrossoriginToIframe]=true&amp;&wid=1_h4xcxibr" width="400" height="285" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen *; encrypted-media *" sandbox="allow-forms allow-same-origin allow-scripts allow-top-navigation allow-pointer-lock allow-popups allow-modals allow-orientation-lock allow-popups-to-escape-sandbox allow-presentation allow-top-navigation-by-user-activation" frameborder="0" title="Kaltura Player" style="position:absolute;top:0;left:0;width:100%;height:100%"></iframe></div></div></section>
+</section>
 
     <script type="text/x-thebe-config">
     {

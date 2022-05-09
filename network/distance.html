@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>6.3. Distance &#8212; Data Science 1</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet">
@@ -23,7 +24,7 @@
 
     
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=84ace793992934648b4de8eed757e5a2" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
@@ -39,20 +40,22 @@
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../_static/sphinx-book-theme.9d8b4a8b9bb19db25eeaddc40d639ba2.js"></script>
+    <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
     <script>window.MathJax = {"tex": {"macros": {"float": ["\\mathbb{F}"], "real": ["\\mathbb{R}"], "complex": ["\\mathbb{C}"], "nat": ["\\mathbb{N}"], "integer": ["\\mathbb{Z}"], "bfa": "\\mathbf{a}", "bfe": "\\mathbf{e}", "bfx": "\\mathbf{x}", "bfX": "\\mathbf{X}", "bfA": "\\mathbf{A}", "bfW": "\\mathbf{W}", "bfp": "\\mathbf{p}", "bfu": "\\mathbf{u}", "bfv": "\\mathbf{v}", "bfw": "\\mathbf{w}", "bfy": "\\mathbf{y}", "bfz": "\\mathbf{z}", "bfzero": "\\boldsymbol{0}", "bfmu": "\\boldsymbol{\\mu}", "TP": "\\text{TP}", "TN": "\\text{TN}", "FP": "\\text{FP}", "FN": "\\text{FN}", "rmn": ["\\mathbb{R}^{#1 \\times #2}", 2], "dd": ["\\frac{d #1}{d #2}", 2], "pp": ["\\frac{\\partial #1}{\\partial #2}", 2], "norm": ["\\left\\lVert \\mathstrut #1 \\right\\rVert", 1], "abs": ["\\left\\lvert \\mathstrut #1 \\right\\rvert", 1], "twonorm": ["\\norm{#1}_2", 1], "onenorm": ["\\norm{#1}_1", 1], "infnorm": ["\\norm{#1}_\\infty", 1], "innerprod": ["\\langle #1,#2 \\rangle", 2], "pr": ["^{(#1)}", 1], "diag": ["\\operatorname{diag}"], "sign": ["\\operatorname{sign}"], "dist": ["\\operatorname{dist}"], "simil": ["\\operatorname{sim}"], "ee": ["\\times 10^"], "floor": ["\\lfloor#1\\rfloor", 1], "argmin": ["\\operatorname{argmin}"], "Cov": ["\\operatorname{Cov}"], "logit": ["\\operatorname{logit}"]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
-    <script>
-        const thebe_selector = ".thebe,.cell"
-        const thebe_selector_input = "pre,.cell_input div.highlight"
-        const thebe_selector_output = ".output,.cell_output"
-    </script>
-    <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -74,12 +77,7 @@
     <div class="container-xl">
       <div class="row">
           
-<!-- Checkboxes to toggle the left sidebar -->
-<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
-<label class="overlay" for="__navigation">
-    <div class="visually-hidden">Toggle navigation sidebar</div>
-</label>
-<div class="col-12 col-md-3 bd-sidebar site-navigation " id="site-navigation">
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
     
         <div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../index.html">
@@ -380,22 +378,22 @@
 
 
           
-<!-- This is an invisible pixel that we watch to see if we've scrolled. -->
-<div class="sbt-scroll-pixel-helper"></div>
 <main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
     
     <div class="topbar container-xl fixed-top">
     <div class="topbar-contents row">
         <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
         <div class="col pl-md-4 topbar-main">
-            <div class="topbar-left">
-                
-                <label class="nav-toggle-button" for="__navigation">
-                    <div class="visually-hidden">Toggle navigation</div>
-                    <i class="fas fa-bars"></i>
-                </label>
-                
-            </div>
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
             
 <div class="dropdown-buttons-trigger">
     <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
@@ -441,7 +439,6 @@
         
         
         
-        
         <button type="button" class="btn btn-secondary topbarbtn"
             onclick="initThebeSBT()" title="Launch Thebe" data-toggle="tooltip" data-placement="left"><i
                 class="fas fa-play"></i><span style="margin-left: .4em;">Live Code</span></button>
@@ -465,13 +462,13 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#twitch-network">
-   Twitch network
+  <a class="reference internal nav-link" href="#wattsstrogatz-graphs">
+   Watts–Strogatz graphs
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#wattsstrogatz-graphs">
-   Watts–Strogatz graphs
+  <a class="reference internal nav-link" href="#twitch-network">
+   Twitch network
   </a>
  </li>
 </ul>
@@ -500,13 +497,13 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#twitch-network">
-   Twitch network
+  <a class="reference internal nav-link" href="#wattsstrogatz-graphs">
+   Watts–Strogatz graphs
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#wattsstrogatz-graphs">
-   Watts–Strogatz graphs
+  <a class="reference internal nav-link" href="#twitch-network">
+   Twitch network
   </a>
  </li>
 </ul>
@@ -528,7 +525,7 @@
 </div>
 </div>
 </div>
-<div class="tex2jax_ignore mathjax_ignore section" id="distance">
+<section class="tex2jax_ignore mathjax_ignore" id="distance">
 <h1><span class="section-number">6.3. </span>Distance<a class="headerlink" href="#distance" title="Permalink to this headline">¶</a></h1>
 <p>The <em>small-world phenomenon</em> is, broadly speaking, the observation that any two people in a group can be connected by a surprisingly short path of acquaintances. This concept appears, for instance, in the “Bacon number” game, where actors are nodes, appearing in the same movie creates an edge between them, and one tries to find the distance between Kevin Bacon and some other designated actor.</p>
 <p>The <strong>distance</strong> between two nodes in a connected graph is the number of edges in the shortest path between them. For example, in a complete graph, the distance between any pair of distinct nodes is 1, since all possible pairs are connected by an edge.</p>
@@ -616,7 +613,7 @@ dtype: int64
 </div>
 </div>
 </div>
-<div class="section" id="er-graphs">
+<section id="er-graphs">
 <h2>ER graphs<a class="headerlink" href="#er-graphs" title="Permalink to this headline">¶</a></h2>
 <p>If we want to compute distances within ER random graphs, we quickly run into a problem: an ER graph may not have a path between every pair of nodes:</p>
 <div class="cell docutils container">
@@ -641,7 +638,7 @@ dtype: int64
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">NetworkXError</span><span class="g g-Whitespace">                             </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="n">cn</span><span class="o">/</span><span class="mi">8</span><span class="n">w40979d27x0kv2wsnx7zgvm0000gp</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_52742</span><span class="o">/</span><span class="mf">477834076.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="n">cn</span><span class="o">/</span><span class="mi">8</span><span class="n">w40979d27x0kv2wsnx7zgvm0000gp</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_10422</span><span class="o">/</span><span class="mf">477834076.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">nx</span><span class="o">.</span><span class="n">average_shortest_path_length</span><span class="p">(</span><span class="n">ER</span><span class="p">)</span>
 
 <span class="nn">~/anaconda3/lib/python3.8/site-packages/networkx/algorithms/shortest_paths/generic.py</span> in <span class="ni">average_shortest_path_length</span><span class="nt">(G, weight, method)</span>
@@ -722,8 +719,57 @@ dtype: int64
 <div class="math notranslate nohighlight" id="equation-eq-small-world-erdistance">
 <span class="eqno">(6.3.1)<a class="headerlink" href="#equation-eq-small-world-erdistance" title="Permalink to this equation">¶</a></span>\[\frac{\ln(n)}{\ln(\bar{k})}.\]</div>
 <p>For <span class="math notranslate nohighlight">\(n=121\)</span> and <span class="math notranslate nohighlight">\(\bar{k}=6\)</span> as in the experiment above, this value is about 2.68.</p>
+</section>
+<section id="wattsstrogatz-graphs">
+<h2>Watts–Strogatz graphs<a class="headerlink" href="#wattsstrogatz-graphs" title="Permalink to this headline">¶</a></h2>
+<p>The Watts–Strogatz model was originally proposed to demonstrate small-world networks. The initial ring-lattice structure of the construction exhibits both large clustering and large mean distance:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">watts_strogatz_graph</span><span class="p">(</span><span class="mi">400</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># q=0 ==&gt; initial ring lattice</span>
+<span class="n">C0</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">average_clustering</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
+<span class="n">L0</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">average_shortest_path_length</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Ring lattice has average clustering </span><span class="si">{</span><span class="n">C0</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;and average shortest path length </span><span class="si">{</span><span class="n">L0</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
 </div>
-<div class="section" id="twitch-network">
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Ring lattice has average clustering 0.6000
+and average shortest path length 33.75
+</pre></div>
+</div>
+</div>
+</div>
+<p>At the other extreme of <span class="math notranslate nohighlight">\(p=1\)</span>, we get an ER random graph, which (at equivalent parameters) has small clustering and small average distance. The most interesting aspect of WS graphs is the transition between these extremes as <span class="math notranslate nohighlight">\(p\)</span> varies.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cbar</span><span class="p">,</span><span class="n">dbar</span><span class="p">,</span><span class="n">logq</span> <span class="o">=</span> <span class="p">[],[],[]</span>
+<span class="k">for</span> <span class="n">lq</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mf">3.5</span><span class="p">,</span><span class="mf">0.01</span><span class="p">,</span><span class="mf">0.25</span><span class="p">):</span>
+    <span class="k">for</span> <span class="nb">iter</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">8</span><span class="p">):</span>
+        <span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">watts_strogatz_graph</span><span class="p">(</span><span class="mi">400</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">10</span><span class="o">**</span><span class="n">lq</span><span class="p">,</span><span class="n">seed</span><span class="o">=</span><span class="mi">975</span><span class="o">+</span><span class="nb">iter</span><span class="p">)</span>
+        <span class="n">cbar</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">average_clustering</span><span class="p">(</span><span class="n">G</span><span class="p">)</span><span class="o">/</span><span class="n">C0</span><span class="p">)</span>
+        <span class="n">dbar</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">average_shortest_path_length</span><span class="p">(</span><span class="n">G</span><span class="p">)</span><span class="o">/</span><span class="n">L0</span><span class="p">)</span>
+        <span class="n">logq</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">lq</span><span class="p">)</span>
+    
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">results</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;log10(q)&quot;</span><span class="p">:</span><span class="n">logq</span><span class="p">,</span><span class="s2">&quot;avg clustering&quot;</span><span class="p">:</span><span class="n">cbar</span><span class="p">,</span><span class="s2">&quot;avg distance&quot;</span><span class="p">:</span><span class="n">dbar</span><span class="p">})</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">relplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span><span class="n">results</span><span class="p">,</span><span class="n">id_vars</span><span class="o">=</span><span class="s2">&quot;log10(q)&quot;</span><span class="p">),</span>
+            <span class="n">x</span><span class="o">=</span><span class="s2">&quot;log10(q)&quot;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s2">&quot;value&quot;</span><span class="p">,</span><span class="n">hue</span><span class="o">=</span><span class="s2">&quot;variable&quot;</span><span class="p">,</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;line&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/distance_27_0.png" src="../_images/distance_27_0.png" />
+</div>
+</div>
+<p>The horizontal axis above is <span class="math notranslate nohighlight">\(\log_{10}(q)\)</span>, and the vertical axis shows the average clustering and shortest path length normalized by their values at <span class="math notranslate nohighlight">\(q=0\)</span>. Watts and Strogatz raised awareness of the fact that for quite small values of <span class="math notranslate nohighlight">\(q\)</span>, i.e., relatively few nonlocal connections, there are networks with a large clustering coefficient and small average distance.</p>
+</section>
+<section id="twitch-network">
 <h2>Twitch network<a class="headerlink" href="#twitch-network" title="Permalink to this headline">¶</a></h2>
 <p>Let’s consider distances within the Twitch network.</p>
 <div class="cell docutils container">
@@ -768,7 +814,7 @@ average degree is 9.914
 estimated mean = 3.67376
 </pre></div>
 </div>
-<img alt="../_images/distance_26_1.png" src="../_images/distance_26_1.png" />
+<img alt="../_images/distance_32_1.png" src="../_images/distance_32_1.png" />
 </div>
 </div>
 <p>Let’s compare these results to ER graphs with the same size and average degree, i.e., with <span class="math notranslate nohighlight">\(p=\bar{k}/(n-1)\)</span>. The theoretical estimate from above gives</p>
@@ -784,11 +830,8 @@ estimated mean = 3.67376
 </div>
 </div>
 </div>
-<p>The Twitch network might have a slightly stronger small-world effect than a random ER graph, but not dramatically so.</p>
-</div>
-<div class="section" id="wattsstrogatz-graphs">
-<h2>Watts–Strogatz graphs<a class="headerlink" href="#wattsstrogatz-graphs" title="Permalink to this headline">¶</a></h2>
-<p>The Watts–Strogatz model was originally proposed to explain small-world networks. We use the same <span class="math notranslate nohighlight">\(n\)</span> as the Twitch network, and choose <span class="math notranslate nohighlight">\(k=10\)</span> to get a similar average degree.</p>
+<p>The Twitch network has a slightly smaller value than this, but the numbers are comparable. However, remember that the ER graphs have a negligible clustering coefficient.</p>
+<p>Next we explore Watts–Strogatz graphs with the same <span class="math notranslate nohighlight">\(n\)</span> as the Twitch network and <span class="math notranslate nohighlight">\(k=10\)</span> to get a similar average degree.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
@@ -811,12 +854,12 @@ estimated mean = 3.67376
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Pairwise distances in WS graphs:
 </pre></div>
 </div>
-<img alt="../_images/distance_31_1.png" src="../_images/distance_31_1.png" />
+<img alt="../_images/distance_37_1.png" src="../_images/distance_37_1.png" />
 </div>
 </div>
-<p>We see from the above that pairwise distances decrease as the fraction of rewired edges grows, as we would expect. However, the values here are all well larger than the Twitch mean distance of 3.87, particularly at the value <span class="math notranslate nohighlight">\(q=0.42\)</span> that we found in the previous section to match the average clustering. Thus, the Watts-Strogatz model may not be able to explain the Twitch network well. We will confirm that conclusion in the next section.</p>
-<div style="max-width:608px"><div style="position:relative;padding-bottom:66.118421052632%"><iframe id="kaltura_player" src="https://cdnapisec.kaltura.com/p/2358381/sp/235838100/embedIframeJs/uiconf_id/43030021/partner_id/2358381?iframeembed=true&playerId=kaltura_player&entry_id=1_ni8nut54&flashvars[streamerType]=auto&amp;flashvars[localizationCode]=en&amp;flashvars[leadWithHTML5]=true&amp;flashvars[sideBarContainer.plugin]=true&amp;flashvars[sideBarContainer.position]=left&amp;flashvars[sideBarContainer.clickToClose]=true&amp;flashvars[chapters.plugin]=true&amp;flashvars[chapters.layout]=vertical&amp;flashvars[chapters.thumbnailRotator]=false&amp;flashvars[streamSelector.plugin]=true&amp;flashvars[EmbedPlayer.SpinnerTarget]=videoHolder&amp;flashvars[dualScreen.plugin]=true&amp;flashvars[Kaltura.addCrossoriginToIframe]=true&amp;&wid=1_ae6ref41" width="608" height="402" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen *; encrypted-media *" sandbox="allow-forms allow-same-origin allow-scripts allow-top-navigation allow-pointer-lock allow-popups allow-modals allow-orientation-lock allow-popups-to-escape-sandbox allow-presentation allow-top-navigation-by-user-activation" frameborder="0" title="Kaltura Player" style="position:absolute;top:0;left:0;width:100%;height:100%"></iframe></div></div></div>
-</div>
+<p>The decrease with <span class="math notranslate nohighlight">\(q\)</span> is less pronounced that it was for the smaller WS graphs above. In the previous section, we found that <span class="math notranslate nohighlight">\(q=0.42\)</span> reproduces the same average clustering as in the Twitch network. That corresponds to a mean distance of about 4.5, which is a bit above the observed Twitch mean distance of 3.87, but not dramatically so. Thus, the Watts-Strogatz model could still be considered a plausible one for the Twitch network. In the next section, though, we will see that it misses badly in at least one important aspect.</p>
+<div style="max-width:608px"><div style="position:relative;padding-bottom:66.118421052632%"><iframe id="kaltura_player" src="https://cdnapisec.kaltura.com/p/2358381/sp/235838100/embedIframeJs/uiconf_id/43030021/partner_id/2358381?iframeembed=true&playerId=kaltura_player&entry_id=1_ni8nut54&flashvars[streamerType]=auto&amp;flashvars[localizationCode]=en&amp;flashvars[leadWithHTML5]=true&amp;flashvars[sideBarContainer.plugin]=true&amp;flashvars[sideBarContainer.position]=left&amp;flashvars[sideBarContainer.clickToClose]=true&amp;flashvars[chapters.plugin]=true&amp;flashvars[chapters.layout]=vertical&amp;flashvars[chapters.thumbnailRotator]=false&amp;flashvars[streamSelector.plugin]=true&amp;flashvars[EmbedPlayer.SpinnerTarget]=videoHolder&amp;flashvars[dualScreen.plugin]=true&amp;flashvars[Kaltura.addCrossoriginToIframe]=true&amp;&wid=1_ae6ref41" width="608" height="402" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen *; encrypted-media *" sandbox="allow-forms allow-same-origin allow-scripts allow-top-navigation allow-pointer-lock allow-popups allow-modals allow-orientation-lock allow-popups-to-escape-sandbox allow-presentation allow-top-navigation-by-user-activation" frameborder="0" title="Kaltura Player" style="position:absolute;top:0;left:0;width:100%;height:100%"></iframe></div></div></section>
+</section>
 
     <script type="text/x-thebe-config">
     {
