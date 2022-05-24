@@ -113,6 +113,8 @@ print("average distance in the big component of ER graphs:")
 sns.displot(x=dbar,bins=13);
 ```
 
++++ {"tags": []}
+
 The chances are good, therefore, that any message could be passed along in three hops or fewer (within the big component). In fact, theory states that as $n\to\infty$, the mean distance in ER graphs is expected to be approximately 
 
 ```{math}
@@ -121,6 +123,41 @@ The chances are good, therefore, that any message could be passed along in three
 ```
 
 For $n=121$ and $\bar{k}=6$ as in the experiment above, this value is about 2.68.
+
+## Watts–Strogatz graphs
+
+The Watts–Strogatz model was originally proposed to demonstrate small-world networks. The initial ring-lattice structure of the construction exhibits both large clustering and large mean distance:
+
+```{code-cell} ipython3
+G = nx.watts_strogatz_graph(400,6,0)  # q=0 ==> initial ring lattice
+C0 = nx.average_clustering(G)
+L0 = nx.average_shortest_path_length(G)
+print(f"Ring lattice has average clustering {C0:.4f}")
+print(f"and average shortest path length {L0:.2f}")
+```
+
+At the other extreme of $p=1$, we get an ER random graph, which (at equivalent parameters) has small clustering and small average distance. The most interesting aspect of WS graphs is the transition between these extremes as $p$ varies.
+
+```{code-cell} ipython3
+cbar,dbar,logq = [],[],[]
+for lq in np.arange(-3.5,0.01,0.25):
+    for iter in range(8):
+        G = nx.watts_strogatz_graph(400,6,10**lq,seed=975+iter)
+        cbar.append(nx.average_clustering(G)/C0)
+        dbar.append(nx.average_shortest_path_length(G)/L0)
+        logq.append(lq)
+    
+```
+
+```{code-cell} ipython3
+results = pd.DataFrame({"log10(q)":logq,"avg clustering":cbar,"avg distance":dbar})
+sns.relplot(data=pd.melt(results,id_vars="log10(q)"),
+            x="log10(q)",y="value",hue="variable",kind="line");
+```
+
+The horizontal axis above is $\log_{10}(q)$, and the vertical axis shows the average clustering and shortest path length normalized by their values at $q=0$. Watts and Strogatz raised awareness of the fact that for quite small values of $q$, i.e., relatively few nonlocal connections, there are networks with a large clustering coefficient and small average distance.
+
++++ {"tags": []}
 
 ## Twitch network
 
@@ -159,13 +196,11 @@ Let's compare these results to ER graphs with the same size and average degree, 
 print("Comparable ER graphs expected mean distance:",np.log(n)/np.log(kbar))
 ```
 
-The Twitch network might have a slightly stronger small-world effect than a random ER graph, but not dramatically so.
+The Twitch network has a slightly smaller value than this, but the numbers are comparable. However, remember that the ER graphs have a negligible clustering coefficient.
 
 +++
 
-## Watts–Strogatz graphs
-
-The Watts–Strogatz model was originally proposed to explain small-world networks. We use the same $n$ as the Twitch network, and choose $k=10$ to get a similar average degree. 
+Next we explore Watts–Strogatz graphs with the same $n$ as the Twitch network and $k=10$ to get a similar average degree.
 
 ```{code-cell} ipython3
 results = []
@@ -183,6 +218,10 @@ print("Pairwise distances in WS graphs:")
 sns.relplot(data=results,x="q",y="avg distance",kind="line");
 ```
 
-We see from the above that pairwise distances decrease as the fraction of rewired edges grows, as we would expect. However, the values here are all well larger than the Twitch mean distance of 3.87, particularly at the value $q=0.42$ that we found in the previous section to match the average clustering. Thus, the Watts-Strogatz model may not be able to explain the Twitch network well. We will confirm that conclusion in the next section.
+The decrease with $q$ is less pronounced that it was for the smaller WS graphs above. In the previous section, we found that $q=0.42$ reproduces the same average clustering as in the Twitch network. That corresponds to a mean distance of about 4.5, which is a bit above the observed Twitch mean distance of 3.87, but not dramatically so. Thus, the Watts-Strogatz model could still be considered a plausible one for the Twitch network. In the next section, though, we will see that it misses badly in at least one important aspect.
 
 <div style="max-width:608px"><div style="position:relative;padding-bottom:66.118421052632%"><iframe id="kaltura_player" src="https://cdnapisec.kaltura.com/p/2358381/sp/235838100/embedIframeJs/uiconf_id/43030021/partner_id/2358381?iframeembed=true&playerId=kaltura_player&entry_id=1_ni8nut54&flashvars[streamerType]=auto&amp;flashvars[localizationCode]=en&amp;flashvars[leadWithHTML5]=true&amp;flashvars[sideBarContainer.plugin]=true&amp;flashvars[sideBarContainer.position]=left&amp;flashvars[sideBarContainer.clickToClose]=true&amp;flashvars[chapters.plugin]=true&amp;flashvars[chapters.layout]=vertical&amp;flashvars[chapters.thumbnailRotator]=false&amp;flashvars[streamSelector.plugin]=true&amp;flashvars[EmbedPlayer.SpinnerTarget]=videoHolder&amp;flashvars[dualScreen.plugin]=true&amp;flashvars[Kaltura.addCrossoriginToIframe]=true&amp;&wid=1_ae6ref41" width="608" height="402" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen *; encrypted-media *" sandbox="allow-forms allow-same-origin allow-scripts allow-top-navigation allow-pointer-lock allow-popups allow-modals allow-orientation-lock allow-popups-to-escape-sandbox allow-presentation allow-top-navigation-by-user-activation" frameborder="0" title="Kaltura Player" style="position:absolute;top:0;left:0;width:100%;height:100%"></iframe></div></div>
+
+```{code-cell} ipython3
+
+```
